@@ -1,0 +1,21 @@
+{
+  "repeated": {
+    "display": "block",
+    "nested": 1,
+    "text": "1 第一条脚注内容嵌套列表内容"
+  },
+  "second": {
+    "display": "block",
+    "strong": "粗体保留",
+    "text": "2 第二条脚注内容 粗体保留"
+  },
+  "all": {
+    "definitions": [
+      "1 第一条脚注内容嵌套列表内容",
+      "2 第二条脚注内容 粗体保留"
+    ],
+    "display": "none",
+    "footer": true,
+    "href": "http://127.0.0.1:18755/#vk-footer-area"
+  }
+}

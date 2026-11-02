@@ -1,0 +1,31 @@
+/* 兼容公开示例中的历史图片魔法；独立变换属性不覆盖查看器的平移缩放。 */
+:is(.markdown-rendered, .markdown-source-view, #write, #vlook-write) :is(img[src*="#180deg"], svg[data-inject-url*="#180deg"]) {
+    rotate: 180deg;
+}
+:is(.markdown-rendered, .markdown-source-view, #write, #vlook-write) :is(img:is([src*="#fliph"], [src*="#flipv"]), svg:is([data-inject-url*="#fliph"], [data-inject-url*="#flipv"])) {
+    scale: var(--vlook-image-flip-x, 1) var(--vlook-image-flip-y, 1);
+}
+:is(.markdown-rendered, .markdown-source-view, #write, #vlook-write) :is(img[src*="#fliph"], svg[data-inject-url*="#fliph"]) {
+    --vlook-image-flip-x: -1;
+}
+:is(.markdown-rendered, .markdown-source-view, #write, #vlook-write) :is(img[src*="#flipv"], svg[data-inject-url*="#flipv"]) {
+    --vlook-image-flip-y: -1;
+}
+
+:is(.markdown-rendered, .markdown-source-view, #write, #vlook-write) svg:is([data-inject-url*="#180deg"], [data-inject-url*="#fliph"], [data-inject-url*="#flipv"]) {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+}
+
+/* 由脚本切换的固定样式 */
+.vlook-cell-center { text-align:center !important; }
+.vlook-cell-middle { vertical-align:middle !important; }
+.vlook-cell-pad { padding-left:var(--tbl-cellpadding) !important; }
+.vlook-cell-folder { padding-left:.5em !important; }
+.vlook-cell-bar { min-width:100px; }
+tr.vlook-row-folded { display:table-column !important; }
+blockquote.vlook-card-quote { padding:0 !important; box-shadow:none !important; }
+img.vlook-img-dim { filter:brightness(.8) !important; }
+.vlook-clickable { cursor:pointer; }
+.vlook-gradient-text { -webkit-background-clip:text !important; background-clip:text !important; color:transparent !important; box-shadow:none !important; }
+.vlook-no-shadow { box-shadow:none !important; text-shadow:none !important; }

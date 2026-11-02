@@ -1,0 +1,14 @@
+{
+  "before": {
+    "scroll": 773,
+    "transform": "translate(346px, 0px) scale(0.9)"
+  },
+  "blankWheel": {
+    "scroll": 859,
+    "transform": "translate(346px, 0px) scale(0.9)"
+  },
+  "imageWheel": {
+    "scroll": 859,
+    "transform": "translate(97.6px, -345.6px) scale(1.872)"
+  }
+}

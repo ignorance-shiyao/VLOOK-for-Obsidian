@@ -1,0 +1,21 @@
+{
+  "images": [
+    {
+      "complete": true,
+      "currentSrc": "http://127.0.0.1:18756/pic/two.svg",
+      "id": "density",
+      "naturalWidth": 320,
+      "src": "pic/one.svg",
+      "srcset": "pic/one.svg 1x, pic/two.svg 2x"
+    },
+    {
+      "complete": true,
+      "currentSrc": "http://127.0.0.1:18756/pic/wide.svg",
+      "id": "width",
+      "naturalWidth": 320,
+      "src": "pic/one.svg",
+      "srcset": null
+    }
+  ],
+  "source": "pic/a%2Cb.svg 320w, pic/wide.svg 640w"
+}

@@ -1,0 +1,8 @@
+{
+  "headings": [
+    "公开章节",
+    "公开末章"
+  ],
+  "rules": "内部章节;/^草稿/",
+  "visibleText": "YAML 章节列表验证公开章节公开正文示例公开末章公开结尾YAML 章节列表验证  Styled & Enhanced by VLOOK™ (V2026.10.1)"
+}

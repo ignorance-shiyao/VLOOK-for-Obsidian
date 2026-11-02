@@ -1,0 +1,232 @@
+{
+  "cases": [
+    {
+      "id": 1,
+      "line": 75,
+      "result": "通过",
+      "svgElements": 289,
+      "title": "流程图"
+    },
+    {
+      "id": 2,
+      "line": 112,
+      "result": "通过",
+      "svgElements": 59,
+      "title": "流程图"
+    },
+    {
+      "id": 3,
+      "line": 177,
+      "result": "通过",
+      "svgElements": 170,
+      "title": "分角色流程图"
+    },
+    {
+      "id": 4,
+      "line": 252,
+      "result": "通过",
+      "svgElements": 202,
+      "title": "顺序图"
+    },
+    {
+      "id": 5,
+      "line": 383,
+      "result": "通过",
+      "svgElements": 153,
+      "title": "流程图扩展的状态机图"
+    },
+    {
+      "id": 6,
+      "line": 408,
+      "result": "通过",
+      "svgElements": 152,
+      "title": "流程图扩展的状态机图"
+    },
+    {
+      "id": 7,
+      "line": 478,
+      "result": "通过",
+      "svgElements": 84,
+      "title": "标准状态机图"
+    },
+    {
+      "id": 8,
+      "line": 507,
+      "result": "通过",
+      "svgElements": 306,
+      "title": "标准状态机图"
+    },
+    {
+      "id": 9,
+      "line": 601,
+      "result": "通过",
+      "svgElements": 496,
+      "title": "类图"
+    },
+    {
+      "id": 10,
+      "line": 680,
+      "result": "通过",
+      "svgElements": 610,
+      "title": "类图"
+    },
+    {
+      "id": 11,
+      "line": 796,
+      "result": "通过",
+      "svgElements": 326,
+      "title": "实体关系图"
+    },
+    {
+      "id": 12,
+      "line": 875,
+      "result": "通过",
+      "svgElements": 72,
+      "title": "方块图"
+    },
+    {
+      "id": 13,
+      "line": 920,
+      "result": "通过",
+      "svgElements": 53,
+      "title": "四象限图"
+    },
+    {
+      "id": 14,
+      "line": 963,
+      "result": "通过",
+      "svgElements": 77,
+      "title": "数据包图"
+    },
+    {
+      "id": 15,
+      "line": 1018,
+      "result": "通过",
+      "svgElements": 235,
+      "title": "架构图"
+    },
+    {
+      "id": 16,
+      "line": 1090,
+      "result": "失败：No diagram type detected matching given configuration for text: zenuml\n    title Annotators\n    @Actor Alice\n    @Database Bob\n    @Boundary Boundary\n    @Control Control\n    @Entity Entity\n    while(true) {\n      Alice->Bob: Hi Bob\n      Bob->Alice: Hi Alice\n    }",
+      "svgElements": 0,
+      "title": "ZenUML 图"
+    },
+    {
+      "id": 17,
+      "line": 1106,
+      "result": "失败：No diagram type detected matching given configuration for text: zenuml\n    title Reply message\n    @VirtualMachine Client\n    @GoogleIam A\n    @CloudFront B\n    @Cognito Cognito\n    @ECS ECS\n    @EFS EFS\n    Client->A.method() {\n      B.method() {\n        if(condition) {\n          return x1\n          // return early\n          @return\n          A->Client: x11\n        }\n      }\n      return x2\n    }",
+      "svgElements": 0,
+      "title": "ZenUML 图"
+    },
+    {
+      "id": 18,
+      "line": 1136,
+      "result": "通过",
+      "svgElements": 314,
+      "title": "思维导图"
+    },
+    {
+      "id": 19,
+      "line": 1199,
+      "result": "通过",
+      "svgElements": 77,
+      "title": "Gitgraph 图"
+    },
+    {
+      "id": 20,
+      "line": 1259,
+      "result": "通过",
+      "svgElements": 104,
+      "title": "Gitgraph 图"
+    },
+    {
+      "id": 21,
+      "line": 1322,
+      "result": "通过",
+      "svgElements": 155,
+      "title": "Gitgraph 图"
+    },
+    {
+      "id": 22,
+      "line": 1376,
+      "result": "通过",
+      "svgElements": 72,
+      "title": "桑基图"
+    },
+    {
+      "id": 23,
+      "line": 1416,
+      "result": "通过",
+      "svgElements": 68,
+      "title": "桑基图"
+    },
+    {
+      "id": 24,
+      "line": 1459,
+      "result": "通过",
+      "svgElements": 115,
+      "title": "时间线"
+    },
+    {
+      "id": 25,
+      "line": 1492,
+      "result": "通过",
+      "svgElements": 124,
+      "title": "时间线"
+    },
+    {
+      "id": 26,
+      "line": 1525,
+      "result": "通过",
+      "svgElements": 86,
+      "title": "时间线"
+    },
+    {
+      "id": 27,
+      "line": 1541,
+      "result": "通过",
+      "svgElements": 89,
+      "title": "XY 图"
+    },
+    {
+      "id": 28,
+      "line": 1569,
+      "result": "通过",
+      "svgElements": 40,
+      "title": "饼图"
+    },
+    {
+      "id": 29,
+      "line": 1598,
+      "result": "通过",
+      "svgElements": 29,
+      "title": "雷达图"
+    },
+    {
+      "id": 30,
+      "line": 1638,
+      "result": "通过",
+      "svgElements": 61,
+      "title": "树状图"
+    },
+    {
+      "id": 31,
+      "line": 1676,
+      "result": "通过",
+      "svgElements": 240,
+      "title": "看板图"
+    },
+    {
+      "id": 32,
+      "line": 1738,
+      "result": "通过",
+      "svgElements": 88,
+      "title": "甘特图"
+    }
+  ],
+  "complete": true,
+  "engine": "Obsidian 1.14.4 Mermaid 11.13.0",
+  "sha256": "6ef73c979e4636b0724eb3b4ee505e53e3a117e4cae31914ec5b2d64f27ff603",
+  "status": "完成 32 / 32，通过 30，失败 2"
+}

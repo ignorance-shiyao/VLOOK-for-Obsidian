@@ -1,0 +1,15 @@
+{
+  "diagrams": [
+    {
+      "background": "rgb(255, 255, 255)",
+      "label": "rgb(34, 34, 34)",
+      "line": "rgb(34, 34, 34)"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "label": "rgb(34, 34, 34)",
+      "line": "rgb(34, 34, 34)"
+    }
+  ],
+  "status": "完成 32 / 32，通过 32，失败 0"
+}

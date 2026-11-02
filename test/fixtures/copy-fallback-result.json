@@ -1,0 +1,10 @@
+{
+  "visible": {
+    "end": 17,
+    "message": "自动复制未成功，已选中文本，可手动复制。关闭",
+    "readOnly": true,
+    "start": 0,
+    "value": "原始值 > 下一步\n第二行准确内容"
+  },
+  "remainingAfterEscape": 0
+}

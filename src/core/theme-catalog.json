@@ -1,0 +1,74 @@
+[
+  {
+    "id": "blue",
+    "name": "Ignorance",
+    "color": "#4d81ef",
+    "colors": [
+      "#4D81EF",
+      "#1B2B48"
+    ]
+  },
+  {
+    "id": "fancy",
+    "name": "Fancy",
+    "color": "#d7785b",
+    "colors": [
+      "#D97757",
+      "#629987"
+    ]
+  },
+  {
+    "id": "geek",
+    "name": "Geek",
+    "color": "#25a780",
+    "colors": [
+      "#07C160",
+      "#6467EF"
+    ]
+  },
+  {
+    "id": "hope",
+    "name": "Hope",
+    "color": "#709b57",
+    "colors": [
+      "#0B50D9",
+      "#77C750"
+    ]
+  },
+  {
+    "id": "joint",
+    "name": "Joint",
+    "color": "#8267c8",
+    "colors": [
+      "#FABB0C",
+      "#6464D1"
+    ]
+  },
+  {
+    "id": "note",
+    "name": "Note",
+    "color": "#7c8da8",
+    "colors": [
+      "#0075DE",
+      "#005BAB"
+    ]
+  },
+  {
+    "id": "solaris",
+    "name": "Solaris",
+    "color": "#b08b44",
+    "colors": [
+      "#B24D7A",
+      "#6868B0"
+    ]
+  },
+  {
+    "id": "thinking",
+    "name": "Thinking",
+    "color": "#598bb2",
+    "colors": [
+      "#298BCC",
+      "#27C2BD"
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>VLOOK 资源加载浏览器回归</title>
+<link rel="stylesheet" href="/plugin.css">
+<style>body{font:16px system-ui;color:#243454;background:#f5f8fc;margin:40px}main{max-width:850px;margin:auto}section{background:white;border:1px solid #d8e1ef;border-radius:12px;padding:20px;margin:16px 0}img{width:120px;height:64px;vertical-align:middle}button{cursor:pointer}.v-audio-mini-control{display:inline-flex;cursor:pointer;padding:12px;border:1px solid #aab;border-radius:8px}.v-audio-mini-control.disabled{opacity:.5}.v-audio-mini-control svg{width:24px;height:24px}audio:not([controls]){display:none}#summary{font-weight:600;color:#145cca}h1{font-size:24px}</style>
+<main><h1>VLOOK 资源加载浏览器回归</h1><p id="summary" role="status">正在加载</p>
+<section id="recoverable" data-resource><h2>首次失败，重试后恢复</h2><img src="/retry.svg" alt="可恢复图" title="保留原题注"></section>
+<section id="permanent" data-resource><h2>持续返回 404</h2><img src="/missing.svg" alt="缺失图"></section>
+<section id="healthy" data-resource><h2>正常图片</h2><img src="/ok.svg" alt="正常图"></section>
+<section id="audio-retry" data-resource><h2>迷你音频首次失败，重试恢复</h2><img src="/retry.wav?controls=mini&amp;duration=true" alt="可恢复音频"></section>
+<section id="audio-ok" data-resource><h2>正常音频</h2><audio controls preload="auto" src="/ok.wav"></audio></section>
+<section id="video-missing" data-resource><h2>视频持续 404</h2><video controls preload="auto" src="/missing.mp4"></video></section>
+<section id="video-valid" data-resource><h2>仓库自带视频：静音播放验证</h2><img src="/sample.mp4?preload=auto&amp;loop&amp;width=480&amp;height=270"><p><button id="video-play" type="button">播放静音视频</button> <button id="video-pause" type="button">暂停视频</button></p><p><button id="video-handoff" type="button">全屏播放交接回归</button></p><p id="handoff-result" role="status"></p><p id="video-state" role="status">等待解码</p></section>
+<section id="embedded-proof"><h2>iframe 状态保留回归</h2><iframe src="/frame-proof" title="内嵌计数器"></iframe><p id="frame-loads" role="status"></p><button id="frame-borrow" type="button">原子移动到全屏</button></section>
+</main><script type="module" src="/resource-status.bundle.js"></script></html>

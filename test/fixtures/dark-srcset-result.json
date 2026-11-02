@@ -1,0 +1,20 @@
+[
+  {
+    "currentSrc": "http://127.0.0.1:18762/pic/image@2x.svg",
+    "loaded": true,
+    "mode": "浅色模式",
+    "srcset": "http://127.0.0.1:18762/pic/image@2x.svg 2x"
+  },
+  {
+    "currentSrc": "http://127.0.0.1:18762/pic/image~dark@2x.svg",
+    "loaded": true,
+    "mode": "深色模式",
+    "srcset": "http://127.0.0.1:18762/pic/image~dark@2x.svg 2x"
+  },
+  {
+    "currentSrc": "http://127.0.0.1:18762/pic/image@2x.svg",
+    "loaded": true,
+    "mode": "浅色模式",
+    "srcset": "http://127.0.0.1:18762/pic/image@2x.svg 2x"
+  }
+]

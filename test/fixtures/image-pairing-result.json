@@ -1,0 +1,48 @@
+[
+  {
+    "images": [
+      {
+        "loaded": true,
+        "src": "/example.svg",
+        "title": "",
+        "width": 48
+      },
+      {
+        "loaded": true,
+        "src": "/two/a.svg#400w",
+        "title": "乙：400px",
+        "width": 400
+      },
+      {
+        "loaded": true,
+        "src": "/one/a.svg#200w",
+        "title": "甲：200px",
+        "width": 200
+      }
+    ],
+    "root": "markdown-rendered"
+  },
+  {
+    "images": [
+      {
+        "loaded": true,
+        "src": "/example.svg",
+        "title": "",
+        "width": 48
+      },
+      {
+        "loaded": true,
+        "src": "/two/a.svg#400w",
+        "title": "乙：400px",
+        "width": 400
+      },
+      {
+        "loaded": true,
+        "src": "/one/a.svg#200w",
+        "title": "甲：200px",
+        "width": 200
+      }
+    ],
+    "root": "vlook-write"
+  }
+]

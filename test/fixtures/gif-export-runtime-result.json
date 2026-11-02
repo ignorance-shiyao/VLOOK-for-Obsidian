@@ -1,0 +1,23 @@
+[
+  {
+    "currentSrc": "http://127.0.0.1:18764/demo@2x.svg",
+    "loaded": true,
+    "playing": "false",
+    "srcset": "/demo@2x.svg 2x",
+    "width": 320
+  },
+  {
+    "currentSrc": "http://127.0.0.1:18764/demo.gif?srcset=@2x#gif#400w",
+    "loaded": true,
+    "playing": "true",
+    "srcset": "",
+    "width": 435
+  },
+  {
+    "currentSrc": "http://127.0.0.1:18764/demo@2x.svg",
+    "loaded": true,
+    "playing": "false",
+    "srcset": "/demo@2x.svg 2x",
+    "width": 320
+  }
+]

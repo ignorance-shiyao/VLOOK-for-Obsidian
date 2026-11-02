@@ -1,0 +1,22 @@
+{
+  "host": "Obsidian 1.15.0 macOS",
+  "actions": [
+    "顶部五组自定义菜单",
+    "蓝色主题切换",
+    "编辑转原生阅读",
+    "深色与浅色切换",
+    "无衬线18px",
+    "HTML路径确认并实际导出",
+    "PDF建议路径确认并显示原版六项打印选项"
+  ],
+  "html": "VLOOK 移植回归.html，包含18px和无衬线覆盖",
+  "limits": [
+    "没有启动系统打印或生成新PDF",
+    "未据此关闭全部原版功能四模式验收"
+  ],
+  "screenshots": [
+    "test/fixtures/header-font-dark-proof.png",
+    "test/fixtures/header-toolbar-final-proof.png",
+    "test/fixtures/header-pdf-options-proof.png"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "result": "print-command-timeout",
+  "pdfProduced": false,
+  "scope": "Fixed HTML builder fixture with full VLOOK runtime; not Obsidian printing",
+  "page": {
+    "fontStatus": "loaded",
+    "headings": [
+      "公开章节",
+      "公开末章"
+    ],
+    "readyState": "complete",
+    "text": "YAML 章节列表验证公开章节公开正文示例公开末章公开结尾YAML 章节列表验证  Styled & Enhanced by VLOOK™ (V2026.10.1)"
+  }
+}

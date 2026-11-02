@@ -1,0 +1,1674 @@
+/**************************************
+ *
+ * VLOOK™ CSS - @media 相关的样式
+ * (配合 base.less 进行使用)
+ *
+ * V2026.10.1
+ * 2026-10-12
+ * Powered by MAX°孟兆
+ *
+ * QQ Group: 805502564
+ * Telegram Channel: t.me/vlook_markdown
+ * email: maxchow@qq.com
+ *
+ * https://github.com/MadMaxChow/VLOOK
+ * https://gitee.com/madmaxchow/VLOOK
+ *
+ *************************************/
+
+// **********
+// 修改时须同步修改 vlook.js 的同名变量
+@gSmallScreenWidth:1270px; // 对标为 1280px 宽度，考虑到 Edge 浏览器会有粗边距，约 10px
+@gUnwrapTableScreenWidth:1279px;
+
+// 与插件的 (jq_Window.w() <= 425) 、同名变量同步修改
+@gMobileScreenWidth:850px;
+// **********
+
+// ---------------
+// 仅 PC 等设备才生效的 hover 效果
+@media (hover: hover) and (pointer: fine) {
+    // --- common ---
+
+    .genTableCommonStyle_hover();
+
+    .genHoverStyle(md-alert_kbdSec);
+
+    // 生成 GSA 基础样式的 hover 效果
+    .genGitHubStyleAlertCssBase_hover(note);
+    .genGitHubStyleAlertCssBase_hover(tip);
+    .genGitHubStyleAlertCssBase_hover(important);
+    .genGitHubStyleAlertCssBase_hover(warning);
+    .genGitHubStyleAlertCssBase_hover(caution);
+
+    // --- typora ---
+
+    .genHoverStyle(stepwise);
+
+    // --- base ---
+
+    .genHoverStyle(v-fill-width);
+
+    .genImgFilterHoverStyle(invert);
+    .genImgFilterHoverStyle(blur);
+    .genImgFilterHoverStyle(gray);
+    .genImgFilterHoverStyle(aged);
+
+    .genHoverStyle(md-footnote_a);
+
+    .genHoverStyle(link_kbd);
+    .genHoverStyle(link_kbd-img-fill-text);
+    .genHoverStyle(q_kbd_link);
+
+    .genHoverStyle(kbdSec);
+    .genHoverStyle(kbdSec-img-fill-text);
+    .genHoverStyle(q_kbdSec);
+
+    .genHoverStyle(kbdSuper);
+
+    .genHoverStyle(link);
+    .genHoverStyle(link-img);
+    .genHoverStyle(link-img-fill-text);
+
+    .genHoverStyle(summary);
+    .genHoverStyle(details);
+
+    .genHoverStyle(std-code);
+    .genHoverStyle(tag);
+    .genHoverStyle(badge-name);
+    .genHoverStyle(badge-value);
+
+    .genHoverStyle(CodeMirror-line, true);
+
+    .genHoverStyle(reversefootnote);
+
+    .genHoverStyle(font-style-restore);
+    .genHoverStyle(font-style-opt);
+
+    .genHoverStyle(btn-done);
+    .genHoverStyle(copyright);
+
+    .genHoverStyle(textfield-action);
+    .genHoverStyle(search-opt);
+
+    .genHoverStyle(btn);
+    .genHoverStyle(btn-group);
+    .genHoverStyle(btn-close-figure-nav);
+    .genHoverStyle(btn_helper);
+    .genHoverStyle(pip-btn);
+    .genHoverStyle(tbl-row-g-btn);
+    .genHoverStyle(status-bar_btn);
+    .genHoverStyle(check-hash-btn);
+    .genHoverStyle(fig-action);
+
+    .genHoverStyle(doc-lib-item);
+    .genHoverStyle(toc-item);
+    .genHoverStyle(toc-folder);
+    .genHoverStyle(nav-center-handle);
+
+    .genHoverStyle(chapter-nav-prev);
+    .genHoverStyle(chapter-nav-doc-title);
+    .genHoverStyle(chapter-nav-next);
+
+    .genHoverStyle(audio-mini-control);
+
+    .genHoverStyle(rt);
+
+    .genHoverStyle(coating);
+
+    // --- Mermaid ---
+
+    .genHoverStyle(node);
+    .genHoverStyle(clickable);
+
+    .genHoverStyle(pieCircle);
+
+    .genHoverStyle(kanban);
+
+    .genHoverStyle(treemap);
+
+    .genHoverStyle(flowchart_statenodes);
+    .genHoverStyle(flowchart_keynode);
+
+    .genHoverStyle(sequence_actor-man);
+    .genHoverStyle(sequence_rect);
+    .genHoverStyle(sequence_messageText);
+    .genHoverStyle(sequence_loopText);
+    .genHoverStyle(sequence_g);
+
+    .genHoverStyle(stateDiagram_edgeLabel);
+    .genHoverStyle(stateDiagram_state);
+    .genHoverStyle(stateDiagram_cluster);
+
+    .genHoverStyle(packet);
+
+    .genHoverStyle(class_node);
+    .genHoverStyle(class_label);
+
+    .genHoverStyle(block_node);
+    .genHoverStyle(block_cluster);
+
+    .genHoverStyle(xychart_rect);
+
+    .genHoverStyle(ishikawa);
+
+    .genHoverStyle(architecture_edge);
+    .genHoverStyle(architecture_node-bkg);
+    .genHoverStyle(architecture_service);
+
+    .genHoverStyle(quadrantChart);
+
+    .genHoverStyle(er_entityBox);
+}
+
+// ---------------
+// 适配触摸设备，如手机和平板
+@media (pointer: coarse) {
+}
+
+
+// 针对中小屏手机的 UI 调整
+@media screen and (max-width: 360px) {
+}
+
+// 针对大屏手机的 UI 调整
+@media screen and (min-width: 361px) and (max-width: 639px) {
+}
+
+// ---------------
+// 针对小于该分辨设备的 UI 调整
+@media screen and (max-width: 550px) {
+}
+
+// ---------------
+// 针对显示宽度小于该尺寸时对分栏引用块的调整
+@media screen and (max-width: 600px) {
+    // ========================================
+    // 纵向显示的整体调整
+    // ----------------------------------------
+    // 列表分栏
+    // 以双栏方式显示列表
+    #write @{hr_MdHr}+ul>li,
+    #write @{hr_MdHr}+ul>@{n2Li},
+    #write @{hr_MdHr}+ol>li,
+    #write @{hr_MdHr}+ol>@{n2Li},
+    // 以三栏方式显示列表
+    #write @{n2Hr_MdHr}+ul>li,
+    #write @{n2Hr_MdHr}+ul>@{n2Li},
+    #write @{n2Hr_MdHr}+ul>@{n3Li},
+    #write @{n2Hr_MdHr}+ol>li,
+    #write @{n2Hr_MdHr}+ol>@{n2Li},
+    #write @{n2Hr_MdHr}+ol>@{n3Li},
+    // 以四栏方式显示列表
+    #write @{n3Hr_MdHr}+ul>li,
+    #write @{n3Hr_MdHr}+ul>@{n2Li},
+    #write @{n3Hr_MdHr}+ul>@{n3Li},
+    #write @{n3Hr_MdHr}+ul>@{n4Li},
+    #write @{n3Hr_MdHr}+ol>li,
+    #write @{n3Hr_MdHr}+ol>@{n2Li},
+    #write @{n3Hr_MdHr}+ol>@{n3Li},
+    #write @{n3Hr_MdHr}+ol>@{n4Li},
+    // 以五栏方式显示列表
+    #write @{n4Hr_MdHr}+ul>li,
+    #write @{n4Hr_MdHr}+ul>@{n2Li},
+    #write @{n4Hr_MdHr}+ul>@{n3Li},
+    #write @{n4Hr_MdHr}+ul>@{n4Li},
+    #write @{n4Hr_MdHr}+ul>@{n5Li},
+    #write @{n4Hr_MdHr}+ol>li,
+    #write @{n4Hr_MdHr}+ol>@{n2Li},
+    #write @{n4Hr_MdHr}+ol>@{n3Li},
+    #write @{n4Hr_MdHr}+ol>@{n4Li},
+    #write @{n4Hr_MdHr}+ol>@{n5Li} {
+        min-width: 100% !important;
+        height: auto !important;
+    }
+    // 双栏列表内容之间的样式
+    #write @{hr_MdHr}+ul>@{n2Li},
+    #write @{hr_MdHr}+ol>@{n2Li},
+    // 三栏列表内容之间的样式
+    #write @{n2Hr_MdHr}+ul>@{n2Li},
+    #write @{n2Hr_MdHr}+ul>@{n3Li},
+    #write @{n2Hr_MdHr}+ol>@{n2Li},
+    #write @{n2Hr_MdHr}+ol>@{n3Li},
+    // 四栏列表内容之间的样式
+    #write @{n3Hr_MdHr}+ul>@{n2Li},
+    #write @{n3Hr_MdHr}+ul>@{n3Li},
+    #write @{n3Hr_MdHr}+ul>@{n4Li},
+    #write @{n3Hr_MdHr}+ol>@{n2Li},
+    #write @{n3Hr_MdHr}+ol>@{n3Li},
+    #write @{n3Hr_MdHr}+ol>@{n4Li},
+    // 五栏列表内容之间的样式
+    #write @{n4Hr_MdHr}+ul>@{n2Li},
+    #write @{n4Hr_MdHr}+ul>@{n3Li},
+    #write @{n4Hr_MdHr}+ul>@{n4Li},
+    #write @{n4Hr_MdHr}+ul>@{n5Li},
+    #write @{n4Hr_MdHr}+ol>@{n2Li},
+    #write @{n4Hr_MdHr}+ol>@{n3Li},
+    #write @{n4Hr_MdHr}+ol>@{n4Li},
+    #write @{n4Hr_MdHr}+ol>@{n5Li} {
+        margin-left: 0 !important;
+    }
+
+    // ----------------------------------------
+    // 双栏引用块
+    #write @{hr_MdHr}+@{quote_details_gsa},
+    #write @{hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 三栏引用块
+    #write @{n2Hr_MdHr}+@{quote_details_gsa},
+    #write @{n2Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n2Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 四栏引用块
+    #write @{n3Hr_MdHr}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 五栏引用块
+    #write @{n4Hr_MdHr}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa} {
+        min-width: 100% !important;
+        height: auto !important;
+    }
+    // ----------------------------------------
+    // 纵向显示的微调
+    // 双栏引用块内容之间
+    #write @{hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 三栏引用块内容之间
+    #write @{n2Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n2Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 四栏引用块内容之间
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 五栏引用块内容之间
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa} {
+        margin-left: 0 !important;
+    }
+}
+
+// 针对超大屏手机、iPad 等设备的 UI 调整
+@media screen and (min-width: 641px) and (max-width: 1023px) {
+}
+
+// ---------------
+// 针对显示宽度小于该尺寸时对分栏引用块的调整
+@media screen and (max-width: 700px) {
+    // ========================================
+    // 纵向显示的整体调整
+    // ----------------------------------------
+    // 列表分栏
+    // 以三栏方式显示列表
+    #write @{n2Hr_MdHr}+ul>li,
+    #write @{n2Hr_MdHr}+ul>@{n2Li},
+    #write @{n2Hr_MdHr}+ul>@{n3Li},
+    #write @{n2Hr_MdHr}+ol>li,
+    #write @{n2Hr_MdHr}+ol>@{n2Li},
+    #write @{n2Hr_MdHr}+ol>@{n3Li},
+    // 以四栏方式显示列表
+    #write @{n3Hr_MdHr}+ul>li,
+    #write @{n3Hr_MdHr}+ul>@{n2Li},
+    #write @{n3Hr_MdHr}+ul>@{n3Li},
+    #write @{n3Hr_MdHr}+ul>@{n4Li},
+    #write @{n3Hr_MdHr}+ol>li,
+    #write @{n3Hr_MdHr}+ol>@{n2Li},
+    #write @{n3Hr_MdHr}+ol>@{n3Li},
+    #write @{n3Hr_MdHr}+ol>@{n4Li},
+    // 以五栏方式显示列表
+    #write @{n4Hr_MdHr}+ul>li,
+    #write @{n4Hr_MdHr}+ul>@{n2Li},
+    #write @{n4Hr_MdHr}+ul>@{n3Li},
+    #write @{n4Hr_MdHr}+ul>@{n4Li},
+    #write @{n4Hr_MdHr}+ul>@{n5Li},
+    #write @{n4Hr_MdHr}+ol>li,
+    #write @{n4Hr_MdHr}+ol>@{n2Li},
+    #write @{n4Hr_MdHr}+ol>@{n3Li},
+    #write @{n4Hr_MdHr}+ol>@{n4Li},
+    #write @{n4Hr_MdHr}+ol>@{n5Li} {
+        min-width: 100%;
+        height: auto;
+    }
+    // 三栏列表内容之间的样式
+    #write @{n2Hr_MdHr}+ul>@{n2Li},
+    #write @{n2Hr_MdHr}+ul>@{n3Li},
+    #write @{n2Hr_MdHr}+ol>@{n2Li},
+    #write @{n2Hr_MdHr}+ol>@{n3Li},
+    // 四栏列表内容之间的样式
+    #write @{n3Hr_MdHr}+ul>@{n2Li},
+    #write @{n3Hr_MdHr}+ul>@{n3Li},
+    #write @{n3Hr_MdHr}+ul>@{n4Li},
+    #write @{n3Hr_MdHr}+ol>@{n2Li},
+    #write @{n3Hr_MdHr}+ol>@{n3Li},
+    #write @{n3Hr_MdHr}+ol>@{n4Li},
+    // 五栏列表内容之间的样式
+    #write @{n4Hr_MdHr}+ul>@{n2Li},
+    #write @{n4Hr_MdHr}+ul>@{n3Li},
+    #write @{n4Hr_MdHr}+ul>@{n4Li},
+    #write @{n4Hr_MdHr}+ul>@{n5Li},
+    #write @{n4Hr_MdHr}+ol>@{n2Li},
+    #write @{n4Hr_MdHr}+ol>@{n3Li},
+    #write @{n4Hr_MdHr}+ol>@{n4Li},
+    #write @{n4Hr_MdHr}+ol>@{n5Li} {
+        margin-left: 0 !important;
+    }
+
+    // ----------------------------------------
+    // 三栏引用块
+    #write @{n2Hr_MdHr}+@{quote_details_gsa},
+    #write @{n2Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n2Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 四栏引用块
+    #write @{n3Hr_MdHr}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 五栏引用块
+    #write @{n4Hr_MdHr}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa} {
+        min-width: 100%;
+        height: auto;
+    }
+    // ----------------------------------------
+    // 纵向显示的微调
+    // 三栏引用块内容之间
+    #write @{n2Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n2Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 四栏引用块内容之间
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    // 五栏引用块内容之间
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa} {
+        margin-left: 0 !important;
+    }
+}
+
+// ---------------
+// 针对显示宽度小于该尺寸时对分栏引用块的调整（模拟为高清屏时的移动端）
+@media screen and (max-width: @gMobileScreenWidth) {
+    .genForMobile();
+
+    // ========================================
+    // 纵向显示的整体调整
+    // ----------------------------------------
+    // 以四栏列表方式显示列表
+    #write @{n3Hr_MdHr}+ul>li,
+    #write @{n3Hr_MdHr}+ul>@{n2Li},
+    #write @{n3Hr_MdHr}+ul>@{n3Li},
+    #write @{n3Hr_MdHr}+ul>@{n4Li},
+    #write @{n3Hr_MdHr}+ol>li,
+    #write @{n3Hr_MdHr}+ol>@{n2Li},
+    #write @{n3Hr_MdHr}+ol>@{n3Li},
+    #write @{n3Hr_MdHr}+ol>@{n4Li},
+    // 以五栏列表方式显示列表
+    #write @{n4Hr_MdHr}+ul>li,
+    #write @{n4Hr_MdHr}+ul>@{n2Li},
+    #write @{n4Hr_MdHr}+ul>@{n3Li},
+    #write @{n4Hr_MdHr}+ul>@{n4Li},
+    #write @{n4Hr_MdHr}+ul>@{n5Li},
+    #write @{n4Hr_MdHr}+ol>li,
+    #write @{n4Hr_MdHr}+ol>@{n2Li},
+    #write @{n4Hr_MdHr}+ol>@{n3Li},
+    #write @{n4Hr_MdHr}+ol>@{n4Li},
+    #write @{n4Hr_MdHr}+ol>@{n5Li} {
+        min-width: 100%;
+        height: auto;
+    }
+    // 四栏列表内容之间的样式
+    #write @{n3Hr_MdHr}+ul>@{n2Li},
+    #write @{n3Hr_MdHr}+ul>@{n3Li},
+    #write @{n3Hr_MdHr}+ul>@{n4Li},
+    #write @{n3Hr_MdHr}+ol>@{n2Li},
+    #write @{n3Hr_MdHr}+ol>@{n3Li},
+    #write @{n3Hr_MdHr}+ol>@{n4Li},
+    // 五栏列表内容之间的样式
+    #write @{n4Hr_MdHr}+ul>@{n2Li},
+    #write @{n4Hr_MdHr}+ul>@{n3Li},
+    #write @{n4Hr_MdHr}+ul>@{n4Li},
+    #write @{n4Hr_MdHr}+ul>@{n5Li},
+    #write @{n4Hr_MdHr}+ol>@{n2Li},
+    #write @{n4Hr_MdHr}+ol>@{n3Li},
+    #write @{n4Hr_MdHr}+ol>@{n4Li},
+    #write @{n4Hr_MdHr}+ol>@{n5Li} {
+        margin-left: 0 !important;
+    }
+
+    // ----------------------------------------
+    // 四栏引用块
+    #write @{n3Hr_MdHr}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa} {
+        min-width: 100%;
+        height: auto;
+    }
+    // ----------------------------------------
+    // 纵向显示的微调
+    // 四栏引用块内容之间
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n3Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa} {
+        margin-left: 0 !important;
+    }
+    // ----------------------------------------
+    // 五栏引用块
+    #write @{n4Hr_MdHr}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa} {
+        min-width: 100%;
+        height: auto;
+    }
+    // ----------------------------------------
+    // 纵向显示的微调
+    // 五栏引用块内容之间
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa},
+    #write @{n4Hr_MdHr}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa}+@{quote_details_gsa} {
+        margin-left: 0 !important;
+    }
+
+    // 小封面
+    .v-doc-mini-cover.max > .doc-title {
+        font-size: 1.5em;
+        width: calc(100% - 60px);
+    }
+    // 小封面图标
+    .v-doc-mini-cover.max > .doc-title::before {
+        background-size: 60px 60px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .v-doc-lib,
+    .v-footnote-pn {
+        left: @popupMargin;
+        right: @popupMargin;
+    }
+    .v-footnote-pn {
+        bottom: @floatBottom * 3;
+    }
+    .v-caption.full {
+        background: var(--df-lg) !important;
+    }
+
+    // 导航中心使用边缘样式时的遮罩背景调整
+    .v-mask.nav-center.edge {
+        background: @aActiveColor !important;
+    }
+
+    .v-print-tip {
+        min-width: unset;
+        top: 10px;
+        transform: unset;
+        left: 10px;
+        right: 10px;
+    }
+}
+
+// ---------------
+// 针对小于该分辨设备的 UI 调整
+@media screen and (max-width: 1024px) {
+}
+
+// 针对大于等于该分辨设备的 UI 调整
+@media screen and (min-width: @gSmallScreenWidth) {
+    :root {
+        --v-write-w:900px;
+
+        // 配合 vlook.js 中的 _var_write_margin_left_, _var_write_margin_left_def_ 进行使用
+        --v-write-ml: calc(var(--v-nav-center-w) + (@popupMargin * 1.5) + (100% - var(--v-write-w) - @popupMargin * 2 - var(--v-nav-center-w)) / 2);
+    }
+
+    // 显示正文宽度适配按钮
+    .v-fill-width.show {
+        display: flex;
+    }
+
+    // 正文外背景相关样式
+    content::before,
+    .typora-export-content::before {
+        content: @docExtContent;
+        display: block;
+        position: fixed;
+        z-index: 0;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background-color: @docExtBackgroundColor;
+        background-image: @docExtBackgroundImage;
+        background-repeat: @docExtBackgroundRepeat;
+        background-position: @docExtBackgroundPosition;
+        background-size: @docExtBackgroundSize;
+        filter: @docExtBackgroundFilter !important;
+        pointer-events: none;
+    }
+    .typora-export-content.fill-width::before {
+        display: none;
+    }
+
+    // 编辑时
+    // 针对 Windows
+    body.@{windows} content::before {
+        // 以下内容说明：
+        // --sidebar-width 是 Typora 的变量，记录侧边栏宽度
+        // 其中 20px 是滚动条宽度，目前无法避免 before 遮挡滚动条的问题
+        width: calc(100% - 8px);
+    }
+    // 针对 macOS
+    body.@{macos} content::before {
+        width: 100%;
+    }
+
+    .typora-export-content:not(.fill-width) #write.max {
+        width: var(--v-write-w);
+        .genFillWidthBorder();
+    }
+
+    // 幻灯片 视图的样式调整
+    .slide #write,
+    .slide #write::before,
+    .slide #write::after {
+        border-radius: var(--c-br-b);
+
+        .genTweaks() when (@thmCornerShape = bevel) {
+            corner-shape: bevel;
+            border-radius: (@bevelRadius_b + 8px);
+        }
+        .genTweaks() when (@thmCornerShape = squircle) {
+            corner-shape: squircle;
+            border-radius: (@squircleRadius_b - 5px);
+        }
+        .genTweaks() when (@thmCornerShape = scoop) {
+            corner-shape: scoop;
+            border-radius: (@bevelRadius_b + 8px);
+        }
+        .genTweaks() when (@thmCornerShape = crystal) {
+            corner-shape: bevel;
+            border-radius: (@bevelRadius_b + 8px) 0;
+        }
+        .genTweaks();
+    }
+    .slide #write::before,
+    .slide #write::after {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+// ---------------
+// 针对小于等于该分辨设备的 UI 调整
+@media screen and (max-width: @gUnwrapTableScreenWidth) {
+    // 导出后，取消表格的自动换行
+    @{writeOnHTML} table {
+        white-space: pre;
+    }
+}
+
+
+// 针对小于等于该分辨设备的 UI 调整（仅 PC 等设备才生效的 hover 效果）
+@media screen and (max-width: @gSmallScreenWidth) and (hover: hover) and (pointer: fine) {
+    .v-btn-group:hover {
+        box-shadow: var(--v-fl-sd);//, @contrastBorder;
+    }
+}
+
+// ---------------
+// 针对小于等于该分辨设备的 UI 调整
+@media screen and (max-width: @gSmallScreenWidth) {
+    :root {
+        --v-sticky-top: 50px;
+    }
+
+    .v-chapter-nav.enabled {
+        top: 0;
+
+        .genTweaks() when (@thmFloatShadow = shadow) {
+            box-shadow: var(--v-fl-sd), @contrastBorderForChapterInSmallScreen;
+        }
+        .genTweaks() when (@thmFloatShadow = line) {
+            box-shadow: 0 -1px 0 0 @thmTopbarBorderColor inset, @contrastBorderForChapterInSmallScreen;
+        }
+        .genTweaks();
+    }
+    .v-shortcut-bar {
+        top: 60px;
+    }
+
+    .v-chapter-nav-prev-text,
+    .v-chapter-nav-next-text {
+        display: none;
+    }
+
+    // 逐章导航 UI
+    .v-chapter-nav {
+        left: 0;
+        top: 0;
+        right: 0;
+        border-radius: 0 !important;
+    }
+    .v-chapter-nav-doc-title:not(.in-start),
+    .v-chapter-nav-current {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+    .v-chapter-nav-doc-title.in-start {
+        margin-right: 40px;
+    }
+    .v-chapter-nav-prev,
+    .v-chapter-nav-next {
+        width: 20%;
+        border-radius: 0 !important;
+        corner-shape: unset !important;
+    }
+    .v-chapter-nav-prev::before,
+    .v-chapter-nav-next::before {
+        border-radius: 0 !important;
+        corner-shape: unset !important;
+    }
+
+    // 当前字体风格下载提示
+    .v-font-style-info-current {
+        left: 30px;
+    }
+}
+
+// ---------------
+// 针对大于等于该分辨设备的 UI 调整
+@media screen and (min-width: 1336px) {
+    // 显示正文宽度适配按钮
+    .v-fill-width {
+        display: flex;
+    }
+}
+
+// ---------------
+// 针对大于等于该分辨设备的 UI 调整
+@media screen and (min-width: 1441px) {
+    :root {
+        --v-write-w:1000px;
+    }
+
+    // 在大屏时，直接使用扩大后的导航中心宽度，不再通过 calc 进行增加值处理
+    .v-nav-center.float {
+        width: var(--v-nav-center-w);
+    }
+}
+
+// ---------------
+// 针对大于等于该分辨设备的 UI 调整
+@media screen and (min-width: 1680px) {
+    :root {
+        --v-write-w:1200px;
+    }
+}
+
+// 移动端时相关样式
+.genForMobile() {
+    :root {
+        --thm-lr-pd: @coverLeftRightPaddingForMobile;
+
+        --thm-c-t-pd: @coverTextPaddingForMobile;
+        --thm-o-t-pd: @ownerTextPaddingForMobile;
+        --thm-bc-t-pd: @backcoverTextPaddingForMobile;
+
+        --thm-c-bg-size: @coverBgSizeForMobile;
+        --thm-c-bg-pos: @coverBgPositionForMobile;
+        --thm-c-bg-bf-size: @coverBgBeforeSizeForMobile;
+        --thm-c-bg-bf-pos: @coverBgBeforePositionForMobile;
+
+        --thm-cc-left-right-pd: @ccLeftRightPaddingForMobile;
+        --thm-cc-top: @ccTopForMobile;
+
+        --thm-bc-bg-size: @backcoverBgSizeForMobile;
+        --thm-bc-bg-pos: @backcoverBgPositionForMobile;
+        --thm-bc-bg-bf-size: @backcoverBgBeforeSizeForMobile;
+        --thm-bc-bg-bf-pos: @backcoverBgBeforePositionForMobile;
+    }
+
+    #write {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    // 封面：#write 下 H6 作为第一个元素时
+    @{coverAfterYAML}, // 有 YAML 的情况
+    @{coverWithoutYAML}, // 无 YAML 的情况
+    // 封底：#write 下 H6 作为最后一个元素时
+    @{backcover} {
+        font-size: 2.125em;
+    }
+
+    .v-font-style {
+        width: 352px; // 计算公式 item: 160*2 + margin-left: 10*2 + padding: 20*2 + border: 2
+        padding: 10px;
+    }
+    .v-font-style-opt>img {
+        width: 100px;
+        height: 62px;
+    }
+
+    .v-link-info-list {
+        width: auto !important;
+        left: @popupMargin;
+    }
+
+    // 明信片
+    #write img[src*="#card"] {
+        border-radius: var(--v-r-b) var(--v-r-b-xc) 0 0;
+    }
+    #write .v-post-card {
+        display: block;
+        position: relative;
+        border-radius: 0 0 var(--v-r-b) var(--v-r-b-xc);
+    }
+
+    // 流媒体平台
+    @{iframeVideo} @{biliVideo},
+    @{iframeVideo} @{douyinVideo},
+    @{iframeVideo} @{xiguaVideo},
+    @{iframeVideo} @{qqVideo},
+    @{iframeVideo} @{youtubeVideo},
+    // 竖屏标识 portrait
+    @{iframeVideo} @{biliVideo}@{portraitMode},
+    @{iframeVideo} @{douyinVideo}@{portraitMode},
+    @{iframeVideo} @{xiguaVideo}@{portraitMode},
+    @{iframeVideo} @{qqVideo}@{portraitMode},
+    @{iframeVideo} @{youtubeVideo}@{portraitMode} {
+        width: 100%;
+    }
+}
+
+// 页签组在移动端的样式微调
+.genTabGroupForMobile(@style) {
+    @media screen and (max-width: @gMobileScreenWidth) {
+        .v-tab-group {
+            // 针对样式：std, simple
+            .genTweaks() when not (@style = modern) {
+                background: transparent;
+            }
+            // 针对样式：modern
+            .genTweaks() when (@style = modern) {
+                background: var(--pn-c);
+            }
+            .genTweaks();
+        }
+    }
+}
+
+// 颜色外观模式：auto，light，dark
+:root {
+    --thm-color-scheme: @thmColorScheme;
+}
+.genLightModeStyle() when (@thmColorScheme = auto), (@thmColorScheme = light) {
+    :root {
+        // --------------------
+        // 针对 #Color_Scheme
+        // 实际应用的颜色变量（自动适配 Color Scheme）
+
+        --v-color-scheme: light; // 默认颜色模式为：Light 明亮
+
+        --v-invert-dark: var(--v-invert-dark-lg); // 默认的图片滤镜
+        --v-cover-dark: var(--v-cover-dark-lg); // 默认的封面、封底滤镜
+        --v-selected-c: var(--v-selected-c-lg);
+
+        --thm-fav: var(--thm-fav-lg);
+
+        --db: var(--db-lg);
+        --db-ext: var(--db-ext-lg);
+        --d-cb: var(--d-cb-lg);
+        --db-r: var(--db-r-lg);
+        --db-g: var(--db-g-lg);
+        --db-b: var(--db-b-lg);
+        --df-r: var(--df-r-lg);
+        --df-g: var(--df-g-lg);
+        --df-b: var(--df-b-lg);
+        --d-bi: var(--d-bi-lg);
+        --df: var(--df-lg);
+        --df-a: var(--df-a-lg);
+
+        --pn-c: var(--pn-c-lg);
+        --pn-c-a: var(--pn-c-a-lg);
+        --pn-r: var(--pn-r-lg);
+        --pn-g: var(--pn-g-lg);
+        --pn-b: var(--pn-b-lg);
+        --bq-bg: var(--bq-bg-lg);
+        --bq-bg-fd: var(--bq-bg-fd-lg);
+
+        --a-c: var(--a-c-lg);
+        --a-o-c: var(--a-o-c-lg);
+        --mark-bg: var(--mark-bg-lg);
+        --tbl-row-g-alpha: var(--tbl-row-g-alpha-lg);
+        --toc-h-num-c: var(--toc-h-num-c-lg);
+        --h-f: var(--h-f-lg);
+        --h-box-sd: var(--h-box-sd-lg);
+        --h-bg-start: var(--h-bg-start-lg);
+        --h-bg-end: var(--h-bg-end-lg);
+        --code-bg: var(--code-bg-lg);
+        --code-t: var(--code-t-lg);
+        --std-code-sd: var(--std-code-sd-lg);
+        --rb-code-sd: var(--rb-code-sd-lg);
+        --v-ui-bg: var(--v-ui-bg-lg);
+        --v-btn-bg: var(--v-btn-bg-lg);
+
+        // 按钮类外阴影
+        --v-fl-sd: var(--v-fl-sd-lg);
+        // 按钮类边框
+        --v-fl-bd: var(--v-fl-bd-lg);
+
+        // 代码块背景图
+        --c-blk-bg: var(--c-blk-bg-lg);
+
+        // 图片的非网格背景
+        --fig-solid-bg: var(--fig-solid-bg-lg);
+        // 图片的线状网格背景（线状、块状)
+        --v-fig-grid-l: var(--v-fig-grid-l-lg);
+        --v-fig-grid-b: var(--v-fig-grid-b-lg);
+        // 针对 Dark Mode 时反色的图片网格背景
+        --v-fig-grid-l-invert: var(--v-fig-grid-l-invert-lg);
+        --v-fig-grid-b-invert: var(--v-fig-grid-b-invert-lg);
+
+        // 键帽样式
+        --kbd-c: var(--kbd-c-lg);
+        --kbd-bg: var(--kbd-bg-lg);
+        --kbd-shd: var(--kbd-shd-lg);
+        --kbd-pd: var(--kbd-pd-lg);
+
+        --doc-sd: var(--doc-sd-lg);
+        --img-bd-invert: var(--img-bd-invert-lg);
+
+        // 光标
+        --cur-ptr: var(--cur-ptr-lg);
+        --cur-copy: var(--cur-copy-lg);
+        --cur-ptr-text: var(--cur-ptr-text-lg);
+        --cur-laser: var(--cur-laser-lg);
+        --cur-mix: var(--cur-mix-lg);
+        --cur-doclib: var(--cur-doclib-lg);
+        --cur-http: var(--cur-http-lg);
+        --cur-https: var(--cur-https-lg);
+        --cur-email: var(--cur-email-lg);
+        --cur-risk: var(--cur-risk-lg);
+        --cur-inner: var(--cur-inner-lg);
+        --cur-full-screen: var(--cur-full-screen-lg);
+
+        --ac-rd: var(--ac-rd-lg);
+        --ac-rd-a: var(--ac-rd-a-lg);
+        --ac-rd-fd: var(--ac-rd-fd-lg);
+        --ac-rd-tt: var(--ac-rd-tt-lg);
+        --ac-og: var(--ac-og-lg);
+        --ac-og-a: var(--ac-og-a-lg);
+        --ac-og-fd: var(--ac-og-fd-lg);
+        --ac-og-tt: var(--ac-og-tt-lg);
+        --ac-tu: var(--ac-tu-lg);
+        --ac-tu-a: var(--ac-tu-a-lg);
+        --ac-tu-fd: var(--ac-tu-fd-lg);
+        --ac-tu-tt: var(--ac-tu-tt-lg);
+        --ac-tu: var(--ac-tu-lg);
+        --ac-tu-a: var(--ac-tu-a-lg);
+        --ac-tu-fd: var(--ac-tu-fd-lg);
+        --ac-tu-tt: var(--ac-tu-tt-lg);
+        --ac-ye: var(--ac-ye-lg);
+        --ac-ye-a: var(--ac-ye-a-lg);
+        --ac-ye-fd: var(--ac-ye-fd-lg);
+        --ac-ye-tt: var(--ac-ye-tt-lg);
+        --ac-lm: var(--ac-lm-lg);
+        --ac-lm-a: var(--ac-lm-a-lg);
+        --ac-lm-fd: var(--ac-lm-fd-lg);
+        --ac-lm-tt: var(--ac-lm-tt-lg);
+        --ac-gn: var(--ac-gn-lg);
+        --ac-gn-a: var(--ac-gn-a-lg);
+        --ac-gn-fd: var(--ac-gn-fd-lg);
+        --ac-gn-tt: var(--ac-gn-tt-lg);
+        --ac-mn: var(--ac-mn-lg);
+        --ac-mn-a: var(--ac-mn-a-lg);
+        --ac-mn-fd: var(--ac-mn-fd-lg);
+        --ac-mn-tt: var(--ac-mn-tt-lg);
+        --ac-ol: var(--ac-ol-lg);
+        --ac-ol-a: var(--ac-ol-a-lg);
+        --ac-ol-fd: var(--ac-ol-fd-lg);
+        --ac-ol-tt: var(--ac-ol-tt-lg);
+        --ac-wn: var(--ac-wn-lg);
+        --ac-wn-a: var(--ac-wn-a-lg);
+        --ac-wn-fd: var(--ac-wn-fd-lg);
+        --ac-wn-tt: var(--ac-wn-tt-lg);
+        --ac-aq: var(--ac-aq-lg);
+        --ac-aq-a: var(--ac-aq-a-lg);
+        --ac-aq-fd: var(--ac-aq-fd-lg);
+        --ac-aq-tt: var(--ac-aq-tt-lg);
+        --ac-sk: var(--ac-sk-lg);
+        --ac-sk-a: var(--ac-sk-a-lg);
+        --ac-sk-fd: var(--ac-sk-fd-lg);
+        --ac-sk-tt: var(--ac-sk-tt-lg);
+        --ac-cy: var(--ac-cy-lg);
+        --ac-cy-a: var(--ac-cy-a-lg);
+        --ac-cy-fd: var(--ac-cy-fd-lg);
+        --ac-cy-tt: var(--ac-cy-tt-lg);
+        --ac-bu: var(--ac-bu-lg);
+        --ac-bu-a: var(--ac-bu-a-lg);
+        --ac-bu-fd: var(--ac-bu-fd-lg);
+        --ac-bu-tt: var(--ac-bu-tt-lg);
+        --ac-se: var(--ac-se-lg);
+        --ac-se-a: var(--ac-se-a-lg);
+        --ac-se-fd: var(--ac-se-fd-lg);
+        --ac-se-tt: var(--ac-se-tt-lg);
+        --ac-la: var(--ac-la-lg);
+        --ac-la-a: var(--ac-la-a-lg);
+        --ac-la-fd: var(--ac-la-fd-lg);
+        --ac-la-tt: var(--ac-la-tt-lg);
+        --ac-vn: var(--ac-vn-lg);
+        --ac-vn-a: var(--ac-vn-a-lg);
+        --ac-vn-fd: var(--ac-vn-fd-lg);
+        --ac-vn-tt: var(--ac-vn-tt-lg);
+        --ac-cf: var(--ac-cf-lg);
+        --ac-cf-a: var(--ac-cf-a-lg);
+        --ac-cf-fd: var(--ac-cf-fd-lg);
+        --ac-cf-tt: var(--ac-cf-tt-lg);
+        --ac-au: var(--ac-au-lg);
+        --ac-au-a: var(--ac-au-a-lg);
+        --ac-au-fd: var(--ac-au-fd-lg);
+        --ac-au-tt: var(--ac-au-tt-lg);
+        --ac-pu: var(--ac-pu-lg);
+        --ac-pu-a: var(--ac-pu-a-lg);
+        --ac-pu-fd: var(--ac-pu-fd-lg);
+        --ac-pu-tt: var(--ac-pu-tt-lg);
+        --ac-ro: var(--ac-ro-lg);
+        --ac-ro-a: var(--ac-ro-a-lg);
+        --ac-ro-fd: var(--ac-ro-fd-lg);
+        --ac-ro-tt: var(--ac-ro-tt-lg);
+        --ac-pl: var(--ac-pl-lg);
+        --ac-pl-a: var(--ac-pl-a-lg);
+        --ac-pl-fd: var(--ac-pl-fd-lg);
+        --ac-pl-tt: var(--ac-pl-tt-lg);
+        --ac-pk: var(--ac-pk-lg);
+        --ac-pk-a: var(--ac-pk-a-lg);
+        --ac-pk-fd: var(--ac-pk-fd-lg);
+        --ac-pk-tt: var(--ac-pk-tt-lg);
+        --ac-gd: var(--ac-gd-lg);
+        --ac-gd-a: var(--ac-gd-a-lg);
+        --ac-gd-fd: var(--ac-gd-fd-lg);
+        --ac-gd-tt: var(--ac-gd-tt-lg);
+        --ac-bn: var(--ac-bn-lg);
+        --ac-bn-a: var(--ac-bn-a-lg);
+        --ac-bn-fd: var(--ac-bn-fd-lg);
+        --ac-bn-tt: var(--ac-bn-tt-lg);
+        --ac-gy: var(--ac-gy-lg);
+        --ac-gy-a: var(--ac-gy-a-lg);
+        --ac-gy-fd: var(--ac-gy-fd-lg);
+        --ac-gy-tt: var(--ac-gy-tt-lg);
+        --ac-wt: var(--ac-wt-lg);
+        --ac-wt-a: var(--ac-wt-a-lg);
+        --ac-wt-fd: var(--ac-wt-fd-lg);
+        --ac-wt-tt: var(--ac-wt-tt-lg);
+        --ac-bk: var(--ac-bk-lg);
+        --ac-bk-a: var(--ac-bk-a-lg);
+        --ac-bk-fd: var(--ac-bk-fd-lg);
+        --ac-bk-tt: var(--ac-bk-tt-lg);
+        --ac-t1: var(--ac-t1-lg);
+        --ac-t1-a: var(--ac-t1-a-lg);
+        --ac-t1-fd: var(--ac-t1-fd-lg);
+        --ac-t1-tt: var(--ac-t1-tt-lg);
+        --ac-t2: var(--ac-t2-lg);
+        --ac-t2-a: var(--ac-t2-a-lg);
+        --ac-t2-fd: var(--ac-t2-fd-lg);
+        --ac-t2-tt: var(--ac-t2-tt-lg);
+
+        // 针对 fade for light
+        // --ac-gd-fd-bd-lg: fade(@accGd, @accOpacityHighForLg);
+        // --ac-pl-fd-bd-lg: fade(@accPl, @accOpacityHighForLg);
+        // --ac-pk-fd-bd-lg: fade(@accPk, @accOpacityHighForLg);
+        // --ac-ye-fd-bd-lg: fade(@accYe, @accOpacityHighForLg);
+        // --ac-lm-fd-bd-lg: fade(@accLm, @accOpacityHighForLg);
+        // --ac-aq-fd-bd-lg: fade(@accAq, @accOpacityHighForLg);
+        // --ac-sk-fd-bd-lg: fade(@accSk, @accOpacityHighForLg);
+        // --ac-la-fd-bd-lg: fade(@accLa, @accOpacityHighForLg);
+
+        // --ac-bn-fd-bd-lg: fade(@accBn, @accOpacityMiddleForLg);
+        // --ac-ro-fd-bd-lg: fade(@accRo, @accOpacityMiddleForLg);
+        // --ac-rd-fd-bd-lg: fade(@accRd, @accOpacityMiddleForLg);
+        // --ac-og-fd-bd-lg: fade(@accOg, @accOpacityHighForLg);
+        // --ac-tu-fd-bd-lg: fade(@accTu, @accOpacityHighForLg);
+        // --ac-gn-fd-bd-lg: fade(@accGn, @accOpacityMiddleForLg);
+        // --ac-cy-fd-bd-lg: fade(@accCy, @accOpacityMiddleForLg);
+        // --ac-bu-fd-bd-lg: fade(@accBu, @accOpacityMiddleForLg);
+        // --ac-vn-fd-bd-lg: fade(@accVn, @accOpacityMiddleForLg);
+        // --ac-gy-fd-bd-lg: fade(@accGy, @accOpacityMiddleForLg);
+
+        // --ac-cf-fd-bd-lg: fade(@accCf, @accOpacityLowForLg);
+        // --ac-au-fd-bd-lg: fade(@accAu, @accOpacityLowForLg);
+        // --ac-pu-fd-bd-lg: fade(@accPu, @accOpacityLowForLg);
+        // --ac-wn-fd-bd-lg: fade(@accWn, @accOpacityLowForLg);
+        // --ac-ol-fd-bd-lg: fade(@accOl, @accOpacityLowForLg);
+        // --ac-mn-fd-bd-lg: fade(@accMn, @accOpacityLowForLg);
+        // --ac-se-fd-bd-lg: fade(@accSe, @accOpacityLowForLg);
+        // --ac-wt-fd-bd-lg: fade(@accWt, @accOpacityHighForLg);
+        // --ac-bk-fd-bd-lg: fade(@accBk, @accOpacityLowForLg);
+
+        // --ac-t1-fd-bd-lg: @theme1Fade;
+        // --ac-t2-fd-bd-lg: @theme2Fade;
+
+        // ---
+        // --btn-reflect-lg: rgba(255, 255, 255, 0.4);
+        --btn-reflect: var(--btn-reflect-lg);
+        --btn-shadow: var(--btn-shadow-lg);
+        --btn-raised: var(--btn-raised-lg);
+    }
+}
+.genLightModeStyle();
+
+// 生成将 CSS 变量指定为 Dark Mode 的样式
+.genDarkModeVars() {
+    :root {
+        --v-color-scheme: dark;
+
+        --v-invert-dark: var(--v-invert-dark-dk); // 用于 Dark Mode下图片滤镜
+        --v-cover-dark: var(--v-cover-dark-dk); // 用于 Dark Mode下封面、封底滤镜
+        --v-selected-c: var(--v-selected-c-dk);
+
+        --thm-fav: var(--thm-fav-dk);
+
+        // --------------------
+        // 颜色变量
+        --db: var(--db-dk);
+        --db-ext: var(--db-ext-dk);
+        --d-cb: var(--d-cb-dk);
+        --db-r: var(--db-r-dk);
+        --db-g: var(--db-g-dk);
+        --db-b: var(--db-b-dk);
+        --df-r: var(--df-r-dk);
+        --df-g: var(--df-g-dk);
+        --df-b: var(--df-b-dk);
+        --d-bi: var(--d-bi-dk);
+        --df: var(--df-dk);
+        --df-a: var(--df-a-dk);
+
+        --pn-c: var(--pn-c-dk);
+        --pn-c-a: var(--pn-c-a-dk);
+        --pn-r: var(--pn-r-dk);
+        --pn-g: var(--pn-g-dk);
+        --pn-b: var(--pn-b-dk);
+        --bq-bg: var(--bq-bg-dk);
+        --bq-bg-fd: var(--bq-bg-fd-dk);
+
+        --a-c: var(--a-c-dk);
+        --a-o-c: var(--a-o-c-dk);
+        --mark-bg: var(--mark-bg-dk);
+        --tbl-row-g-alpha: var(--tbl-row-g-alpha-dk);
+        --toc-h-num-c: var(--toc-h-num-c-dk);
+        --h-f: var(--h-f-dk);
+        --h-box-sd: var(--h-box-sd-dk);
+        --h-bg-start: var(--h-bg-start-dk);
+        --h-bg-end: var(--h-bg-end-dk);
+        --code-bg: var(--code-bg-dk);
+        --code-t: var(--code-t-dk);
+        --std-code-sd: var(--std-code-sd-dk);
+        --rb-code-sd: var(--rb-code-sd-dk);
+        --v-ui-bg: var(--v-ui-bg-dk);
+        --v-btn-bg: var(--v-btn-bg-dk);
+
+        --v-fl-sd: var(--v-fl-sd-dk);
+        --v-fl-bd: var(--v-fl-bd-dk);
+
+        --c-blk-bg: var(--c-blk-bg-dk);
+
+        --fig-solid-bg: var(--fig-solid-bg-dk);
+
+        --v-fig-grid-l: var(--v-fig-grid-l-dk);
+        --v-fig-grid-b: var(--v-fig-grid-b-dk);
+
+        --v-fig-grid-l-invert: var(--v-fig-grid-l-invert-dk);
+        --v-fig-grid-b-invert: var(--v-fig-grid-b-invert-dk);
+
+        // 键帽样式
+        --kbd-c: var(--kbd-c-dk);
+        --kbd-bg: var(--kbd-bg-dk);
+        --kbd-shd: var(--kbd-shd-dk);
+        --kbd-pd: var(--kbd-pd-dk);
+
+        --doc-sd: var(--doc-sd-dk);
+        --img-bd-invert: var(--img-bd-invert-dk);
+
+        --cur-ptr: var(--cur-ptr-dk);
+        --cur-copy: var(--cur-copy-dk);
+        --cur-ptr-text: var(--cur-ptr-text-dk);
+        --cur-laser: var(--cur-laser-dk);
+        --cur-mix: var(--cur-mix-dk);
+        --cur-doclib: var(--cur-doclib-dk);
+        --cur-http: var(--cur-http-dk);
+        --cur-https: var(--cur-https-dk);
+        --cur-email: var(--cur-email-dk);
+        --cur-risk: var(--cur-risk-dk);
+        --cur-inner: var(--cur-inner-dk);
+        --cur-full-screen: var(--cur-full-screen-dk);
+
+        --ac-rd: var(--ac-rd-dk);
+        --ac-rd-a: var(--ac-rd-a-dk);
+        --ac-rd-fd: var(--ac-rd-fd-dk);
+        --ac-rd-tt: var(--ac-rd-tt-dk);
+        --ac-og: var(--ac-og-dk);
+        --ac-og-a: var(--ac-og-a-dk);
+        --ac-og-fd: var(--ac-og-fd-dk);
+        --ac-og-tt: var(--ac-og-tt-dk);
+        --ac-tu: var(--ac-tu-dk);
+        --ac-tu-a: var(--ac-tu-a-dk);
+        --ac-tu-fd: var(--ac-tu-fd-dk);
+        --ac-tu-tt: var(--ac-tu-tt-dk);
+        --ac-ye: var(--ac-ye-dk);
+        --ac-ye-a: var(--ac-ye-a-dk);
+        --ac-ye-fd: var(--ac-ye-fd-dk);
+        --ac-ye-tt: var(--ac-ye-tt-dk);
+        --ac-lm: var(--ac-lm-dk);
+        --ac-lm-a: var(--ac-lm-a-dk);
+        --ac-lm-fd: var(--ac-lm-fd-dk);
+        --ac-lm-tt: var(--ac-lm-tt-dk);
+        --ac-gn: var(--ac-gn-dk);
+        --ac-gn-a: var(--ac-gn-a-dk);
+        --ac-gn-fd: var(--ac-gn-fd-dk);
+        --ac-gn-tt: var(--ac-gn-tt-dk);
+        --ac-mn: var(--ac-mn-dk);
+        --ac-mn-a: var(--ac-mn-a-dk);
+        --ac-mn-fd: var(--ac-mn-fd-dk);
+        --ac-mn-tt: var(--ac-mn-tt-dk);
+        --ac-ol: var(--ac-ol-dk);
+        --ac-ol-a: var(--ac-ol-a-dk);
+        --ac-ol-fd: var(--ac-ol-fd-dk);
+        --ac-ol-tt: var(--ac-ol-tt-dk);
+        --ac-wn: var(--ac-wn-dk);
+        --ac-wn-a: var(--ac-wn-a-dk);
+        --ac-wn-fd: var(--ac-wn-fd-dk);
+        --ac-wn-tt: var(--ac-wn-tt-dk);
+        --ac-aq: var(--ac-aq-dk);
+        --ac-aq-a: var(--ac-aq-a-dk);
+        --ac-aq-fd: var(--ac-aq-fd-dk);
+        --ac-aq-tt: var(--ac-aq-tt-dk);
+        --ac-sk: var(--ac-sk-dk);
+        --ac-sk-a: var(--ac-sk-a-dk);
+        --ac-sk-fd: var(--ac-sk-fd-dk);
+        --ac-sk-tt: var(--ac-sk-tt-dk);
+        --ac-cy: var(--ac-cy-dk);
+        --ac-cy-a: var(--ac-cy-a-dk);
+        --ac-cy-fd: var(--ac-cy-fd-dk);
+        --ac-cy-tt: var(--ac-cy-tt-dk);
+        --ac-bu: var(--ac-bu-dk);
+        --ac-bu-a: var(--ac-bu-a-dk);
+        --ac-bu-fd: var(--ac-bu-fd-dk);
+        --ac-bu-tt: var(--ac-bu-tt-dk);
+        --ac-se: var(--ac-se-dk);
+        --ac-se-a: var(--ac-se-a-dk);
+        --ac-se-fd: var(--ac-se-fd-dk);
+        --ac-se-tt: var(--ac-se-tt-dk);
+        --ac-la: var(--ac-la-dk);
+        --ac-la-a: var(--ac-la-a-dk);
+        --ac-la-fd: var(--ac-la-fd-dk);
+        --ac-la-tt: var(--ac-la-tt-dk);
+        --ac-vn: var(--ac-vn-dk);
+        --ac-vn-a: var(--ac-vn-a-dk);
+        --ac-vn-fd: var(--ac-vn-fd-dk);
+        --ac-vn-tt: var(--ac-vn-tt-dk);
+        --ac-cf: var(--ac-cf-dk);
+        --ac-cf-a: var(--ac-cf-a-dk);
+        --ac-cf-fd: var(--ac-cf-fd-dk);
+        --ac-cf-tt: var(--ac-cf-tt-dk);
+        --ac-cf: var(--ac-cf-dk);
+        --ac-cf-a: var(--ac-cf-a-dk);
+        --ac-cf-fd: var(--ac-cf-fd-dk);
+        --ac-cf-tt: var(--ac-cf-tt-dk);
+        --ac-au: var(--ac-au-dk);
+        --ac-au-a: var(--ac-au-a-dk);
+        --ac-au-fd: var(--ac-au-fd-dk);
+        --ac-au-tt: var(--ac-au-tt-dk);
+        --ac-pu: var(--ac-pu-dk);
+        --ac-pu-a: var(--ac-pu-a-dk);
+        --ac-pu-fd: var(--ac-pu-fd-dk);
+        --ac-pu-tt: var(--ac-pu-tt-dk);
+        --ac-ro: var(--ac-ro-dk);
+        --ac-ro-a: var(--ac-ro-a-dk);
+        --ac-ro-fd: var(--ac-ro-fd-dk);
+        --ac-ro-tt: var(--ac-ro-tt-dk);
+        --ac-pl: var(--ac-pl-dk);
+        --ac-pl-a: var(--ac-pl-a-dk);
+        --ac-pl-fd: var(--ac-pl-fd-dk);
+        --ac-pl-tt: var(--ac-pl-tt-dk);
+        --ac-pk: var(--ac-pk-dk);
+        --ac-pk-a: var(--ac-pk-a-dk);
+        --ac-pk-fd: var(--ac-pk-fd-dk);
+        --ac-pk-tt: var(--ac-pk-tt-dk);
+        --ac-gd: var(--ac-gd-dk);
+        --ac-gd-a: var(--ac-gd-a-dk);
+        --ac-gd-fd: var(--ac-gd-fd-dk);
+        --ac-gd-tt: var(--ac-gd-tt-dk);
+        --ac-bn: var(--ac-bn-dk);
+        --ac-bn-a: var(--ac-bn-a-dk);
+        --ac-bn-fd: var(--ac-bn-fd-dk);
+        --ac-bn-tt: var(--ac-bn-tt-dk);
+        --ac-gy: var(--ac-gy-dk);
+        --ac-gy-a: var(--ac-gy-a-dk);
+        --ac-gy-fd: var(--ac-gy-fd-dk);
+        --ac-gy-tt: var(--ac-gy-tt-dk);
+        --ac-wt: var(--ac-wt-dk);
+        --ac-wt-a: var(--ac-wt-a-dk);
+        --ac-wt-fd: var(--ac-wt-fd-dk);
+        --ac-wt-tt: var(--ac-wt-tt-dk);
+        --ac-bk: var(--ac-bk-dk);
+        --ac-bk-a: var(--ac-bk-a-dk);
+        --ac-bk-fd: var(--ac-bk-fd-dk);
+        --ac-bk-tt: var(--ac-bk-tt-dk);
+        --ac-t1: var(--ac-t1-dk);
+        --ac-t1-a: var(--ac-t1-a-dk);
+        --ac-t1-fd: var(--ac-t1-fd-dk);
+        --ac-t1-tt: var(--ac-t1-tt-dk);
+        --ac-t2: var(--ac-t2-dk);
+        --ac-t2-a: var(--ac-t2-a-dk);
+        --ac-t2-fd: var(--ac-t2-fd-dk);
+        --ac-t2-tt: var(--ac-t2-tt-dk);
+
+        // ---
+
+        --ac-gd-fd-bd: var(--ac-gd-fd-bd-dk);
+        --ac-pl-fd-bd: var(--ac-pl-fd-bd-dk);
+        --ac-pk-fd-bd: var(--ac-pk-fd-bd-dk);
+        --ac-ye-fd-bd: var(--ac-ye-fd-bd-dk);
+        --ac-lm-fd-bd: var(--ac-lm-fd-bd-dk);
+        --ac-aq-fd-bd: var(--ac-aq-fd-bd-dk);
+        --ac-sk-fd-bd: var(--ac-sk-fd-bd-dk);
+        --ac-la-fd-bd: var(--ac-la-fd-bd-dk);
+
+        --ac-bn-fd-bd: var(--ac-bn-fd-bd-dk);
+        --ac-ro-fd-bd: var(--ac-ro-fd-bd-dk);
+        --ac-rd-fd-bd: var(--ac-rd-fd-bd-dk);
+        --ac-og-fd-bd: var(--ac-og-fd-bd-dk);
+        --ac-tu-fd-bd: var(--ac-tu-fd-bd-dk);
+        --ac-gn-fd-bd: var(--ac-gn-fd-bd-dk);
+        --ac-cy-fd-bd: var(--ac-cy-fd-bd-dk);
+        --ac-bu-fd-bd: var(--ac-bu-fd-bd-dk);
+        --ac-vn-fd-bd: var(--ac-vn-fd-bd-dk);
+        --ac-gy-fd-bd: var(--ac-gy-fd-bd-dk);
+
+        --ac-cf-fd-bd: var(--ac-cf-fd-bd-dk);
+        --ac-au-fd-bd: var(--ac-au-fd-bd-dk);
+        --ac-pu-fd-bd: var(--ac-pu-fd-bd-dk);
+        --ac-wn-fd-bd: var(--ac-wn-fd-bd-dk);
+        --ac-ol-fd-bd: var(--ac-ol-fd-bd-dk);
+        --ac-mn-fd-bd: var(--ac-mn-fd-bd-dk);
+        --ac-se-fd-bd: var(--ac-se-fd-bd-dk);
+        --ac-wt-fd-bd: var(--ac-wt-fd-bd-dk);
+        --ac-bk-fd-bd: var(--ac-bk-fd-bd-dk);
+
+        --ac-t1-fd-bd: var(--ac-t1-fd-bd-dk);
+        --ac-t2-fd-bd: var(--ac-t2-fd-bd-dk);
+
+        // ---
+        --btn-reflect: var(--btn-reflect-dk);
+        --btn-shadow: var(--btn-shadow-dk);
+        --btn-raised: var(--btn-raised-dk);
+
+        // 针对 Typora 代码块着色样式变量
+        --cm-keyword: var(--cm-keyword-dk);
+        --cm-variable: var(--cm-variable-dk);
+        --cm-variable-2: var(--cm-variable-2-dk);
+        --cm-variable-3: var(--cm-variable-3-dk);
+        --cm-tag: var(--cm-tag-dk);
+        --cm-attribute: var(--cm-attribute-dk);
+        --cm-string: var(--cm-string-dk);
+        --cm-string-2: var(--cm-string-2-dk);
+        --cm-comment: var(--cm-comment-dk);
+        --cm-header: var(--cm-header-dk);
+        --cm-quote: var(--cm-quote-dk);
+        --cm-hr: var(--cm-hr-dk);
+        --cm-link: var(--cm-link-dk);
+        --cm-negative: var(--cm-negative-dk);
+        --cm-positive: var(--cm-positive-dk);
+        --cm-meta: var(--cm-meta-dk);
+        --cm-bulidin: var(--cm-bulidin-dk);
+        --cm-bracket: var(--cm-bracket-dk);
+        --cm-atom: var(--cm-atom-dk);
+        --cm-number: var(--cm-atom-dk);
+
+        // --------------------
+        // 针对 Typora UI 颜色变量
+        --bg-color: var(--db-dk);
+        --side-bar-bg-color: var(--db-dk);
+        --text-color: var(--df-dk);
+
+        --control-text-color: var(--df-dk);
+        --control-text-hover-color: var(--df-dk);
+        --window-border: 1px solid var(--pn-c-dk);
+
+        --active-file-bg-color:  var(--db-dk);
+        --active-file-text-color: var(--df-dk);
+
+        // --item-hover-bg-color: var(--pn-c-dk);
+        // --item-hover-text-color: var(--df-dk);
+
+        --primary-color: @theme1Dark;
+
+        --search-select-bg-color: fade(#888888, 50%);
+    }
+}
+
+// 主题颜色外观为 dark 时，强制启用暗色模式样式
+.genDarkModeStyle() when (@thmColorScheme = dark) {
+    .genDarkModeVars();
+}
+
+// 主题颜色外观为 auto 时，启用跟随系统的暗色模式样式
+.genDarkModeStyle() when (@thmColorScheme = auto) {
+    @media (prefers-color-scheme: dark) {
+        .genDarkModeVars();
+
+        // 错误图片背景反色
+        #write .md-img-error>.md-meta {
+            filter: var(--v-invert-dark);
+        }
+    }
+}
+.genDarkModeStyle();
+
+// ---------------
+// 仅当浏览器支持背景模糊样式时才启用
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .v-backdrop-blurs {
+        .genBackdropFilter();
+    }
+
+    #write .v-post-card.v-backdrop-blurs {
+        background: var(--pn08);
+    }
+
+    .v-caption.full.v-backdrop-blurs {
+        background: radial-gradient(var(--df09) 50%, var(--df07));
+    }
+}
+
+// 标准风格（渐变）
+.genMaskBackgroundBlursFor(@style) when (@style = std) {
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+        .v-mask.left.v-backdrop-blurs {
+            background: linear-gradient(90deg, @theme1 30%, fade(@theme1, @lgOpacity)), linear-gradient(0deg, fade(@theme1, 50%), transparent 50px, transparent);
+        }
+        .v-mask.right.v-backdrop-blurs {
+            background: linear-gradient(270deg, @theme1 30%, fade(@theme1, @lgOpacity)), linear-gradient(0deg, fade(@theme1, 50%), transparent 50px, transparent);
+        }
+        .v-mask.top.v-backdrop-blurs {
+            background: linear-gradient(180deg, @theme1 40%, fade(@theme1, 50%)), linear-gradient(0deg, fade(@theme1, 50%), transparent 50px, transparent);
+        }
+        .v-mask.bottom.v-backdrop-blurs {
+            background: linear-gradient(0deg, @theme1 40%, fade(@theme1, @lgOpacity));
+        }
+        .v-mask.center.v-backdrop-blurs {
+            background: radial-gradient(ellipse, @theme1 40%, fade(@theme1, @lgOpacity)), linear-gradient(0deg, fade(@theme1, 50%), transparent 50px, transparent);
+        }
+    }
+}
+
+// 波点风格
+.genMaskBackgroundBlursFor(@style) when (@style = dots) {
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+        // 加载提示、欢迎页样式
+        @{writeOnHTML}:not(.done)::before,
+        .v-welcome-page {
+            background: radial-gradient(var(--db06) 4px,var(--db) 4px);
+            background-size: 10px 10px;
+            opacity: 1;
+        }
+    }
+}
+
+// ---------------
+// 针对打印时的样式
+@printMargin: 20px;
+@media print {
+    body.pdfoff::before {
+        content: "抱歉！本页面不支持生成 PDF！\a\aSorry! PDF generation is not supported on this page!" !important;
+        white-space: pre-wrap;
+        padding: 50px 20px;
+        color: var(--db);
+        font: italic var(--v-fw-bd) 1.5em/10 var(--v-fm-stt); // [style] [weight] [size/[line-height]] [family]
+        line-height: 2;
+        text-align: center;
+        overflow: auto;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        z-index: 7000;
+    }
+
+    // 不是使用 VLOOK 打印模式进行打印为 PDF 时样式
+    body:not(.print) .v-print-tip {
+        visibility: visible;
+        font-size: 1.25em;
+        padding: 50px 20px;
+        text-align: left;
+        color: #FFF;
+        background: var(--ac-rd);
+    }
+    body.pdfoff .v-print-tip {
+        visibility: hidden !important;
+    }
+
+    .v-doc-mini-cover {
+        margin: 0;
+    }
+
+    // ---------------
+    // 打印时隐藏的元素【须同步修改 body.print 相关样式】
+    body.pdfoff #write,
+    #write p>em:only-child>sup:only-child, // 页签组语法
+    .v-chapter-nav,
+    .v-toolbar,
+    .v-status-bar,
+    .v-content-helper,
+    .v-mask,
+    .v-link-info-list,
+    .v-font-style,
+    .v-font-style-info,
+    .v-nav-center,
+    .v-nav-center-handle,
+    .v-shortcut-bar,
+    .v-fill-width,
+    content::before,
+    .typora-export-content::before,
+    #write::before,
+    #write::after,
+    .v-welcome-page,
+    .v-print-tip,
+    .v-info-tips {
+        display: none !important;
+    }
+
+    .v-page-break {
+        opacity: 0;
+        height: 0;
+    }
+
+    // ---------------
+    // 分页控制
+    h1,
+    .v-page-break,
+    .md-toc,
+    .v-doc-title + .md-toc, // 无封面时，目录强制分页
+    .footnotes-area {
+        page-break-before: always;
+        break-before: page; // 强制在新页开始
+        margin-top: @printMargin !important;
+    }
+
+    .md-toc {
+        page-break-after: always;
+        break-after: page;
+    }
+
+    // ---------------
+    // 打印时调整样式的元素
+    #write {
+        margin: @printMargin !important;
+        display: block !important;
+    }
+
+    figure,
+    pre,
+    blockquote {
+        white-space: pre-wrap; // 允许自动换行
+        overflow-wrap: break-word; // 单词断行
+        page-break-inside: auto; // 允许分页中断
+        break-inside: auto;       // 新规范写法
+    }
+
+    // 避免内容被分页中断
+    .v-caption,
+    .md-alert,
+    details,
+    summary,
+    blockquote {
+        break-inside: avoid;
+        page-break-inside: avoid; /* 兼容老浏览器 */
+    }
+
+    // 封面、封底的高度调整
+    body:not(.print) @{coverWithoutYAML}, // Typora 直接导出 PDF 的情况
+    body.print.coverfill @{coverWithoutYAML}, // 无 YAML 的情况
+    @{backcover} {
+        height: 95vh !important;
+    }
+
+    // 表格
+    // 【须同步修改 body.print 相关样式】
+    table {
+        white-space: pre-wrap !important;
+    }
+    // 针对 Mermaid 图表
+    // 【须同步修改 body.print 相关样式】
+    .v-caption.mermaid {
+        width: 100% !important;
+    }
+
+    // 明信片
+    // 【须同步修改 body.print 相关样式】
+    #write p:has(img[src*="#card"]) {
+        display: block;
+    }
+    #write img[src*="#card"] {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    #write .v-post-card {
+        display: block;
+        position: unset;
+        transform: unset;
+        border-radius: 0 0 var(--v-r-b) var(--v-r-b-xc);
+    }
+}
+
+// -------------------------------
+// 打印预览模式时的样式调整
+
+// 文档标题
+body.print .v-doc-title {
+    opacity: 1;
+    font: var(--v-fw-tt) @h1FontSize var(--v-fm-h);
+    color: @h1Color;
+    background: @h1Bg;
+    padding: @h1Padding;
+    margin: 5em 0 8em;
+    box-shadow: @h1Shadow;
+    text-stroke: @h1TextStroke;
+    text-shadow: @h1TextShadow;
+    text-align: @h1TextAlign;
+    border-radius: @h1BorderRadius;
+    border-left: @h1BorderLeft;
+    border-right: @h1BorderRight;
+    border-top: @h1BorderTop;
+    border-bottom: @h1BorderBottom;
+}
+
+// 打印时隐藏目录
+body.print.notoc .md-toc {
+    display: none !important;
+}
+
+// 打印时取消图片的模糊滤镜
+body.print.noblur @{writeOnEditing} .md-image[data-src*="#blur"]>img, // 编辑时
+body.print.noblur @{sharpMagicImgContanier} img[src*="#blur"],
+body.print.noblur @{sharpMagicImgContanier} svg[data-inject-url*="#blur"] {
+    filter: none !important;
+}
+
+// 打印提示框
+body.print .v-print-tip {
+    visibility: visible;
+}
+
+// ---------------
+// 打印时隐藏的元素【须同步修改 @media print 相关样式】
+body.print :is(
+    #write p>em:only-child>sup:only-child, // 页签组语法
+    .v-chapter-nav,
+    .v-toolbar,
+    .v-status-bar,
+    .v-content-helper,
+    .v-mask,
+    .v-link-info-list,
+    .v-font-style,
+    .v-font-style-info,
+    .v-nav-center,
+    .v-nav-center-handle,
+    .v-shortcut-bar,
+    .v-fill-width),
+body.print #write.done::before,
+body.print #write.done::after,
+body.print content::before,
+body.print .typora-export-content::before {
+    display: none !important;
+}
+
+// 表格
+// 【须同步修改 @media print 相关样式】
+body.print table {
+    white-space: pre-wrap !important;
+}
+// 针对 Mermaid 图表
+// 【须同步修改 @media print 相关样式】
+body.print .v-caption.mermaid {
+    width: 100% !important;
+}
+
+// 明信片
+// 【须同步修改 @media print 相关样式】
+body.print #write p:has(img[src*="#card"]) {
+    display: block;
+}
+body.print #write img[src*="#card"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+body.print #write .v-post-card {
+    display: block;
+    position: unset;
+    transform: unset;
+    border-radius: 0 0 var(--v-r-b) var(--v-r-b-xc);
+}
+
+// 取消所有交互，避免触发 hover、active 等样式
+.genWriteOnPrint() when not (isdefined(@devMode)) {
+    body.print #write {
+        pointer-events: none;
+    }
+}
+.genWriteOnPrint();
+
+body.print .typora-export-content.fill-width #write.max {
+    padding: 0 !important;
+    margin: @printMargin !important;
+}

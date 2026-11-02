@@ -1,0 +1,23 @@
+{
+  "host": "Obsidian 1.15.0 macOS",
+  "vault": "test-vault",
+  "note": "VLOOK 语法示例.md",
+  "palette": "Fancy",
+  "actions": [
+    "选择已有综合示例标签",
+    "从编辑切换阅读视图",
+    "命令面板打开完整 VLOOK 预览"
+  ],
+  "observed": [
+    "原生阅读封面与封底图片、文字可见",
+    "分屏完整预览出现封面、标题、作者和版本徽章",
+    "完整预览原版顶部和底部工具栏可见",
+    "字体风格提示已完成"
+  ],
+  "screenshot": "obsidian-115-fancy-split-preview-proof.png",
+  "limits": [
+    "未操作主题切换，本次验证现有 Fancy 配色",
+    "未逐张核对32图和公式",
+    "未验证底部工具栏交互或PDF输出"
+  ]
+}

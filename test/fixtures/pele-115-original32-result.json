@@ -1,0 +1,393 @@
+{
+  "done": true,
+  "rows": [
+    {
+      "id": 1,
+      "title": "流程图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 2,
+      "title": "流程图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 3,
+      "title": "分角色流程图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 4,
+      "title": "顺序图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 5,
+      "title": "流程图扩展的状态机图",
+      "svg": 4,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 6,
+      "title": "流程图扩展的状态机图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 7,
+      "title": "标准状态机图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 8,
+      "title": "标准状态机图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 9,
+      "title": "类图",
+      "svg": 4,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 10,
+      "title": "类图",
+      "svg": 4,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 11,
+      "title": "实体关系图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 12,
+      "title": "方块图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 13,
+      "title": "四象限图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 14,
+      "title": "数据包图",
+      "svg": 4,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 15,
+      "title": "架构图",
+      "svg": 11,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 16,
+      "title": "ZenUML 图",
+      "svg": 4,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 17,
+      "title": "ZenUML 图",
+      "svg": 4,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 18,
+      "title": "思维导图",
+      "svg": 4,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 19,
+      "title": "Gitgraph 图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 20,
+      "title": "Gitgraph 图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 21,
+      "title": "Gitgraph 图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 22,
+      "title": "桑基图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 23,
+      "title": "桑基图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 24,
+      "title": "时间线",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 25,
+      "title": "时间线",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 26,
+      "title": "时间线",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 27,
+      "title": "XY 图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 28,
+      "title": "饼图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 29,
+      "title": "雷达图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 30,
+      "title": "树状图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 31,
+      "title": "看板图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    },
+    {
+      "id": 32,
+      "title": "甘特图",
+      "svg": 1,
+      "error": "",
+      "passed": true
+    }
+  ],
+  "layout": [
+    {
+      "elements": 146,
+      "id": 1,
+      "width": 781
+    },
+    {
+      "elements": 19,
+      "id": 2,
+      "width": 658
+    },
+    {
+      "elements": 68,
+      "id": 3,
+      "width": 959
+    },
+    {
+      "elements": 171,
+      "id": 4,
+      "width": 783
+    },
+    {
+      "elements": 81,
+      "id": 5,
+      "width": 1000
+    },
+    {
+      "elements": 76,
+      "id": 6,
+      "width": 436
+    },
+    {
+      "elements": 49,
+      "id": 7,
+      "width": 282
+    },
+    {
+      "elements": 141,
+      "id": 8,
+      "width": 902
+    },
+    {
+      "elements": 176,
+      "id": 9,
+      "width": 1000
+    },
+    {
+      "elements": 246,
+      "id": 10,
+      "width": 1000
+    },
+    {
+      "elements": 137,
+      "id": 11,
+      "width": 919
+    },
+    {
+      "elements": 29,
+      "id": 12,
+      "width": 705
+    },
+    {
+      "elements": 36,
+      "id": 13,
+      "width": 500
+    },
+    {
+      "elements": 91,
+      "id": 14,
+      "width": 1000
+    },
+    {
+      "elements": 76,
+      "id": 15,
+      "width": 504
+    },
+    {
+      "elements": 71,
+      "id": 16,
+      "width": 582
+    },
+    {
+      "elements": 76,
+      "id": 17,
+      "width": 658
+    },
+    {
+      "elements": 100,
+      "id": 18,
+      "width": 1000
+    },
+    {
+      "elements": 78,
+      "id": 19,
+      "width": 507
+    },
+    {
+      "elements": 110,
+      "id": 20,
+      "width": 804
+    },
+    {
+      "elements": 155,
+      "id": 21,
+      "width": 986
+    },
+    {
+      "elements": 56,
+      "id": 22,
+      "width": 616
+    },
+    {
+      "elements": 46,
+      "id": 23,
+      "width": 616
+    },
+    {
+      "elements": 50,
+      "id": 24,
+      "width": 996
+    },
+    {
+      "elements": 65,
+      "id": 25,
+      "width": 996
+    },
+    {
+      "elements": 35,
+      "id": 26,
+      "width": 604
+    },
+    {
+      "elements": 56,
+      "id": 27,
+      "width": 700
+    },
+    {
+      "elements": 40,
+      "id": 28,
+      "width": 374
+    },
+    {
+      "elements": 33,
+      "id": 29,
+      "width": 516
+    },
+    {
+      "elements": 34,
+      "id": 30,
+      "width": 656
+    },
+    {
+      "elements": 76,
+      "id": 31,
+      "width": 1000
+    },
+    {
+      "elements": 52,
+      "id": 32,
+      "width": 800
+    }
+  ],
+  "engine": "Installed Obsidian 1.15 Pele; SHA256 9bf34b3a9a19351dc69d0d238e365560331a8ae392c41656df7f5090653253d0",
+  "scope": "Original 32 chart fences rendered in controlled browser with installed host engine and plugin ZenUML fallback. Does not prove all four Obsidian modes or theme styling."
+}

@@ -1,0 +1,11 @@
+// Fixed public-syntax fixture; no vault reads or remote resources.
+import {createServer} from 'node:http';
+import {readFile} from 'node:fs/promises';
+import {build} from 'esbuild';
+const bundle=await build({stdin:{contents:`import {processImages} from './src/features/image';for(const root of document.querySelectorAll('section'))processImages(root,{app:{},sourcePath:'fixture.md',settings:{captions:false}});`,resolveDir:new URL('../',import.meta.url).pathname,loader:'ts'},bundle:true,write:false,format:'iife',platform:'browser'});
+const css=await readFile(new URL('../styles/image-compat.css',import.meta.url),'utf8');
+const svg='<svg xmlns="http://www.w3.org/2000/svg" width="160" height="100"><rect width="160" height="100" fill="#e8f1ff"/><path d="M20 20H100V5L145 50L100 95V80H20Z" fill="#3978e8"/><text x="25" y="60" fill="white" font-size="24">A</text></svg>';
+const examples=[['原图',''],['旋转 180°','#180deg'],['水平翻转','#fliph'],['垂直翻转','#flipv'],['双向翻转','#fliph#flipv'],['旋转并水平翻转','#180deg#fliph']];
+const row=()=>examples.map(([title,hash])=>`<figure><img alt="${title}" src="/arrow.svg${hash}"><figcaption>${title}</figcaption></figure>`).join('');
+const page=`<!doctype html><meta charset="utf-8"><title>历史图片魔法兼容验证</title><style>${css}body{--ac-bu:#3978e8;font:16px system-ui;margin:28px;color:#17355f}section{display:flex;flex-wrap:wrap;gap:24px}figure{margin:8px 0;text-align:center;width:170px}figcaption{margin-top:12px}img{width:160px;height:100px}</style><h1>历史图片魔法兼容验证</h1><h2>阅读 / 编辑区块选择器</h2><section class="markdown-rendered">${row()}</section><h2>完整预览 / 导出选择器</h2><section id="write">${row()}</section>`;
+createServer((req,res)=>{if(new URL(req.url,'http://localhost').pathname==='/arrow.svg'){res.setHeader('Content-Type','image/svg+xml');res.end(req.url.includes('fill=')?svg.replace(/<rect[^>]*\/>/,''):svg)}else if(req.url==='/bundle.js'){res.setHeader('Content-Type','text/javascript');res.end(bundle.outputFiles[0].contents)}else if(req.url==='/'||req.url==='/svg'){res.setHeader('Content-Type','text/html;charset=utf-8');res.end(req.url==='/svg'?page.replaceAll('/arrow.svg#','/arrow.svg?fill=bu#').replaceAll('src="/arrow.svg"','src="/arrow.svg?fill=bu"')+'<script src="/bundle.js"></script>':page)}else{res.statusCode=404;res.end('missing')}}).listen(18761,'127.0.0.1',()=>console.log('http://127.0.0.1:18761/'));

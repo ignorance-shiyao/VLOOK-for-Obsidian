@@ -1,0 +1,52 @@
+{
+  "kind": "controlled-browser-production-css",
+  "before": [
+    {
+      "headHeight": 74.5,
+      "headTop": 133.9375,
+      "id": "editor",
+      "rows": [
+        133.9375,
+        170.4375
+      ],
+      "scroll": 0
+    },
+    {
+      "headHeight": 74.5,
+      "headTop": 176.4375,
+      "id": "viewer",
+      "rows": [
+        176.4375,
+        212.9375
+      ],
+      "scroll": 0
+    }
+  ],
+  "after": [
+    {
+      "headHeight": 74.5,
+      "headTop": 133.9375,
+      "id": "editor",
+      "rows": [
+        133.9375,
+        170.4375
+      ],
+      "scroll": 1440
+    },
+    {
+      "headHeight": 74.5,
+      "headTop": 176.4375,
+      "id": "viewer",
+      "rows": [
+        176.4375,
+        212.9375
+      ],
+      "scroll": 1440
+    }
+  ],
+  "conclusion": "两类容器均滚动1440px，双行表头位置、行间距及高度不变",
+  "limits": [
+    "固定DOM及生产CSS，不代替Obsidian虚拟化和全部主题实机验收",
+    "HTML导出和PDF路径未在本实验验证"
+  ]
+}

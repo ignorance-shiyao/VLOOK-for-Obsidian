@@ -1,0 +1,14 @@
+/* Keep diagram colors and geometry; highlight whole elements for presentation. */
+@media screen and (hover: hover) {
+    :is(.markdown-rendered .mermaid, .md-diagram-panel) svg
+    :is(g.node, g.cluster, g.edgeLabel, g.actor, text.actor, text.messageText, text.loopText):hover {
+        filter: drop-shadow(0 0 3px var(--interactive-accent, var(--ac-t1, #477ee9)));
+    }
+}
+
+/* Original Restyler uses the active theme's block radius for sequence groups.
+   CSS resolves after detached reading sections mount and follows palette changes. */
+:is(.markdown-rendered .mermaid, .md-diagram-panel) svg[aria-roledescription="sequence"] :is(.cluster rect, g > rect.rect:has(+ text.text)) {
+    rx: var(--v-r-b, 0px);
+    ry: var(--v-r-b, 0px);
+}

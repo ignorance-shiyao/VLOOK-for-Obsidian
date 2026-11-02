@@ -1,0 +1,28 @@
+{
+  "file": "obsidian/test-vault/VLOOK 移植回归.html",
+  "sha256": "7cf62af255eebeeca52a434b7f4a1475472ae1616a96c85c29d17b31e2e1f17d",
+  "diagrams": 3,
+  "zenuml": 2,
+  "images": [
+    {
+      "src": "pic/VLOOK.png#200w",
+      "title": "真实图片题注"
+    },
+    {
+      "src": "pic/source-pairing/one/a.svg#200w",
+      "title": "甲：200px"
+    },
+    {
+      "src": "pic/source-pairing/two/a.svg#400w",
+      "title": "乙：400px"
+    },
+    {
+      "src": "pic/VLOOK.png#200w",
+      "title": "脚注内图片：200px"
+    }
+  ],
+  "firstParagraph": true,
+  "footnoteDiagram": true,
+  "leakedAppUrls": 0,
+  "scope": "Real Obsidian 1.15 HTML export structural verification; exported browser interactions and PDF not yet accepted"
+}

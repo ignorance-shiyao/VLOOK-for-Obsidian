@@ -1,0 +1,30 @@
+{
+  "formula": "E=mc^2",
+  "glyphs": [
+    {
+      "class": "mjx-c1D438",
+      "text": "𝐸",
+      "width": 15.2734375
+    },
+    {
+      "class": "mjx-c3D",
+      "text": "=",
+      "width": 15.5546875
+    },
+    {
+      "class": "mjx-c1D45A",
+      "text": "𝑚",
+      "width": 17.5546875
+    },
+    {
+      "class": "mjx-c1D450",
+      "text": "𝑐",
+      "width": 8.65625
+    },
+    {
+      "class": "mjx-c32",
+      "text": "2",
+      "width": 7.0625
+    }
+  ]
+}

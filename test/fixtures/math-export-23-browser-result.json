@@ -1,0 +1,17 @@
+{
+  "cases": 23,
+  "errors": 0,
+  "fonts": "loaded",
+  "formulas": 23,
+  "labels": [
+    "mjx-eqn:mymath-1",
+    "mjx-eqn:mymath-2",
+    "mjx-eqn:mymath-3"
+  ],
+  "zeroGlyphs": [],
+  "referenceJump": {
+    "hash": "#mjx-eqn%3Amymath-1",
+    "targetTop": 0.1796875
+  },
+  "scope": "23 captured real host MathJax outputs passed through toTyporaDom and collectMathStyles with 24 verified fonts from installed Obsidian. Browser rendering and reference navigation checked; not a full live four-mode document acceptance."
+}

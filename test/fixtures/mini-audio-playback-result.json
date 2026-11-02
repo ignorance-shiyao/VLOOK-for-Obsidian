@@ -1,0 +1,32 @@
+[
+  {
+    "currentTime": 0,
+    "duration": 30,
+    "durationText": "30″",
+    "error": null,
+    "label": "播放音频",
+    "paused": true,
+    "readyState": 4,
+    "state": "ready"
+  },
+  {
+    "currentTime": 3.654577,
+    "duration": 30,
+    "durationText": "30″",
+    "error": null,
+    "label": "暂停音频",
+    "paused": false,
+    "readyState": 4,
+    "state": "playing"
+  },
+  {
+    "currentTime": 3.702964,
+    "duration": 30,
+    "durationText": "30″",
+    "error": null,
+    "label": "播放音频",
+    "paused": true,
+    "readyState": 4,
+    "state": "ready"
+  }
+]

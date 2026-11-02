@@ -1,0 +1,235 @@
+{
+  "file": "obsidian/test-vault/VLOOK 语法示例.html",
+  "sha256": "2763bcd86f4dc6347fcdda8226d3499239ef09a8b65b01cbe33217bd64338363",
+  "source": "released/samples/chart.md",
+  "charts": 32,
+  "zenuml": 2,
+  "leakedAppUrls": 0,
+  "rows": [
+    {
+      "id": 1,
+      "title": "流程图",
+      "svg": 1,
+      "elements": 146,
+      "hasCodePanel": true
+    },
+    {
+      "id": 2,
+      "title": "流程图",
+      "svg": 1,
+      "elements": 19,
+      "hasCodePanel": true
+    },
+    {
+      "id": 3,
+      "title": "分角色流程图",
+      "svg": 1,
+      "elements": 68,
+      "hasCodePanel": true
+    },
+    {
+      "id": 4,
+      "title": "顺序图",
+      "svg": 1,
+      "elements": 171,
+      "hasCodePanel": true
+    },
+    {
+      "id": 5,
+      "title": "流程图扩展的状态机图",
+      "svg": 1,
+      "elements": 78,
+      "hasCodePanel": true
+    },
+    {
+      "id": 6,
+      "title": "流程图扩展的状态机图",
+      "svg": 1,
+      "elements": 76,
+      "hasCodePanel": true
+    },
+    {
+      "id": 7,
+      "title": "标准状态机图",
+      "svg": 1,
+      "elements": 49,
+      "hasCodePanel": true
+    },
+    {
+      "id": 8,
+      "title": "标准状态机图",
+      "svg": 1,
+      "elements": 141,
+      "hasCodePanel": true
+    },
+    {
+      "id": 9,
+      "title": "类图",
+      "svg": 1,
+      "elements": 173,
+      "hasCodePanel": true
+    },
+    {
+      "id": 10,
+      "title": "类图",
+      "svg": 1,
+      "elements": 243,
+      "hasCodePanel": true
+    },
+    {
+      "id": 11,
+      "title": "实体关系图",
+      "svg": 1,
+      "elements": 137,
+      "hasCodePanel": true
+    },
+    {
+      "id": 12,
+      "title": "方块图",
+      "svg": 1,
+      "elements": 29,
+      "hasCodePanel": true
+    },
+    {
+      "id": 13,
+      "title": "四象限图",
+      "svg": 1,
+      "elements": 36,
+      "hasCodePanel": true
+    },
+    {
+      "id": 14,
+      "title": "数据包图",
+      "svg": 1,
+      "elements": 88,
+      "hasCodePanel": true
+    },
+    {
+      "id": 15,
+      "title": "架构图",
+      "svg": 11,
+      "elements": 76,
+      "hasCodePanel": true
+    },
+    {
+      "id": 16,
+      "title": "ZenUML 图",
+      "svg": 4,
+      "elements": 71,
+      "hasCodePanel": true
+    },
+    {
+      "id": 17,
+      "title": "ZenUML 图",
+      "svg": 4,
+      "elements": 76,
+      "hasCodePanel": true
+    },
+    {
+      "id": 18,
+      "title": "思维导图",
+      "svg": 1,
+      "elements": 98,
+      "hasCodePanel": true
+    },
+    {
+      "id": 19,
+      "title": "Gitgraph 图",
+      "svg": 1,
+      "elements": 78,
+      "hasCodePanel": true
+    },
+    {
+      "id": 20,
+      "title": "Gitgraph 图",
+      "svg": 1,
+      "elements": 110,
+      "hasCodePanel": true
+    },
+    {
+      "id": 21,
+      "title": "Gitgraph 图",
+      "svg": 1,
+      "elements": 155,
+      "hasCodePanel": true
+    },
+    {
+      "id": 22,
+      "title": "桑基图",
+      "svg": 1,
+      "elements": 56,
+      "hasCodePanel": true
+    },
+    {
+      "id": 23,
+      "title": "桑基图",
+      "svg": 1,
+      "elements": 46,
+      "hasCodePanel": true
+    },
+    {
+      "id": 24,
+      "title": "时间线",
+      "svg": 1,
+      "elements": 50,
+      "hasCodePanel": true
+    },
+    {
+      "id": 25,
+      "title": "时间线",
+      "svg": 1,
+      "elements": 65,
+      "hasCodePanel": true
+    },
+    {
+      "id": 26,
+      "title": "时间线",
+      "svg": 1,
+      "elements": 35,
+      "hasCodePanel": true
+    },
+    {
+      "id": 27,
+      "title": "XY 图",
+      "svg": 1,
+      "elements": 56,
+      "hasCodePanel": true
+    },
+    {
+      "id": 28,
+      "title": "饼图",
+      "svg": 1,
+      "elements": 40,
+      "hasCodePanel": true
+    },
+    {
+      "id": 29,
+      "title": "雷达图",
+      "svg": 1,
+      "elements": 33,
+      "hasCodePanel": true
+    },
+    {
+      "id": 30,
+      "title": "树状图",
+      "svg": 1,
+      "elements": 34,
+      "hasCodePanel": true
+    },
+    {
+      "id": 31,
+      "title": "看板图",
+      "svg": 1,
+      "elements": 78,
+      "hasCodePanel": true
+    },
+    {
+      "id": 32,
+      "title": "甘特图",
+      "svg": 1,
+      "elements": 52,
+      "hasCodePanel": true
+    }
+  ],
+  "scope": "Actual Obsidian 1.15 export of consolidated sample; all 32 source-order chart panels contain non-error SVG with content. Browser interaction, themes and all editor/reading cases remain separate acceptance."
+}

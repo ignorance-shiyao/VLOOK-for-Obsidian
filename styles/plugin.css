@@ -1,0 +1,374 @@
+/* ===== VLOOK™ for Obsidian：插件自身样式（与主题无关的布局适配） ===== */
+
+.vlook-icon-sprite { display: none; }
+
+/* 题注语法段落：题注已显示在内容上 */
+/* 不用 display:none：Obsidian 阅读视图按位置推算段落高度，隐藏段落会被记成巨大高度，导致跳转后整屏空白 */
+.markdown-rendered .vlook-caption-source { height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; border: 0 !important; overflow: hidden !important; visibility: hidden; }
+
+/* 复制成功的反馈 */
+.vlook-copied { outline: 2px solid var(--ac-gn, var(--color-green)) !important; outline-offset: 1px; transition: outline .2s; }
+
+/* ---------- 页签组 ---------- */
+.markdown-rendered .vlook-tab-hidden { height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; border: 0 !important; overflow: hidden !important; visibility: hidden; }
+.markdown-rendered .vlook-tab-bar-section { margin-bottom: 0; }
+.markdown-rendered .vlook-tab-bar-section .v-tab-box { margin: 1em 0 0; }
+.markdown-rendered .vlook-tab-bar-section .v-tab-group { position: relative; top: 0; display: flex; overflow-x: auto; }
+.markdown-rendered .vlook-tab-bar-section .tab-group-wrap { display: flex; gap: 4px; }
+.markdown-rendered .vlook-tab-bar-section .tab-group-wrap > span {
+    display: inline-flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap;
+    padding: 4px 12px; border-radius: var(--c-br-s, 6px) var(--c-br-s, 6px) 0 0; opacity: .6;
+}
+.markdown-rendered .vlook-tab-bar-section .tab-group-wrap > span.current { opacity: 1; font-weight: bold; box-shadow: 0 -3px 0 var(--ac-t1) inset; }
+.markdown-rendered .vlook-tab-member > :first-child { margin-top: 0; }
+
+/* ---------- 分栏（块级） ---------- */
+.markdown-rendered .vlook-col-marker { height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; border: 0 !important; overflow: hidden !important; visibility: hidden; }
+.markdown-rendered .vlook-col.vlook-col-quote {
+    --vlook-col-gap: 12px;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    /* 减去 5px：相邻 inline-block 之间的空白字符会占位，刚好 100% 时最后一栏会折行 */
+    width: calc((100% - (var(--vlook-col-count) - 1) * var(--vlook-col-gap)) / var(--vlook-col-count) - 5px);
+    margin-right: var(--vlook-col-gap);
+}
+.markdown-rendered .vlook-col.vlook-col-quote.vlook-col-last { margin-right: 0; }
+.markdown-rendered .vlook-col.vlook-col-quote > :is(blockquote, details, .md-alert, .callout) { margin-top: .5em; margin-bottom: .5em; }
+.markdown-rendered .vlook-col.vlook-col-list > :is(ul, ol) {
+    display: grid;
+    grid-template-columns: repeat(var(--vlook-col-count), minmax(0, 1fr));
+    column-gap: 2em;
+}
+@media (max-width: 600px) {
+    .markdown-rendered .vlook-col.vlook-col-quote { display: block; width: auto; margin-right: 0; }
+    .markdown-rendered .vlook-col.vlook-col-list > :is(ul, ol) { display: block; }
+}
+
+/* ---------- 不发布的章节（导出时移除，编辑时弱化显示） ---------- */
+.markdown-rendered .vlook-unpub { opacity: .45; }
+.markdown-source-view .cm-line.vlook-unpub { opacity: .45; }
+.v-tbl-row-g-btn:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
+.markdown-rendered .vlook-unpub :is(h1, h2, h3, h4, h5, h6)::after {
+    content: " ⦸"; font-size: .6em; vertical-align: middle; opacity: .7;
+}
+
+/* ---------- 封面 ---------- */
+.markdown-rendered .vlook-cover-section h6.vlook-cover .heading-collapse-indicator,
+.markdown-rendered .vlook-back-cover-section h1.vlook-back-cover .heading-collapse-indicator { display: none; }
+
+/* ---------- 编辑模式的行内渲染 ---------- */
+.markdown-source-view .vlook-inline.markdown-rendered { display: inline; padding: 0; margin: 0; background: none; font-size: inherit; }
+.markdown-source-view .vlook-inline em:has(> sub) { display: none; }
+
+/* ---------- VLOOK 预览视图 ---------- */
+.vlook-preview-container { box-sizing: border-box; padding: 0 0 var(--vlook-preview-bottom-space, 0px) !important; overflow: hidden !important; }
+.vlook-preview-frame { width: 100%; height: 100%; border: 0; display: block; background: var(--background-primary); }
+
+/* ---------- 主题切换（状态栏） ---------- */
+
+/* ---------- [TOC] 目录（与 Typora 基础样式一致） ---------- */
+.markdown-rendered .md-toc { margin: 1em 0; }
+.markdown-rendered .md-toc-item { display: block; }
+.markdown-rendered .md-toc-item a { text-decoration: none; cursor: pointer; }
+.markdown-rendered td audio[controls] { min-width: 200px; }
+
+/* 原生阅读视图代码块助手 */
+pre[data-vlook-code] > .copy-code-button { display: none; }
+pre[data-vlook-code] > code { display: block; white-space: pre; overflow-x: auto; }
+pre.vlook-code-wrap > code { white-space: pre-wrap; overflow-wrap: anywhere; }
+pre.vlook-code-collapsed > code { max-height: 28em; overflow-y: auto; }
+pre[data-vlook-code] { position: relative; }
+.vlook-code-active-line { position:absolute;pointer-events:none;background:var(--text-selection,rgba(80,130,220,.2));opacity:.45; }
+.vlook-code-active-line[hidden] { display:none; }
+@media print { .vlook-code-active-line { display:none !important; } }
+.vlook a[data-vlook-ref]::before { content: attr(data-vlook-ref) " "; font-variant-numeric: tabular-nums; opacity: .7; }
+.vlook a.vlook-link-missing { text-decoration: underline wavy var(--text-error, #d44); }
+
+.vlook-reading-effect { position: fixed; z-index: 1000; pointer-events: none; overflow: hidden; }
+.vlook-reading-effect[hidden] { display: none; }
+.vlook-laser-cursor, .vlook-laser-cursor * { cursor: none !important; }
+.vlook-effect-spotlight { background: radial-gradient(circle at var(--vlook-pointer-x) var(--vlook-pointer-y), transparent var(--vlook-spotlight-radius, 180px), rgb(0 0 0 / .5) calc(var(--vlook-spotlight-radius, 180px) + 10px), rgb(0 0 0 / .9) 900px); }
+.vlook-effect-laser::after { content: ""; position: absolute; left: calc(var(--vlook-pointer-x) - var(--cur-laser-x, 25px)); top: calc(var(--vlook-pointer-y) - var(--cur-laser-y, 25px)); width: 50px; height: 50px; background-image: var(--cur-laser, radial-gradient(circle, #fff 0 2px, #ff3349 4px, transparent 20px)); background-repeat: no-repeat; background-position: 0 0; background-size: auto; mix-blend-mode: var(--cur-mix, normal); }
+.vlook-reading-gray { filter: grayscale(1); }
+.vlook-reading-wide .markdown-preview-sizer { max-width: none !important; }
+.vlook-reading-wide .cm-contentContainer { max-width: none !important; }
+@media print {
+    .vlook-reading-effect, .vlook-code-tools { display: none !important; }
+    /* Screen folding and horizontal scrollers must never clip printed source. */
+    pre[data-vlook-code], pre[data-vlook-code] > code {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    pre[data-vlook-code] > code { white-space: pre-wrap !important; overflow-wrap: anywhere !important; }
+}
+
+.vlook-editor-block { position: relative; padding-block: 8px; }
+.vlook-editor-section { min-width: 0; }
+.vlook-editor-render > .vlook-tab-hidden { display: none; }
+.cm-line[data-vlook-header-num]::before { content: attr(data-vlook-header-num) " "; color: var(--ac-t1); opacity: .65; font-variant-numeric: tabular-nums; }
+.vlook-editor-section.vlook-mini-cover-section { margin-bottom: 1em; }
+
+/* 原版分页语法：屏幕保留可识别标记，打印在其后起新页。 */
+@media print {
+    .markdown-rendered .v-page-break {
+        break-before: page;
+        page-break-before: always;
+        height: 0 !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        opacity: 0;
+    }
+}
+
+.markdown-rendered table.vlook-table-wrap :is(th,td) { white-space:normal !important; overflow-wrap:anywhere; }
+.markdown-rendered table.vlook-table-nowrap :is(th,td) { white-space:nowrap !important; }
+.markdown-rendered table.vlook-table-unfreeze :is(th,td):first-child { position:static !important; }
+.markdown-rendered table.vlook-table-reading:focus { outline:none; }
+.markdown-rendered table .vlook-table-axis { background:var(--background-modifier-hover) !important; }
+.markdown-rendered table .vlook-table-current { outline:2px solid var(--interactive-accent); outline-offset:-2px; }
+@media print {
+    .markdown-rendered table .vlook-table-current { outline:none; }
+    .markdown-rendered table .vlook-table-axis { background:transparent !important; }
+}
+/* 手动冻结不依赖主题的 --tbl-freeze-column 自动检测。 */
+.markdown-rendered table.vlook-table-freeze tr > :is(th,td):first-child:not([data-rowspan]):not(.v-empty-cell) {
+    position:sticky !important;
+    left:0;
+    z-index:2;
+    background-color:var(--background-primary);
+}
+@media print {
+    .markdown-rendered table.vlook-table-freeze tr > :is(th,td):first-child { position:static !important; }
+}
+.vlook-content-viewer { color:var(--text-normal); background:var(--background-primary); border:1px solid var(--background-modifier-border); border-radius:var(--radius-l); padding:12px; box-shadow:var(--shadow-l); }
+.vlook-content-full { width:calc(100vw - 48px); height:calc(100vh - 48px); max-width:none; max-height:none; }
+.vlook-content-viewer::backdrop { background:rgb(0 0 0 / .55); }
+.vlook-content-body img { max-width:100%; }
+.vlook-content-pip { position:fixed; left:auto; top:auto; right:24px; bottom:60px; margin:0; width:480px; height:360px; max-width:90vw; max-height:85vh; resize:both; overflow:hidden; z-index:1000; }
+.vlook-content-placeholder { display:grid; place-items:center; color:var(--text-muted); border:1px dashed var(--background-modifier-border); }
+@media print { .vlook-view-menu,.vlook-content-viewer { display:none !important; } }
+.vlook-content-viewer[open] { display:flex; flex-direction:column; }
+.markdown-reading-view .vlook-roaming-current { outline:2px solid var(--interactive-accent); outline-offset:4px; border-radius:4px; background-color:var(--background-modifier-hover); }
+@media print { .markdown-reading-view .vlook-roaming-current { outline:none; background-color:transparent; } }
+.vlook-reading-progress { font-variant-numeric:tabular-nums; min-width:62px; white-space:nowrap; }
+.vlook-reading-progress[hidden] { display:none; }
+body.vlook-quiet-view :is(.workspace-ribbon,.status-bar,.workspace-tab-header-container,.view-header) { visibility:hidden !important; }
+body.vlook-quiet-view .workspace-leaf.vlook-quiet-leaf {
+    position:fixed !important; inset:32px 0 0 !important; width:100vw !important; height:calc(100vh - 32px) !important;
+    z-index:40; background:var(--background-primary); border-radius:0;
+}
+body.vlook-quiet-view .vlook-quiet-leaf :is(.vlook-view-menu,.vlook-code-tools) { display:none !important; }
+@media print { body.vlook-quiet-view .workspace-leaf.vlook-quiet-leaf { position:static !important; width:auto !important; height:auto !important; } }
+
+/* 原生幻灯片：覆盖窗口而不修改工作区布局。 */
+dialog.vlook-native-slides { position: fixed; inset: 0; margin: 0; padding: 0; width: 100vw; height: 100vh; max-width: none; max-height: none; border: 0; background: var(--background-primary); color: var(--text-normal); }
+.vlook-native-slides[open] { display: flex; flex-direction: column; }
+.vlook-native-slides .vlook-slide-body { flex: 1; min-height: 0; overflow: auto; padding: 4vh 5vw; }
+.vlook-native-slides .vlook-slide-card { max-width: 1200px; margin: auto; }
+.vlook-native-slides .vlook-slide-controls { display: flex; gap: .5em; align-items: center; flex-wrap: wrap; padding: .6em 1em; background: var(--background-secondary); }
+.vlook-native-slides .vlook-slide-controls .vlook-dropdown { max-width:35vw; }
+.vlook-native-slides .vlook-unpub { display: none; }
+/* 原版全屏表格和编辑时冻结表头；整个 thead 保留多行表头相对位置。 */
+.vlook-content-viewer table > thead,
+.markdown-source-view .vlook-editor-render table > thead {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background-color: var(--background-primary);
+}
+@media print {
+    .vlook-content-viewer table > thead,
+    .markdown-source-view .vlook-editor-render table > thead { position: static; }
+}
+/* 全屏由内容区统一滚动，内层横向包装不能成为表头的 sticky 容器。 */
+.vlook-content-full .vlook-content-body :is(.table-wrapper,.v-cap-cntr,.v-caption):has(table) {
+    overflow: visible !important;
+}
+
+.vlook-resource-error {
+  display: inline-flex; align-items: center; gap: .5em; margin: .25em;
+  padding: .25em .5em; border: 1px solid var(--text-error, #c44);
+  border-radius: var(--radius-s, 4px); color: var(--text-error, #c44);
+  font-size: var(--font-smallest, 12px); vertical-align: middle;
+}
+.vlook-resource-error button { font-size: inherit; height: auto; padding: .15em .5em; }
+@media print { .vlook-resource-error button { display: none; } }
+
+@media screen {
+    .v-coating[role="button"]:focus-visible {
+        outline: 2px solid var(--interactive-accent, var(--ac-t1));
+        outline-offset: 3px;
+    }
+}
+
+.vlook-copy-fallback { display:inline-flex; flex-direction:column; gap:6px; width:min(100%,28rem); margin:6px; padding:10px; border:1px solid var(--background-modifier-border); border-radius:8px; background:var(--background-primary); color:var(--text-normal); font:var(--font-ui-small) var(--font-interface); }
+.vlook-copy-fallback textarea { width:100%; box-sizing:border-box; resize:vertical; font-family:var(--font-monospace); }
+.vlook-copy-fallback button { align-self:flex-end; }
+@media print { .vlook-copy-fallback { display:none!important; } }
+
+@media screen { .vlook-keyboard-copy:focus-visible { outline:2px solid var(--interactive-accent, var(--ac-t1)); outline-offset:3px; } }
+
+.vlook-editor-block:focus-visible{outline:2px solid var(--interactive-accent);outline-offset:3px}
+
+/* 视图与操作：区块右上角常驻小图标，悬停或点击直接展开分组面板；颜色与圆角取当前 VLOOK 主题变量 */
+.vlook-view-menu { --vm-accent: var(--ac-t1, var(--interactive-accent)); --vm-accent-soft: var(--ac-t1-fd, var(--background-modifier-hover)); --vm-bg: var(--background-modifier-hover); position:relative; height:0; margin:0; font:12px var(--font-interface); z-index:20; }
+.vlook-view-items { display:flex; gap:2px; }
+.vlook-view-panel button.vlook-view-panel button.vlook-view-item:hover { background:var(--background-modifier-hover); }
+.vlook-view-item[aria-pressed="true"] { color:var(--vm-accent); }
+.vlook-view-item[aria-pressed="true"] .markdown-source-view .internal-embed[data-vlook-resolved] { display:inline; }
+.markdown-source-view .internal-embed[data-vlook-resolved] img[src*="#icon"] { height:1.2em; width:auto; vertical-align:-0.2em; }
+
+.markdown-source-view.is-live-preview .cm-editor.vlook-fm-cover .metadata-container,.markdown-source-view.is-live-preview .cm-line.vlook-fm-hidden{display:none}
+
+/* 内容助手：左侧导航与索引，右侧定位与关闭；内容在窗口内水平垂直居中 */
+.vlook-content-controls { display:flex; align-items:center; gap:4px; padding:0 0 10px; margin-bottom:4px; border-bottom:1px solid var(--background-modifier-border); font:var(--font-ui-small) var(--font-interface); }
+.vlook-content-controls .vlook-dropdown + .vlook-dropdown { flex:0 1 420px; min-width:0; }
+.vlook-content-controls .vlook-dropdown:first-of-type { margin-left:6px; }
+.vlook-content-controls [role=status] { color:var(--text-muted); padding-inline:8px; }
+.vlook-content-controls .vlook-dropdown ~ .vlook-content-action { margin-left:auto; }
+.vlook-content-controls .vlook-dropdown ~ .vlook-content-action ~ .vlook-content-action { margin-left:0; }
+.vlook-content-action { width:30px; height:28px; padding:0 !important; display:inline-grid !important; place-items:center; }
+.vlook-content-action:disabled { opacity:.35; cursor:default; }
+.vlook-content-viewer .vlook-content-body.markdown-rendered { flex:1; min-height:0; height:auto; overflow:auto; display:flex !important; flex-direction:column; }
+.vlook-content-viewer .vlook-content-body.markdown-rendered > * { margin:auto !important; max-width:100%; min-width:0; flex:none; }
+.vlook-content-pip .vlook-content-controls .vlook-content-action:first-of-type { margin-left:auto; }
+
+/* 小封面：按原版导出的计算样式，正文无衬线字体，不继承主题标题字体 */
+body .v-doc-mini-cover.max { padding:120px 20px 40px; --mc-font: -apple-system,"HarmonyOS Sans",MiSans,"vivo Sans",Roboto,"SF Pro","SF Pro Text","PingFang SC","Segoe UI","Microsoft YaHei",sans-serif; position:relative; margin:0 0 1em; font-size:16px; line-height:24px; text-align:start; }
+body .v-doc-mini-cover.max > .doc-title { font:700 24px/normal var(--mc-font); width:calc(100% - 100px); padding-bottom:20px; }
+body .v-doc-mini-cover.max > .doc-title::before { right:20px; width:60px; height:60px; background-size:60px 60px; top:120px; }
+body .v-doc-mini-cover.max > :is(.doc-author,.doc-date,.doc-copyright,.doc-rights) { font:700 20px/normal var(--mc-font); }
+
+.workspace-leaf-content[data-type="vlook-html-file"] .view-content { padding:0; overflow:hidden; }
+.vlook-html-file-frame { width:100%; height:100%; border:0; display:block; background:#fff; }
+/* 移动端底部导航条覆盖在视图内容之上：让页面可视区在其上方结束，状态栏与弹出层不被遮住 */
+.is-mobile .vlook-html-file-frame { height:calc(100% - var(--mobile-navbar-height, 48px) - env(safe-area-inset-bottom, 0px)); }
+.vlook-content-viewer .vlook-content-body.is-scaled { zoom:.75; }
+.vlook-content-controls.is-draggable { cursor:move; }
+.vlook-offscreen-render { position:fixed; left:-99999px; top:0; width:900px; visibility:hidden; }
+/* 带编号的宽公式：容器内横向滚动，右侧编号不被截断 */
+:is(.markdown-rendered, .cm-embed-block) mjx-container[display="true"] { max-width:100%; overflow-x:auto; overflow-y:hidden; }
+
+.vlook-welcome { position:absolute; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; padding:24px; color:var(--text-normal); text-align:center;
+    background:color-mix(in srgb, var(--background-primary) 72%, transparent); -webkit-backdrop-filter:blur(18px) saturate(1.2); backdrop-filter:blur(18px) saturate(1.2);
+    animation:vlook-welcome-in .45s cubic-bezier(.2,.8,.2,1) both; }
+.vlook-welcome-body { max-width:640px; padding:32px 40px; font-size:var(--font-ui-large); line-height:1.6; border:1px solid var(--background-modifier-border); border-radius:var(--radius-xl, 16px);
+    background:color-mix(in srgb, var(--background-primary) 86%, transparent); box-shadow:0 1px 0 rgb(255 255 255 / .35) inset, 0 12px 40px rgb(0 0 0 / .14), 0 2px 8px rgb(0 0 0 / .08);
+    animation:vlook-welcome-card .6s cubic-bezier(.2,.8,.2,1) .05s both; }
+.vlook-welcome-close { position:absolute; top:12px; right:12px; border-radius:50%; width:28px; height:28px; padding:0; transition:transform .2s ease, background-color .2s ease; }
+.vlook-welcome-close:hover { transform:rotate(90deg) scale(1.08); }
+.vlook-welcome-closing { animation:vlook-welcome-out .35s ease both; pointer-events:none; }
+@keyframes vlook-welcome-in { from { opacity:0; } to { opacity:1; } }
+@keyframes vlook-welcome-card { from { opacity:0; transform:translateY(14px) scale(.96); } to { opacity:1; transform:none; } }
+@keyframes vlook-welcome-out { from { opacity:1; } to { opacity:0; transform:scale(1.02); } }
+.vlook-reading-gray, .vlook-reading-wide .markdown-preview-sizer, .vlook-reading-wide .cm-contentContainer { transition:filter .5s ease, max-width .35s ease; }
+.tab-group-wrap > span { transition:background-color .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease; }
+.tab-group-wrap > span:hover { transform:translateY(-1px); }
+.tab-content-target:not(.vlook-tab-hidden) { animation:vlook-tab-in .28s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes vlook-tab-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce) {
+    .vlook-welcome, .vlook-welcome-body, .vlook-welcome-closing, .tab-content-target:not(.vlook-tab-hidden) { animation:none !important; }
+    .vlook-welcome-close, .tab-group-wrap > span, .vlook-reading-gray, .vlook-reading-wide .markdown-preview-sizer { transition:none !important; }
+}
+
+/* sts=hide：隐藏插件的状态栏项；debug=on：标出源码行映射 */
+.vlook-status-hidden .vlook-reading-progress { display:none; }
+.vlook-debug [data-vlook-source-line] { outline:1px dashed color-mix(in srgb, var(--interactive-accent) 55%, transparent); outline-offset:2px; position:relative; }
+.vlook-debug [data-vlook-source-line]::before { content:"L" attr(data-vlook-source-line); position:absolute; left:-4px; top:-2px; transform:translateX(-100%); font:10px/1 var(--font-monospace); color:var(--text-faint); pointer-events:none; }
+
+/* 宿主无法解析、插件可解析的属性（如 vlook-doc-lib 的链接列表）不显示“无效属性” */
+.vlook-fm-tolerant .metadata-error-container { display:none; }
+
+/* 自绘下拉选择器 */
+.vlook-dropdown { position:relative; display:inline-block; min-width:0; font-size:var(--font-ui-small); }
+.vlook-dropdown-trigger { all:unset; box-sizing:border-box; display:flex; align-items:center; gap:8px; width:100%; height:28px; padding:0 8px 0 12px; cursor:pointer;
+    border:1px solid var(--background-modifier-border); border-radius:var(--radius-m, 8px); color:var(--text-normal);
+    background:linear-gradient(180deg, color-mix(in srgb, var(--background-primary) 92%, white), var(--background-secondary));
+    box-shadow:0 1px 0 rgb(255 255 255 / .35) inset, 0 1px 2px rgb(0 0 0 / .06);
+    transition:border-color .15s ease, box-shadow .2s ease, transform .15s ease; }
+.vlook-dropdown-trigger:hover { border-color:var(--background-modifier-border-hover); }
+.vlook-dropdown-trigger:active { transform:scale(.985); }
+.vlook-dropdown-trigger:focus-visible, .vlook-dropdown.is-open .vlook-dropdown-trigger { border-color:var(--interactive-accent); box-shadow:0 0 0 3px color-mix(in srgb, var(--interactive-accent) 22%, transparent); }
+.vlook-dropdown-trigger:disabled { opacity:.5; cursor:default; }
+.vlook-dropdown-text { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
+.vlook-dropdown-caret { flex:none; display:inline-flex; color:var(--text-faint); }
+.vlook-dropdown-caret .svg-icon { width:14px; height:14px; }
+.vlook-dropdown-list { position:absolute; left:0; top:calc(100% + 6px); z-index:60; min-width:100%; width:max-content; max-width:min(560px, 80vw); max-height:min(320px, 50vh); overflow:auto; padding:5px; outline:none;
+    border:1px solid var(--background-modifier-border); border-radius:var(--radius-l, 12px);
+    background:color-mix(in srgb, var(--background-primary) 88%, transparent); -webkit-backdrop-filter:blur(16px) saturate(1.15); backdrop-filter:blur(16px) saturate(1.15);
+    box-shadow:0 1px 0 rgb(255 255 255 / .3) inset, 0 12px 32px rgb(0 0 0 / .18), 0 2px 6px rgb(0 0 0 / .08);
+    opacity:0; visibility:hidden; transform:translateY(-6px) scale(.98); transform-origin:top left; pointer-events:none;
+    transition:opacity .15s ease, transform .2s cubic-bezier(.2,.8,.2,1), visibility 0s linear .2s; }
+.vlook-dropdown.is-up .vlook-dropdown-list { top:auto; bottom:calc(100% + 6px); transform-origin:bottom left; transform:translateY(6px) scale(.98); }
+.vlook-dropdown.is-open .vlook-dropdown-list { opacity:1; visibility:visible; transform:none; pointer-events:auto; transition-delay:0s; }
+.vlook-dropdown-option { position:relative; padding:5px 28px 5px 10px; border-radius:var(--radius-s, 6px); cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:background-color .1s ease; }
+.vlook-dropdown-option.is-active { background:var(--background-modifier-hover); }
+.vlook-dropdown-option[aria-selected="true"] { color:var(--interactive-accent); font-weight:600; }
+.vlook-dropdown-option[aria-selected="true"]::after { content:""; position:absolute; right:10px; top:50%; width:5px; height:9px; margin-top:-6px; border:solid currentColor; border-width:0 2px 2px 0; transform:rotate(45deg); }
+@media (prefers-reduced-motion: reduce) { .vlook-dropdown-trigger, .vlook-dropdown-list, .vlook-dropdown-option { transition:none !important; } }
+
+
+.vlook-view-panel { position:absolute; top:6px; right:6px; z-index:var(--layer-popover,1000); display:flex; align-items:center; gap:2px; padding:3px; background:color-mix(in srgb, var(--background-primary) 88%, transparent); backdrop-filter:blur(10px); border:1px solid var(--background-modifier-border); border-radius:var(--radius-l); box-shadow:var(--shadow-s); opacity:0; transform:translateY(-4px); pointer-events:none; transition:opacity .15s, transform .15s; }
+.vlook-view-menu:has(+ :hover) .vlook-view-panel, .vlook-view-menu:is(:hover,:focus-within) .vlook-view-panel { opacity:1; transform:none; pointer-events:auto; }
+.vlook-view-section { display:flex; }
+.vlook-view-section + .vlook-view-section { margin-left:3px; padding-left:3px; border-left:1px solid var(--background-modifier-border); }
+.vlook-view-items { display:flex; gap:2px; }
+.vlook-view-item { display:grid; place-items:center; width:26px; height:26px; padding:0; color:var(--text-muted); border:none; border-radius:var(--radius-m); cursor:pointer; background:transparent; box-shadow:none; }
+.vlook-view-panel button.vlook-view-item:hover { background:var(--background-modifier-hover); color:var(--text-normal); }
+.vlook-view-glyph { display:grid; place-items:center; width:16px; height:16px; }
+.vlook-view-glyph svg { width:16px; height:16px; stroke:currentColor; fill:none; }
+.vlook-view-label { display:none; }
+
+.vlook-table-grip { position:absolute; z-index:15; width:28px; height:14px; display:none; place-items:center; border-radius:7px; background:var(--background-modifier-hover); border:1px solid var(--background-modifier-border); cursor:grab; opacity:.9; transition:background .12s; }
+.vlook-table-grip::before { content:''; width:12px; height:4px; background:radial-gradient(circle, var(--text-faint) 1.2px, transparent 1.4px) 0 0/4px 4px; }
+.vlook-table-grip-row { width:14px; height:28px; }
+.vlook-table-grip-row::before { width:4px; height:12px; }
+.vlook-table-grip.is-shown { display:grid; }
+.vlook-table-grip:hover, .vlook-table-grip.is-dragging { background:var(--interactive-accent); border-color:var(--interactive-accent); cursor:grabbing; }
+.vlook-table-drop { position:absolute; z-index:16; display:none; background:var(--interactive-accent); border-radius:1px; pointer-events:none; }
+.vlook-table-drop.is-shown { display:block; }
+.vlook-table-reordering { user-select:none; }
+
+.markdown-preview-view .vlook-footer { margin:3em auto 1em; padding-top:1em; text-align:center; font-size:var(--font-smaller,13px); color:var(--text-muted); border-top:1px solid var(--background-modifier-border); }
+.markdown-preview-view .vlook-footer a { color:var(--text-muted); text-decoration:none; }
+.markdown-preview-view .vlook-footer a:hover { color:var(--text-accent); }
+@media print { .vlook-footer { break-inside:avoid; } }
+
+.vlook-swatches { display:flex; flex-direction:column; align-items:flex-end; gap:6px; max-width:100%; }
+.vlook-swatch-name { font-size:var(--font-ui-small,12px); color:var(--text-muted); }
+.vlook-swatch-group { display:flex; flex-flow:row wrap; justify-content:flex-end; gap:10px; max-width:400px; }
+.vlook-swatch-group .vlook-swatch { -webkit-appearance:none; appearance:none; box-sizing:border-box; flex:0 0 24px; width:24px !important; min-width:24px !important; max-width:24px !important; height:24px !important; min-height:24px !important; padding:0 !important; margin:0; border:none; border-radius:50% !important; box-shadow:inset 0 0 0 1px rgba(0,0,0,.14); cursor:pointer; transition:transform .12s ease, box-shadow .12s ease; }
+.vlook-swatch-group .vlook-swatch:hover { transform:scale(1.15); }
+.vlook-swatch-group .vlook-swatch.is-selected { box-shadow:inset 0 0 0 1px rgba(0,0,0,.14), 0 0 0 2px var(--background-secondary,#fff), 0 0 0 4px var(--interactive-accent,#356FD8); }
+.vlook-swatch-group .vlook-swatch.is-none { background:linear-gradient(135deg,transparent 44%,#E5484D 44%,#E5484D 56%,transparent 56%), var(--background-primary,#fff); }
+.is-mobile .vlook-swatches { align-items:flex-start; width:100%; }
+.is-mobile .vlook-swatch-group { justify-content:flex-start; max-width:100%; width:100%; min-width:0; }
+.is-mobile .setting-item:has(.vlook-swatches) .setting-item-control { min-width:0; }
+.is-mobile .setting-item:has(.vlook-swatches) { flex-direction:column; align-items:stretch; }
+.is-mobile .setting-item:has(.vlook-swatches) .setting-item-control { justify-content:flex-start; width:100%; }
+
+/* 多彩提示：默认淡底、低饱和，只有错误提示保持醒目 */
+.notice.vlook-notice{--vn:var(--ac-t1,var(--interactive-accent));background:color-mix(in srgb,var(--vn) 7%,var(--background-primary))!important;color:color-mix(in srgb,var(--vn) 55%,var(--text-normal))!important;border:1px solid color-mix(in srgb,var(--vn) 16%,transparent)!important;border-radius:8px!important;box-shadow:0 4px 14px rgba(0,0,0,.08)!important;padding:11px 12px 11px 14px!important;max-width:400px;min-width:240px}
+.notice.vlook-notice-success{--vn:#4aa86a}
+.notice.vlook-notice-warning{--vn:#d49a3c}
+.notice.vlook-notice-error{--vn:#f25560;background:color-mix(in srgb,var(--vn) 13%,var(--background-primary))!important;color:color-mix(in srgb,var(--vn) 86%,#000)!important;border-color:color-mix(in srgb,var(--vn) 30%,transparent)!important}
+.theme-dark .notice.vlook-notice{background:color-mix(in srgb,var(--vn) 13%,var(--background-primary))!important;color:color-mix(in srgb,var(--vn) 55%,var(--text-normal))!important}
+.theme-dark .notice.vlook-notice-error{background:color-mix(in srgb,var(--vn) 22%,var(--background-primary))!important;color:color-mix(in srgb,var(--vn) 80%,#fff)!important}
+.notice.vlook-notice .vlook-notice-body{display:flex;gap:10px;align-items:flex-start}
+.notice.vlook-notice .vlook-notice-icon{color:var(--vn);display:flex;flex:none;opacity:.85}
+.notice.vlook-notice-error .vlook-notice-icon{opacity:1}
+.notice.vlook-notice .vlook-notice-text{min-width:0;flex:1;line-height:22px;word-break:break-word}
+.notice.vlook-notice .vlook-notice-close{flex:none;display:flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0;margin:0;border:none;border-radius:50%;background:transparent;box-shadow:none;color:inherit;opacity:.4;cursor:pointer}
+.notice.vlook-notice .vlook-notice-close:hover{opacity:.9;background:color-mix(in srgb,var(--vn) 14%,transparent)}
+.notice.vlook-notice .vlook-notice-actions{display:flex;gap:8px;margin-top:8px}
+.notice.vlook-notice .vlook-notice-actions button{border:none;border-radius:6px;padding:4px 12px;box-shadow:none;cursor:pointer;background:color-mix(in srgb,var(--vn) 12%,var(--background-primary));color:inherit}
+.notice.vlook-notice .vlook-notice-actions button:first-child{background:color-mix(in srgb,var(--vn) 24%,var(--background-primary))}
+.notice.vlook-notice-error .vlook-notice-actions button:first-child{background:var(--vn);color:#fff}
+
+/* 主题与明暗切换渐变 */
+html.vlook-fading,html.vlook-fading *,html.vlook-fading *::before,html.vlook-fading *::after{transition:background-color .45s ease,color .45s ease,border-color .45s ease,fill .45s ease,stroke .45s ease,box-shadow .45s ease,outline-color .45s ease!important}
+@media (prefers-reduced-motion:reduce){html.vlook-fading,html.vlook-fading *,html.vlook-fading *::before,html.vlook-fading *::after{transition:none!important}
+}
+

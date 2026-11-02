@@ -1,0 +1,16 @@
+[
+  {
+    "currentTime": 3.075031,
+    "error": null,
+    "label": "停止音频",
+    "paused": false,
+    "state": "playing"
+  },
+  {
+    "currentTime": 0,
+    "error": null,
+    "label": "播放音频",
+    "paused": true,
+    "state": "ready"
+  }
+]

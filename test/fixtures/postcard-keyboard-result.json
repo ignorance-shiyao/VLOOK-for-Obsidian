@@ -1,0 +1,15 @@
+[
+  {
+    "display": "block",
+    "focus": "IMG"
+  },
+  {
+    "display": "block",
+    "focus": "A",
+    "text": "正文链接"
+  },
+  {
+    "display": "none",
+    "focus": "IMG"
+  }
+]

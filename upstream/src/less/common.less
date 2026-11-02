@@ -1,0 +1,2215 @@
+/**************************************
+ *
+ * VLOOK™ CSS 多主题间的通用样式 for Typora
+ * (配合 base.less、主题.less 进行使用)
+ *
+ * V2026.10.1
+ * 2026-10-12
+ * Powered by MAX°孟兆
+ *
+ * QQ Group: 805502564
+ * Telegram Channel: t.me/vlook_markdown
+ * email: maxchow@qq.com
+ *
+ * https://github.com/MadMaxChow/VLOOK
+ * https://gitee.com/madmaxchow/VLOOK
+ *
+ *************************************/
+
+@thmPlatform: "Typora";
+@thmBestForTyporaVer: "1.14";
+
+// 高亮相关样式
+// 注意 @markBgHeight 要与 CSS 变量 --mark-bg-h --mark-bg-h-inset 一并修改
+@markBgHeight: .625em;
+@markBg: rgba(red(@theme2), green(@theme2), blue(@theme2), 30%);
+@markBgDark: rgba(red(@theme2Dark), green(@theme2Dark), blue(@theme2Dark), 60%);
+
+@import "core";
+@import "font";
+@import "color";
+
+// @devMode: true; // 开发模式
+// @debugPrintMode: true; // 调试打印、发布为 PDF 模式
+
+// -----
+// 通用变量 #Common_LESS_Var
+@themeEmail: "maxchow@qq.com";
+
+// 主题类型
+@themeType: "VLOOK™" @themeSplitter @themeDesc;
+
+// 主题颜色外观 auto, light, dark
+@thmColorScheme: auto;
+
+// 主题内与颜色外观相关的自定义变量集合，以英文逗号分隔
+@thmColorSchemeVarsDef: "--thm-fav,--v-invert-dark,--v-cover-dark,--v-selected-c,--db,--db-ext,--d-cb,--d-bi,--db-r,--db-g,--db-b,--df,--df-r,--df-g,--df-b,--bq-bg,--bq-bg-fd,--fig-solid-bg,--fig-grid-l,--fig-grid-b,--fig-grid-l-invert,--fig-grid-b-invert,--pn-c,--pn-c-a,--pn-r,--pn-g,--pn-b,--blockquote-bg,--a-c,--a-o-c,--mark-bg,--tbl-row-g-alpha,--toc-h-num-c,--h-f,--h-box-sd,--h-bg-start,--h-bg-end,--code-bg,--std-code-sd,--rb-code-sd,--v-ui-bg,--v-btn-bg,--v-fl-sd,--v-fl-i-sd,--v-fl-bd,--c-blk-bg,--kbd-c,--kbd-bg,--kbd-shd,--kbd-pd,--doc-sd,--cur-pointer,--cur-copy,--cur-pointer-text,--cur-laser,--cur-mix,--cur-md,--cur-doclib,--cur-http,--cur-https,--cur-email,--cur-risk,--cur-inner,--ac-rd,--ac-rd-a,--ac-rd-fd,--ac-rd-fd-bd,--ac-rd-tt,--ac-og,--ac-og-a,--ac-og-fd,--ac-og-fd-bd,--ac-og-tt,--ac-tu,--ac-tu-a,--ac-tu-fd,--ac-tu-fd-bd,--ac-tu-tt,--ac-ye,--ac-ye-a,--ac-ye-fd,--ac-ye-fd-bd,--ac-ye-tt,--ac-lm,--ac-lm-a,--ac-lm-fd,--ac-lm-fd-bd,--ac-lm-tt,--ac-gn,--ac-gn-a,--ac-gn-fd,--ac-gn-fd-bd,--ac-gn-tt,--ac-mn,--ac-mn-a,--ac-mn-fd,--ac-mn-fd-bd,--ac-mn-tt,--ac-ol,--ac-ol-a,--ac-ol-fd,--ac-ol-fd-bd,--ac-ol-tt,--ac-wn,--ac-wn-a,--ac-wn-fd,--ac-wn-fd-bd,--ac-wn-tt,--ac-aq,--ac-aq-a,--ac-aq-fd,--ac-aq-fd-bd,--ac-aq-tt,--ac-sk,--ac-sk-a,--ac-sk-fd,--ac-sk-fd-bd,--ac-sk-tt,--ac-cy,--ac-cy-a,--ac-cy-fd,--ac-cy-fd-bd,--ac-cy-tt,--ac-bu,--ac-bu-a,--ac-bu-fd,--ac-bu-fd-bd,--ac-bu-tt,--ac-se,--ac-se-a,--ac-se-fd,--ac-se-fd-bd,--ac-se-tt,--ac-la,--ac-la-a,--ac-la-fd,--ac-la-fd-bd,--ac-la-tt,--ac-vn,--ac-vn-a,--ac-vn-fd,--ac-vn-fd-bd,--ac-vn-tt,--ac-cf,--ac-cf-a,--ac-cf-fd,--ac-cf-fd-bd,--ac-cf-tt,--ac-au,--ac-au-a,--ac-au-fd,--ac-au-fd-bd,--ac-au-tt,--ac-pu,--ac-pu-a,--ac-pu-fd,--ac-pu-fd-bd,--ac-pu-tt,--ac-ro,--ac-ro-a,--ac-ro-fd,--ac-ro-fd-bd,--ac-ro-tt,--ac-pl,--ac-pl-a,--ac-pl-fd,--ac-pl-fd-bd,--ac-pl-tt,--ac-pk,--ac-pk-a,--ac-pk-fd,--ac-pk-fd-bd,--ac-pk-tt,--ac-gd,--ac-gd-a,--ac-gd-fd,--ac-gd-fd-bd,--ac-gd-tt,--ac-bn,--ac-bn-a,--ac-bn-fd,--ac-bn-fd-bd,--ac-bn-tt,--ac-gy,--ac-gy-a,--ac-gy-fd,--ac-gy-fd-bd,--ac-gy-tt,--ac-wt,--ac-wt-a,--ac-wt-fd,--ac-wt-fd-bd,--ac-wt-tt,--ac-bk,--ac-bk-a,--ac-bk-fd,--ac-bk-fd-bd,--ac-bk-tt,--ac-t1,--ac-t1-a,--ac-t1-fd,--ac-t1-fd-bd,--ac-t1-tt,--ac-t2,--ac-t2-a,--ac-t2-fd,--ac-t2-fd-bd,--ac-t2-tt,--btn-reflect,--btn-shadow,--btn-raised,--cm-keyword,--cm-variable,--cm-variable-2,--cm-variable-3,--cm-tag,--cm-attribute,--cm-string,--cm-string-2,--cm-comment,--cm-header,--cm-quote,--cm-hr,--cm-link,--cm-negative,--cm-positive,--cm-meta,--cm-bulidin,--cm-bracket,--cm-atom,--cm-number";
+@thmColorSchemeVars: @thmColorSchemeVarsDef;
+
+// 指定 kbd 按钮圆角风格：none, small, big, leaf, cap
+@thmRadiusStyle: big;
+
+// 思维导图节点风格选择 std, color
+@thmMindMapStyle: color;
+
+// 小封面背景色
+@thmMiniCoverBackground: linear-gradient(180deg, fade(@aColor, 20%), transparent);
+
+// 针对 #write 默认字号大小
+@thmFontSize: 16px;
+
+// 公式块字体大小
+@thmMathFontSize: 1em;
+
+// 导航中心、脚注面板、状态栏风格选择 std, flat, edge
+@thmNavCenterStyle: std;
+
+// 工具栏、章节导航栏、链接地图、字体风格等浮动元素的阴影样式选择 shadow, line, none
+@thmFloatShadow: shadow;
+
+// 定义指定的顶样的边框样式（如：工具栏、章节导航栏）
+@thmTopbarBorderColor: var(--df03);
+
+// 工具栏、章节导航栏风格选择 std, simple
+@thmToolbarStyle: std;
+
+// 正文宽度适配模式：auto=自动, full=适应窗口宽度, fix=固定宽度
+@thmFillWidthMode: auto;
+
+// 引用内的引用块的文字颜色
+@thmQuoteInQuoteColor: var(--df07);
+
+// 缩进 tab-size、width 的值
+@thmTabSize: 8;
+@thmTabWidth: 2em;
+
+// 生成代码块标题栏样式是否需要添加题注作为条件：on, off
+@thmCodeblockTitle: on;
+
+// 水平分隔条 hr 颜色样式：std, lg
+@thmHrStyle: std;
+// 水平分隔条 hr 颜色
+@thmHrColor: var(--df01);
+// 水平分隔条 hr 宽度：100%, 75%, 50%, 25%
+@thmHrWidth: 100%;
+// 水平分隔条 hr 线形样式：solid, dash, dotted, double, groove
+@thmHrStroke: solid;
+// 水平分隔条 hr 粗细
+@thmHrStrokeWidth: 2px;
+
+// 导航中心宽度
+@navCenterWidth: 320px;
+
+// 插图占位图（默认）
+@figurePlaceholder: "data:image/svg+xml,%3Csvg width='108' height='108' viewBox='0 0 108 108' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath d='M0 0h108v108H0V0z' id='a'/%3E%3C/defs%3E%3Cpath d='M108 0v108H0V0h108zM54.815 74.997a1.171 1.171 0 0 0-1.656.026l-4.565 4.71a1.562 1.562 0 0 0-.297 1.739l4.639 10.087a1.171 1.171 0 0 0 2.128 0l4.64-10.087a1.562 1.562 0 0 0-.298-1.74l-4.565-4.71zm-22.682-34.13C21.566 40.867 13 49.433 13 60c0 10.567 8.566 19.133 19.133 19.133 10.567 0 19.134-8.566 19.134-19.133 0-10.567-8.567-19.133-19.134-19.133zm43.734 0C65.3 40.867 56.733 49.433 56.733 60c0 10.567 8.567 19.133 19.134 19.133S95 70.567 95 60c0-10.567-8.566-19.133-19.133-19.133zm-43.734 5.857c7.333 0 13.277 5.944 13.277 13.276s-5.944 13.276-13.277 13.276c-7.332 0-13.276-5.944-13.276-13.276s5.944-13.276 13.276-13.276zm43.734 0c7.332 0 13.276 5.944 13.276 13.276s-5.944 13.276-13.276 13.276c-7.333 0-13.277-5.944-13.277-13.276s5.944-13.276 13.277-13.276zm18.893-24.94a2.929 2.929 0 0 0-3.854-1.519L54.005 36.31 17.104 20.265a2.929 2.929 0 1 0-2.336 5.372L52.815 42.18c.385.167.785.245 1.18.244h.02c.394.001.795-.077 1.18-.244l38.047-16.543a2.929 2.929 0 0 0 1.518-3.854z' fill='silver' xlink:href='%23a' fill-rule='evenodd' opacity='.25'/%3E%3C/svg%3E";
+
+// 插图背景颜色
+@thmFigureBgColor: var(--fig-solid-bg);
+
+// 主题对应的标签样式：std, line,
+@thmTagStyle: std;
+
+// 主题对应的多级标签样式：std, cap, dyn, "cap, dyn",
+@thmBadgeStyle: std;
+@thmBadgeStyleExt: @thmBadgeStyle;
+
+// 主题对应的 GSA 样式：：simple, flat, flat_up, em
+@thmGsaStyle: simple;
+
+// 主题对应的 corner-shape 样式：bevel, squircle, scoop, crystal
+@thmCornerShape: unset;
+
+// 主题的 #write 背景样式
+@thmWriteBackground: var(--d-bi), var(--db);
+
+// 遮罩背景风格：std, dots
+@thmMaskBackgroundStyle: std;
+
+// 指定表格的默认宽度：auto, max-content
+// 当选用 auto 时，滚动时支持表头固定，但列多时会拥挤，不不能水平滚动，所在编辑时超宽表格会溢出 write 区域
+// 当选用 max-content 时，滚动时不支持表头固定，但列多时不拥挤，能水平滚动
+@tableWidth: auto;
+// 指定表格的圆角风格 none, small, big, leaf
+@thmTableRadiusStyle: big;
+// 指定表格表头是否默认冻结：on, off
+@tableFreezeHead: on;
+// 指定表格首列是否默认冻结：auto, on, off
+@tableFreezeColumn: auto;
+
+// 主题侧边栏、标签栏的图标
+@thmTabLogo: var(--thm-fav);
+
+// 按钮链接的圆角风格选择 none, small, big, leaf, cap
+@thmKbdRadiusStyle: none;
+// 按钮链接风格 flat, fade, raised, 3d, 3d_up
+@thmLinkKbdStyle: flat;
+
+// 对应插件中配套预置选项 vlook-query，插件中的同名变量为 --vlook-query
+// 其中，uico 可选值： solid, flat。tabico 可选值： flat, solid, line
+@vlookQueryDef: "ws=auto&capnum=on&uico=solid&tabico=line";
+@vlookQuery: @vlookQueryDef;
+// 对应插件中配套预置选项 vlook-gray-mode，插件中的同名变量为 --vlook-gray-mode
+@vlookGrayMode: "12-13:国家公祭日@zh";//;04-04:清明节@zh,ko";
+
+// 文档页脚信息
+@thmFooter: "";
+
+// 编辑时 Mermaid 图与代码块样式风格选择 std, uni
+@thmMermaidEditorStyle: uni;
+
+@codeFontSize: 14px;
+@tagFontSize: 14px;
+@tableRowNumTop: 4px; // 表格逐行自动编号的高度
+@focusStyle: @aBorderWidth dashed var(--a-c); // 焦点、焦点行样式
+@miniLineHeight: 1;
+@defaultLineHeight: 1.5;
+@paragraphPadding: .5em; // 段落空白
+@paragraphInnerLineHeight: 1.5;
+@tocItemLineHeight: 1.25;
+@figurePadding: 20px; // 插图内、间、行空白
+@hoverBrightness: 90%;
+@scrollFix: 8px; // 针对 Mermaid 图表，不添加会导致出现滚动条
+@miniFontSize: 10px;
+@smallFontSize: 12px;
+@syntaxTipsFont: condensed italic @smallFontSize/1 var(--v-fm-tag); // 语法提示字体设置 [stretch] [style] [weight] [size/[line-height]] [family]
+
+// 目录、文件 的当前节点、点击节点样式
+@tocItemCurrentBg: var(--ac-t2-fd);
+
+// 图片、插图边框宽度
+@imgBorderWidth: 2px;
+
+// 限定 Restricted
+@restricted: false;
+@restrictedHost: "";
+@restrictedKeywordTitle: "";
+@restrictedKeywordAuthor: "";
+
+// ==================== VLOOK Mark 资源 ==================== //
+
+// 大尺寸版本
+@vlookMark_size: 250px 72px;
+@vlookMarkLine_line: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAACQCAMAAADJGmlAAAAAhFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8g2+bRAAAAK3RSTlMAgPsl5ATtDBOoNaBZHXrY9C1Ry49HCBeucsNCPd1MbmRfirjRs4W8aZSZYlsX1gAAFjlJREFUeNrsnWt7qjgQgMcAAbkoFwVvKPXezv//f3tIaMeYUNA97tPtw/vh1FI6EF4yGUK6C/1xC8tfb9Owuu6Wk5rRwI/mj6Llrgq3fuTA4zjWJq0Gx/9fJmHiPCZ8Pvj+BSz93tqtdBD+W9hF0AN3s1NyRBVu135iRYXn5rnjODDws3Ec14ssP1yOJOtu5XPq5NfUj1wY+L9SbKXL9PuO6nwpX6ZWDgP/c/JUWodvsHZNSk8jGPgV+JPvM7wbflZ8Qx//PRSiI0ft94RUPpRqv4qi9rozSnVSmdjXg/Lfhl+L9UHHrYTzqoCBX0daJ3C9M3s70c19GPiF5HWCT+COSAzn1+GZ/Jey/WM3NDp/G2r230pRp3FHze3C+RYGfi3L+6c2V4znGxj4vYR39btTDc5/Pf5dKk+/z+2OtV3ug0s2tXkcM4YdMBbH3J5ml2C/3FrDM/8PwVIrOV/UcGBmc14x/Bew1XlIIa8kcnruV8/B0IBeF3HX3LjjnuNfgO+jzlPavH2bFZxC2bs5c/i3OFbfGK72jbbVcdXY3vcBiGgb+s+2xccx9MKrZ2KVEX5iOmYSMPxLsCCBdtwRl3tdfHFCJd4SfwDMOb7T00eJKwegWOEqUs73w6b7bHa7xT7MTBONmzqJ2TRR1R7IO7CpBZ+M4nINcH8Gb3Z8phjFmLMVDZmmABL/wuU5jnKQ7G5ya+bfbImzYLIGlTecQi/cek6Ocr15Wtb9wL/KhwtGhNEvxh6AjXds4ICIITSsEHELsEPEJRBiJyK528JDuOOKWI5XDC9kvS1QiIilBxI3RlwA3J/BFJFR576Iu1h6NgcQOCMSXM6bvnvL4n7LwntOulP37c/PO5HrNUIb/zJ2CEYijkRtYIV3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");
+@vlookMarkLine_solid: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAACQCAMAAADJGmlAAAAAilBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////2N2iNAAAALXRSTlMA+wQT63FPIaYJ8duFtsz1NeE7vJwoDuWWrUPXYbHFGmuMMJFWeWbAXEgs0n0yrmGKAAAVZUlEQVR42uyd6WLqKBSAD5DdmE2NNtq61d3z/q83Y4geiNioHad3Ovn+1Nps8sEBDngv3I9InPVx5L1vos7QsoKYYcsfDWPBsBO9j2aZD4+TFysvCrDlvwrrbjk8AC/mh7ZN//dJ7bu1F17bwH8L4wzuQBxTbPlFhNDEdBljy+/C4/AV/rztyH8hHnzBrg3sv5PbEV542PJLycDMuh2x/17GHAzwtpn/amy4Rnxgy28m5VDH7WDL72YLNTILW3453brzdnL++2E+qLhtO/8/kIGCaPvz/wUzIHg7bv9/MALCw68Z9kbHiZPtXZH7HJrg3M+Fu89Ou216Q2z5c3gnS2v8gvHcEfANhDMfY8vrsAK8m4i03D4rXg7gH2DQuFbLIq/v9QK8SZCiQiqvN4zxu6QpNkL3ooI2lThLmWYjZTflxBYSQc/rv0UMn4IJcf+Znebgbq0E/EOIlYW3CcIcShKvLN+Eg4rbwyiHLMAKVoA4ILIM/DfNixKTeDI8le1EyN+mid0ziNzmAPnEwhrMnip332B5r7yrLliN8MQEYEkl6qoJLqsAEMrjrYHPKcz6FF57BZdFNDmfPHI5FdyoPH5fHeM6Iws1UoAh3ssQKhw0w+Y+PMazy/Tv5AoKC/EINTJcA4Ct5pBXsoPao8InqIRYu1J2QJ1xDsLZCRCpYbxDFNVqtD/GCh9AlBc4vcvUx7LxzK6sbPKU6lB4V6dO8qZsAhf46BKDiRwRLdVEHj4vPTjLSNFItIB/mEWERj64VsQMR1Djs1wM5h1ltagv1QhUcEHFq0qeyPXGzgawC8ommX2ZrlyfF6MTphTd6XXv9MLCCkdtQRGdS8kwYSlP+nE5iRhdV7m9vI/KJ3tWOgPJ/NEl9+fhIZooa9e2O46WpbU3ZPPPvymLIzu9si208tL9pZymsUG6AIDCrvDOLWph27bjSuupPqrhVhXzqvdVfQO7Yh5cimN+v3QbSnKmSodtXXpfxqCVN89ABhN5L2FXHNPzoHtm2+skhxOrb0p3mfGPE3gJE8PdDjIWn4gdGSGpaLtYMT/9FuG5pD28Ib1/lYGayfCwv+rK+rA/K+heS98a2oDfuVc6mwKI0xtvmnR416Wz0wu+lI/DlajiXs+04vK6KzhxuJLOhgzvAEqWaCAo4EUUAdbxlJKLCwDPKJ2dpGWnFwvZzT4oHeOyKXW0opyeM9LRfdIhu0+6/MvWk9FJlT4NSPrZpq3U612DdMQ32Wto0uUkK+lW/TINH1cFM0gXMV7DCngZ+lNUEY4iFNtEaJSOH2VDkYfz8aPSKaIQsZANbwkuu1M6jO6Uvj418oAD+IEmHdYkveoE/MsFjpx7TdLlbXKmSh9nALl/+qisrDuuMkPrGKQf0cAEXsjEmDDYMiTq0umpBiyeyj7tcem4kC2JWMLUQhxx3sV7pGd+NSpols4EgB+X40iPpA9Ornuq9EJGrTNBgI3SZWSMVOlbsDvIokIOOg701xAGpvCeGsdwLyWsyxVl/mY+bpBunY4blSUSPyV9Jo/X5C42hZyAs17cJH22lIpq0oesopROlhwZlXYkPdmcHj5QpO8NraBJegrax0wvFYt9Qm6Vldu+VPPQIL0wpupeTHRjViyc5fCGdJLs0+DIKN1NJEWXpCt9JkeV2D3JSWX7sXXpIpFk87OINctkcWvSdRzKGPRlLoRbJL2sdzOSXv48mqTzpGLG6tKRy3kESc9Q0uEQyu6qFt2JG8k4toAXs2CowVZwIfu4LZ0lULLD29KJKUlXBw9B/Stee1aV9ESXTnTO0nHsA4hhs/TYL2XL+48U6cHJ8oakTyny6dIJ7yw9UD/miqQrFnfl/S0OH9WFMryWzgO8Yg4vZ441ejtOc/m6dCKieVOz9H2j9CWH5G0KTml9BbMb0vnwLF3+cJqlezKIVkMBki5/uPEj0rvN0iPqwBL5+HYV3UdYwxzdLR9ejm9d37a/dUHyXpdOrGlMcEv6zpaE6ZX0pR7el8CXDMcCJvLSR3NyZvVx6dOrYOPp0td2hSulV+cvL8nXlKTL4ajdHN7F+e4eNof3IZ25kHVuysrozi2sYc7GreBfYIUmOvPSu3tb+oFGy98eyHW4PPbDL9tFAf2mgdz69AQcQIwbRu/WSYuYnqgCG0kPTm9FZ+mLBwZygTaQM0pfyvgW57Apr+NgHUrs6HPXfwERoxHmyFJ8jfREm7LZ5w6vyyFEJiBqll4t4WQN0vugsSDplcCBME/ZGD4zZSPpcykd1+WH3sMb1tGm+FRXXowhD9jrMm0tKnqN9IOel8ggpFLsf4BgjVO2S2awQXoGOmOSTmuBhuSMJ0T3qeQMVWR5i/LTjE1+jV36AP4VBno9KwJ1kX98U3pEybtvp2H3ECq9+14e1tzSMeJN0odlTPckoqppJN0SJL20eVTUFvelYSeoSn+jJ3DOuf0ehqYdUaaudQw6RX9ZwLcplv36Vcb6KvgipRFFzl4h/TCg2R5Nb2ggw1NsbukldpP0uZwwUh7R1aSjR9LZFAB8+czdXN71ngWXSJO+pTRXVYGOsMY9bEzSvab52qQsrokP38CfHAyp3XmtR/HtTdrpbik7fVt6qkrnTsWcPbi0OlL2AHc58O6tpdVlrEuPBw3SE1pEkbIh0qSjI6VTd7oL3/v0pra0GqpLq5PENy2tQu9cd3nnHDHFAVy8huqLeYJK5WuFU3iSaWjRsxHquDJO9DOse6V7oOLdsYlCS/W4MH2XH8/m4IK/adpEMUPJx9fSrUoeZeEh1KUPBbXW3fW0ZgQqi+ZNFEm5K4nZSm3IIIOVUXqAdQRoxFjBvASeIPHYRS1oCCSGmflrlDnNL9QuPzb3RfPm7VKRfjEXYDEJ7YKD32cF5OMvtkv15QUpwE+vt0vNZAs/6NF5LV1Gak33qJuKHXWTyVPbpfhBAF8sOEARq4mosUm6MOyb03lD4uOTw0Pwzw8k3kBniATrJ2flYaxlzLaoM9MSWH2XEnmZpW+MhNrGyMX1xsi42o4p7CFikED/xsbI04nBHtwUK9gncHnwRO2oOtOyyrIC+JsiZQpiXMaBnGLJkdPA0Vucyytq3BiZX2+MZNMM008uD70QcFigAUiwTg90phutSqzEI9tfh6iwqZ+6QQ2r25+P3jqoEVgNm7y/Czt4Sy9i8nWPoQHz9ubhl1ugO5Z25jg27KG21Ku9jeb9XozPEbNTUUW9Q20aNkcDhnzNCOoU7wyJuL+Hu9j3YyTYewF1RtjyQsbAh2jAMI07wjXuMtCCgQONOFokDZYuXHPElheyhi2agKPhUBO5rYXdjp3DF+Szu45eY8vLiEPgYzRhiLDOo233+bjgYMuLmPmUpKpjyM1kj/bSz48AMmx5EXMx3W3QDHSxzv6B8Tgl6ij19sBYf48tP4AhNevCV9BMkhJ1euqNiLYcvsTFlh/AkIUV9+fYKFFnfrsJgS0/gCFNlz+QTadEHaXeHsjU59jyA8AQ6/jQgLHz1rv69Z0XwZYfACysw8FA0zDdNKhvhmPLDwDB89JpQl6fvrfS/2iAYR1o4LlEnRlsuYOfly6EKVFnTr0J0Ur/A3lI+iLcdGJENoxGO64n6uqpN74bRUOGGHc24eI+6enKFe5qiM/TsV2xV+cV/UK4nxvlgMk+z44xfoND33b2ruC+cLNJ2A3wOay3cJu4wufC3TurfgdvE6ySfLEePnwHe5EvbMsoHe+Vnoep9ijeAAjhOAKIgRdoOsO8WXok5JUifJaer2+7CQoosbHCkwcMxvgcsfcpQIcnx8evFtkLqOFO3tmNg11ZLu/4EN2qODffkM6v6wwbCTAiRuy62vEG6Vb+3X+hNvJBMo1r37D3qkbq05cnnyCa5GAkeeg/MwvCARgRs7HpcBckefqQcw4SYT0t3dw4gr/IO9fttGEgCEtGwWDAhoRLuRTSBAIJ9fu/Xs9paRd2ZZadhFOHzL+2Oantz5ZGK2nUdBE1o03efHQe+ua9U2++z9Zm7Olxepo+RBdvbF/P+Zzupc182Jxzuuv8TE7ADmHu3B0K/bXqnn5evjAiiz216AaL7++JuaUN989sgb0fW58fadDU7O3wohfzhza4ERmG9NRSiLl7AqG/eLrsQb7sFPx0t3iscNFZ5gN/NqwqWvFPEacVjpdD8sUgLUrHlA9Cl++2nap7vW/PD1bX8vYcVbMzhLkbQ9ApFigbHkx7v9thzY+IFel0+wcbP8xYdJH2pbsutDSIf+mLaugj2/s0u6ymPNSmuBN3idZZxfRXAJijX3oaDsyejy4geQwylpOys8JjcvTyPvvD36aOKd5RtBUvp8WlDD8U+rIBBuTFDZCudA9DJ+ZIny7TYSZklE4GA0XKG2a51rk/YWgk9E7iSE3UxVGg9fuhU2zvxXqt7phC37ByfIlAl8xx97448Fo5pmQouvVWSbGHJ1rl8ZyyKk/YA10cefP3Q5f3oqtfBWYwcga1exh0yTzpmcfpFBU8WTmh5FB/fWLdx0PihFaTP/fejkCXLYZLPeziXN9/IPSps+m+iF8gY65SX4LQe+1TRN/NFTnqEvy9k/qblt07/T4HjejT8LFDHyufbxd2cS6XGSo9FPo2kTyaz9PloAj73vAudUJNX0oVfSf0thk+zLOis239mCXy0e4h6L2EM4eg55TJJLWjPZlUA9m5qIaxXl0MSamBQV3cS+QlyjDo8v1NdtPipBIvy2t3pdRadAM/Oqc1beHy0kxCB75zCPrq747euPJjzDtJQLbYKwk97uVQFxeogEm/C4Iu27d1R/7MkO4o7kfkJzOalkL7V95kiC8hAMwh6I8UghDT4/E3NWWnfjF9j/wzC7XCvNxQuriTbqcxAaHT9dAuZ6mCSjf03x1r3hZTEzE9sFkYccJDAJhD0FvSdMs1zOH4otLzIcCtCui4lwuNqiDK7e/fNxuUGPQ9G/BWXlCeik6vevfIW2URojjtGMcTNmMQAOYQ9O0ZkJTZk9Dap46yyH3LoSteDnBxJL/8NtyXJQj9ng1QqxVOuT6wKHt1Oipe3lyzTz0YmUPQaaqCuUtxfylBfXBVSjwlRwjouJfLWWsiBEAXsCiXpDr7jvRWHcr34g0jRHbASwCYQ9Azar5Jovnv0zRHy8VEF52dhT63eznm4j4O+pO8z2oVJz89rQrle/Vaff7kp8maaNAfGPNp+XmgMy8Hubj3Q5fmdWMb3fVPooxIo6zUtBCdlW/EoOvMP03zzr0c7OLeD31maHPEGWPLaCcxnhvHn7uTAU8wMv8kRs7u5V5YH/hh0AeOlAyshvIl6lK6Vo8yLo7/JliZf4ohm+LlABeHQ++yIpuuCT16ypgNCUtA1rUWjz+NQ9eZf4bijOLlABcHQJc2bhystRyyI9/ssUqdhN//jqAbmde/DKt4OcDF4dADEIeUtWXjsJYOxeLlxv5oABAA5rWfcFG8HODiEOjSWuzLC9WUi5QarFW8RD3++JcE3cy85lOripdDXBwO/Q6JyxjysW45l3U6XX7MMpOLhKDjzEnO12URxZFm7P+HXRwO/dVm46Rry/n7azjVfs2HAW8EHWdOckVdlkspXg5ycTj0lH+h1mp9i48B1iXSYtwfvYIBYy7lsposjFS8HOTicOielSIu1I67v4WhqEfaciO9Jug4c5IL/2EJtBpKUKwcaeRRF4dDD7Hoc1133LY1IyfWmK40ORrnBpU5Dj259mYHHXrZ0r3co+7icOgdLAHrmfeKs8gkjK7CkTytFA4AczxoaHGNbU0UNKR7OdDF4dD3WMBhi1uRvuG9jAd8BZp7CxhzqUiPNUY2MK5WyAbGcUkyeDnp4r4edGLOoIPhgcBW5X7h+8BW5YbSPVYb6CE74O22m/cNQWfMGXU8JtQSSkBVmkHDEEqg1z2ys14uEy7uaxk5Yq5QRwKB9fgRGlX1rPEj1HTqXg5ycTh0n9R6yEbMFepo9LceNESHvxmChqj0AHi5PJEu7gsVZ4i5Sh0N+VdjwmaeDcnEzwIh/8zLrdnDlROfX6cMuyXmGPWI2V44m1bh302v3KWiWwK8XNzFfZUJF2IOUtcP7tHVkv2wLuoXTF5Ourg3+vuvMbXKmCfKcB06okvXVjgQXbJirns51cV9iUUUnHlLKdJAh/HpWsvOSBe1eGYvlydVW4hudbnUmqAL5mppDjp2U1dOpVGjJiVJ93Kqi7v9hZER5hp16IBdXU2yvCaxF073cqqLu80l0MvDn0KMuUodO0pb15JOlwbeFoOXU13cbW92iDHXqUOH5uu65+2uLhqPGL3cY8RDkm56W9NUMseox+5n7kyiMqxVc+N+4fFEdXH12MD4/SobGBPBnNSzUHduVgqNnFFP9JAMGpmTAdb8HRC65a3KgjlK/TAU5DOEVk2N4Vvkwmxe7gVwcTcTSsCZ46EEVHBiL6dJo6IwNQ80grF5OQe5uBuJH2HMcepxO7VxVqWps2pjX47iQBd3G0FDjDlO3UU79dB2V1c7ABOWoIu7jUgxxhygTtCTTDGRgKDxmt7Mwi7uJsIDGXOcesVwxD+5awk4R+UOfGdINY4JXSoxoQpzKCaUte9wGR0s2KNe7s0D0C16rF8gMDGHqRN0N1BGDx8kPPC3hbo4HLpr1S76m5WJ8Ojv6gnjhbuiFkZg96iLw6GP53UL+WfM8ZD/6hGzn7kriVbVoV5uPIGg25ROanacB2eOH+dRXdvKrkZ9lpmJ3aEuDofu3kK9Du7hzPGDe35rFT8IHWjhsQ9CFz6jikN3/VCrI7o4c/yILvp0QDeHezjYy21LRJkzK+3898P4+gpz4DA+r4R85B8+Xn+isRrq5dbwbzCrkf/vYzc3CnPg2E2vrQ3xPz60Itv+4UtQ8zbVtjFtkQseXnDA7q/27m05QSAGA3BIVo4CdR2FSq06VmuVff/X6/SigweUg8yIMd8rQNhk2N0/jU19qlnArqLimXcUsOtXv0ZqQ9ARypVp790r5pl2UoTmbPXAKO1ieEC3syjtBP4tfHNNvJ5ABybr2Nwl+FigM1CmveiLoDEKHxuanywdoN2hu9D8oOYRo2xlE9yB7FVmRD9EDXrDZJzmW1vvHZp6iFAB0ZuSs9f2Nk/HiRH9MYcCfhrxClI4QoERL2B5fmOc4E9f3NoruLM8OKWl1tkL4Zwj6zp3O7hA0sPzNsLy/bWCsQGU2vpGcJUhlCMpdrY0XPUzMoKj4e0f3zKyM+TCbYt1bAQvLkIVyuUjz8oQapm50slzkWmoC2ergyzvz280QGhkqjduJCX/vKxwh9AKvf3tgnHD7yhLlG9ZUv89Z1l+EkTzdKk9OPELcoEM8IDtFsQAAAAASUVORK5CYII=");
+
+// ==================== 鼠标光标资源 ==================== //
+
+// 指定的激光笔样式：red, green, yellow
+@thmLaserPointer: red;
+/**
+ * 激光笔样式
+ */
+.applyLaserPointer(@style) when (@style = red) {
+    :root {
+        --cur-laser-lg: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgZng9IjUwJSIgZnk9IjUwJSIgaWQ9ImEiPjxzdG9wIHN0b3AtY29sb3I9InJlZCIgb2Zmc2V0PSIwJSIvPjxzdG9wIHN0b3AtY29sb3I9InJlZCIgc3RvcC1vcGFjaXR5PSIuNzUiIG9mZnNldD0iMjAlIi8+PHN0b3Agc3RvcC1jb2xvcj0icmVkIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMTAwJSIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGZ4PSI1MCUiIGZ5PSI1MCUiIGlkPSJiIj48c3RvcCBzdG9wLWNvbG9yPSIjRkZGIiBvZmZzZXQ9IjAlIi8+PHN0b3Agc3RvcC1jb2xvcj0iI0ZGRiIgb2Zmc2V0PSIxMiUiLz48c3RvcCBzdG9wLWNvbG9yPSJyZWQiIG9mZnNldD0iMjMuMTY4JSIvPjxzdG9wIHN0b3AtY29sb3I9InJlZCIgb2Zmc2V0PSIxMDAlIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTIgMjRjNi42MjcgMCAxMi01LjM3MyAxMi0xMlMxOC42MjcgMCAxMiAwIDAgNS4zNzMgMCAxMnM1LjM3MyAxMiAxMiAxMnoiIGZpbGw9InVybCgjYSkiLz48Y2lyY2xlIGZpbGw9InVybCgjYikiIGN4PSIxMiIgY3k9IjEyIiByPSI2Ii8+PC9nPjwvc3ZnPg==");
+        --cur-laser-dk: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgZng9IjUwJSIgZnk9IjUwJSIgaWQ9ImEiPjxzdG9wIHN0b3AtY29sb3I9InJlZCIgb2Zmc2V0PSIwJSIvPjxzdG9wIHN0b3AtY29sb3I9IiNGMzMiIHN0b3Atb3BhY2l0eT0iLjkiIG9mZnNldD0iMjAlIi8+PHN0b3Agc3RvcC1jb2xvcj0icmVkIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMTAwJSIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGZ4PSI1MCUiIGZ5PSI1MCUiIGlkPSJiIj48c3RvcCBzdG9wLWNvbG9yPSIjRkZGIiBvZmZzZXQ9IjAlIi8+PHN0b3Agc3RvcC1jb2xvcj0iI0ZGRiIgb2Zmc2V0PSIxMiUiLz48c3RvcCBzdG9wLWNvbG9yPSJyZWQiIG9mZnNldD0iMjMuMTY4JSIvPjxzdG9wIHN0b3AtY29sb3I9InJlZCIgb2Zmc2V0PSIxMDAlIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBvcGFjaXR5PSIuOCI+PHBhdGggZD0iTTEyIDI0YzYuNjI3IDAgMTItNS4zNzMgMTItMTJTMTguNjI3IDAgMTIgMCAwIDUuMzczIDAgMTJzNS4zNzMgMTIgMTIgMTJ6IiBmaWxsPSJ1cmwoI2EpIi8+PGNpcmNsZSBmaWxsPSJ1cmwoI2IpIiBjeD0iMTIiIGN5PSIxMiIgcj0iNiIvPjwvZz48L3N2Zz4=");
+        --cur-laser-x: 15px;
+        --cur-laser-y: 15px;
+        --cur-mix-lg: hard-light;
+        --cur-mix-dk: hard-light;
+    }
+}
+.applyLaserPointer(@style) when (@style = green) {
+    :root {
+        --cur-laser-lg: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgZng9IjUwJSIgZnk9IjUwJSIgaWQ9ImEiPjxzdG9wIHN0b3AtY29sb3I9IiMwRjAiIG9mZnNldD0iMCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMEYwIiBzdG9wLW9wYWNpdHk9Ii43NSIgb2Zmc2V0PSIyMCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMEYwIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMTAwJSIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGZ4PSI1MCUiIGZ5PSI1MCUiIGlkPSJiIj48c3RvcCBzdG9wLWNvbG9yPSIjRkZGIiBvZmZzZXQ9IjAlIi8+PHN0b3Agc3RvcC1jb2xvcj0iI0ZGRiIgb2Zmc2V0PSIxMiUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMDBGODAwIiBvZmZzZXQ9IjIzLjE2OCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMDBGODAwIiBvZmZzZXQ9IjEwMCUiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAyNGM2LjYyNyAwIDEyLTUuMzczIDEyLTEyUzE4LjYyNyAwIDEyIDAgMCA1LjM3MyAwIDEyczUuMzczIDEyIDEyIDEyeiIgZmlsbD0idXJsKCNhKSIvPjxjaXJjbGUgZmlsbD0idXJsKCNiKSIgY3g9IjEyIiBjeT0iMTIiIHI9IjYiLz48L2c+PC9zdmc+");
+        --cur-laser-dk: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgZng9IjUwJSIgZnk9IjUwJSIgaWQ9ImEiPjxzdG9wIHN0b3AtY29sb3I9IiMwRjAiIG9mZnNldD0iMCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMEYwIiBzdG9wLW9wYWNpdHk9Ii43NSIgb2Zmc2V0PSIyMCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMEYwIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMTAwJSIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGZ4PSI1MCUiIGZ5PSI1MCUiIGlkPSJiIj48c3RvcCBzdG9wLWNvbG9yPSIjRkZGIiBvZmZzZXQ9IjAlIi8+PHN0b3Agc3RvcC1jb2xvcj0iI0ZGRiIgb2Zmc2V0PSIxMiUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMDBGODAwIiBvZmZzZXQ9IjIzLjE2OCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMDBGODAwIiBvZmZzZXQ9IjEwMCUiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIG9wYWNpdHk9Ii44Ij48cGF0aCBkPSJNMTIgMjRjNi42MjcgMCAxMi01LjM3MyAxMi0xMlMxOC42MjcgMCAxMiAwIDAgNS4zNzMgMCAxMnM1LjM3MyAxMiAxMiAxMnoiIGZpbGw9InVybCgjYSkiLz48Y2lyY2xlIGZpbGw9InVybCgjYikiIGN4PSIxMiIgY3k9IjEyIiByPSI2Ii8+PC9nPjwvc3ZnPg==");
+        --cur-laser-x: 15px;
+        --cur-laser-y: 15px;
+        --cur-mix-lg: normal;
+        --cur-mix-dk: hard-light;
+    }
+}
+.applyLaserPointer(@style) when (@style = blue) {
+    :root {
+        --cur-laser-lg: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgZng9IjUwJSIgZnk9IjUwJSIgaWQ9ImEiPjxzdG9wIHN0b3AtY29sb3I9IiMzMEMxRjEiIG9mZnNldD0iMCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMzBDMUYxIiBzdG9wLW9wYWNpdHk9Ii43NSIgb2Zmc2V0PSIyMCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMzBDMUYxIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMTAwJSIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGZ4PSI1MCUiIGZ5PSI1MCUiIGlkPSJiIj48c3RvcCBzdG9wLWNvbG9yPSIjRkZGIiBvZmZzZXQ9IjAlIi8+PHN0b3Agc3RvcC1jb2xvcj0iI0ZGRiIgb2Zmc2V0PSIxMiUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMzBDMUYxIiBvZmZzZXQ9IjIzLjE2OCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMzBDMUYxIiBvZmZzZXQ9IjEwMCUiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAyNGM2LjYyNyAwIDEyLTUuMzczIDEyLTEyUzE4LjYyNyAwIDEyIDAgMCA1LjM3MyAwIDEyczUuMzczIDEyIDEyIDEyeiIgZmlsbD0idXJsKCNhKSIvPjxjaXJjbGUgZmlsbD0idXJsKCNiKSIgY3g9IjEyIiBjeT0iMTIiIHI9IjYiLz48L2c+PC9zdmc+");
+        --cur-laser-dk: var(--cur-laser-lg);
+        --cur-laser-x: 15px;
+        --cur-laser-y: 15px;
+        --cur-mix-lg: multiply;
+        --cur-mix-dk: hard-light
+    }
+}
+.applyLaserPointer(@style) when (@style = yellow) {
+    :root {
+        --cur-laser-lg: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIyNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMSAxKSIgZmlsbD0iI0ZGRjAwMCIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsLW9wYWNpdHk9Ii44Ii8+PC9zdmc+");
+        --cur-laser-dk: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIyNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMSAxKSIgZmlsbD0iI0ZGRjAwMCIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsLW9wYWNpdHk9Ii4zIi8+PC9zdmc+");
+        --cur-laser-x: 24px;
+        --cur-laser-y: 24px;
+        --cur-mix-lg: multiply;
+        --cur-mix-dk: hard-light;
+    }
+}
+
+// ==================== 键帽样式 ==================== //
+
+// 键帽样式 flat light
+@kbdStyle_flat_c_lg: #333;
+@kbdStyle_flat_bg_lg: linear-gradient(0deg, #F0F0F0, #FFF);
+@kbdStyle_flat_shd_lg: 0 0 0 1px #AAA;
+@kbdStyle_flat_pd_lg: 3px 6px;
+// 键帽样式 flat dark
+@kbdStyle_flat_c_dk: #EEE;
+@kbdStyle_flat_bg_dk: linear-gradient(0deg, #555, #666), #666;
+@kbdStyle_flat_shd_dk: 0 0 0 1px #888;
+@kbdStyle_flat_pd_dk: 3px 6px;
+.applyKbdStyle(@style) when (@style = flat) {
+    :root {
+        // 用于 Light 模式
+        --kbd-c-lg: @kbdStyle_flat_c_lg;
+        --kbd-bg-lg: @kbdStyle_flat_bg_lg;
+        --kbd-shd-lg: @kbdStyle_flat_shd_lg;
+        --kbd-pd-lg: @kbdStyle_flat_pd_lg;
+        // 用于 Dark 模式
+        --kbd-c-dk: @kbdStyle_flat_c_dk;
+        --kbd-bg-dk: @kbdStyle_flat_bg_dk;
+        --kbd-shd-dk: @kbdStyle_flat_shd_dk;
+        --kbd-pd-dk: @kbdStyle_flat_pd_dk;
+    }
+}
+.applyKbdStyle(@style) when (@style = flat_invert) {
+    :root {
+        // 用于 Light 模式
+        --kbd-c-lg: @kbdStyle_flat_c_dk;
+        --kbd-bg-lg: @kbdStyle_flat_bg_dk;
+        --kbd-shd-lg: @kbdStyle_flat_shd_dk;
+        --kbd-pd-lg: @kbdStyle_flat_pd_dk;
+        // 用于 Dark 模式
+        --kbd-c-dk: @kbdStyle_flat_c_lg;
+        --kbd-bg-dk: @kbdStyle_flat_bg_lg;
+        --kbd-shd-dk: @kbdStyle_flat_shd_lg;
+        --kbd-pd-dk: @kbdStyle_flat_pd_lg;
+    }
+}
+
+// 键帽样式 3d light
+@kbdStyle_3d_c_lg: #333;
+@kbdStyle_3d_bg_lg: linear-gradient(180deg, #E0E0E0, #FFF);
+@kbdStyle_3d_shd_lg: 0 -2px 1px 0 #0003 inset, 0 0 1px 1px #FFF inset, 0 0 0 1px #0003, 0 1px 0 1px #0003;
+@kbdStyle_3d_pd_lg: 3px 6px;
+// 键帽样式 3d dark
+@kbdStyle_3d_c_dk: #EEE;
+@kbdStyle_3d_bg_dk: linear-gradient(180deg, #444, #666);
+@kbdStyle_3d_shd_dk: 0 -2px 1px 0 #5553 inset, 0 0 1px 1px #666 inset, 0 0 0 1px #5553, 0 1px 0 1px #444, 0 1px 0 2px #000;
+@kbdStyle_3d_pd_dk: 3px 6px 2px;
+.applyKbdStyle(@style) when (@style = 3d) {
+    :root {
+        // 用于 Light 模式
+        --kbd-c-lg: @kbdStyle_3d_c_lg;
+        --kbd-bg-lg: @kbdStyle_3d_bg_lg;
+        --kbd-shd-lg: @kbdStyle_3d_shd_lg;
+        --kbd-pd-lg: @kbdStyle_3d_pd_lg;
+        // 用于 Dark 模式
+        --kbd-c-dk: @kbdStyle_3d_c_dk;
+        --kbd-bg-dk: @kbdStyle_3d_bg_dk;
+        --kbd-shd-dk: @kbdStyle_3d_shd_dk;
+        --kbd-pd-dk: @kbdStyle_3d_pd_dk;
+    }
+}
+.applyKbdStyle(@style) when (@style = 3d_invert) {
+    :root {
+        // 用于 Light 模式
+        --kbd-c-lg: @kbdStyle_3d_c_dk;
+        --kbd-bg-lg: @kbdStyle_3d_bg_dk;
+        --kbd-shd-lg: @kbdStyle_3d_shd_dk;
+        --kbd-pd-lg: @kbdStyle_3d_pd_dk;
+        // 用于 Dark 模式
+        --kbd-c-dk: @kbdStyle_3d_c_lg;
+        --kbd-bg-dk: @kbdStyle_3d_bg_lg;
+        --kbd-shd-dk: @kbdStyle_3d_shd_lg;
+        --kbd-pd-dk: @kbdStyle_3d_pd_lg;
+    }
+}
+
+// 主题配套预置选项 vlook-header-autonum
+// 针对 1-6 级标题前缀/自动编号内容
+// 针对 counter() 支持使用有序列表的符号格式（decimal/decimal-leading-zero/lower-roman/upper-roman/lower-alpha/upper-alpha），如：counter(h1, upper-alpha)
+@headerNumSeparator: " ";
+@h1NumSeparator: @headerNumSeparator;
+@h2NumSeparator: @headerNumSeparator;
+@h3NumSeparator: @headerNumSeparator;
+@h4NumSeparator: @headerNumSeparator;
+@h5NumSeparator: @headerNumSeparator;
+@h6NumSeparator: @headerNumSeparator;
+@vHeaderAutoNum: "h1{{###@{headerNumSeparator}}},h2{{###@{headerNumSeparator}}},h3{{###@{headerNumSeparator}}},h4{{###@{headerNumSeparator}}},h5{{###@{headerNumSeparator}}}";
+@h1BeforeContent: counter(h1) "." @h1NumSeparator;
+@h2BeforeContent: counter(h1) "." counter(h2) @h2NumSeparator;
+@h3BeforeContent: counter(h1) "." counter(h2) "." counter(h3) @h3NumSeparator;
+@h4BeforeContent: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) @h4NumSeparator;
+@h5BeforeContent: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) @h5NumSeparator;
+@h6BeforeContent: "◼︎" @h6NumSeparator;
+
+// 针对 h1::before 的扩展样式
+.genH1beforeExt() {}
+// 针对 h2::before 的扩展样式
+.genH2beforeExt() {}
+// 针对 h2::before 的扩展样式
+.genH2beforeExt() {}
+// 针对 h3::before 的扩展样式
+.genH3beforeExt() {}
+// 针对 h4::before 的扩展样式
+.genH4beforeExt() {}
+// 针对 h5::before 的扩展样式
+.genH5beforeExt() {}
+// 针对 h6::before 的扩展样式
+.genH6beforeExt() {}
+
+// 针对 VLOOK CC 的扩展样式（在原选择器内）
+.genCcTopLeftExt() {};
+.genCcTopRightExt() {};
+.genCcBottomLeftExt() {};
+.genCcBottomRightExt() {};
+// 自定义扩展样式（指定选择器）
+.genCcExt() {};
+
+// 主题色半透明
+@theme1Fade: rgba(red(@theme1), green(@theme1), blue(@theme1), @accOpacityMiddleForLg);
+@theme1FadeDark: rgba(red(@theme1Dark), green(@theme1Dark), blue(@theme1Dark), @accOpacityMiddleForDk);
+@theme2Fade: rgba(red(@theme2), green(@theme2), blue(@theme2), @accOpacityMiddleForLg);
+@theme2FadeDark: rgba(red(@theme2Dark), green(@theme2Dark), blue(@theme2Dark), @accOpacityMiddleForDk);
+
+// 题注文字、背景色
+@captionTextColor: var(--df);
+@captionBackground: var(--pn03);//rgba(var(--pn-r), var(--pn-g), var(--pn-b), .3);
+
+// 题注内容方向指示符号，如：▲ ▼
+@captionDirectionSymbol_up: "";
+@captionDirectionSymbol_down: "";
+
+// 题注内容主体的边框
+@captionContentBorder: none;
+
+// 标题的阴影样式
+@h1Shadow: none;
+@h2Shadow: none;
+@h3Shadow: none;
+@h4Shadow: none;
+@h5Shadow: none;
+@h6Shadow: none;
+
+// 标题的文字阴影样式
+@h1TextShadow: none;
+@h2TextShadow: none;
+@h3TextShadow: none;
+@h4TextShadow: none;
+@h5TextShadow: none;
+@h6TextShadow: none;
+
+// 标题的文字字体大小
+@h1FontSize: 1.875em;
+@h2FontSize: 1.625em;
+@h3FontSize: 1.5em;
+@h4FontSize: 1.375em;
+@h5FontSize: 1.25em;
+@h6FontSize: 1.125em;
+@h7FontSize: 1.25em; // 引用块小标题、折叠标题
+
+// 针对 h4 的扩展样式
+.genH4Ext() {}
+// 针对 h5 的扩展样式
+.genH5Ext() {}
+
+// 标题的文字轮廓样式
+@h1TextStroke: initial;
+@h2TextStroke: initial;
+@h3TextStroke: initial;
+@h4TextStroke: initial;
+@h5TextStroke: initial;
+@h6TextStroke: initial;
+
+// 标题的左边框
+@h1BorderLeft: 0;
+@h2BorderLeft: 0;
+@h3BorderLeft: 0;
+@h4BorderLeft: 0;
+@h5BorderLeft: 0;
+@h6BorderLeft: 0;
+
+// 标题的右边框
+@h1BorderRight: 0;
+@h2BorderRight: 0;
+@h3BorderRight: 0;
+@h4BorderRight: 0;
+@h5BorderRight: 0;
+@h6BorderRight: 0;
+
+// 标题的上边框
+@h1BorderTop: 0;
+@h2BorderTop: 0;
+@h3BorderTop: 0;
+@h4BorderTop: 0;
+@h5BorderTop: 0;
+@h6BorderTop: 0;
+
+// 标题的下边框
+@h1BorderBottom: 0;
+@h2BorderBottom: 0;
+@h3BorderBottom: 0;
+@h4BorderBottom: 0;
+@h5BorderBottom: 0;
+@h6BorderBottom: 0;
+
+@headerLetterSpacing: 0;
+
+// 标题内边距
+@headerPadding: 5px 0;
+@h1Padding: @headerPadding;
+@h2Padding: @headerPadding;
+@h3Padding: @headerPadding;
+@h4Padding: @headerPadding;
+@h5Padding: @headerPadding;
+
+// 标题圆角
+@headerBorderRadius: 0;
+@h1BorderRadius: @headerBorderRadius;
+@h2BorderRadius: @headerBorderRadius;
+@h3BorderRadius: @headerBorderRadius;
+@h4BorderRadius: @headerBorderRadius;
+@h5BorderRadius: @headerBorderRadius;
+
+// 标题内文本圆角
+@h1SpanBorderRadius: 0;
+@h2SpanBorderRadius: 0;
+@h3SpanBorderRadius: 0;
+@h4SpanBorderRadius: 0;
+@h5SpanBorderRadius: 0;
+
+// 标题背景
+@headerBackground: none;
+@h1Bg: @headerBackground;
+@h2Bg: @headerBackground;
+@h3Bg: @headerBackground;
+@h4Bg: @headerBackground;
+@h5Bg: @headerBackground;
+
+// 主题中强制控制，对大于指定层级的标题都不显示
+// 会同时应用到章节导航时跳转的章节层级
+// 对应 CSS 中的同名变量 --v-hide-outline-over
+@hideOutlineOver: 99;
+
+// 标题色
+@headerColor: @theme1;
+@headerColorDark: @theme1Dark;
+
+// 标题颜色
+@h1Color: var(--h-f);
+@h2Color: var(--h-f);
+@h3Color: var(--h-f);
+@h4Color: var(--h-f);
+@h5Color: var(--h-f);
+@h6Color: var(--h-f);
+@h7Color: var(--h-f);
+
+// 标题前缀 before 颜色
+@contentHeaderNumColor: currentColor;
+@contentHeaderNumOpacity: .5;
+@liBeforeColor: var(--h-f);
+
+// 生成标题文字渐变色（h1）
+// 若存在 emoji 符号，可以将对应符号独立设置为粗体等额外的格式
+.genLinearGradientHeader(@header, @lg) when (@header = h1) {
+    .v-doc-title.max > .doc-title,
+    @{writeOnEditing} @{escBackcoverId} span[md-inline=plain],
+    @{writeOnHTML} @{escBackcoverId} span,
+    @{coverAfterYAML}~@{escBackcoverId} span,
+    @{coverWithoutYAML}~@{escBackcoverId} span {
+        background: @lg;
+        background-clip: text;
+        color: transparent;
+    }
+}
+// 生成标题文字渐变色（除 h1）
+// 若存在 emoji 符号，可以将对应符号独立设置为粗体等额外的格式
+.genLinearGradientHeader(@header, @lg) when not (@header = h1) {
+    @{writeOnEditing} @{header}>span[md-inline=plain],
+    @{coverAfterYAML} @{header}>span {
+        background: @lg;
+        background-clip: text;
+        color: transparent;
+    }
+}
+
+// 有序列表分级符号
+@ol1StyleType: decimal; // 阿拉伯数字
+@ol2StyleType: lower-alpha; // 小写的英文字母
+@ol3StyleType: lower-roman; // 小写的罗马数字
+@ol4StyleType: decimal-leading-zero; // 以 0 前导的阿拉伯数字
+@ol5StyleType: upper-alpha; // 大写的英文字母
+@ol6StyleType: upper-roman; // 大写的罗马数字
+// 无充列表分级符号
+@ul1StyleType: disc; // 实心圆点
+@ul2StyleType: square; // 方块
+@ul3StyleType: circle; // 空心圆点
+@ul4StyleType: disc;
+@ul5StyleType: square;
+@ul6StyleType: circle;
+
+// 连续标题背景
+@continuousHeaderBG: none;
+
+// 标题外边距
+@h1Margin: 2.5em 0 0 0;
+@h2Margin: 2.5em 0 0 0;
+@h3Margin: 2.5em 0 0 0;
+@h4Margin: 2em 0 0 0;
+@h5Margin: 2em 0 0 0;
+@h6Margin: 1em 0 0 0;
+
+// 标题对齐方式
+@headerTextAlign: left;
+@h1TextAlign: @headerTextAlign;
+@h2TextAlign: @headerTextAlign;
+@h3TextAlign: @headerTextAlign;
+@h4TextAlign: @headerTextAlign;
+@h5TextAlign: @headerTextAlign;
+@h6TextAlign: @headerTextAlign;
+@h7TextAlign: center; // 引用小标题
+
+// 多个连续标题间的距离
+@hContinuous: 0;
+
+// 标签默认色号 --- 未合适
+@tagBgDefaultColorCode: "t2";
+@tagFgDefaultColorCode: ~"t2-a";
+// 单级标签常规样式
+
+// 引用块默认色样式（与主题配套使用）
+@quoteBgDefault: var(--bq-bg);
+@quoteBoxShadowDefault: none;
+// 引用块的双栏、三栏、四栏、五栏
+@columnQuoteBgInQuote: var(--db);
+@columnQuoteBoxShadowInQuote: none;
+// 引用块内引用块折叠的差异化样式
+@detailsBgInQuote: var(--db);
+
+// 引用块边框宽度
+@defQuoteBorderWidth: 4px;
+
+// 引用块小标题、折叠标题的分隔线宽度
+@quoteTitleBorderWidth: 1px;
+
+// 引用块左边框
+@quoteRadius: var(--c-br-b);
+
+// 用于 VLOOK UI 外观颜色
+@uiForeColor: #FFF;
+@uiBgColor: @theme1;
+@uiBgColorDark: @theme1Dark;
+
+// 按钮文字颜色
+@buttonForeColor: #FFF;
+@buttonForeHoverColor: #FFF;
+
+// 字体风格、链接地图等弹层的标题文字颜色
+@thmPopupHeaderColor: @buttonForeColor;
+
+// 按钮背景颜色
+@buttonBgColor: @theme1;
+@buttonBgColorDark: @theme1Dark;
+
+// 界面 UI 按钮圆角 std, cap
+@thmButtonRadiusStyle: std;
+
+// 行内代码
+@codeTextColor: @theme2;
+@codeTextColorDark: @theme2Dark;
+@codeBgColor: var(--db-lg);
+@codeBgColorDark: var(--db-dk);
+
+// 代码块背景图
+@codeBlockBackground: none;
+@codeBlockBackgroundDark: none;
+@codeBlockBackgroundSize: auto;
+@codeBlockBackgroundRepeat: inherit;
+@codeBlockBackgroundPosition: inherit;
+
+// 封面、封底标题的文字阴影样式
+@coverTextShadow: none;
+@backcoverTextShadow: none;
+
+// 封面、封底标题的文字轮廓样式
+@coverTextStroke: initial;
+@backcoverTextStroke: initial;
+
+@contrastBorderForChapterInSmallScreen: 0 0 0 0 transparent;
+@contrastBorderForCover: none;
+@contrastBorderForBackcover: @contrastBorderForCover;
+
+// 封面背景相关变量
+@coverLeftRightPadding: 60px;
+@coverLeftRightPaddingForMobile: 20px;
+// ---
+@coverBgSize: auto;
+@coverBgSizeForMobile: auto;
+@coverBgPosition: 0 0;
+@coverBgPositionForMobile: 0 0;
+// 封面 before 相关
+@coverBgBeforeSize: auto;
+@coverBgBeforeSizeForMobile: auto;
+@coverBgBeforePosition: 0 0;
+@coverBgBeforePositionForMobile: 0 0;
+
+// 封面的圆角样式
+@coverBorderRadius: var(--c-br-b);
+
+// 封面四角补充样式
+@ccLeftRightPadding: 60px;
+@ccLeftRightPaddingForMobile: 20px;
+@ccTop: 600px;
+@ccTopForMobile: 600px;
+
+// 封底背景相关变量
+@backcoverBgSize: auto;
+@backcoverBgSizeForMobile: auto;
+@backcoverBgPosition: 0 0;
+@backcoverBgPositionForMobile: 0 0;
+// 封底 before 相关
+@backcoverBgBeforeSize: auto;
+@backcoverBgBeforeSizeForMobile: auto;
+@backcoverBgBeforePosition: 0 0;
+@backcoverBgBeforePositionForMobile: 0 0;
+
+:root {
+    // 要与 LESS 变量 @markBgHeight 一并修改
+    --mark-bg-h: .625em;
+    --mark-bg-h-inset: -.625em;
+
+    --thm-cs-vars: @thmColorSchemeVars;
+
+    // 文档扩展区域背景
+    --thm-doc-ext-bg: linear-gradient(180deg, var(--db), var(--ac-t1-fd));
+
+    --pn00: rgba(var(--pn-r), var(--pn-g), var(--pn-b), 0);
+    --pn01: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .1);
+    --pn02: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .2);
+    --pn03: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .3);
+    --pn04: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .4);
+    --pn05: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .5);
+    --pn06: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .6);
+    --pn07: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .7);
+    --pn08: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .8);
+    --pn09: rgba(var(--pn-r), var(--pn-g), var(--pn-b), .9);
+    --pn10: rgba(var(--pn-r), var(--pn-g), var(--pn-b), 1);
+
+    --db00: rgba(var(--db-r), var(--db-g), var(--db-b), 0);
+    --db01: rgba(var(--db-r), var(--db-g), var(--db-b), .1);
+    --db02: rgba(var(--db-r), var(--db-g), var(--db-b), .2);
+    --db03: rgba(var(--db-r), var(--db-g), var(--db-b), .3);
+    --db04: rgba(var(--db-r), var(--db-g), var(--db-b), .4);
+    --db05: rgba(var(--db-r), var(--db-g), var(--db-b), .5);
+    --db06: rgba(var(--db-r), var(--db-g), var(--db-b), .6);
+    --db07: rgba(var(--db-r), var(--db-g), var(--db-b), .7);
+    --db08: rgba(var(--db-r), var(--db-g), var(--db-b), .8);
+    --db09: rgba(var(--db-r), var(--db-g), var(--db-b), .9);
+    --db10: rgba(var(--db-r), var(--db-g), var(--db-b), 1);
+
+    --df00: rgba(var(--df-r), var(--df-g), var(--df-b), 0);
+    --df01: rgba(var(--df-r), var(--df-g), var(--df-b), .1);
+    --df02: rgba(var(--df-r), var(--df-g), var(--df-b), .2);
+    --df03: rgba(var(--df-r), var(--df-g), var(--df-b), .3);
+    --df04: rgba(var(--df-r), var(--df-g), var(--df-b), .4);
+    --df05: rgba(var(--df-r), var(--df-g), var(--df-b), .5);
+    --df06: rgba(var(--df-r), var(--df-g), var(--df-b), .6);
+    --df07: rgba(var(--df-r), var(--df-g), var(--df-b), .7);
+    --df08: rgba(var(--df-r), var(--df-g), var(--df-b), .8);
+    --df09: rgba(var(--df-r), var(--df-g), var(--df-b), .9);
+    --df10: rgba(var(--df-r), var(--df-g), var(--df-b), 1);
+
+    --thm-lr-pd: @coverLeftRightPadding;
+
+    --thm-c-bg-size: @coverBgSize;
+    --thm-c-bg-pos: @coverBgPosition;
+    --thm-c-bg-bf-size: @coverBgBeforeSize;
+    --thm-c-bg-bf-pos: @coverBgBeforePosition;
+
+    --thm-cc-left-right-pd: @ccLeftRightPadding;
+    --thm-cc-top: @ccTop;
+
+    --thm-bc-bg-size: @backcoverBgSize;
+    --thm-bc-bg-pos: @backcoverBgPosition;
+    --thm-bc-bg-bf-size: @backcoverBgBeforeSize;
+    --thm-bc-bg-bf-pos: @backcoverBgBeforePosition;
+}
+
+// 文档扩展区域背景
+@docExtContent: "";
+@docExtBackgroundColor: var(--db);
+@docExtBackgroundImage: var(--thm-doc-ext-bg);
+@docExtBackgroundSize: auto;
+@docExtBackgroundRepeat: no-repeat;
+@docExtBackgroundPosition: 0 0;
+@docExtBackgroundFilter: none;
+
+// 封面内多级标签样式
+@badgeColorInCover: @buttonForeHoverColor;
+@badgeBakgroundInCover: var(--a-o-c);
+@badgeBorderColorInCover: var(--db);
+@badgeBorderWidthInCover: 0;
+
+// 欢迎页
+@welcomeIconSize: 80px;
+@welcomePageForeColor: @uiForeColor;
+@welcomePageBgColor: linear-gradient(0deg in oklab, fade(@theme2, 80%), var(--ac-t1));
+
+// ==========
+
+// ==================== 生成封面内各类样式 ==================== //
+
+.genCoverSup() {}
+
+// 下划线（副标题）样式
+.genCoverU() {
+    font: var(--v-fw-bd) .75em var(--v-fm-stt); // [style] [weight] [size/[line-height]] [family]
+}
+
+// 封面内分块内容间距
+@coverContentGap: 50px;
+@coverStrongBottom: 50px;
+
+// 加粗（发布人）样式
+.genCoverStrong() {
+    position: absolute;
+    bottom: @coverStrongBottom + @coverContentGap;
+}
+.genCoverStrongExt() {}
+// 加粗（发布人）内分块内容的样式
+.genCoverStrongSpan() {}
+// 加粗（发布人）前缀样式
+.genCoverStrongBefore() {
+    content: "by ";
+    opacity: .6;
+}
+// 加粗（发布人）后缀样式
+.genCoverStrongAfter() {}
+
+// 斜体（版权信息）样式
+.genCoverEm() {
+    font: normal var(--v-fw-bd) .4em var(--v-fm-stt); // [style] [weight] [size/[line-height]] [family]
+    position: absolute;
+    bottom: @coverStrongBottom;
+}
+.genCoverEmExt() {}
+
+// 生成封面内容的对齐方式：左对齐
+.genCoverContentAlign(@align) when (@align = left) {
+    left: var(--thm-lr-pd);
+}
+// 生成封面内容的对齐方式：居中
+.genCoverContentAlign(@align) when (@align = center) {
+    left: 50%;
+    transform: translateX(-50%);
+}
+// 生成封面内容的对齐方式：右对齐
+.genCoverContentAlign(@align) when (@align = right) {
+    right: var(--thm-lr-pd);
+}
+
+// ==================== 生成指定有序列表样式 ==================== //
+
+// 注意 :not(@{hr_MdHr})+ 指排除分栏时的有序列表
+.genOrderList(@style, @shape) {
+    #write>:not(@{hr_MdHr})+ol,
+    #write @{quote_details}>:not(@{hr_MdHr})+ol {
+        counter-reset: v-list-counter;
+        padding-left: 1.625em;
+    }
+    // 对 #write :is(ul,ol) 的微调
+    #write>:not(@{hr_MdHr})+ol>ol,
+    #write @{quote_details}>:not(@{hr_MdHr})+ol>ol {
+        padding-left: 1.5em;
+    }
+    #write>:not(@{hr_MdHr})+ol>li,
+    #write @{quote_details}>:not(@{hr_MdHr})+ol>li {
+        counter-increment: v-list-counter;
+        list-style-type: none;
+    }
+    @{writeOnEditing}>:not(@{hr_MdHr})+ol>li>p,
+    @{writeOnEditing} @{quote_details}>:not(@{hr_MdHr})+ol>li>p {
+        display: list-item;
+    }
+
+    // 有序列表符号样式
+    #write>:not(@{hr_MdHr})+ol>li::before,
+    #write @{quote_details}>:not(@{hr_MdHr})+ol>li::before {
+        content: counter(v-list-counter);
+
+        // 生成不同风格的背景
+        .genOrderListBgForStyle(@style) when (@style = solid) {
+            color: var(--db) !important;
+            background-color: var(--df);
+        }
+        .genOrderListBgForStyle(@style) when (@style = line) {
+            color: var(--df) !important;
+            background-color: var(--db);
+            box-shadow: 0 0 0 1px var(--df-a) inset; // 不用 border 的原因是渲染会上移 1px
+        }
+        .genOrderListBgForStyle(@style);
+
+        // 生成不同形状
+        .genOrderListOutlineForStyle(@style) when (@shape = rect) {
+            border-radius: calc(var(--v-r-s) - 2px) calc(var(--v-r-s-xc) - 2px);
+        }
+        .genOrderListOutlineForStyle(@style) when (@shape = circle) {
+            border-radius: 50%;
+        }
+        .genOrderListOutlineForStyle(@style) when (@shape = drop) {
+            border-radius: 50% 0 50% 50%;
+        }
+        .genOrderListOutlineForStyle(@style);
+
+        font: condensed var(--v-fw-tag) .875em/20px var(--v-fm-tag); // [stretch] [style] [weight] [size/[line-height]] [family]
+        text-align: center;
+        margin-left: -26px;
+        margin-top: .25em;
+        float: left;
+        width: 20px;
+        height: 20px;
+        aspect-ratio: 1/1;
+        padding: 1px 0 0;
+    }
+    // 编辑时微调
+    @{writeOnEditing}>:not(@{hr_MdHr})+ol>li::before,
+    @{writeOnEditing} @{quote_details}>:not(@{hr_MdHr})+ol>li::before {
+        line-height: 18px;
+    }
+    // 对 macOS 环境微调
+    body.@{macos} #write>:not(@{hr_MdHr})+ol>li::before,
+    body.@{macos} #write @{quote_details}>:not(@{hr_MdHr})+ol>li::before {
+        padding-top: 0;
+    }
+    // 第 10+ 的样式
+    #write>:not(@{hr_MdHr})+ol>li:nth-child(n+10)::before,
+    #write @{quote_details}>:not(@{hr_MdHr})+ol>li:nth-child(n+10)::before {
+        font-size: .75em;
+    }
+
+    .genOrderList_hover(@style);
+}
+.genOrderList_hover(@style) {
+    @media (hover: hover) and (pointer: fine) {
+        // 编辑时，当前输入行样式
+        @{writeOnHTML}>:not(@{hr_MdHr})+ol>li:hover::before,
+        @{writeOnHTML} @{quote_details}>:not(@{hr_MdHr})+ol>li:hover::before,
+        // 针对列表行的 hover 样式
+        @{writeOnEditing}>:not(@{hr_MdHr})+ol>li.md-focus-container::before,
+        @{writeOnEditing} @{quote_details}>:not(@{hr_MdHr})+ol>li.md-focus-container::before {
+            .genOrderList_hoverBeforeForStyle(@style) when (@style = solid) {
+                color: @buttonForeHoverColor !important;
+                background-color: var(--a-o-c);
+                box-shadow: none;
+            }
+            .genOrderList_hoverBeforeForStyle(@style) when (@style = line) {
+                color: var(--a-o-c) !important;
+                background-color: var(--ac-t2-a);
+                box-shadow: 0 0 0 1px var(--a-o-c) inset; // 不用 border 的原因是渲染会上移 1px
+            }
+            .genOrderList_hoverBeforeForStyle(@style);
+        }
+    }
+}
+
+// ==================== 生成页签组样式 ==================== //
+
+@tabGroupStdBdWidth: 2px;
+@tabStdPaddingTop: 10px;
+@tabGroupPadding: 4px;
+@tabGroupTextColor: var(--df);
+@tabGroupBgColor: var(--pn-c);
+@tabGroupHoverBgColor: var(--db);
+@tabGroupModernHeight: 44px;
+@tabItemPadding: 5px;
+@tabItemSimpleBorderWidth: 3px;
+@tabItemModernHeight: 36px;
+
+// 页签组（for 现代样式）
+.v-tab-group,
+.v-tab-group > .tab-group-wrap {
+    margin: 0 auto;
+}
+
+// 生成 simple_up 页签组背景样式
+.genTabGroupBackground_simpleUp() {
+    background-image: radial-gradient(ellipse 55% 100% at bottom, var(--pn-c), transparent 100%);
+}
+
+// 生成指定风格的页签组样式
+.genTabGroup(@style) {
+    // 页签组（编辑时）
+    .genTabGroupOnEditing(@style);
+
+    // 页签组
+    .v-tab-group {
+        font-family: var(--v-fm-bd);
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        // 实现页签组浮动显示
+        position: sticky;
+        z-index: 120;
+        top: var(--v-sticky-top);
+
+        // 标准风格样式
+        .genTabGroupForStyle() when (@style = std) {
+            align-items: flex-end;
+            padding: @tabStdPaddingTop (@tabItemPadding * 2) 0;
+            box-shadow: 0 5px 5px 0 var(--db), 0 -@tabGroupStdBdWidth 0 0 @tabGroupBgColor inset;
+            background: @thmWriteBackground;
+            background-position: var(--d-bi-pos), 0 0;
+        }
+        // 简约风格样式
+        .genTabGroupForStyle() when (@style = simple) {
+            align-items: flex-end;
+            padding: @tabStdPaddingTop (@tabItemPadding * 2) 0;
+            box-shadow: 0 5px 5px 0 var(--db), 0 -1px 0 0 @tabGroupBgColor inset;
+            background: @thmWriteBackground;
+            background-position: var(--d-bi-pos), 0 0;
+        }
+        // 简约风格样式 UP 变种
+        .genTabGroupForStyle() when (@style = simple_up) {
+            align-items: flex-end;
+            padding: @tabStdPaddingTop (@tabItemPadding * 2) 0;
+            box-shadow: 0 5px 5px 0 var(--db), 0 -1px 0 0 @tabGroupBgColor inset;
+            background: linear-gradient(0deg, var(--pn-c), var(--db)), var(--d-bi);
+        }
+        // 现代风格样式
+        .genTabGroupForStyle() when (@style = modern) {
+            align-items: center;
+            background: var(--pn-c);
+            border-radius: var(--v-r-s) var(--v-r-s-xc);
+            box-shadow: 0 0 5px 5px var(--db);
+            width: max-content;
+            max-width: 100%;
+            height: @tabGroupModernHeight;
+        }
+        .genTabGroupForStyle();
+    }
+    // 生成移动端的样式微调
+    .genTabGroupForMobile(@style);
+
+    // 生成增强的 边角/转角/圆角 的微调样式
+    .genCornerShape_TabGroup() when not (@thmCornerShape = unset) {
+        @supports (corner-shape: bevel) or (corner-shape: squircle) or (corner-shape: scoop) {
+            .v-tab-group {
+                // 现代风格样式
+                .genTabGroupForStyle() when (@style = modern) {
+                    .genCornerShape_big();
+                }
+                .genTabGroupForStyle();
+            }
+        }
+    }
+    .genCornerShape_TabGroup();
+
+    // 毛玻璃效果
+    .v-tab-group.v-backdrop-blurs.enabled {
+        .genTabGroupBackdropBlurs(@style) when (@style = std), (@style = simple) {
+            background-image: var(--d-bi);
+        }
+        .genTabGroupBackdropBlurs(@style) when (@style = simple_up) {
+            .genTabGroupBackground_simpleUp();
+        }
+        .genTabGroupBackdropBlurs(@style) when (@style = modern) {
+            background-color: var(--pn-c);
+        }
+        .genTabGroupBackdropBlurs(@style);
+    }
+
+    // 宁静视图时，页签组层级提升，避免被其他元素遮挡
+    .clean .v-tab-group {
+        top: 0;
+        z-index: 7001; // 要比 #write::before 高
+    }
+
+    // 左侧更多内容滚动渐变样式
+    .v-tab-group.left-more::before,
+    .v-tab-group.right-more::after {
+        content: "";
+        min-width: 30px;
+        position: sticky;
+        z-index: 121; // 要比 .v-tab-group 大
+        top: 0;
+        bottom: 0;
+
+        // 标准风格样式，简约风格样式，简约风格样式 UP 变种
+        .genTabGroupScrollMask(@style) when (@style = std) {
+            left: -10px;
+            height: 36px;
+            background-image: var(--ar-left),
+                linear-gradient(90deg, @tabGroupMoreContentStdLG);
+            background-repeat: no-repeat, no-repeat;
+            background-position: left 6px center, left center;
+            background-size: auto, auto;
+        }
+        .genTabGroupScrollMask(@style) when (@style = simple), (@style = simple_up) {
+            left: -10px;
+            height: @tabGroupModernHeight;
+            background-image: var(--ar-left),
+                linear-gradient(90deg, @tabGroupMoreContentStdLG);
+            background-repeat: no-repeat, no-repeat;
+            background-position: left 6px center, left center;
+            background-size: auto, auto;
+        }
+        // 现代风格样式
+        .genTabGroupScrollMask(@style) when (@style = modern) {
+            left: 0;
+            height: @tabGroupModernHeight;
+            border-top-left-radius: var(--v-r-s);
+            border-bottom-left-radius: var(--v-r-s-xc);
+            background-image: var(--ar-left),
+                linear-gradient(90deg, @pnMoreContentLG);
+            background-repeat: no-repeat, no-repeat;
+            background-position: left 8px center, left center;
+            background-size: auto, auto;
+        }
+        .genTabGroupScrollMask(@style);
+    }
+    // 右侧更多内容滚动渐变样式
+    .v-tab-group.right-more::after {
+        content: "";
+        left: unset;
+        transform: rotate(180deg);
+
+        // 标准风格样式，简约风格样式，简约风格样式 UP 变种
+        .genTabGroupScrollRightMask(@style) when (@style = std), (@style = simple), (@style = simple_up) {
+            right: -10px;
+        }
+
+        // 现代风格样式
+        .genTabGroupScrollRightMask(@style) when (@style = modern) {
+            right: 0;
+            border-top-right-radius: var(--v-r-s-xc);
+            border-bottom-right-radius: var(--v-r-s);
+        }
+        .genTabGroupScrollRightMask(@style);
+    }
+
+    // 以页签组显示的内容滚动定位样式（scroll-margin-top）
+    .tab-content-target {
+        // 标准风格样式
+        .genTabContentTarget(@style) when (@style = std) {
+            scroll-margin-top: calc(var(--v-sticky-top) + @paragraphPadding + var(--v-tab-group-h)); // + 56px);
+        }
+        // 简约风格样式，简约风格样式 UP 变种
+        .genTabContentTarget(@style) when (@style = simple), (@style = simple_up) {
+            scroll-margin-top: calc(var(--v-sticky-top) + @paragraphPadding + var(--v-tab-group-h)); // + 57px);
+        }
+        // 现代风格样式
+        .genTabContentTarget(@style) when (@style = modern) {
+            scroll-margin-top: calc(var(--v-sticky-top) + @paragraphPadding + var(--v-tab-group-h)); // + 44px);
+        }
+        .genTabContentTarget(@style);
+    }
+
+    .tab-group-wrap {
+        display: flex;
+    }
+
+    // 页签项样式
+    .tab-group-wrap>span {
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        margin: 0 (@tabGroupPadding / 2);
+        cursor: var(--cur-ptr);
+        color: var(--a-c);
+        // font: condensed var(--v-fw-toc) 1em var(--v-fm-toc); // [stretch] [style] [weight] [size/[line-height]] [family]
+        font: condensed normal 1em var(--v-fm-toc); // [stretch] [style] [weight] [size/[line-height]] [family]
+
+        // 标准风格样式
+        .genTabGroupItem(@style) when (@style = std) {
+            border-radius: var(--v-r-s) var(--v-r-s-xc) 0 0;
+            background: @tabGroupBgColor;
+            padding: @tabItemPadding (@tabItemPadding * 2);
+            border: 2px solid var(--pn-c);
+            border-bottom: none;
+        }
+        // 简约风格样式
+        .genTabGroupItem(@style) when (@style = simple) {
+            border-radius: var(--v-r-s) var(--v-r-s-xc) 0 0;
+            padding: (@tabItemPadding * 2);
+        }
+        // 简约风格样式、以及 UP 变种共用部分
+        .genTabGroupItem(@style) when (@style = simple_up) {
+            border-radius: var(--v-r-s) var(--v-r-s-xc) 0 0;
+            padding: (@tabItemPadding * 2);
+        }
+        // 现代风格样式
+        .genTabGroupItem(@style) when (@style = modern) {
+            height: @tabItemModernHeight;
+            border-radius: calc(var(--v-r-s) - @tabGroupPadding) calc(var(--v-r-s-xc) - @tabGroupPadding);
+            padding: (@tabItemPadding * 2);
+        }
+        .genTabGroupItem(@style);
+    }
+
+    // 生成增强的 边角/转角/圆角 的微调样式
+    .genCornerShape_TabGroupWrap() when not (@thmCornerShape = unset) {
+        @supports (corner-shape: bevel) or (corner-shape: squircle) or (corner-shape: scoop) {
+            .tab-group-wrap>span {
+                .genTabGroupItemTweaks() when (@style = std) {
+                    .genTweaks() when (@thmCornerShape = bevel) {
+                        corner-shape: bevel;
+                        border-radius: @bevelRadius_s @bevelRadius_s 0 0 !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = squircle) {
+                        corner-shape: squircle;
+                        border-radius: @squircleRadius_s @squircleRadius_s 0 0 !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = scoop) {
+                        corner-shape: scoop;
+                        border-radius: @bevelRadius_s @bevelRadius_s 0 0 !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = crystal) {
+                        corner-shape: bevel;
+                        border-radius: @bevelRadius_s 0 !important;
+                    }
+                    .genTweaks();
+                }
+                .genTabGroupItemTweaks() when (@style = simple) {
+                    // 简约风格样式
+                    .genTweaks() when (@thmCornerShape = bevel) {
+                        corner-shape: bevel;
+                        border-radius: (@bevelRadius_b - 2px) (@bevelRadius_b - 2px) 0 0 !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = squircle) {
+                        corner-shape: squircle;
+                        border-radius: (@squircleRadius_b - 2px) (@squircleRadius_b - 2px) 0 0 !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = scoop) {
+                        corner-shape: scoop;
+                        border-radius: (@bevelRadius_b - 2px) (@bevelRadius_b - 2px) 0 0 !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = crystal) {
+                        corner-shape: bevel;
+                        border-radius: (@bevelRadius_b - 2px) (@bevelRadius_b - 2px) 0 0 !important;
+                    }
+                    .genTweaks();
+                }
+                .genTabGroupItemTweaks() when (@style = simple_up) {
+                    // 未启用
+                }
+                .genTabGroupItemTweaks() when (@style = modern) {
+                    .genTweaks() when (@thmCornerShape = bevel) {
+                        corner-shape: bevel;
+                        border-radius: (@bevelRadius_b - 2px) !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = squircle) {
+                        corner-shape: squircle;
+                        border-radius: (@squircleRadius_b - 2px) !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = scoop) {
+                        corner-shape: scoop;
+                        border-radius: (@bevelRadius_b - 2px) !important;
+                    }
+                    .genTweaks() when (@thmCornerShape = crystal) {
+                        corner-shape: bevel;
+                        border-radius: (@bevelRadius_b - 2px) 0 !important;
+                    }
+                    .genTweaks();
+                }
+                .genTabGroupItemTweaks();
+            }
+        }
+    }
+    .genCornerShape_TabGroupWrap();
+
+    // 现代风格样式
+    .genTabGroupItemExt(@style) when (@style = modern) {
+        .tab-group-wrap > span:first-child {
+            margin-left: @tabGroupPadding;
+        }
+        .tab-group-wrap > span:last-child {
+            margin-right: @tabGroupPadding;
+        }
+    }
+    .genTabGroupItemExt(@style);
+
+    // 页签项内图标
+    .tab-group-wrap > span > svg {
+        margin-right: 5px;
+    }
+
+    // 标准风格样式、现代风格样式
+    @media (hover: hover) and (pointer: fine) {
+        // 非当前页签背景的 hover 样式
+        .tab-group-wrap > span:not([class*=current]):hover {
+            .genTabGroupItemBg(@style) when (@style = std), (@style = modern)  {
+                background: @tabGroupHoverBgColor;
+            }
+            .genTabGroupItemBg(@style) when (@style = simple) {
+                background: var(--pn-c);
+            }
+            .genTabGroupItemBg(@style);
+        }
+        // 非当前页签文字的 hover 样式（除 GSA）
+        .tab-group-wrap > span:not([class*=current]):not([class*=alert-]):hover {
+            color: var(--a-o-c);
+        }
+    }
+
+    // 现代风格样式
+    .genTabGroupForModern() when (@style = modern) {
+        .tab-group-wrap > span::before {
+            content: "";
+            width: 1px;
+            background-color: var(--df);
+            opacity: .25;
+            padding: 8px 0;
+            margin-left: -12px;
+            position: absolute;
+        }
+
+        .tab-group-wrap > span:first-child::before,
+        .tab-group-wrap > .current::before,
+        .tab-group-wrap > :is(.current, [class*=alert-]) + span::before,
+        .tab-group-wrap > :hover::before,
+        .tab-group-wrap > :hover + span::before {
+            opacity: 0 !important;
+        }
+    }
+    .genTabGroupForModern();
+
+    // 当前选中页签项
+    .tab-group-wrap > .current {
+        color: var(--df);
+        font-weight: var(--v-fw-toc);
+
+        // 标准风格样式
+        .genTabGroupCurrentItem(@style) when (@style = std) {
+            border: @tabGroupStdBdWidth solid @tabGroupBgColor;
+            background: var(--db) !important;
+            border-bottom: none !important;
+        }
+        // 简约风格样式
+        .genTabGroupCurrentItem(@style) when (@style = simple) {
+            border-bottom: @tabItemSimpleBorderWidth solid var(--df);
+            padding-bottom: (@tabItemPadding * 2) - @tabItemSimpleBorderWidth;
+        }
+        // 简约风格样式 UP 变种
+        .genTabGroupCurrentItem(@style) when (@style = simple_up) {
+            border-top: @tabItemSimpleBorderWidth solid var(--df);
+            border-radius: 0;
+            padding-top: (@tabItemPadding * 2) - @tabItemSimpleBorderWidth;
+            background: var(--db) !important;
+            box-shadow: 1px 0 0 0 var(--pn-c) inset, -1px 0 0 0 var(--pn-c) inset;
+        }
+        // 现代风格样式
+        .genTabGroupCurrentItem(@style) when (@style = modern) {
+            background: var(--db) !important;
+            box-shadow: 0 0 @tabGroupPadding 0 var(--pn-c-a);
+        }
+        .genTabGroupCurrentItem(@style);
+    }
+
+    // 对于当前页签项为 GSA 时的样式
+    .tab-group-wrap > .current[class*=alert-] {
+        .genTabGroupCurrentItemForGSA(@style) when (@style = std) {
+            border: @tabGroupStdBdWidth solid @tabGroupBgColor;
+            border-bottom: none !important;
+        }
+        .genTabGroupCurrentItemForGSA(@style) when (@style = simple_up) {
+            border-top: @tabItemSimpleBorderWidth solid currentColor;
+        }
+        .genTabGroupCurrentItemForGSA(@style);
+    }
+
+    // 页签为 GSA 通用样式
+    .tab-group-wrap > span[class*=alert-] {
+        .genTabGroupItemForGSA(@style) when (@style = simple), (@style = simple_up) {
+            border-color: currentColor;
+        }
+        .genTabGroupItemForGSA(@style);
+    }
+    // 页签为 GSA 的 note 内容
+    .tab-group-wrap > .alert-note {
+        color: var(--ac-bu);
+    }
+    // 页签为 GSA 的 tip 内容
+    .tab-group-wrap > .alert-tip {
+        color: var(--ac-gn);
+    }
+    // 页签为 GSA 的 important 内容
+    .tab-group-wrap > .alert-important {
+        color: var(--ac-pu);
+    }
+    // 页签为 GSA 的 warning 内容
+    .tab-group-wrap > .alert-warning {
+        color: var(--ac-og);
+    }
+    // 页签为 GSA 的 caution 内容
+    .tab-group-wrap > .alert-caution {
+        color: var(--ac-rd);
+    }
+}
+
+// ==================== 生成表格、插图的不同对齐方式的样式 ==================== //
+
+// 居中对齐。非居中对齐时不调用
+.genTableAndFigureAlign(@align) when (@align = center) {
+    // 表格居中
+    :is(#write, .v-pic-in-pic) table {
+        margin: 0 auto !important;
+    }
+
+    .md-diagram-panel>.md-diagram-panel-preview>svg { // 编辑时
+        margin: auto;
+    }
+
+    // 引用块小标题
+
+    // 明信片
+    @{writeOnEditing} .md-image[data-src*="#card"]>img,
+    @{writeOnEditing} .md-image[data-src*="#cardd"]::after,
+    #write .v-post-card,
+    #write img[src*="#card"],
+    #write svg[data-inject-url*="#card"],
+    #write :is(p, blockquote):has(img[src*="#card"]),
+    // 视频嵌入代码（适用于 macOS、Windows）
+    @{iframeVideoOnEditing} @{biliVideo},
+    @{iframeVideoOnEditing} @{douyinVideo},
+    @{iframeVideoOnEditing} @{xiguaVideo},
+    @{iframeVideoOnEditing} @{qqVideo},
+    @{iframeVideoOnEditing} @{youtubeVideo},
+    // 流媒体平台（针对 Windows）
+    body.@{windows} @{iframeVideoOnEditing} @{biliVideo}@{webview_iframe},
+    body.@{windows} @{iframeVideoOnEditing} @{douyinVideo}@{webview_iframe},
+    body.@{windows} @{iframeVideoOnEditing} @{xiguaVideo}@{webview_iframe},
+    body.@{windows} @{iframeVideoOnEditing} @{qqVideo}@{webview_iframe},
+    body.@{windows} @{iframeVideoOnEditing} @{youtubeVideo}@{webview_iframe},
+    // 视频嵌入代码（针对 HTML）
+    @{iframeVideo} @{biliVideo},
+    @{iframeVideo} @{douyinVideo},
+    @{iframeVideo} @{xiguaVideo},
+    @{iframeVideo} @{qqVideo},
+    @{iframeVideo} @{youtubeVideo},
+    // 编辑时 Mermaid 图的预览
+    .mermaid-svg, // 从 Typora 1.10.2-dev 开始启用
+    .md-diagram-panel-preview>svg {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block;
+    }
+
+    // 编辑时添加了题注语法后的内容微调
+    @{writeOnEditing} p>[md-inline=em]:only-child:has([md-inline=highlight]:only-child) {
+        display: block;
+        text-align: center;
+    }
+
+    #v-footer,
+    @{writeOnEditing} p:has(.md-image:not([data-src*="#icon"]):not([data-src*="#card"])),
+    @{writeOnHTML} p:has(img:not([src*="#icon"]):not([src*="#card"])),
+    @{writeOnHTML} p:has(figure[data-cntr=img]),
+    #write .md-fences-adv-panel, // 针对 Mermaid 图
+    .tab-group-wrap > span, // 页签组条目
+    .v-cap-cntr, // 导出后题注居中
+    .v-caption.tbl>.v-cap-1 { // 表格题注样式
+        text-align: center !important;
+    }
+
+    // 文档页脚中的版权信息
+    #write > .v-copyright {
+        justify-content: center !important;
+    }
+
+    // 题注居中（编辑时）
+    @{captionTipsOnEditing} {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    // 题注居中
+    .v-cap-1,
+    .v-cap-2,
+    // 明信片样式
+    #write .v-post-card,
+    // 编辑时表格工具栏
+    @{writeOnEditing} .ty-table-edit {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    // 编辑时表格工具栏
+    @{writeOnEditing} .ty-table-edit {
+        margin-left: 0;
+    }
+}
+
+// ==================== 标题 after 样式选择器 ==================== //
+
+// 标题 after 样式
+@headerAfter: ~"#write :is(h1,h2,h3,h4,h5)>span::after";
+@h1After: ~"#write h1 span::after";
+@h2After: ~"#write h2 span::after";
+@h3After: ~"#write h3 span::after";
+@h4After: ~"#write h4 span::after";
+@h5After: ~"#write h5 span::after";
+@h1_5After: ~"#write :is(h1, h2, h3, h4, h5) span::after";
+@h1_5HoverAfter: ~"#write :is(h1, h2, h3, h4, h5):hover span::after";
+
+// 针对封底 span::after 的微调处理
+@backcoverSpanAfter: ~"@{coverAfterYAML}~@{backcoverId}>span::after";
+@backcoverSpanWithoutYAMLafter: ~"@{coverWithoutYAML}~@{backcoverId}>span::after";
+
+// ==================== 生成面板元素的背景图样式 ==================== //
+
+.genBlockBackgroundImage(@forNavCenterSize: auto, @forNavCenterRepeat: no-repeat, @forNavCenterPosition: right 10px bottom 10px) {
+    // 代码块内代码区域
+    #write .md-fences .CodeMirror-lines {
+        background-image: var(--c-blk-bg);
+        background-size: @codeBlockBackgroundSize;
+        background-repeat: @codeBlockBackgroundRepeat;
+        background-position: @codeBlockBackgroundPosition;
+    }
+
+    // 导出后的目录
+    #vlook-toc,
+    // 过滤结果面板
+    .v-index-filter-result,
+    // 坏链列表
+    .v-link-info-list,
+    // 右边浮动显示的侧边栏
+    #toc-dropmenu,
+    // 大纲面板
+    .outline-content {
+        background-image: var(--c-blk-bg);
+        background-size: @forNavCenterSize;
+        background-repeat: @forNavCenterRepeat;
+        background-position: @forNavCenterPosition;
+    }
+}
+
+// ==================== 多级标签样式 ==================== //
+
+@codePaddingTop: 4px;
+@codePaddingLeft: 6px;
+@codePaddingRight: 8px;
+@codeMarginForCap: -1px;
+
+// 为什么是 3px？
+// 因为 margin, border, padding 各 1px
+@codeValueRadius: calc(var(--v-r-tag) - 3px);
+@codeValueRadiusXC: calc(var(--v-r-tag-xc) - 3px);
+
+// -----
+// 标准风格
+// 生成指定风格的多级标签样式：std, cap, dyn, "cap, dyn",
+.genBadgeStyle() when (@thmBadgeStyle = std) {
+    // 多级标签内容（第2段）公共样式
+    // 编辑时的多级标签内容（第2段）
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:first-child) > code, // :first-child 时为 标签 tag
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:only-child):first-child > code,  // 没有标题，只有 value 和 value2
+    .v-badge-value {
+        border-radius: @codeValueRadius @codeValueRadiusXC;
+        background: var(--db);
+        padding: @codePaddingTop @codePaddingLeft;
+        margin: 1px 1px 1px 4px;
+    }
+
+    // 三段式，多级标签有两个内容时微调
+    @{badgeOnEditingPrefix} > @{codeOnEditing}+span:last-child,
+    .v-badge-value.hastwo {
+        margin: 1px 4px;
+    }
+
+    // 多级标签没有标题（第1段），只有两个内容 value 和 value2
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:only-child):first-child > code,
+    .v-badge-name > .v-badge-value:first-child {
+        margin: 1px 4px 1px 1px;
+    }
+}
+
+// -----
+// 活力风格
+@dynDeg: 104deg;
+@dynOffset: 6px;
+@dynPadding: 8px;
+@dynMargin: 4px;
+// 生成指定风格的多级标签样式：std, cap, dyn, "cap, dyn",
+.genBadgeStyle() when (@thmBadgeStyle = dyn) {
+    // 多级标签内容（第2段）公共样式
+    // 编辑时的多级标签内容（第2段）
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:first-child) > code, // :first-child 时为 标签 tag
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:only-child):first-child > code,  // 没有标题，只有 value 和 value2
+    .v-badge-value {
+        border-radius: 0 @codeValueRadiusXC @codeValueRadius 0;
+        background: linear-gradient(@dynDeg, transparent @dynOffset, var(--db) @dynOffset, var(--db));
+        padding: @codePaddingTop @codePaddingTop @codePaddingTop @dynPadding;
+        margin: 1px 1px 1px @dynMargin;
+    }
+
+    // 三段式，多级标签有两个内容时微调
+    // 第 2 个内容
+    @{badgeOnEditingPrefix} > @{codeOnEditing}+span:last-child {
+        margin: 1px @codePaddingLeft 1px 0;
+    }
+    // 第 1 个内容
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:first-child):not(:last-child) > code,
+    .v-badge-value.hastwo {
+        margin-left: @dynMargin;
+        margin-right: @dynMargin;
+        padding-right: 10px;
+        border-radius: 0 !important;
+        corner-shape: unset !important;
+        background: linear-gradient(@dynDeg, transparent @dynOffset, var(--db) @dynOffset, var(--db) calc(100% - @dynOffset), transparent calc(100% - @dynOffset));
+    }
+
+    // 多级标签没有标题（第1段），只有两个内容 value 和 value2
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:only-child):first-child > code,
+    .v-badge-value:first-child {
+        margin-left: 1px;
+        margin-right: @dynMargin;
+        padding-left: @codePaddingLeft;
+        padding-right: @dynPadding;
+        border-radius: @codeValueRadius 0 0 @codeValueRadiusXC;
+        background: linear-gradient(@dynDeg, var(--db) 0%, var(--db) calc(100% - @dynOffset), transparent calc(100% - @dynOffset));
+    }
+}
+
+// -----
+// 胶囊风格
+// 生成指定风格的多级标签样式：std, cap, dyn, "cap, dyn",
+.genBadgeStyle() when (@thmBadgeStyle = cap) {
+    // 多级标签样式名称公共样式
+    @{badgeOnEditing},
+    @{badgeOnEditing2},
+    .v-badge-name {
+        padding-right: 0;
+    }
+
+    // 多级标签内容（第2段）公共样式
+    // 编辑时的多级标签内容（第2段）
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:first-child) > code, // :first-child 时为 标签 tag
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:only-child):first-child > code,  // 没有标题，只有 value 和 value2
+    .v-badge-value {
+        border-radius: 0 calc(var(--v-r-tag-xc) - 1px) calc(var(--v-r-tag) - 1px) 0;
+        color: var(--db) !important;
+        // 生成 cap 风格默认的背景
+        .genBadgeStyleForValue() when (@thmBadgeStyleExt = cap) {
+            margin: @codeMarginForCap 0 @codeMarginForCap @codePaddingLeft;
+            padding: 5px @codePaddingLeft;
+            background: var(--df);
+        }
+        // 生成 cap + dyn 风格的背景
+        .genBadgeStyleForValue() when (@thmBadgeStyleExt = dyn) {
+            margin-left: 2px;
+            margin-top: -1px;
+            margin-bottom: -1px;
+            padding: 5px 6px 5px @dynPadding;
+            background: linear-gradient(@dynDeg, transparent @dynOffset, var(--df) @dynOffset, var(--df));
+        }
+        .genBadgeStyleForValue();
+    }
+
+    // 三段式，多级标签有两个内容时微调
+    // 第 2 个内容
+    @{badgeOnEditingPrefix} > @{codeOnEditing}+span:last-child {
+        margin: 1px @codePaddingLeft 1px 0;
+    }
+    // 第 1 个内容
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:first-child):not(:last-child) > code,
+    .v-badge-value.hastwo {
+        margin: @codeMarginForCap @codePaddingLeft;
+        padding-left: @dynPadding !important;
+        border-radius: 0 !important;
+        corner-shape: unset !important;
+        // 生成 cap + dyn 风格的背景（有两个 value 时）
+        .genBadgeStyleForValue_hasTow() when (@thmBadgeStyleExt = dyn) {
+            margin-left: 2px;
+            margin-right: 2px;
+            padding-right: @codePaddingRight;
+            background: linear-gradient(@dynDeg, transparent @dynOffset, var(--df) @dynOffset, var(--df) calc(100% - @dynOffset), transparent calc(100% - @dynOffset));
+        }
+        .genBadgeStyleForValue_hasTow();
+    }
+
+    // 多级标签没有标题（第1段），只有两个内容 value 和 value2
+    @{badgeOnEditingPrefix} > @{codeOnEditing}:not(:only-child):first-child > code,
+    .v-badge-value:first-child {
+        margin: @codeMarginForCap 2px @codeMarginForCap @codeMarginForCap;
+        border-radius: var(--v-r-tag) 0 0 var(--v-r-tag-xc);
+        margin-right: @codePaddingLeft;
+        // 生成 cap + dyn 风格的背景（无标题时）
+        .genBadgeStyleForValue_firstChild() when (@thmBadgeStyleExt = dyn) {
+            margin-right: 2px;
+            padding-right: @dynPadding;
+            background: linear-gradient(@dynDeg, var(--df), var(--df) calc(100% - @dynOffset), transparent calc(100% - @dynOffset));
+        }
+        .genBadgeStyleForValue_firstChild();
+    }
+}
+
+// ==================== 生成编辑时显示代码块标题（题注）样式 ==================== //
+
+.genCodeblockTitle() {
+    .codeblockTitle() {
+        content: attr(lang) " ";
+        white-space: pre-wrap;
+        background: var(--std-code-sd) var(--v-i-sys-menu) no-repeat 7px center;
+        padding: 7px;
+        text-align: center;
+        color: var(--df-a);
+        font: normal .875em var(--v-fm-bd); // [style] [weight] [size/[line-height]] [family]
+        width: 100%;
+        display: block;
+        position: relative;
+        border-radius: calc(var(--v-r-b) - @codeblockBorderWidth) calc(var(--v-r-b-xc) - @codeblockBorderWidth) 0 0;
+    }
+
+    // 需要添加题注才显示
+    .genCodeblockTitleSelector() when(@thmCodeblockTitle = on) {
+        // 排除 mermaid 图表、```math 语法的公式
+        @{writeOnEditing} p:has(@{cap_prefix}) + .md-fences:not([class*=md-diagram]):not([lang=math])::before {
+            .codeblockTitle();
+        }
+    }
+
+    // 不需要添加题注就可以显示
+    .genCodeblockTitleSelector() when(@thmCodeblockTitle = off) {
+        // 排除 mermaid 图表、```math 语法的公式
+        @{writeOnEditing} .md-fences:not([class*=md-diagram]):not([lang=math])::before {
+            .codeblockTitle();
+        }
+    }
+    .genCodeblockTitleSelector();
+}
+
+// ==================== 生成段落斜体扩展样式 ==================== //
+
+.genParaFormatItalic(@color: var(--df-a)) {
+    @italicTextOnEditing: ~'@{writeOnEditing}>p>[md-inline=em]:only-child:has(>em>[md-inline=plain])';
+    @italicTextOnHTML: ~'@{writeOnHTML}>p>em:only-child:has(span:only-child)';
+    @{italicTextOnEditing},
+    @{italicTextOnHTML} {
+        display: block;
+        font-size: 1.125em;
+        color: @color;
+        line-height: @defaultLineHeight;
+        padding: .5em 0 .5em;
+        margin: 1em 0 1em;
+        border-top: 1px solid var(--pn-c);
+        border-bottom: 1px solid var(--pn-c);
+    }
+}
+
+// ==================== 生成段落加粗扩展样式 ==================== //
+
+.genParaFormatBold_Ext() {}
+
+.genParaFormatBold() {
+    @boldTextOnEditing: ~'@{writeOnEditing}>p>[md-inline=strong]:only-child:has(>strong)';
+    @boldTextOnHTML: ~'@{writeOnHTML}>p>strong:only-child';
+    @{boldTextOnEditing},
+    @{boldTextOnHTML} {
+        display: block;
+        font-size: 1.125em;
+        text-align: center;
+        line-height: @defaultLineHeight;
+        padding: .5em 0 .75em;
+        margin-top: 1em;
+        .genParaFormatBold_Ext();
+    }
+}
+
+// ==================== 生成段落下划线扩展样式 ==================== //
+
+.genParaFormatUnderline(@opacity : .4, @color1: var(--ac-t1), @color2 : var(--ac-t2)) {
+    // 下划线
+    @underlineOnlyChild: ~'@{writeOnEditing}>p>[md-inline=underline]:only-child';
+    @underlineOnlyChild_blockquote: ~'@{writeOnEditing} blockquote>p>[md-inline=underline]:only-child';
+    @onlyUnderlineTextOnEditing: ~'@{underlineOnlyChild}:has(>u)';
+    @onlyUnderlineTextOnEditing_blockquote: ~'@{underlineOnlyChild_blockquote}:has(>u)';
+    @onlyUnderlineTextOnHTML: ~'@{writeOnHTML}>p>u:only-child';
+    @onlyUnderlineTextOnHTML_blockquote: ~'@{writeOnHTML} blockquote>p>u:only-child';
+    @{onlyUnderlineTextOnEditing},
+    @{onlyUnderlineTextOnEditing_blockquote},
+    @{onlyUnderlineTextOnHTML},
+    @{onlyUnderlineTextOnHTML_blockquote} {
+        display: block;
+        font-size: 1.125em;
+        text-align: center;
+        line-height: @defaultLineHeight;
+        padding: .75em 0 1.5em;
+        margin-top: .5em;
+        border: none;
+    }
+    @{underlineOnlyChild}>u,
+    @{underlineOnlyChild_blockquote}>u {
+        border: none;
+    }
+
+    // 下划线 after
+    @{onlyUnderlineTextOnEditing}:after,
+    @{onlyUnderlineTextOnEditing_blockquote}:after,
+    @{onlyUnderlineTextOnHTML}:after,
+    @{onlyUnderlineTextOnHTML_blockquote}:after {
+        content: "";
+        position: absolute;
+        margin-top: 2.5em;
+        height: 3px;
+        opacity: @opacity;
+        background-image: linear-gradient(90deg, @color1, @color2);
+        width: calc(100px + 10%);
+        left: calc(50% - 50px - 5%);
+    }
+}
+
+// ==================== 生成段落高亮扩展样式 ==================== //
+
+// 双引号（圆）
+@quoteBeforeImage_q01: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M17.155 1l1.16 1.16a20.075 20.075 0 0 0-10.288 9.688A9 9 0 1 1 1 20.631c0-9.73 6.95-17.838 16.155-19.63zM37.155 1l1.16 1.16a20.075 20.075 0 0 0-10.288 9.688A9 9 0 1 1 21 20.631c0-9.73 6.95-17.838 16.155-19.63z'/%3E%3C/g%3E%3C/svg%3E");
+@quoteAfterImage_q01: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M2.845 29l-1.16-1.16a20.075 20.075 0 0 0 10.288-9.688A9 9 0 1 1 19 9.369c0 9.73-6.95 17.838-16.155 19.63zM22.845 29l-1.16-1.16a20.075 20.075 0 0 0 10.288-9.688A9 9 0 1 1 39 9.369c0 9.73-6.95 17.838-16.155 19.63z'/%3E%3C/g%3E%3C/svg%3E");
+// 双引号（方）
+@quoteBeforeImage_q02: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M2 13h16v16H2zM10 1h7L9 13H2z'/%3E%3Cg%3E%3Cpath d='M21 13h16v16H21zM29 1h7l-8 12h-7z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+@quoteAfterImage_q02: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M19 17H3V1h16zM11 29H4l8-12h7z'/%3E%3Cg%3E%3Cpath d='M38 17H22V1h16zM30 29h-7l8-12h7z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+// 双引号（尖）
+@quoteBeforeImage_q03: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M11 1h8l-3 28H2zM31 1h8l-3 28H22z'/%3E%3C/g%3E%3C/svg%3E");
+@quoteAfterImage_q03: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M9 29H1L4 1h14zM29 29h-8l3-28h14z'/%3E%3C/g%3E%3C/svg%3E");
+// 双圆环
+@quoteBeforeImage_c01: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='nonzero'%3E%3Cpath d='M10 10c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10z' opacity='.3'/%3E%3Cpath d='M27 0c7.18 0 13 5.82 13 13s-5.82 13-13 13-13-5.82-13-13S19.82 0 27 0zm0 5a8 8 0 1 0 0 16 8 8 0 0 0 0-16z' opacity='.5'/%3E%3C/g%3E%3C/svg%3E");
+@quoteAfterImage_c01: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='nonzero'%3E%3Cpath d='M30 20c-5.523 0-10-4.477-10-10S24.477 0 30 0s10 4.477 10 10-4.477 10-10 10zm0-5a5 5 0 1 0 0-10 5 5 0 0 0 0 10z' opacity='.3'/%3E%3Cpath d='M13 30C5.82 30 0 24.18 0 17S5.82 4 13 4s13 5.82 13 13-5.82 13-13 13zm0-5a8 8 0 1 0 0-16 8 8 0 0 0 0 16z' opacity='.5'/%3E%3C/g%3E%3C/svg%3E");
+// 叶子
+@quoteBeforeImage_l01: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M15 1h12v12c0 5.523-4.477 10-10 10H5V11C5 5.477 9.477 1 15 1z' opacity='.5'/%3E%3Cpath d='M23 7h12v12c0 5.523-4.477 10-10 10H13V17c0-5.523 4.477-10 10-10z' opacity='.3'/%3E%3C/g%3E%3C/svg%3E");
+@quoteAfterImage_l01: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M25 29H13V17c0-5.523 4.477-10 10-10h12v12c0 5.523-4.477 10-10 10z' opacity='.5'/%3E%3Cpath d='M17 23H5V11C5 5.477 9.477 1 15 1h12v12c0 5.523-4.477 10-10 10z' opacity='.3'/%3E%3C/g%3E%3C/svg%3E");
+// 半框（圆角）
+@quoteBeforeImage_f01: url("data:image/svg+xml,%3Csvg width='40' height='31' viewBox='0 0 40 31' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 1.011a4 4 0 1 1 0 8H17a3 3 0 0 0-3 3v13a4 4 0 1 1-8 0v-14c0-5.522 4.477-10 10-10z' fill='%23000' fill-rule='evenodd'/%3E%3C/svg%3E");
+@quoteAfterImage_f01: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 29a4 4 0 1 1 0-8h13a3 3 0 0 0 3-3V5a4 4 0 1 1 8 0v14c0 5.523-4.477 10-10 10z' fill='%23000' fill-rule='evenodd'/%3E%3C/svg%3E");
+// 半框（方角）
+@quoteBeforeImage_f02: url("data:image/svg+xml,%3Csvg width='40' height='31' viewBox='0 0 40 31' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M6 1.011h28v8H6z'/%3E%3Cpath d='M6 1.011h8v28H6z'/%3E%3C/g%3E%3C/svg%3E");
+@quoteAfterImage_f02: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M34 29H6v-8h28z'/%3E%3Cpath d='M34 29h-8V1h8z'/%3E%3C/g%3E%3C/svg%3E");
+// 三角形
+@quoteBeforeImage_t01: url("data:image/svg+xml,%3Csvg width='20' height='16' viewBox='0 0 20 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 16L20 0H0z' fill='%23000' fill-rule='evenodd'/%3E%3C/svg%3E");
+@quoteAfterImage_t01: url("data:image/svg+xml,%3Csvg width='20' height='16' viewBox='0 0 20 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0l10 16H0z' fill='%23000' fill-rule='evenodd'/%3E%3C/svg%3E");
+// 水墨注释圈
+@quoteBeforeImage_m01: url("data:image/svg+xml,%3Csvg width='28.482' height='28.495' viewBox='0 0 28.482 28.495' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.768 25.034c-4.155-2.845-6.448-5.221-6.878-7.128-.646-2.86-1.102-8.297 3.585-11.06 4.686-2.762 8.755-1.443 10.784-.655 2.028.788 4.217 2.243 5.267 3.5 1.05 1.257 1.491 3.206 1.977 3.206s.77-.681.913-1.689c.144-1.007.492-4.978-4.57-8.575C18.787-.964 11.715-.3 8.724 1.24 5.73 2.78 2.045 6.206.846 10.56c-1.198 4.352-.984 7.54-.221 9.724.644 1.846 2.319 3.84 5.023 5.982-1.976-2.001-3.3-4.26-3.974-6.778-.674-2.518-.461-5.486.637-8.904-1.373 4.821-.752 8.964 1.86 12.429 2.614 3.465 6.265 5.292 10.955 5.482-4.18-.973-7.378-3.001-9.594-6.085-2.216-3.083-2.829-6.506-1.84-10.269-.422 2.889-.05 5.42 1.115 7.595 1.165 2.174 3.819 3.94 7.96 5.298z' fill='%23BF3D22' fill-rule='evenodd'/%3E%3C/svg%3E");
+@quoteAfterImage_m01: url("data:image/svg+xml,%3Csvg width='28.482' height='28.495' viewBox='0 0 28.482 28.495' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.714 3.462c4.155 2.845 6.448 5.22 6.878 7.128.646 2.86 1.102 8.297-3.585 11.059-4.686 2.762-8.755 1.443-10.784.655-2.028-.788-4.217-2.242-5.267-3.5C1.906 17.547 1.465 15.6.98 15.6s-.77.68-.913 1.688c-.144 1.007-.491 4.979 4.57 8.576 5.06 3.596 12.132 2.933 15.124 1.392 2.99-1.54 6.677-4.965 7.876-9.319 1.198-4.353.984-7.54.221-9.725-.644-1.845-2.318-3.84-5.023-5.981 1.976 2 3.3 4.26 3.974 6.777.674 2.518.462 5.486-.637 8.904 1.373-4.82.753-8.964-1.86-12.428C21.696 2.018 18.045.19 13.356 0c4.18.973 7.377 3.002 9.593 6.085 2.216 3.084 2.83 6.507 1.84 10.27.422-2.89.05-5.42-1.115-7.595s-3.819-3.941-7.96-5.298z' fill='%23BF3D22' fill-rule='evenodd'/%3E%3C/svg%3E");
+// 水墨撇
+@quoteBeforeImage_m02: url("data:image/svg+xml,%3Csvg width='21' height='24' viewBox='0 0 21 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20.127c.003-.061.003-.126.006-.188.04-.13.056-.26-.006-.39l.01-.138c-.004-.043-.007-.084-.007-.127.24-.485.497-.96.683-1.47.17-.463.336-.926.623-1.334a.3.3 0 0 0 .053-.059c0-.03.003-.061.003-.092.102-.111-.043-.216-.019-.328-.003-.003-.003-.009-.006-.012 0-.003-.003-.003-.003-.006-.015.006-.034.003-.052-.012v-.004c-.034-.12-.08-.244.024-.355.04-.05.08-.099.12-.145h.038c0-.006.003-.015.003-.025.096-.373.303-.694.485-1.025.068-.123.179-.157.3-.074.175.117.262.528.126.704-.176.232-.077.482-.077.72 0 .102.102.055.163.012l.05-.046c0-.016.003-.031.003-.047.046-.068.083-.142.139-.2.059-.062.083-.201.204-.149.126.056.021.158.021.241-.003.084-.003.17 0 .254.007.024.016.049.022.074.015.061.015.126.025.185a.637.637 0 0 0 .139.24l.058.022a.33.33 0 0 0 .059-.027c.142-.096.213-.223.275-.39.133-.367.346-.697.636-.97.139-.218.306-.416.466-.623.213-.272.581-.494.411-.951-.037-.096.074-.22.16-.306.109-.111.21-.228.331-.327.192-.16.189-.3-.043-.392-.287-.115-.25-.316-.16-.526.064-.154.163-.29.293-.401.136-.167.284-.321.41-.5.019-.022.022-.04.016-.059h-.003c-.031.015-.047.05-.071.071-.099.099-.226.167-.343.071-.148-.117.074-.188.071-.296.077-.204.127-.42.012-.618-.123-.213-.034-.352.112-.494.194-.247.416-.47.639-.692a.595.595 0 0 1 .287-.352c.136-.071.3-.151.3.139 0 .198.126.13.216.062.234-.173.407-.402.577-.63.019-.031.04-.059.059-.09.025-.07.068-.136.099-.204.009-.061-.016-.12-.093-.17-.096.05-.185.14-.198.007-.018-.186-.38-.232-.228-.445 0-.022 0-.043.003-.068.225-.176.5-.303.587-.611.012-.044.068-.065.105-.093.312-.21.516-.525.753-.803.124-.145.142-.256-.077-.352-.204-.09-.247-.232.012-.324A.31.31 0 0 0 9 4.794c.182-.574.624-.902 1.109-1.192l.105-.03.136-.118a.417.417 0 0 0 .194-.068.681.681 0 0 0 .09-.099.37.37 0 0 0 .04-.102c.015-.07.03-.142.093-.17l.009-.034c.055-.09.117-.173.228-.2.22-.27.445-.535.507-.896h-.003c.086-.195.238-.321.423-.417.006 0 .015 0 .022-.003.058-.127.154-.235.277-.136.09.071-.027.18-.13.24a.15.15 0 0 1-.02.081c-.016.019-.022.037-.016.062-.09.012-.133.096-.201.136-.321.179-.225.62-.522.809-.052.105.13.195.019.303-.062.034-.12.07-.183.105v.003c-.021.083-.095.133-.126.207.024.083.052.132.099.154.064.006.139-.01.206-.012l.102-.034c.35-.488.8-.874 1.245-1.27.352-.308.732-.617.645-1.195-.037-.247.17-.179.288-.095.173.123.324.145.478-.013.1-.102.201-.194.328-.052.108.12.07.247-.028.352-.14.151-.198.352-.327.51-.013.009-.022.021-.034.03l.052.093.358-.29c-.003-.025-.003-.05-.006-.071.08.009.18 0 .188.114.007.07-.046.102-.114.099-.037.102-.006.234-.139.287-.12.07-.238.142-.358.213a.651.651 0 0 1-.269.207l-.018.043-.028.037a.636.636 0 0 1-.176.22.433.433 0 0 0-.046.092.309.309 0 0 1-.071.083c.207.18.126.303-.127.39-.05.114.056.28-.04.38-.006.015-.016.03-.022.049-.136.225-.407.302-.556.512a.208.208 0 0 1-.034.022l-.003.105c-.25.05-.497.099-.5.436-.025 0-.05-.004-.074-.004a.06.06 0 0 1-.053.028c-.024.037-.052.074-.077.111-.139.204-.374.142-.565.198a.653.653 0 0 1-.093.05.83.83 0 0 0-.102.055c-.225.185-.277.503-.475.707-.028.013-.053.028-.08.04-.019.022-.037.044-.06.062-.614.618-1.271 1.19-1.812 1.875a.933.933 0 0 1-.16.111c-.004.003-.007.006-.007.01.003.04-.006.076-.015.117.062-.056.117-.118.179-.176a.641.641 0 0 1 .25-.164c.022-.006.046-.01.068-.012.127-.155.281-.282.503-.322-.08.167-.17.325-.315.442a.163.163 0 0 1 .004.04c-.207.34-.414.676-.683.973-.01.018-.062.015-.037.043l.003.003c0-.006.003-.012.016-.015.095-.065.163-.189.308-.17l.065-.111c.059-.108.133-.192.266-.204.052.151-.04.247-.13.343-.03.03-.059.061-.09.095.004.016.004.031.004.047.009.114-.115.22-.007.404.105-.278.173-.51.306-.71-.065-.408.127-.682.442-.917.306-.226.593-.476.898-.701.019-.006.04-.01.062-.016.148-.191.303-.367.528-.49.14-.078.618.219.39-.313-.004-.003.012-.021.024-.024.33-.133.497-.46.766-.667.025-.037.053-.071.074-.112.43-.315.707-.76 1.02-1.173a.347.347 0 0 1 .061-.056c.074-.16.247-.244.346-.386.114.028.21-.287.34-.021-.025.077-.247.092-.071.228.049.025.105.056.09.118-.013.055-.05.095-.106.101-.025.133-.13.214-.207.315-.003.004-.006.007-.006.01.028.028.059.055.087.086.027-.018.052-.04.08-.058l.3-.281.5-.356c.099-.07.194-.145.293-.216.22-.058.365-.46.655-.2.003-.004.01-.007.012-.01.111-.123.284-.197.324-.383.01-.07.084-.142.05-.2-.093-.167-.118-.297.086-.402.158-.083.16-.343.352-.383.288-.059.507-.247.763-.361.09-.087.176-.176.266-.263.207-.367.556-.475.939-.525.08-.151.247-.216.352-.343.123-.114.213-.253.315-.382.11-.146.29-.214.441-.096.17.133.04.296-.061.398-.405.402-.782.834-1.18 1.242-.028.012-.059.021-.087.03-.102.115-.256.118-.401.13-.01 0-.016.003-.025.003-.04.016-.08.031-.117.047-.034.04-.019.102.028.182.03.136-.068.2-.146.278-.142.213-.293.42-.525.55-.061.033-.132.083-.188.021-.086-.102.08-.117.083-.191l-.034-.034c-.142.225-.37.395-.487.713.444-.096.71-.383 1.019-.59a.58.58 0 0 0 .139-.068.329.329 0 0 1 .185-.114c.003 0 .006-.003.006-.003.003 0 .006 0 .01-.003a.458.458 0 0 1 .293-.281c.055-.25.265-.414.373-.633.05-.031.1-.065.146-.096.095-.065.219-.105.284.003.065.105-.074.158-.14.213-.12.111-.253.204-.38.306 0 .117-.06.21-.129.3-.03.123-.092.027-.142.018-.003.062-.006.123-.012.185l-.14.152-.033-.01h-.003l-.01.044c-.194.225-.262.54-.521.72h-.019a.558.558 0 0 1-.238.299c.003.012.003.024.006.04a.306.306 0 0 1-.17.17.095.095 0 0 1-.04.009c-.09.204-.219.108-.345.043-.004.006-.004.01-.007.013a.461.461 0 0 1-.126.15c-.433.183-.572.146-.772-.25-.34.726-1.124.89-1.625 1.403a.547.547 0 0 0-.151.08l-.034.028a.455.455 0 0 0-.105.123.52.52 0 0 1-.34.207h-.012a.39.39 0 0 1-.2.164l-.15.139c-.02.028-.042.03-.064.006-.12.235-.34.392-.497.6l-.013.009c.007.003.01.006.016.006l.037-.037c.25-.3.522-.544.954-.365.016.006.043-.015.065-.024.12-.068.182-.183.238-.303.133-.303.37-.525.584-.766.179-.2.407-.16.626-.056.149.071.217.201.149.356-.087.191-.142.413-.368.506a.644.644 0 0 0-.167.102c-.046.071-.052.151.022.22.133.129.229-.04.315-.115.096-.08.164-.195.244-.297.046-.095.025-.234.167-.271.216-.47.559-.822.991-1.094.105-.139.272-.228.392-.108.115.112-.08.149-.151.207-.303.365-.729.618-.96 1.05a.102.102 0 0 0-.06.019c-.042.028-.086.052-.129.08-.037.083.037.133.062.198.062.028.056.083.052.136-.135.058-.274.114-.41.173l-.411.29a.291.291 0 0 1-.037.093c-.303.454-.713.796-1.124 1.142-.019.019-.031.059-.019.062.044.018-.024.025.022.022.034-.004.068-.004.102-.007.015-.012.03-.021.046-.037.114-.095.182-.24.327-.302.17.027.127.117.06.213-.047.04-.134.068-.05.151.102.074.092.151.006.229l-.003.003c-.031.043-.065.08-.118.07-.07.124-.188.19-.305.26-.278.18-.714.204-.695.686 0 .037-.056.074-.09.108-.132.136-.268.269-.398.408-.142.13-.192.33-.349.45-.015.013-.03.028-.046.04.009.013.024.016.04.013.015-.019.034-.037.05-.056.067-.058.123-.13.19-.191a.252.252 0 0 1 .081-.043c.12-.025.22-.102.333-.142a.19.19 0 0 1 .084 0c.182-.164.42-.26.559-.473.083-.056.139-.145.222-.2l.022-.013c.043-.096.173-.099.247-.164.077-.244.333-.284.516-.407.108-.062.3-.075.312-.189.034-.3.265-.318.463-.398.034-.173.102-.318.3-.355.385-.31.688-.695 1-1.075.037-.071.12-.077.136-.019.096.368.321.167.42.06.364-.409.865-.665 1.192-1.106.04-.183.238-.257.3-.427l.055-.065a.13.13 0 0 1 .065-.018c.244-.309.488-.615.729-.923.117-.1.24-.192.355-.294.083-.07.179-.157.272-.05.077.093-.016.17-.084.242-.271.28-.574.53-.787.864-.114.102-.232.201-.346.303-.14.148-.278.3-.417.448-.39.485-.865.883-1.306 1.312-.127.124-.176.362-.42.343-.115.111-.22.241-.35.334-.172.12-.28.237-.154.447-.024.047-.05.093-.07.136-.1.13-.254.01-.365.084-.102.006-.148.092-.216.145-.034.012-.06.006-.078-.019l-.574.491c-.043.007-.083.016-.127.022a.23.23 0 0 1-.265.04c-.216-.12-.25.068-.337.17l-.336.24c-.08.236-.26.396-.439.55a.326.326 0 0 1-.18.087c.032.022.063.043.087.071l.007.01c.003 0 .006 0 .009-.004.012-.03.034-.043.077-.03l.213-.075c.099-.04.16-.139.256-.182l.084-.083a3.5 3.5 0 0 1 .747-.507c.013-.003.028-.01.043-.015.08-.074.217-.084.263-.198.296.043.13.173.055.287-.006.068-.07.158.004.198l.052-.034a.74.74 0 0 1 .087-.04c.114-.037.213-.124.34-.117.012-.05.049-.084.095-.112v-.03c.188-.106.315-.272.442-.44l-.019-.172c-.114.099-.222.204-.343.287-.07.05-.182.102-.247 0-.062-.096.084-.117.108-.188.173-.05.244-.315.482-.226h.071c.025.074.087.065.145.071.111-.07.232-.077.359-.074.09-.123.277-.015.367-.157.04-.065.127-.093.173-.022.056.09-.03.142-.096.192-.024-.003-.05-.01-.074-.013-.04.145-.167.182-.287.223-.13.064-.26.13-.39.197-.16.158-.391.235-.506.448.01.028.025.043.04.053a.219.219 0 0 0 .075-.062c.12-.12.25-.229.42-.275a.376.376 0 0 1 .083 0c.099-.083.2-.158.343-.158.04-.095.117-.135.216-.139.003.158-.142.195-.222.281l-.192.118c.006.052-.015.093-.05.133-.002.006-.009.009-.015.012a.23.23 0 0 0 .115.04h.015c.204-.157.417-.303.608-.475.176-.161.328-.13.454.03.14.173-.108.18-.157.275-.043.08-.17.118-.257.176-.006.022-.012.04-.015.062-.052.043-.105.083-.157.127-.124.07-.312.083-.272.302.13-.018.194.013.102.146-.053.077-.118.145-.176.216-.007.163.04.253.216.145l.03.037a.3.3 0 0 1-.107.25l-.284-.065c-.028-.003-.056-.01-.084-.012-.105.021-.173.207-.296.092-.093-.086.027-.157.068-.237.07-.136 0-.167-.124-.142-.099.117-.2.052-.303.018a.094.094 0 0 0-.03.037.972.972 0 0 0-.028.13c-.003.015-.006.03-.013.043.05.099-.012.127-.108.136-.018.015-.04.028-.058.043-.229.145-.448.29-.63.5a.889.889 0 0 1-.423.3c-.115.281.135.167.234.204.152.059.38-.003.358.284-.037.507-.34.806-.849.83a.603.603 0 0 0-.364.124l-.074.031c-.031.034-.062.068-.09.102.09.028.204-.012.287.108-.21.232-.5.352-.744.535-.04.04-.08.08-.114.123a.338.338 0 0 1-.031.034c-.019.034-.034.065-.025.09.028.098.12.052.176.03.195-.083.386-.179.58-.268.152-.093.3-.186.452-.281.052-.043.108-.087.16-.133h-.003c.127-.13.275-.222.442-.29.043-.028.086-.053.13-.08a.189.189 0 0 0 .037.015l.003.003c.083-.025.145-.012.16.108a.166.166 0 0 1-.065.015c-.021.025-.043.047-.064.071-.232.096-.362.359-.63.396a.057.057 0 0 1-.022-.006c-.099.086-.195.173-.293.259l-.136.062c-.078.07-.152.142-.229.213a.257.257 0 0 0-.046.012c-.013.016-.022.031-.031.047-.368.376-.806.667-1.217.99-.364.288-.723.6-1.158.757-.29.105-.472.312-.692.488-.092.075-.108.183-.05.294.06.114.152.133.273.108.126-.025.278-.003.367-.117.35-.439.868-.402 1.34-.491.173-.034.241.061.183.197-.074.173-.108.374-.254.504-.29.262-.577.525-.83.83-.13.155-.192.272-.056.433.114.139.068.24-.059.327-.358.24-.664.534-.93.874-.083.229-.367.275-.453.5a1.4 1.4 0 0 1-.096.096c-.099.158-.29.204-.466.269-.182.068-.405.058-.55.207a.228.228 0 0 0-.015.086c0 .025-.003.046-.007.071.056.111-.064.182-.126.256-.25.29-.615.39-.951.535-.013 0-.025 0-.037.003a.504.504 0 0 0-.062.052c-.114.102-.238.074-.368.034-.117-.034-.216-.021-.293.108.222.084.408-.12.587.022.157.278-.12.293-.244.358-.627.34-1.285.624-1.927.936-.074.01-.142.025-.204.043-.173.087-.352.17-.476.306a.875.875 0 0 0-.142.272.944.944 0 0 0-.021.17c0 .012-.013.024-.028.037l-.01.052a.482.482 0 0 1-.17.182c-.036.013-.07.025-.104.034l-.096.124-.204-.006c-.43 0-.858 0-1.288.003L2.952 24c-.021-.124-.086-.188-.182-.204a.242.242 0 0 0-.127.071c-.15.087-.3.09-.423-.046-.154-.167-.352-.278-.534-.41-.068-.05-.133-.097-.167-.183a25.391 25.391 0 0 0-1.013-2.276c-.021-.019-.04-.034-.058-.053-.247-.09-.133-.392-.232-.568A.379.379 0 0 1 0 20.127zM16.809 7.095c0 .037 0 .07-.01.1.05-.04.09-.082.01-.1zm-2.23 2.78a.12.12 0 0 1-.046-.05c-.086.05-.166.111-.25.167a.11.11 0 0 1 .013.027c.012-.006.024-.015.037-.021.083-.037.173-.068.247-.124zm-.194-5.366c.02-.01.05-.03.07-.04-.02 0-.05.02-.07.04zm-1.1 1.372c.004 0 .004.003.007.003.037-.052.074-.105.114-.157a.191.191 0 0 1 .034-.077c.022-.022.046-.038.068-.056l.083-.105c.028-.003.06-.006.087-.012a.692.692 0 0 0 .105-.084c.26-.238.432-.546.68-.793a.391.391 0 0 1 .033-.04l-.052-.103-.133.078a2.718 2.718 0 0 1-.46.481c-.016.149-.127.238-.22.337a1.146 1.146 0 0 1-.237.185 1.05 1.05 0 0 0-.21.133l-.241.232-.037.043c.136.022.253-.046.38-.065zM.202 20.331c.02.033.05.067.07.1a.205.205 0 0 0-.07-.1zM19.72 8.268c-.024.04-.067.053-.107.071a.315.315 0 0 1-.21.142c-.078.068-.164.143-.263.047-.08-.077-.028-.14.059-.176l.003.003c.077-.071.154-.145.228-.216l.189-.084c.058-.065.095-.16.21-.148.046-.05.095-.096.142-.145a.145.145 0 0 0 .012-.05c.059-.132.17-.166.272-.086.105.08.015.158-.059.213-.046.043-.065.13-.154.114a.211.211 0 0 1-.142.155c-.019.012-.04.021-.059.03l-.108.038c0 .003 0 .003.003.006a.214.214 0 0 1-.015.086z' fill-rule='nonzero' fill='%23000'/%3E%3C/svg%3E");
+@quoteAfterImage_m02: url("data:image/svg+xml,%3Csvg width='21' height='24' viewBox='0 0 21 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.304 3.873c-.003.061-.003.126-.006.188-.04.13-.056.26.006.39l-.01.138c.004.043.007.084.007.127-.241.485-.497.96-.683 1.47-.17.463-.336.926-.624 1.334a.3.3 0 0 0-.052.059c0 .03-.003.061-.003.092-.102.111.043.216.018.328.003.003.003.009.007.012 0 .003.003.003.003.006.015-.006.034-.003.052.012v.004c.034.12.08.244-.025.355-.04.05-.08.099-.12.145h-.037c0 .006-.003.015-.003.025-.096.373-.303.694-.485 1.025-.068.123-.18.157-.3.074-.176-.117-.262-.528-.126-.704.176-.232.077-.482.077-.72 0-.102-.102-.055-.164-.012l-.05.046-.002.047c-.046.068-.084.142-.14.2-.058.062-.083.201-.203.149-.127-.056-.022-.158-.022-.241.004-.084.004-.17 0-.254-.006-.024-.015-.049-.021-.074-.016-.061-.016-.126-.025-.185a.637.637 0 0 0-.139-.24c-.018-.007-.04-.016-.059-.022a.33.33 0 0 0-.058.027c-.142.096-.213.223-.275.39a2.469 2.469 0 0 1-.636.97c-.14.218-.306.416-.467.623-.213.272-.58.494-.41.951.037.096-.074.22-.16.306-.109.111-.21.228-.331.327-.192.16-.189.3.043.392.287.115.25.316.16.526-.064.154-.163.29-.293.401-.136.167-.284.321-.41.5-.02.022-.022.04-.016.059h.003c.03-.015.046-.05.071-.071.099-.099.225-.167.343-.071.148.117-.074.188-.071.296-.077.204-.127.42-.013.618.124.213.034.352-.11.494-.195.247-.418.47-.64.692a.595.595 0 0 1-.287.352c-.136.071-.3.151-.3-.139 0-.198-.126-.13-.216-.062-.235.173-.408.402-.577.63-.019.031-.04.059-.06.09-.024.07-.067.136-.098.204-.01.061.015.12.093.17.095-.05.185-.14.197-.007.019.186.38.232.229.445 0 .022 0 .043-.003.068-.226.176-.5.303-.587.611-.012.044-.068.065-.105.093-.312.21-.516.525-.754.803-.123.145-.142.256.078.352.203.09.247.232-.013.324a.31.31 0 0 0-.197.195c-.183.574-.624.902-1.109 1.192-.037.01-.071.019-.105.03l-.136.118a.417.417 0 0 0-.194.068.681.681 0 0 0-.09.099.37.37 0 0 0-.04.102c-.016.07-.031.142-.093.17l-.01.034c-.055.09-.116.173-.228.2-.219.27-.444.535-.506.896h.003c-.086.195-.238.321-.423.417-.006 0-.016 0-.022.003-.058.127-.154.235-.278.136-.09-.071.028-.18.13-.24a.15.15 0 0 1 .022-.081c.015-.019.021-.037.015-.062.09-.012.133-.096.2-.136.322-.179.226-.62.523-.809.052-.105-.13-.195-.019-.303.062-.034.12-.07.182-.105v-.003c.022-.083.096-.133.127-.207-.025-.083-.052-.132-.099-.154-.065-.006-.139.01-.207.012l-.102.034c-.349.488-.8.874-1.244 1.27-.352.308-.732.617-.646 1.195.037.247-.17.179-.287.095-.173-.123-.324-.145-.479.013-.098.102-.2.194-.327.052-.108-.12-.07-.247.028-.352.139-.151.198-.352.327-.51.013-.009.022-.021.034-.03l-.052-.093-.358.29c.003.025.003.05.006.071-.08-.009-.18 0-.189-.114-.006-.07.047-.102.115-.099.037-.102.006-.234.139-.287.12-.07.237-.142.358-.213a.651.651 0 0 1 .268-.207l.019-.043.028-.037a.636.636 0 0 1 .176-.22.433.433 0 0 0 .046-.092.309.309 0 0 1 .071-.083c-.207-.18-.126-.303.127-.39.05-.114-.056-.28.04-.38.006-.015.015-.03.022-.049.135-.225.407-.302.555-.512a.208.208 0 0 1 .034-.022c0-.034.004-.071.004-.105.25-.05.497-.099.5-.436.025 0 .05.004.074.004a.06.06 0 0 1 .052-.028l.078-.111c.139-.204.373-.142.565-.198a.653.653 0 0 1 .092-.05.83.83 0 0 0 .102-.055c.226-.185.278-.503.476-.707.028-.013.052-.028.08-.04.019-.022.037-.044.059-.062.614-.618 1.272-1.19 1.813-1.875a.933.933 0 0 1 .16-.111c.003-.003.006-.006.006-.01-.003-.04.007-.076.016-.117-.062.056-.117.118-.18.176a.641.641 0 0 1-.25.164c-.021.006-.046.01-.067.012-.127.155-.281.282-.504.322.08-.167.17-.325.315-.442-.003-.012-.003-.025-.003-.04.207-.34.414-.676.683-.973.009-.018.062-.015.037-.043l-.003-.003c0 .006-.003.012-.016.015-.095.065-.163.189-.309.17l-.064.111c-.06.108-.133.192-.266.204-.052-.151.04-.247.13-.343.03-.03.058-.061.09-.095-.004-.016-.004-.031-.004-.047-.01-.114.114-.22.006-.404-.105.278-.173.51-.305.71.064.408-.127.682-.442.917-.306.226-.593.476-.899.701-.018.006-.04.01-.061.016-.149.191-.303.367-.529.49-.139.078-.617-.219-.389.313.003.003-.012.021-.024.024-.33.133-.498.46-.766.667-.025.037-.053.071-.074.112-.43.315-.708.76-1.02 1.173a.347.347 0 0 1-.061.056c-.074.16-.247.244-.346.386-.114-.028-.21.287-.34.021.025-.077.247-.092.071-.228-.05-.025-.105-.056-.09-.118.013-.055.05-.095.106-.101.024-.133.13-.214.207-.315.003-.004.006-.007.006-.01-.028-.028-.059-.055-.087-.086-.028.018-.052.04-.08.058l-.3.281-.5.356c-.099.07-.194.145-.293.216-.22.058-.365.46-.655.2-.003.004-.01.007-.012.01-.112.123-.284.197-.325.383-.009.07-.083.142-.05.2.094.167.118.297-.086.402-.157.083-.16.343-.352.383-.287.059-.506.247-.762.361-.09.087-.176.176-.266.263-.207.367-.556.475-.939.525-.08.151-.247.216-.352.343-.123.114-.213.253-.315.382-.111.146-.29.214-.441.096-.17-.133-.04-.296.061-.398.405-.402.782-.834 1.18-1.242.028-.012.059-.021.086-.03.102-.115.257-.118.402-.13.01 0 .015-.003.025-.003.04-.016.08-.031.117-.047.034-.04.019-.102-.028-.182-.03-.136.068-.2.145-.278.142-.213.294-.42.525-.55.062-.033.133-.083.189-.021.086.102-.08.117-.084.191l.034.034c.142-.225.37-.395.488-.713-.444.096-.71.383-1.019.59a.58.58 0 0 0-.139.068.329.329 0 0 1-.185.114c-.003 0-.006.003-.006.003-.003 0-.006 0-.01.003a.458.458 0 0 1-.293.281c-.056.25-.266.414-.374.633-.049.031-.098.065-.145.096-.096.065-.22.105-.284-.003-.065-.105.074-.158.14-.213.12-.111.252-.204.379-.306 0-.117.062-.21.13-.3.03-.123.092-.027.142-.018.003-.062.006-.123.012-.185l.139-.152.034.01h.003l.01-.044c.194-.225.262-.54.521-.72h.019a.558.558 0 0 1 .238-.299c-.004-.012-.004-.024-.007-.04a.306.306 0 0 1 .17-.17.095.095 0 0 1 .04-.009c.09-.204.22-.108.346-.043.003-.006.003-.01.006-.013a.461.461 0 0 1 .127-.15c.432-.183.571-.146.772.25.34-.726 1.124-.89 1.625-1.403a.547.547 0 0 0 .15-.08l.035-.028a.455.455 0 0 0 .105-.123.52.52 0 0 1 .34-.207h.012a.39.39 0 0 1 .2-.164l.149-.139c.022-.028.043-.03.065-.006.12-.235.34-.392.497-.6l.012-.009c-.006-.003-.009-.006-.015-.006l-.037.037c-.25.3-.522.544-.954.365-.016-.006-.044.015-.065.024-.12.068-.183.183-.238.303-.133.303-.37.525-.584.766-.179.2-.407.16-.627.056-.148-.071-.216-.201-.148-.356.087-.191.142-.413.368-.506a.644.644 0 0 0 .166-.102c.047-.071.053-.151-.021-.22-.133-.129-.229.04-.315.115-.096.08-.164.195-.244.297-.047.095-.025.234-.167.271-.216.47-.559.822-.991 1.094-.105.139-.272.228-.393.108-.114-.112.08-.149.152-.207.302-.365.729-.618.96-1.05.022 0 .04-.006.059-.019.043-.028.086-.052.13-.08.037-.083-.037-.133-.062-.198-.062-.028-.056-.083-.053-.136.136-.058.275-.114.411-.173l.41-.29a.291.291 0 0 1 .038-.093c.303-.454.713-.796 1.124-1.142.019-.019.03-.059.019-.062-.044-.018.024-.025-.022-.022-.034.004-.068.004-.102.007-.015.012-.03.021-.046.037-.115.095-.183.24-.328.302-.17-.027-.126-.117-.058-.213.046-.04.132-.068.05-.151-.103-.074-.094-.151-.007-.229l.003-.003c.03-.043.065-.08.117-.07.071-.124.189-.19.306-.26.278-.18.713-.204.695-.686 0-.037.056-.074.09-.108.132-.136.268-.269.398-.408.142-.13.191-.33.349-.45.015-.013.03-.028.046-.04-.01-.013-.025-.016-.04-.013-.015.019-.034.037-.05.056-.067.058-.123.13-.19.191a.252.252 0 0 1-.081.043c-.12.025-.22.102-.334.142a.19.19 0 0 1-.083 0c-.182.164-.42.26-.56.473-.082.056-.138.145-.221.2l-.022.013c-.043.096-.173.099-.247.164-.077.244-.334.284-.516.407-.108.062-.3.075-.312.189-.034.3-.265.318-.463.398-.034.173-.102.318-.3.355-.386.31-.688.695-1 1.075-.037.071-.12.077-.136.019-.096-.368-.321-.167-.42-.06-.364.409-.865.665-1.192 1.106-.04.183-.238.257-.3.427l-.055.065a.13.13 0 0 1-.065.018c-.244.309-.488.615-.729.923-.117.1-.24.192-.355.294-.083.07-.18.157-.272.05-.077-.093.016-.17.084-.242.271-.28.574-.53.787-.864.114-.102.232-.201.346-.303l.417-.448c.389-.485.865-.883 1.306-1.312.127-.124.176-.362.42-.343.114-.111.22-.241.35-.334.172-.12.28-.237.154-.447.024-.047.049-.093.07-.136.1-.13.254-.01.365-.084.102-.006.148-.092.216-.145.034-.012.059-.006.077.019l.575-.491c.043-.007.083-.016.126-.022a.23.23 0 0 1 .266-.04c.216.12.25-.068.337-.17.11-.08.225-.16.336-.24.08-.236.26-.396.439-.55a.326.326 0 0 1 .179-.087.482.482 0 0 1-.087-.071c-.003-.003-.003-.006-.006-.01-.003 0-.006 0-.009.004-.012.03-.034.043-.077.03l-.213.075c-.1.04-.16.139-.257.182l-.083.083a3.5 3.5 0 0 1-.747.507c-.013.003-.028.01-.044.015-.08.074-.216.084-.262.198-.297-.043-.13-.173-.056-.287.006-.068.071-.158-.003-.198l-.052.034a.74.74 0 0 1-.087.04c-.114.037-.213.124-.34.117-.012.05-.049.084-.095.112v.03c-.189.106-.315.272-.442.44l.019.172c.114-.099.222-.204.343-.287.07-.05.182-.102.247 0 .061.096-.084.117-.109.188-.172.05-.243.315-.481.226h-.071c-.025-.074-.087-.065-.145-.071-.112.07-.232.077-.359.074-.09.123-.278.015-.367.157-.04.065-.127.093-.173.022-.056-.09.03-.142.096-.192.024.003.049.01.074.013.04-.145.166-.182.287-.223.13-.064.26-.13.389-.197.16-.158.392-.235.507-.448a.092.092 0 0 0-.04-.053.219.219 0 0 0-.075.062c-.12.12-.25.229-.42.275a.376.376 0 0 1-.083 0c-.099.083-.2.158-.343.158-.04.095-.117.135-.216.139-.003-.158.142-.195.222-.281l.192-.118c-.006-.052.015-.093.05-.133.002-.006.008-.009.015-.012a.23.23 0 0 0-.115-.04h-.015c-.204.157-.417.303-.609.475-.176.161-.327.13-.454-.03-.138-.173.109-.18.158-.275.043-.08.17-.118.256-.176.006-.022.013-.04.016-.062.052-.043.105-.083.157-.127.124-.07.312-.083.272-.302-.13.018-.195-.013-.102-.146.053-.077.117-.145.176-.216.006-.163-.04-.253-.216-.145-.01-.012-.022-.025-.03-.037a.3.3 0 0 1 .107-.25l.284.065c.028.003.056.01.084.012.105-.021.173-.207.296-.092.093.086-.028.157-.068.237-.07.136 0 .167.124.142.099-.117.2-.052.302-.018a.094.094 0 0 0 .031-.037.972.972 0 0 0 .028-.13c.003-.015.006-.03.012-.043-.049-.099.013-.127.109-.136.018-.015.04-.028.058-.043.229-.145.448-.29.63-.5a.889.889 0 0 1 .423-.3c.115-.281-.136-.167-.234-.204-.152-.059-.38.003-.359-.284.037-.507.34-.806.85-.83a.603.603 0 0 0 .364-.124l.074-.031c.031-.034.062-.068.09-.102-.09-.028-.204.012-.288-.108.21-.232.5-.352.745-.535.04-.04.08-.08.114-.123a.338.338 0 0 1 .03-.034c.02-.034.035-.065.026-.09-.028-.098-.12-.052-.176-.03-.195.083-.386.179-.581.268-.151.093-.3.186-.45.281-.053.043-.109.087-.161.133h.003c-.127.13-.275.222-.442.29-.043.028-.086.053-.13.08a.189.189 0 0 0-.037-.015l-.003-.003c-.083.025-.145.012-.16-.108a.166.166 0 0 1 .064-.015l.065-.071c.232-.096.362-.359.63-.396.006 0 .016.003.022.006.099-.086.194-.173.293-.259l.136-.062c.077-.07.151-.142.229-.213A.257.257 0 0 0 6.348 10c.012-.016.022-.031.03-.047.368-.376.807-.667 1.218-.99.364-.288.722-.6 1.158-.757.29-.105.472-.312.692-.488.092-.075.108-.183.049-.294-.059-.114-.151-.133-.272-.108-.126.025-.278.003-.367.117-.35.439-.868.402-1.34.491-.174.034-.242-.061-.183-.197.074-.173.108-.374.253-.504.29-.262.578-.525.831-.83.13-.155.192-.272.056-.433-.115-.139-.068-.24.058-.327.359-.24.664-.534.93-.874.083-.229.367-.275.454-.5a1.4 1.4 0 0 1 .096-.096c.099-.158.29-.204.466-.269.182-.068.405-.058.55-.207a.228.228 0 0 0 .015-.086c0-.025.003-.046.006-.071-.055-.111.065-.182.127-.256.25-.29.615-.39.951-.535.012 0 .025 0 .037-.003a.504.504 0 0 0 .062-.052c.114-.102.238-.074.367-.034.118.034.217.021.294-.108-.222-.084-.408.12-.587-.022-.157-.278.12-.293.244-.358.627-.34 1.285-.624 1.927-.936.074-.01.142-.025.204-.043.173-.087.352-.17.476-.306a.875.875 0 0 0 .142-.272.944.944 0 0 0 .021-.17c0-.012.013-.024.028-.037l.01-.052a.482.482 0 0 1 .17-.182c.036-.013.07-.025.104-.034l.096-.124.204.006c.429 0 .858 0 1.288-.003L17.35 0c.022.124.087.188.183.204a.242.242 0 0 0 .126-.071c.152-.087.3-.09.423.046.155.167.352.278.535.41.068.05.132.097.166.183.303.775.637 1.535 1.013 2.276l.06.053c.246.09.132.392.23.568.1.034.17.108.217.204zM3.494 16.905c0-.037 0-.07.01-.1-.05.04-.09.082-.01.1zm2.23-2.78a.12.12 0 0 1 .046.05c.087-.05.167-.111.25-.167a.11.11 0 0 1-.012-.027c-.012.006-.024.015-.037.021-.083.037-.173.068-.247.124zm.195 5.366c-.02.01-.05.03-.07.04.02 0 .05-.02.07-.04zm1.1-1.372c-.004 0-.004-.003-.007-.003-.037.052-.074.105-.114.157a.191.191 0 0 1-.034.077c-.022.022-.047.038-.068.056l-.084.105c-.027.003-.058.006-.086.012a.692.692 0 0 0-.105.084c-.26.238-.432.546-.68.793a.391.391 0 0 1-.033.04l.052.103.133-.078c.139-.173.28-.346.46-.481.015-.149.127-.238.22-.337.073-.071.148-.136.237-.185a1.05 1.05 0 0 0 .21-.133l.24-.232.038-.043c-.136-.022-.253.046-.38.065zm13.084-14.45c-.02-.033-.05-.067-.07-.1.01.033.03.067.07.1zM.583 15.732c.024-.04.067-.053.107-.071a.315.315 0 0 1 .21-.142c.078-.068.164-.143.263-.047.08.077.028.14-.059.176l-.003-.003c-.077.071-.154.145-.228.216l-.189.084c-.059.065-.096.16-.21.148-.046.05-.096.096-.142.145a.145.145 0 0 0-.012.05c-.059.132-.17.166-.272.086-.105-.08-.016-.158.059-.213.046-.043.064-.13.154-.114a.211.211 0 0 1 .142-.155c.019-.012.04-.021.059-.03l.108-.038c0-.003 0-.003-.003-.006 0-.028.003-.059.015-.086z' fill-rule='nonzero' fill='%23000'/%3E%3C/svg%3E");
+
+.genParaFormatMark(@beforeImage, @afterImage, @opacity : .3, @color1: var(--ac-t1), @color2 : var(--ac-t2)) {
+    @marginWidth: 10px;
+    @imgWidth: 40px;
+    @imgHeight: 30px;
+
+    // 高亮
+    @highlightOnlyChild: ~'@{writeOnEditing}>p>[md-inline=highlight]:only-child';
+    @onlyHighlightTextOnEditing: ~'@{highlightOnlyChild}:has(>mark)';
+    @onlyHighlightTextOnHTML: ~'@{writeOnHTML}>p>mark:only-child';
+    @{onlyHighlightTextOnEditing},
+    @{onlyHighlightTextOnHTML} {
+        display: block;
+        font-size: 1.25em;
+        text-align: center;
+        line-height: @defaultLineHeight;
+        padding: 1em (@imgWidth + @marginWidth) 1.5em;
+        margin-top: 1em;
+        box-shadow: none;
+    }
+    @{highlightOnlyChild}>mark {
+        box-shadow: none;
+    }
+
+    // 高亮 before
+    @{onlyHighlightTextOnEditing}:before,
+    @{onlyHighlightTextOnHTML}:before {
+        content: "";
+        opacity: @opacity;
+        margin: -@marginWidth 0 0 -(@imgWidth + @marginWidth);
+        position: absolute;
+        width: @imgWidth;
+        height: @imgHeight;
+        background: linear-gradient(135deg, @color1 10px, @color2);
+        mask-image: @beforeImage;
+        mask-repeat: no-repeat;
+        mask-position: center center;
+    }
+
+    // 高亮 after
+    @{onlyHighlightTextOnEditing}:after,
+    @{onlyHighlightTextOnHTML}:after {
+        content: "";
+        opacity: @opacity;
+        margin: @marginWidth 0 0 @marginWidth;
+        position: absolute;
+        width: @imgWidth;
+        height: @imgHeight;
+        background: linear-gradient(135deg, @color2, @color1 calc(100% - @marginWidth));
+        mask-image: @afterImage;
+        mask-repeat: no-repeat;
+        mask-position: center center;
+    }
+
+    // 移动端微调
+    @media screen and (max-width: @gMobileScreenWidth) {
+        @{onlyHighlightTextOnHTML} {
+            padding: 1em 0 2em;
+        }
+
+        @{onlyHighlightTextOnHTML}::before {
+            margin: -1.75em 0 0 -.5em;
+        }
+
+        @{onlyHighlightTextOnHTML}::after {
+            margin: 1.5em 0 0 -1.5em;
+        }
+    }
+}
+
+// ==================== 引用块宽度样式，并居中显示 ==================== //
+
+// 适配内容宽度，并居中显示
+// 针对普通的引用块，注意内容如果过长仍会顶边
+.genBlockquote(@style) when (@style = fit) {
+    blockquote,
+    details,
+    .md-alert {
+        width: fit-content;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+// ==================== 生成 GitHub Style Alert 各类型相关样式 ==================== //
+
+// 通过滤镜微调，如低对比度 saturate(.5);
+@GSA_filter: unset;
+
+// 生成基础样式
+.genHoverStyle(@for) when (@for = md-alert_kbdSec) {
+    #write [class*=md-alert-] @{kbdSec}:hover @{svgGs} {
+        fill: currentColor;
+    }
+}
+
+#write [class*=md-alert-] a>img[src*="fill=text"] {
+    filter: drop-shadow(@fillOffset 0 0 currentColor);
+}
+#write [class*=md-alert-] a kbd>img[src*="fill=text"] {
+    filter: drop-shadow(@fillOffset 0 0 #FFF);
+}
+#write [class*=md-alert-] a>@{svgGs}, // 链接内 svg
+#write [class*=md-alert-] @{kbdSec}>@{svgGs}, // 次要按钮内 svg
+    #write [class*=md-alert-] .v-svg-input-checkbox>use { // 复选框控件
+    fill: currentColor;
+}
+// 生成 GSA 不同类型的基础样式
+.genGitHubStyleAlertCssBase(@type, @accColor, @accColorAlt) {
+    // 引用块小标题
+    #write .md-alert-@{type} @{quoteTitle},
+    // 编辑时的 summary
+    @{writeOnEditing} .md-alert-@{type} @{summarySyntax},
+    // 导出后的 summary
+    #write .md-alert-@{type} summary,
+    // 编辑时的题注前缀
+    @{writeOnEditing} .md-alert-@{type} @{cap1_OnEditing}::before,
+    @{writeOnEditing} .md-alert-@{type} @{cap2_OnEditing}::before,
+    // 导出后的题注前缀
+    #write .md-alert-@{type} .v-caption:not(.codeblock) .v-cap-1>span,
+    // 链接
+    #write .md-alert-@{type} a {
+        color: ~"var(--ac-@{accColor})";
+    }
+
+    // 针对 GSA 内的 hr
+    #write .md-alert-@{type} hr {
+        border: 1px solid ~"var(--ac-@{accColor})" !important;
+        border-top: none !important;
+        height: 0;
+    }
+
+    // 主要按钮
+    #write .md-alert-@{type} a kbd {
+        color: @colorWhite;
+        // 不同风格的主要按钮样式
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = flat) {
+            background: ~"var(--ac-@{accColor})";
+            border-color: ~"var(--ac-@{accColor})";
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = fade) {
+            background: linear-gradient(180deg, var(--btn-reflect), ~"var(--ac-@{accColor})", var(--btn-shadow)), ~"var(--ac-@{accColor})";
+            box-shadow: 0 0 0 1px ~"var(--ac-@{accColor})" inset;
+            border: none;
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = raised) {
+            background: ~"var(--ac-@{accColor})";
+            box-shadow: 0 @rasiedShadowSize 0 0 var(--btn-raised), 0 @rasiedShadowSize 0 0 ~"var(--ac-@{accColor})";
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = 3d) {
+            background: ~"var(--ac-@{accColor})";
+            box-shadow: 0 @3dShadowSize 0 0 var(--btn-reflect) inset, @3dShadowSize 0 0 0 var(--btn-reflect) inset,
+                -@3dShadowSize 0 0 0 var(--btn-shadow) inset, 0 -@3dShadowSize 0 0 var(--btn-shadow) inset;
+        }
+        .genLinkKbdStyle();
+    }
+    #write .md-alert-@{type} a kbd>@{svgGs} {
+        fill: @colorWhite;
+    }
+
+    // 次要按钮
+    #write .md-alert-@{type} @{kbdSec} {
+        color: ~"var(--ac-@{accColor})";
+
+        // 不同风格的次要按钮样式
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = flat) {
+            background: var(--db);
+            border-color: currentColor;// ~"var(--ac-@{accColor})";
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = fade) {
+            background: linear-gradient(180deg, var(--btn-reflect), ~"var(--ac-@{accColorAlt})", var(--btn-shadow)), ~"var(--ac-@{accColorAlt})";
+            box-shadow: 0 0 0 1px ~"var(--ac-@{accColor})" inset;
+            border-color: currentColor;// ~"var(--ac-@{accColor})";
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = raised) {
+            background: var(--db);
+            box-shadow: 0 @rasiedShadowSize 0 0 currentColor, 0 0 0 1px currentColor inset;
+            border-color: currentColor;// ~"var(--ac-@{accColor})";
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = 3d) {
+            background: ~"var(--ac-@{accColorAlt})";
+            border-color: var(--df-a);
+        }
+        .genLinkKbdStyle();
+    }
+    #write .md-alert-@{type} @{kbdSec}>img[src*="fill=text"] {
+        filter: drop-shadow(@fillOffset 0 0 ~"var(--ac-@{accColor})") !important;
+    }
+    // 高亮
+    #write .md-alert-@{type} mark {
+        box-shadow: 0 -@markBgHeight 0 0 ~"var(--ac-@{accColor}-fd)" inset;
+    }
+    // 列表符号
+    #write .md-alert-@{type} ::marker,
+    #write .md-alert-@{type} li::before {
+        color: ~"var(--ac-@{accColor})";
+    }
+}
+// 生成 GSA 基础样式的 hover 部分
+.genGitHubStyleAlertCssBase_hover(@type) {
+    #write .md-alert-@{type} a kbd:hover {
+        color: @buttonForeHoverColor;
+
+        // 不同风格的主要按钮 hover 样式
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = flat) {
+            background: var(--a-o-c);
+            border-color: var(--a-o-c);
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = fade) {
+            background: linear-gradient(180deg, var(--btn-reflect), var(--a-o-c), var(--btn-shadow)), var(--a-o-c);
+            box-shadow: 0 0 0 1px var(--a-o-c) inset;
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = raised) {
+            background: var(--a-o-c);
+            box-shadow: 0 @rasiedShadowSize 0 0 var(--btn-raised), 0 @rasiedShadowSize 0 0 var(--a-o-c);
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = 3d) {
+            background: var(--a-o-c);
+            border-color: var(--df);
+        }
+        .genLinkKbdStyle();
+    }
+
+    // 次要按钮
+    #write .md-alert-@{type} @{kbdSec}:hover {
+        color: var(--a-o-c);
+
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = flat) {
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = fade) {
+            background: linear-gradient(180deg, var(--btn-reflect), var(--ac-t2-a), var(--btn-shadow)), var(--ac-t2-a) !important;
+            box-shadow: 0 0 0 1px var(--a-o-c) inset;
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = raised) {
+            background: var(--db);
+            box-shadow: 0 @rasiedShadowSize 0 0 var(--a-o-c), 0 0 0 @kbdSecBorderWidth var(--a-o-c) inset;
+        }
+        .genLinkKbdStyle() when (@thmLinkKbdStyle = 3d) {
+        }
+        .genLinkKbdStyle();
+    }
+}
+
+// ----------
+// 生成 GSA 简约风格样式
+.genGitHubStyleAlertCSS(@type, @accColor, @bgColor, @accColorAlt) {
+    #write .md-alert {
+        padding: .5em 1em !important;
+        border: @defQuoteBorderWidth solid var(--df);
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-radius: var(--c-br-b);
+    }
+
+    #write @{quote_details} .md-alert {
+        border-radius: 0 var(--v-r-s) var(--v-r-s) 0;
+    }
+
+    // 背景
+    #write .md-alert-@{type} {
+        border-color: ~"var(--ac-@{accColor}-lg)" !important;
+        .genGsaBg(@bgColor) when not (@bgColor = none) {
+            @c: ~"var(--ac-@{bgColor}-fd)";
+            background: linear-gradient(@c, @c), linear-gradient(var(--db), var(--db));
+        }
+        .genGsaBg(@bgColor);
+    }
+    // 针对 GSA 内的引用微调
+    #write .md-alert-@{type} @{quote_details} {
+        background: ~"var(--ac-@{accColor}-fd)" !important;
+    }
+    // 针对 after 提示
+    #write .md-alert-text-@{type} .md-meta {
+        color: ~"var(--ac-@{accColor})" !important;
+        font-weight: normal !important;
+        opacity: .5;
+    }
+    // 类型小标题
+    #write .md-alert-text-@{type} {
+        color: ~"var(--ac-@{accColor})" !important;
+    }
+    .genGitHubStyleAlertCssBase(@type, @accColor, @accColorAlt);
+}
+
+// 生成 GSA 简约风格
+.genGSA() when (@thmGsaStyle = simple) {
+    .genGitHubStyleAlertCSS(note, bu, none, bu-a);
+    .genGitHubStyleAlertCSS(tip, gn, none, gn-a);
+    .genGitHubStyleAlertCSS(important, pu, none, pu-a);
+    .genGitHubStyleAlertCSS(warning, rd, none, rd-a);
+    .genGitHubStyleAlertCSS(caution, og, none, og-a);
+}
+
+// ----------
+// 生成 GSA 扁平 Flat 风格样式
+.genGitHubStyleAlertCssFlat(@type, @accColor, @accColorAlt) {
+    #write .md-alert {
+        border-radius: var(--v-r-s);
+        padding: 1em !important;
+        border: none;
+    }
+
+    // 背景
+    #write .md-alert-@{type} {
+        background: ~"var(--ac-@{accColor}-a)";
+    }
+    // 针对 GSA 内的引用微调
+    #write .md-alert-@{type} @{quote_details} {
+        background: ~"var(--db)" !important;
+        border-radius:  0 0 var(--v-r-s) var(--v-r-s) !important;
+    }
+    // 引用内的 GSA 微调
+    #write @{quote_details} .md-alert-@{type} {
+        border-radius: 0 0 var(--v-r-s) var(--v-r-s) !important;
+    }
+    // 针对 after 提示
+    #write .md-alert-text-@{type} .md-meta {
+        font-weight: normal;
+        opacity: .5;
+    }
+    // 类型小标题
+    #write .md-alert-text-@{type} {
+        color: ~"var(--ac-@{accColor}-tt)";
+    }
+    .genGitHubStyleAlertCssBase(@type, @accColor, @accColorAlt);
+}
+
+// 生成 GSA 扁平风格
+.genGSA() when (@thmGsaStyle = flat) {
+    .genGitHubStyleAlertCssFlat(note, bu, bu-a);
+    .genGitHubStyleAlertCssFlat(tip, gn, gn-a);
+    .genGitHubStyleAlertCssFlat(important, pu, pu-a);
+    .genGitHubStyleAlertCssFlat(warning, rd, rd-a);
+    .genGitHubStyleAlertCssFlat(caution, og, og-a);
+}
+
+// ----------
+// 生成 GSA 扁平up 风格样式
+.genGitHubStyleAlertCssFlatUp(@type, @accColor, @accColorAlt) {
+    #write .md-alert {
+        border-radius: 0 0 var(--v-r-b) var(--v-r-b);
+        padding-top: .5em !important;
+        border: none;
+    }
+
+    // 背景
+    #write .md-alert-@{type} {
+        background: ~"var(--ac-@{accColor}-a)";
+        border-top: 2px solid ~"var(--ac-@{accColor})" !important;
+    }
+    // 针对 GSA 内的引用微调
+    #write .md-alert-@{type} @{quote_details} {
+        background: ~"var(--db)" !important;
+        border-radius:  0 0 var(--v-r-s) var(--v-r-s) !important;
+    }
+    // 引用内的 GSA 微调
+    #write @{quote_details} .md-alert-@{type} {
+        border-radius: 0 0 var(--v-r-s) var(--v-r-s) !important;
+    }
+    // 针对 after 提示
+    #write .md-alert-text-@{type} .md-meta {
+        font-weight: normal;
+        opacity: .5;
+    }
+    // 类型小标题
+    #write .md-alert-text-@{type} {
+        color: ~"var(--ac-@{accColor}-tt)";
+    }
+    .genGitHubStyleAlertCssBase(@type, @accColor, @accColorAlt);
+}
+
+// 生成 GSA 扁平up 风格
+.genGSA() when (@thmGsaStyle = flat_up) {
+    .genGitHubStyleAlertCssFlatUp(note, bu, bu-a);
+    .genGitHubStyleAlertCssFlatUp(tip, gn, gn-a);
+    .genGitHubStyleAlertCssFlatUp(important, pu, pu-a);
+    .genGitHubStyleAlertCssFlatUp(warning, rd, rd-a);
+    .genGitHubStyleAlertCssFlatUp(caution, og, og-a);
+}
+
+// ----------
+// 生成 GSA 强调风格样式
+.genGitHubStyleAlertCssEm(@type, @accColor, @accColorAlt) {
+    @alertTypePaddingTop4em: .625em;
+    #write .md-alert {
+        border-radius: var(--c-br-b);
+        padding-top: @alertTypePaddingTop4em !important;
+    }
+
+    #write .md-alert>p:first-child {
+        margin-bottom: 1em;
+    }
+
+    // 背景
+    @alertTypePaddingTop4emLg: @alertTypePaddingTop4em + 2em; // 适配调整类型显示位置的高度
+    #write .md-alert-@{type} {
+        background: linear-gradient(180deg, ~"var(--ac-@{accColor})" @alertTypePaddingTop4emLg, ~"var(--ac-@{accColor}-a)" @alertTypePaddingTop4emLg, ~"var(--ac-@{accColor}-fd)");
+        border: @imgBorderWidth solid ~"var(--ac-@{accColor}-lg)";
+    }
+    // 针对 GSA 内的引用微调
+    #write .md-alert-@{type} @{quote_details} {
+        background: ~"var(--db)";
+    }
+    // 引用内的 GSA 微调
+    #write @{quote_details} .md-alert-@{type} {
+        border-radius: var(--v-r-b);
+    }
+    // 针对 after 提示
+    #write .md-alert-text-@{type} .md-meta {
+        color: ~"var(--ac-@{accColor}-a)";
+        font-weight: normal;
+        opacity: .5;
+    }
+    // 类型小标题
+    #write .md-alert-text-@{type} {
+        color: @colorWhite;
+    }
+    .genGitHubStyleAlertCssBase(@type, @accColor, @accColorAlt);
+}
+
+// 生成 GSA 强调风格
+.genGSA() when (@thmGsaStyle = em) {
+    .genGitHubStyleAlertCssEm(note, bu, bu-a);
+    .genGitHubStyleAlertCssEm(tip, gn, gn-a);
+    .genGitHubStyleAlertCssEm(important, pu, pu-a);
+    .genGitHubStyleAlertCssEm(warning, rd, rd-a);
+    .genGitHubStyleAlertCssEm(caution, og, og-a);
+}

@@ -1,0 +1,10 @@
+/* 打印兼容：完整预览打印与导出 HTML 共用 */
+@media print {
+    /* 高图整体限制在一页内，避免整图挪到下一页、留下空图框 */
+    .md-diagram-panel { break-inside: avoid; page-break-inside: avoid; }
+    .md-diagram-panel svg[aria-roledescription] { max-height: 230mm; width: auto !important; max-width: 100% !important; height: auto; }
+    /* 长代码允许跨页；Typora 基础样式整体不拆分会把整块挤到下一页并留下空框 */
+    .md-fences { break-inside: auto; page-break-inside: auto; }
+    /* 原版把隐藏的「所有脚注」锚点放在脚注区前；它仍占一行，正文恰好满页时会单独占一页，脚注区强制分页后留下空白页 */
+    #vk-footer-area { position: absolute; width: 0; height: 0; overflow: hidden; }
+}

@@ -1,0 +1,27 @@
+{
+  "allFootnotesHash": "#vk-footer-area",
+  "footnoteImages": [
+    {
+      "naturalWidth": 24,
+      "src": "pic/VLOOK.png#200w",
+      "width": 200
+    }
+  ],
+  "footnotePopupWorked": true,
+  "missingMathGlyphRules": [
+    "mjx-c1D438",
+    "mjx-c1D45A"
+  ],
+  "zenuml": [
+    {
+      "height": 179,
+      "text": "Alice Bob Hello 1",
+      "width": 222
+    },
+    {
+      "height": 179,
+      "text": "Alice Bob Footnote 1",
+      "width": 222
+    }
+  ]
+}

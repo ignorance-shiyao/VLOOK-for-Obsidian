@@ -1,0 +1,9 @@
+import {createServer} from 'node:http';
+import {readFile} from 'node:fs/promises';
+import {build} from 'esbuild';
+const root=new URL('../',import.meta.url);
+const bundle=await build({stdin:{contents:`import {processImages} from './src/features/image';processImages(document.querySelector('#fixture'),{app:{},sourcePath:'fixture.md',settings:{captions:false}});`,resolveDir:root.pathname,loader:'ts'},bundle:true,write:false,format:'iife',platform:'browser'});
+const blue=await readFile(new URL('dist/css/blue.css',root),'utf8');
+const svg='<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200"><rect width="360" height="200" fill="#3978e8"/><text x="60" y="100" fill="white" font-size="30">VLOOK POSTCARD</text></svg>';
+const page=`<!doctype html><meta charset="utf-8"><title>明信片键盘验证</title><style>${blue}body{margin:32px;font:18px system-ui;color:#17355f}#fixture{position:relative;max-width:500px}img{width:360px;height:200px}img:focus-visible{outline:2px solid #3978e8;outline-offset:4px}</style><h1>明信片键盘验证</h1><p>Tab 聚焦图片，再 Tab 进入正文链接，Escape 收起并返回图片。</p><div id="fixture" class="markdown-rendered"><p><img alt="明信片图片" src="/image.svg#card" title="键盘可访问正文"></p><blockquote><p>保留<strong>富文本</strong>和<a href="#done">正文链接</a>。</p></blockquote><button id="done">卡片外部</button></div><script src="/bundle.js"></script>`;
+createServer((req,res)=>{if(req.url==='/bundle.js'){res.setHeader('Content-Type','text/javascript');res.end(bundle.outputFiles[0].contents)}else if(new URL(req.url,'http://localhost').pathname==='/image.svg'){res.setHeader('Content-Type','image/svg+xml');res.end(svg)}else if(req.url==='/'||req.url==='/svg'){res.setHeader('Content-Type','text/html;charset=utf-8');res.end(req.url==='/svg'?page.replace('/image.svg#card','/image.svg?fill=bu#card'):page)}else{res.statusCode=404;res.end('missing')}}).listen(18763,'127.0.0.1',()=>console.log('http://127.0.0.1:18763/'));

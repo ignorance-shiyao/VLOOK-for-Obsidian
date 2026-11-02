@@ -1,0 +1,12 @@
+{
+  "path": "/Users/shiyao/PersonalProjects/VLOOK/obsidian/output/pdf/minimal-browser-probe.pdf",
+  "sha256": "a63bdaa6fa7271e59866d2148672b5e88ede66bd0c7a322003a3b3601420d009",
+  "pages": 1,
+  "textCharacters": 38,
+  "chineseCharacters": 12,
+  "fontCount": 12,
+  "missing": [],
+  "leaked": [],
+  "passed": true,
+  "limits": "仅验证可提取文字；不能证明版式正确，也不能证明不可提取的图形中没有不发布内容。"
+}

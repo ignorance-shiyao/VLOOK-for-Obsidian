@@ -1,0 +1,20 @@
+[
+  {
+    "currentTime": 4.705768,
+    "duration": 30,
+    "label": "暂停音频",
+    "paused": false,
+    "pressed": "true",
+    "readyState": 4,
+    "tabindex": "0"
+  },
+  {
+    "currentTime": 4.784679,
+    "duration": 30,
+    "label": "播放音频",
+    "paused": true,
+    "pressed": "false",
+    "readyState": 4,
+    "tabindex": "0"
+  }
+]

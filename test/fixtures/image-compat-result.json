@@ -1,0 +1,98 @@
+[
+  {
+    "loaded": true,
+    "root": "markdown-rendered",
+    "rotate": "none",
+    "scale": "none",
+    "title": "原图",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "markdown-rendered",
+    "rotate": "180deg",
+    "scale": "none",
+    "title": "旋转 180°",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "markdown-rendered",
+    "rotate": "none",
+    "scale": "-1 1",
+    "title": "水平翻转",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "markdown-rendered",
+    "rotate": "none",
+    "scale": "1 -1",
+    "title": "垂直翻转",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "markdown-rendered",
+    "rotate": "none",
+    "scale": "-1",
+    "title": "双向翻转",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "markdown-rendered",
+    "rotate": "180deg",
+    "scale": "-1 1",
+    "title": "旋转并水平翻转",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "write",
+    "rotate": "none",
+    "scale": "none",
+    "title": "原图",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "write",
+    "rotate": "180deg",
+    "scale": "none",
+    "title": "旋转 180°",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "write",
+    "rotate": "none",
+    "scale": "-1 1",
+    "title": "水平翻转",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "write",
+    "rotate": "none",
+    "scale": "1 -1",
+    "title": "垂直翻转",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "write",
+    "rotate": "none",
+    "scale": "-1",
+    "title": "双向翻转",
+    "transform": "none"
+  },
+  {
+    "loaded": true,
+    "root": "write",
+    "rotate": "180deg",
+    "scale": "-1 1",
+    "title": "旋转并水平翻转",
+    "transform": "none"
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "name": "vlook-obsidian",
+  "version": "0.1.0",
+  "description": "VLOOK™ for Obsidian",
+  "scripts": {
+    "build:themes": "node scripts/build-themes.mjs",
+    "build:plugin": "node esbuild.config.mjs production",
+    "release:assets": "node scripts/release-assets.mjs",
+    "dev": "node scripts/dev.mjs",
+    "build": "npm run build:plugin",
+    "typecheck": "tsc --noEmit",
+    "install:vault": "node scripts/install.mjs",
+    "test": "node --test test/*.test.mjs",
+    "verify:install": "node scripts/verify-installed.mjs"
+  },
+  "keywords": [],
+  "type": "module",
+  "devDependencies": {
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/state": "6.7.6",
+    "@codemirror/view": "6.43.13",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^26.6.5",
+    "esbuild": "^0.24.2",
+    "jsdom": "^25.0.1",
+    "less": "^4.9.1",
+    "obsidian": "^1.14.4",
+    "postcss": "^8.5.31",
+    "postcss-selector-parser": "^7.1.7",
+    "typescript": "^5.9.3",
+    "yaml": "2.9.1"
+  },
+  "allowScripts": {
+    "esbuild@0.24.2": true
+  },
+  "private": true,
+  "dependencies": {
+    "@lezer/markdown": "^1.8.1",
+    "@mermaid-js/mermaid-zenuml": "1.0.1",
+    "@zenuml/core": "3.50.1"
+  }
+}

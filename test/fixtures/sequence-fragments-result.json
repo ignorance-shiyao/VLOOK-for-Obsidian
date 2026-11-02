@@ -1,0 +1,101 @@
+{
+  "labels": [
+    {
+      "boxFill": "rgb(0, 0, 0)",
+      "text": "中断",
+      "titles": [
+        {
+          "anchor": "start",
+          "fill": "rgb(0, 0, 0)",
+          "text": "[例外情况]",
+          "x": "124"
+        }
+      ],
+      "type": "break"
+    },
+    {
+      "boxFill": "rgb(243, 128, 25)",
+      "text": "并行",
+      "titles": [
+        {
+          "anchor": "start",
+          "fill": "rgb(243, 128, 25)",
+          "text": "[平行消息]",
+          "x": "114"
+        }
+      ],
+      "type": "par"
+    },
+    {
+      "boxFill": "rgb(115, 93, 224)",
+      "text": "分支",
+      "titles": [
+        {
+          "anchor": "start",
+          "fill": "rgb(115, 93, 224)",
+          "text": "[默认情况]",
+          "x": "324"
+        },
+        {
+          "anchor": "start",
+          "fill": "rgb(115, 93, 224)",
+          "text": "[非默认情况]",
+          "x": "354"
+        }
+      ],
+      "type": "alt"
+    },
+    {
+      "boxFill": "rgb(148, 32, 176)",
+      "text": "可选",
+      "titles": [
+        {
+          "anchor": "start",
+          "fill": "rgb(148, 32, 176)",
+          "text": "[可选]",
+          "x": "724"
+        }
+      ],
+      "type": "opt"
+    },
+    {
+      "boxFill": "rgb(208, 16, 16)",
+      "text": "关键",
+      "titles": [
+        {
+          "anchor": "start",
+          "fill": "rgb(208, 16, 16)",
+          "text": "[必须执行]",
+          "x": "320"
+        },
+        {
+          "anchor": "start",
+          "fill": "rgb(208, 16, 16)",
+          "text": "[可选情况A]",
+          "x": "350"
+        },
+        {
+          "anchor": "start",
+          "fill": "rgb(208, 16, 16)",
+          "text": "[可选情况B]",
+          "x": "350"
+        }
+      ],
+      "type": "critical"
+    },
+    {
+      "boxFill": "rgb(16, 160, 168)",
+      "text": "循环",
+      "titles": [
+        {
+          "anchor": "start",
+          "fill": "rgb(16, 160, 168)",
+          "text": "[循环]",
+          "x": "310"
+        }
+      ],
+      "type": "loop"
+    }
+  ],
+  "status": "完成 32 / 32，通过 32，失败 0"
+}

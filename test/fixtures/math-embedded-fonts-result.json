@@ -1,0 +1,12 @@
+{
+  "externalFontUrls": [],
+  "formulas": 23,
+  "labels": [
+    "mjx-eqn:mymath-1",
+    "mjx-eqn:mymath-2",
+    "mjx-eqn:mymath-3"
+  ],
+  "loadedFonts": 5,
+  "report": "独立 HTML：23 个公式；内嵌字体 24 个；未加载数学引擎",
+  "scripts": 0
+}

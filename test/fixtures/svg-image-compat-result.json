@@ -1,0 +1,101 @@
+{
+  "images": 0,
+  "svgs": [
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "none",
+      "scale": "none",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "180deg",
+      "scale": "none",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#180deg"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "none",
+      "scale": "-1 1",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#fliph"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "none",
+      "scale": "1 -1",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#flipv"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "none",
+      "scale": "-1",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#fliph#flipv"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "180deg",
+      "scale": "-1 1",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#180deg#fliph"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "none",
+      "scale": "none",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "180deg",
+      "scale": "none",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#180deg"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "none",
+      "scale": "-1 1",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#fliph"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "none",
+      "scale": "1 -1",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#flipv"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "none",
+      "scale": "-1",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#fliph#flipv"
+    },
+    {
+      "box": "view-box",
+      "origin": "80px 50px",
+      "rotate": "180deg",
+      "scale": "-1 1",
+      "transform": "none",
+      "url": "/arrow.svg?fill=bu#180deg#fliph"
+    }
+  ]
+}

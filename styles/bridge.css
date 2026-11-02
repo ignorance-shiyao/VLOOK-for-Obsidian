@@ -1,0 +1,41 @@
+/* ===== VLOOK™ for Obsidian：将 Obsidian 界面变量桥接到 VLOOK 主题变量 ===== */
+body {
+    --background-primary: var(--db);
+    --background-primary-alt: var(--pn-c);
+    --background-secondary: var(--pn-c);
+    --background-secondary-alt: var(--pn-c-a);
+    --text-normal: var(--df);
+    --text-muted: var(--df-a);
+    --text-accent: var(--ac-t2);
+    --text-accent-hover: var(--ac-t1);
+    --interactive-accent: var(--ac-t1);
+    --interactive-accent-hover: var(--ac-t2);
+    --color-accent: var(--ac-t1);
+    --link-color: var(--ac-t1);
+    --link-external-color: var(--ac-t1);
+    --text-highlight-bg: var(--mark-bg, rgba(255, 208, 0, .4));
+    --font-text-theme: var(--v-fm-text);
+    --font-interface-theme: var(--v-fm-key);
+    --font-monospace-theme: var(--v-fm-code);
+    --h1-font: var(--v-fm-h);
+    --h2-font: var(--v-fm-h);
+    --h3-font: var(--v-fm-h);
+    --h4-font: var(--v-fm-h);
+    --h5-font: var(--v-fm-h);
+    --h6-font: var(--v-fm-h);
+    --inline-title-font: var(--v-fm-tt);
+    --blockquote-border-color: var(--ac-t1);
+    --checkbox-color: var(--ac-t1);
+}
+
+/* 文档背景纹理 */
+.markdown-preview-view.markdown-rendered,
+.markdown-source-view.mod-cm6 .cm-scroller {
+    background: var(--d-bi), var(--db);
+    background-position: var(--d-bi-pos, 0 0), 0 0;
+}
+
+/* Obsidian 的 section 包装容器不应产生额外间距 */
+.markdown-rendered > div > :is(blockquote, table, pre) {
+    margin-block: .75em;
+}

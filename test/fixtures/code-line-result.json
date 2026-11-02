@@ -1,0 +1,13 @@
+{
+  "wrappedLine": 1,
+  "wrappedHeight": 91,
+  "secondLine": {
+    "code": "const longMessage = \"This is a long source line that wraps across several visual lines, preserving all syntax token elements.\";\nconsole.log(longMessage);\nreturn longMessage;",
+    "hidden": false,
+    "line": "2"
+  },
+  "afterCleanup": {
+    "line": null,
+    "overlays": 0
+  }
+}

@@ -1,0 +1,2204 @@
+Window: "VLOOK 语法示例 - test-vault - Obsidian 1.15.0", App: Obsidian.
+0 标准窗口 VLOOK 语法示例 - test-vault - Obsidian 1.15.0, Secondary Actions: Raise
+	1 container VLOOK 语法示例 - test-vault - Obsidian 1.15.0
+		2 container
+			3 HTML 内容 VLOOK 语法示例 - test-vault - Obsidian 1.15.0, URL: app://obsidian.md/index.html
+				4 container
+					5 container 打开快速切换
+						6 图像
+					7 container 查看关系图谱
+						8 图像
+					9 container 新建白板
+						10 图像
+					11 container 打开/创建今天的日记
+						12 图像
+					13 container 插入模板
+						14 图像
+					15 container 打开命令面板
+						16 图像
+					17 container 新建数据库
+						18 图像
+					19 container VLOOK 导航中心
+						20 图像
+					21 container VLOOK 预览
+						22 图像
+					23 container
+						24 图像
+						25 文本 test-vault
+					26 图像
+					27 图像
+					28 container
+						29 container 文件列表
+							30 图像
+						31 container 搜索
+							32 图像
+						33 container 书签
+							34 图像
+						35 图像
+						36 container
+							37 container 新建笔记
+								38 图像
+							39 container 新建文件夹
+								40 图像
+							41 container 排序
+								42 图像
+							43 container 自动显示当前文件
+								44 图像
+							45 container 全部折叠
+								46 图像
+							47 container
+								48 图像
+								49 文本 00-剪藏
+							50 container
+								51 图像
+								52 文本 pic
+							53 container
+								54 图像
+								55 文本 porting-links
+							56 container
+								57 图像
+								58 文本 samples
+							59 container
+								60 text _dom HTML
+							61 container
+								62 text guide PDF
+							63 container
+								64 text README HTML
+							65 container
+								66 text VLOOK 不发布关闭回归 HTML
+							67 container
+								68 text VLOOK 不发布回归 HTML
+							69 container
+								70 text VLOOK 部分删除线回归 HTML
+							71 container
+								72 text VLOOK 特殊图片回归 HTML
+							73 container
+								74 text VLOOK 文库回归 HTML
+							75 container
+								76 text VLOOK 文库回归
+							77 container
+								78 text VLOOK 移植回归 PDF
+							79 container
+								80 text VLOOK 移植回归
+							81 container
+								82 text VLOOK 引用图片回归 HTML
+							83 container
+								84 text VLOOK 语法示例
+							85 container
+								86 text VLOOK 语法示例 HTML
+							87 container
+								88 text VLOOK 语法示例 PDF
+							89 container
+								90 text VLOOK Setext与引用回归 HTML
+							91 container
+								92 text VLOOK-PDF-publish-check PDF
+							93 container
+								94 text VLOOK-Setext-unpublish-check PDF
+					95 container
+						96 container VLOOK 语法示例
+							97 图像
+							98 文本 VLOOK 语法示例
+							99 container 关闭
+								100 图像
+						101 container 新标签页
+							102 图像
+						103 图像
+						104 container
+							105 按钮 返回
+								106 图像
+							107 按钮 (disabled) 前进
+								108 图像
+							109 文本 VLOOK 语法示例
+							110 按钮 更多选项
+								111 图像
+							112 HTML 内容 VLOOK for Obsidian 语法示例, URL: about:srcdoc
+								113 container (showing 0-100 of 115 items)
+									114 标题 VLOOK™ for Obsidian 语法示例 最新版本 V0.1.0 by VLOOK, Value: 6
+										115 text VLOOK™ for Obsidian 语法示例
+										116 container
+											117 text 最新版本 V0.1.0
+										118 container
+											119 text by  VLOOK
+									120 标题 文本与标签, Value: 1
+										121 文本 文本与标签
+									122 文本 这是 
+									123 文本 加粗文本
+									124 文本 ，这是 
+									125 文本 高亮文本
+									126 text ，这是  下划线 。  这一整个段落使用金色。 单级标签：
+									127 文本 待处理
+									128 文本 进行中
+									129 文本 渐变标签
+									130 文本 默认
+									131 文本 多级标签：
+									132 container
+										133 text 客户等级 VIP
+									134 container
+										135 text 版本 V2.3 beta
+									136 container
+										137 text 变量 {{name}}
+									138 文本 刮刮卡：答案是 
+									139 文本 点击查看
+									140 文本 ，再来一个 
+									141 文本 ••••
+									142 text 。 注音：
+									143 文本 道
+									144 文本 生一，一生二，二
+									145 文本 生
+									146 文本 三。代码式注音：
+									147 文本 万物
+									148 文本 化学式 H
+									149 文本 2
+									150 文本 O，平方 x
+									151 文本 2
+									152 text 。 进度条：
+									153 container
+										154 text 35 %
+									155 container
+										156 text 80 %
+									157 container
+										158 text 120 %
+									159 container
+										160 text -20 %
+									161 文本 面包屑：请点击 
+									162 container
+										163 text 文件 导出 HTML
+									164 text  完成导出。 按钮：
+									165 link Description: https://github.com/MadMaxChow/VLOOK, Value: github.com/MadMaxChow/VLOOK
+									166 link Description: https://github.com, Value: github.com/
+									167 link Description: https://github.com, Value: github.com/
+									168 标题 引用块, Value: 1
+										169 文本 引用块
+									170 文本 这是引用块的小标题
+									171 文本 引用块正文内容。
+									172 文本 左侧风格小标题
+									173 文本 正文
+									174 开合三角标记 什么是三段论？
+										175 图像
+										176 文本 什么是三段论？
+									177 图像
+									178 text 提醒 GitHub Style Alert：Note
+									179 图像
+									180 text 警告 注意潜在风险
+									181 标题 引用块分栏, Value: 2
+										182 文本 引用块分栏
+									183 文本 分栏 1
+									184 文本 第一栏内容
+									185 文本 分栏 2
+									186 文本 第二栏内容更长一些，测试等高处理。第二栏内容更长一些，测试等高处理。
+									187 文本 分栏 3
+									188 文本 第三栏
+									189 标题 列表分栏, Value: 2
+										190 文本 列表分栏
+									191 内容列表
+										192 container
+											193 文本 列表 1
+
+											194 内容列表
+												195 container
+													196 AXListMarker ■ 
+													197 文本 列表项 1-1
+										198 container
+											199 文本 列表 2
+
+											200 内容列表
+												201 container
+													202 AXListMarker ■ 
+													203 文本 列表项 2-1
+										204 文本 列表 3
+										205 文本 列表 4
+									206 标题 表格, Value: 1
+										207 文本 表格
+									208 container
+										209 text 表 1  单元格合并示例
+										210 表格
+											211 row
+												212 列标题
+													213 文本 列 A
+												214 列标题
+													215 文本 列 B
+												216 列标题
+													217 文本 列 C
+												218 列标题
+													219 文本 列 D
+											220 row
+												221 单元格 1-2
+													222 文本 纵向合并 ×2
+												223 单元格 1-3
+													224 文本 横向合并 ×3
+											225 row
+												226 单元格
+													227 文本 普通
+												228 单元格
+													229 文本 普通
+												230 单元格
+													231 文本 普通
+											232 row
+												233 单元格
+													234 文本 普通
+												235 单元格
+													236 文本 普通
+												237 单元格
+													238 文本 着色单元格
+												239 单元格
+													240 文本 普通
+										241 文本 第二题注：表格下方
+									242 container
+										243 text 表 2  列格式示例
+										244 表格
+											245 row
+												246 列标题
+													247 文本 名称
+												248 列标题
+													249 文本 斜体
+												250 列标题
+													251 文本 完成
+												252 列标题
+													253 文本 金额
+											254 row
+												255 单元格
+													256 文本 A
+												257 单元格
+													258 文本 内容
+												259 单元格
+												260 单元格
+													261 text 12,345. 67
+											262 row
+												263 单元格
+													264 文本 B
+												265 单元格
+													266 文本 内容
+												267 单元格
+												268 单元格
+													269 文本 -2,345
+											270 row
+												271 单元格
+													272 文本 C
+												273 单元格
+													274 文本 内容
+												275 单元格
+												276 单元格
+													277 text 88. 5 %
+											278 row
+												279 单元格
+													280 文本 D
+												281 单元格
+													282 文本 内容
+												283 单元格
+													284 文本  说明
+												285 单元格
+													286 text ¥ 3,456. 78
+									287 container
+										288 text 表 3  行分组折叠
+										289 表格
+											290 row
+												291 列标题
+													292 文本 生物分类
+												293 列标题
+													294 文本 说明
+											295 row
+												296 单元格
+													297 图像
+													298 text 动物
+												299 单元格
+											300 row
+												301 单元格
+													302 图像
+													303 text 植物
+												304 单元格
+									305 标题 图片, Value: 1
+										306 文本 图片
+									307 文本 LOADING...
+									308 图像 VLOOK 标志
+									309 container
+										310 text LOADING... 图 1  壁纸预览
+										311 图像 Description: 壁纸预览, Help: 这是第二题注
+										312 文本 这是第二题注
+									313 文本 图标混排：这是 
+									314 图像
+									315 文本  VLOOK 图标，2 倍 
+									316 图像
+									317 文本  图标。
+									318 container
+										319 文本 LOADING...
+										320 图像 /svg%3E
+									321 标题 页签组, Value: 1
+										322 文本 页签组
+									323 container [Tab] / [⇧ Shift + Tab] 切换页签
+										324 container
+											325 图像
+											326 文本 表格页签
+										327 container
+											328 图像
+											329 文本 js
+										330 container
+											331 图像
+											332 文本 引用块页签
+									333 container
+										334 text 表 4  表格页签
+										335 表格
+											336 row
+												337 列标题
+													338 文本 A
+												339 列标题
+													340 文本 B
+											341 row
+												342 单元格
+													343 文本 1
+												344 单元格
+													345 文本 2
+									346 标题 代码与公式, Value: 1
+										347 文本 代码与公式
+									348 container
+										349 text 代码块 2  快速排序
+										350 container
+											351 text void quickSort ( int  arr[],  int  left,  int  right) { int  i  =  left, j  =  right; }
+										352 文本 语言：C++
+									353 container
+										354 container
+											355 文本 𝑎
+											356 文本 2
+											357 文本 +
+											358 文本 𝑏
+											359 文本 2
+											360 文本 =
+											361 文本 𝑐
+											362 文本 2
+										363 text 公式 1  勾股定理
+									364 标题 任务, Value: 1
+										365 文本 任务
+									366 文本 任务整体进度：
+									367 container
+										368 text 50.0 %
+									369 内容列表
+										370 container
+											371 图像
+											372 文本 调查目标客户
+										373 container
+											374 图像
+											375 文本 研究竞争对手
+										376 container
+											377 图像
+											378 文本 收集市场数据
+										379 container
+											380 图像
+											381 文本 分析市场趋势
+									382 标题 原版公开图表合集, Value: 1
+										383 文本 原版公开图表合集
+									384 文本 原版32例集中在此测试，不再拆成32篇笔记。
+									385 标题 01 流程图, Value: 2
+										386 文本 01 流程图
+									387 container
+										388 文本 子图
+										389 文本 子图的子图
+										390 文本 分支
+										391 文本 分支
+										392 文本 分支
+										393 文本 重要分支
+										394 文本 条件1
+										395 文本 条件2
+										396 文本 条件3
+										397 文本 条件4
+										398 文本 开始
+										399 文本 ❤ 准备
+										400 文本 节点
+										401 文本 可选
+										402 文本 子流程
+										403 文本 存档
+										404 container
+											405 text A (同页)
+										406 文本 数据
+										407 文本 文件
+										408 link Description: 双圈圆点击可访问GitHub, Value: github.com/
+										409 文本 判断？
+										410 文本 结束
+										411 文本 手工输入
+										412 文本 手动操作
+										413 container
+											414 text B  (离页)
+										415 container
+											416 text A (同页)
+									417 标题 02 流程图, Value: 2
+										418 文本 02 流程图
+									419 container
+										420 文本 B (离页)
+										421 文本 节点
+										422 文本 结束
+									423 标题 03 分角色流程图, Value: 2
+										424 文本 03 分角色流程图
+									425 container
+										426 文本 角色D
+										427 文本 角色C
+										428 文本 角色B
+										429 文本 角色A
+										430 文本 开始
+										431 文本 节点1
+										432 link Description: 可点击打开Github, Value: github.com/
+										433 文本 结束
+										434 文本 节点3
+										435 文本 节点31
+										436 文本 节点4
+									437 标题 04 顺序图, Value: 2
+										438 文本 04 顺序图
+									439 container
+										440 文本 break
+										441 文本 [例外情况]
+										442 文本 par
+										443 文本 [平行消息]
+										444 文本 [非默认情况]
+										445 文本 alt
+										446 文本 [默认情况]
+										447 文本 opt
+										448 文本 [可选]
+										449 文本 [可选情况A]
+										450 文本 [可选情况B]
+										451 文本 critical
+										452 文本 [必须执行]
+										453 文本 loop
+										454 文本 [循环]
+										455 文本 并行发送消息1
+										456 文本 中断处理消息
+										457 文本 并行发送消息3
+										458 文本 发送消息
+										459 文本 内部动作
+										460 文本 发送消息A
+										461 文本 默认情况消息A1
+										462 文本 非默认消息A2
+										463 文本 发送消息X
+										464 文本 必须执行消息
+										465 文本 执行可选消息A
+										466 文本 执行可选消息B
+										467 container
+											468 text 显示在外部系统 左侧备注说明
+										469 container
+											470 text 显示在外部系统 右侧备注说明
+										471 文本 跨对象备注说明
+										472 文本 人物角色
+										473 文本 前端触点
+										474 文本 普通系统
+										475 文本 **重要系统角色
+										476 文本 --外部系统角色
+										477 文本 人物角色
+										478 文本 前端触点
+										479 文本 普通系统
+										480 文本 **重要系统角色
+										481 文本 --外部系统角色
+									482 标题 05 流程图扩展的状态机图, Value: 2
+										483 文本 05 流程图扩展的状态机图
+									484 container
+										485 文本 状态集
+										486 文本 初始
+										487 文本 汇聚
+										488 container
+											489 text <角色：行为> Act / 变更处理说明
+										490 container
+											491 text <角色：行为> Act / 变更处理说明
+										492 container
+											493 text <角色：行为> Act / 变更处理说明
+										494 文本 Act / 变更处理说明
+										495 文本 横向状态机图
+										496 文本 状态 A
+										497 container
+											498 text 状态 B 多行样式
+										499 文本 状态 C
+										500 文本 状态 D
+									501 标题 06 流程图扩展的状态机图, Value: 2
+										502 文本 06 流程图扩展的状态机图
+									503 container
+										504 文本 状态集
+										505 文本 初始
+										506 文本 汇聚
+										507 container
+											508 text <角色：行为> Act / 变更处理说明
+										509 container
+											510 text <角色：行为> Act / 变更处理说明
+										511 container
+											512 text <角色：行为> Act / 变更处理说明
+										513 文本 Act / 变更处理说明
+										514 文本 竖向状态机图
+										515 文本 状态 A
+										516 文本 状态 B
+										517 文本 状态 C
+										518 文本 状态 D
+									519 标题 07 标准状态机图, Value: 2
+										520 文本 07 标准状态机图
+									521 container
+										522 container
+											523 text <角色：行为> Act / 变更处理说明
+										524 文本 状态转换说明
+										525 文本 状态转换说明
+										526 文本 状态转换说明
+										527 文本 状态A
+										528 文本 状态B
+										529 文本 状态C
+									530 标题 08 标准状态机图, Value: 2
+										531 文本 08 标准状态机图
+									532 container
+										533 文本 状态组3
+										534 文本 状态组1
+										535 文本 状态组2
+										536 container
+											537 text <角色：行为> Act / 变更处理说明
+										538 文本 状态转换说明
+										539 文本 按一下 CapLock 键
+										540 文本 按一下 CapLock 键
+										541 文本 状态4
+										542 文本 状态31
+										543 文本 大写【关闭】
+										544 文本 大写【打开】
+										545 文本 在此填写状态的描述内容
+										546 文本 状态21
+										547 container
+											548 text 【状态组1】右边的备注信息， 内容支持换行。
+										549 文本 【状态组2】左边的备注信息
+									550 标题 09 类图, Value: 2
+										551 文本 09 类图
+									552 container
+										553 container
+											554 text Inheritance 继承
+										555 container
+											556 text Composition 组合
+										557 container
+											558 text Aggregation 聚合
+										559 container
+											560 text Association 关联
+										561 文本 Link (Solid)
+										562 container
+											563 text Dependency 依赖
+										564 container
+											565 text Realization 实现
+										566 文本 Link (Dashed)
+										567 文本 *
+										568 文本 1
+										569 文本 *
+										570 文本 n
+										571 文本 «interface»
+										572 文本 classA
+										573 文本 +public attribute
+										574 文本 -private attribute
+										575 文本 #protected attribute
+										576 文本 ~package attribute
+										577 文本 +public method()
+										578 文本 -private method()
+										579 文本 #protected method()
+										580 文本 ~package method()
+										581 文本 classB
+										582 文本 «enumeration»
+										583 文本 classC
+										584 文本 Red
+										585 文本 Blue
+										586 文本 Green
+										587 文本 WHITE
+										588 文本 BLACK
+										589 文本 classD
+										590 文本 classE
+										591 文本 classF
+										592 文本 classG
+										593 文本 classH
+										594 文本 classI
+										595 文本 classJ
+										596 文本 classK
+										597 文本 classL
+										598 文本 classM
+										599 文本 classN
+										600 文本 classO
+										601 文本 classP
+										602 文本 类图示例
+										603 文本 对 classE 类的说明
+									604 标题 10 类图, Value: 2
+										605 文本 10 类图
+									606 container
+										607 文本 Inheritance
+										608 文本 Inheritance
+										609 文本 Composition
+										610 文本 Composition
+										611 文本 Dependency
+										612 文本 Composition
+										613 文本 Dependency
+										614 文本 Composition
+										615 文本 Inheritance
+										616 文本 Inheritance
+										617 文本 Inheritance
+										618 文本 Inheritance
+										619 文本 Inheritance
+										620 文本 Inheritance
+										621 文本 Inheritance
+										622 文本 Inheritance
+										623 文本 Inheritance
+										624 文本 Inheritance
+										625 文本 Inheritance
+										626 文本 Inheritance
+										627 文本 *
+										628 文本 *
+										629 文本 *
+										630 文本 *
+										631 文本 *
+										632 文本 *
+										633 文本 *
+										634 文本 人_Person
+										635 文本 姓名
+										636 文本 性别
+										637 文本 年龄
+										638 文本 学生_Student
+										639 文本 所属学校
+										640 文本 所属班级
+										641 文本 学号
+										642 文本 +交作业()
+										643 文本 老师_Techer
+										644 文本 所属学校
+										645 文本 老师证号
+										646 文本 +授课()
+										647 文本 班级_Class
+										648 文本 所属学校
+										649 文本 所属年级
+										650 文本 班名
+										651 文本 学校_School
+										652 文本 学校名称
+										653 文本 所属省份
+										654 文本 所属城市
+										655 文本 学校类型
+										656 文本 公司
+										657 文本 抽象部门
+										658 文本 市场类部门
+										659 文本 策划部
+										660 文本 销售部
+										661 文本 生产类部门
+										662 文本 研发部
+										663 文本 实施部
+										664 文本 IT部
+										665 文本 支持类部门
+										666 文本 质量部
+										667 文本 财务部
+										668 文本 行政人事部
+									669 标题 11 实体关系图, Value: 2
+										670 文本 11 实体关系图
+									671 container
+										672 文本 Entity Relationship Diagrams example
+										673 文本 has
+										674 文本 places
+										675 文本 liable for
+										676 文本 receives
+										677 文本 covers
+										678 文本 includes
+										679 文本 contains
+										680 文本 ordered in
+										681 文本 allows
+										682 文本 is
+										683 文本 客户
+										684 文本 订单
+										685 文本 收货地址
+										686 文本 发票
+										687 文本 商品类目
+										688 文本 商品
+										689 文本 订单商品行
+										690 文本 CAR
+										691 文本 string
+										692 文本 registrationNumber
+										693 文本 string
+										694 文本 make
+										695 文本 string
+										696 文本 model
+										697 文本 NAMED-DRIVER
+										698 文本 PERSON
+										699 文本 string
+										700 文本 firstName
+										701 文本 string
+										702 文本 lastName
+										703 文本 int
+										704 文本 age
+									705 标题 12 方块图, Value: 2
+										706 文本 12 方块图
+									707 container
+										708 文本 DB
+										709 文本 D
+										710 文本 A
+										711 container
+											712 text A wide one in the middle
+										713 文本 C
+									714 标题 13 四象限图, Value: 2
+										715 文本 13 四象限图
+									716 container
+										717 文本 Reach and engagement of campaigns
+										718 文本 We should expand
+										719 文本 Need to promote
+										720 文本 Re-evaluate
+										721 文本 May be improved
+										722 文本 Low Reach
+										723 文本 High Reach
+										724 文本 Low Engagement
+										725 文本 High Engagement
+										726 文本 Campaign A
+										727 文本 Campaign B
+										728 文本 Campaign C
+										729 文本 Campaign D
+										730 文本 Campaign E
+										731 文本 Campaign F
+									732 标题 14 数据包图, Value: 2
+										733 文本 14 数据包图
+									734 container
+										735 文本 Source Port
+										736 文本 Destination Port
+										737 文本 Sequence Number
+										738 文本 Acknowledgment Number
+										739 文本 Data Offset
+										740 文本 Reserved
+										741 文本 URG
+										742 文本 ACK
+										743 文本 PSH
+										744 文本 RST
+										745 文本 SYN
+										746 文本 FIN
+										747 文本 Window
+										748 文本 Checksum
+										749 文本 Urgent Pointer
+										750 文本 (Options and Padding)
+										751 文本 Data (variable length)
+										752 文本 Data (variable length)
+										753 文本 0
+										754 文本 15
+										755 文本 16
+										756 文本 31
+										757 文本 32
+										758 文本 63
+										759 文本 64
+										760 文本 95
+										761 文本 96
+										762 文本 99
+										763 文本 100
+										764 文本 105
+										765 文本 106
+										766 文本 107
+										767 文本 108
+										768 文本 109
+										769 文本 110
+										770 文本 111
+										771 文本 112
+										772 文本 127
+										773 文本 128
+										774 文本 143
+										775 文本 144
+										776 文本 159
+										777 文本 160
+										778 文本 191
+										779 文本 192
+										780 文本 223
+										781 文本 224
+										782 文本 255
+										783 文本 TCP Packet
+									784 标题 15 架构图, Value: 2
+										785 文本 15 架构图
+									786 container
+										787 文本 API
+										788 文本 Database
+										789 文本 Storage
+										790 文本 Storage
+										791 文本 Server
+										792 文本 Disk
+										793 文本 Disk
+										794 文本 Disk
+										795 文本 Gateway
+										796 文本 Gateway
+									797 标题 16 ZenUML 图, Value: 2
+										798 文本 16 ZenUML 图
+									799 container
+										800 文本 Annotators
+										801 文本 Alice
+										802 文本 Bob
+										803 文本 Boundary
+										804 文本 Control
+										805 文本 Entity
+										806 文本 Hi Bob
+										807 文本 1.1
+										808 文本 Hi Alice
+										809 文本 1.2
+										810 文本 Loop
+										811 文本 1
+										812 文本 [
+										813 文本 true
+										814 文本 ]
+									815 标题 17 ZenUML 图, Value: 2
+										816 文本 17 ZenUML 图
+									817 container
+										818 文本 Reply message
+										819 文本 Client
+										820 文本 A
+										821 文本 B
+										822 文本 Cognito
+										823 文本 ECS
+										824 文本 EFS
+										825 文本 method()
+										826 文本 1
+										827 文本 method()
+										828 文本 1.1
+										829 文本 x1
+										830 文本 1.1.1.1
+										831 文本 x11
+										832 文本 1.1.1.2
+										833 文本 x2
+										834 文本 1.2
+										835 文本 Alt
+										836 文本 1.1.1
+										837 文本 [
+										838 文本 condition
+										839 文本 ]
+										840 文本 return early
+									841 标题 18 思维导图, Value: 2
+										842 文本 18 思维导图
+									843 container
+										844 文本 Origins
+										845 文本 📓 Long history
+										846 文本 Popularisation
+										847 container
+											848 text British popular psychology author Tony Buzan
+										849 文本 Origins 2
+										850 文本 Popularisation 2
+										851 文本 Research
+										852 container
+											853 text 🍺 On effectiveness and features
+										854 container
+											855 text On Automatic creation
+										856 文本 Uses
+										857 文本 Creative techniques
+										858 文本 Strategic planning
+										859 文本 Argument mapping
+										860 文本 Research 2
+										861 文本 Tools
+										862 文本 Pen and paper
+										863 文本 Mermaid
+										864 文本 Tools 2
+										865 文本 Pen and paper 2
+										866 文本 Tools 3
+										867 文本 Mindmap
+									868 标题 19 Gitgraph 图, Value: 2
+										869 文本 19 Gitgraph 图
+									870 container
+										871 文本 Example Gitgraph diagram
+										872 文本 main
+										873 文本 develop
+										874 文本 nice_feature
+										875 文本 Alpha
+										876 文本 0.0.1
+										877 文本 1-3c6ef36
+										878 文本 Beta
+										879 文本 Reverse
+										880 文本 5-b54cda2
+										881 文本 Hightlgith
+										882 文本 Gamma
+										883 文本 RC_1
+									884 标题 20 Gitgraph 图, Value: 2
+										885 文本 20 Gitgraph 图
+									886 container
+										887 文本 Map of MetroLine
+										888 文本 main
+										889 文本 MetroLine2
+										890 文本 MetroLine3
+										891 文本 NewYork
+										892 文本 Dallas
+										893 文本 LosAngeles
+										894 文本 Chicago
+										895 文本 Houston
+										896 文本 Phoenix
+										897 文本 Denver
+										898 文本 Atlanta
+										899 文本 Miami
+										900 文本 Washington
+										901 文本 MY JUNCTION
+										902 文本 Boston
+										903 文本 Detroit
+										904 文本 SanFrancisco
+									905 标题 21 Gitgraph 图, Value: 2
+										906 文本 21 Gitgraph 图
+									907 container
+										908 文本 main
+										909 文本 hotfix
+										910 文本 develop
+										911 文本 featureB
+										912 文本 featureA
+										913 文本 release
+										914 文本 featureC
+										915 文本 featureD
+										916 文本 0-9e3779b
+										917 文本 1-3c6ef36
+										918 文本 ash
+										919 文本 abc
+										920 文本 3-78dde6c
+										921 文本 4-1715607
+										922 文本 5-b54cda2
+										923 文本 6-538453d
+										924 文本 8-8ff3473
+										925 文本 9-2e2ac0e
+										926 文本 11-6a99b44
+										927 文本 12-08d12df
+										928 文本 14-4540215
+										929 文本 15-e3779b1
+										930 文本 18-be1e082
+										931 文本 19-5c5581d
+									932 标题 22 桑基图, Value: 2
+										933 文本 22 桑基图
+									934 container
+										935 图形符号 Direct → Visit: 500
+										936 图形符号 Search → Visit: 800
+										937 图形符号 Social → Visit: 400
+										938 图形符号 Ads → Visit: 300
+										939 图形符号 Visit → Register: 900
+										940 图形符号 Visit → Bounce: 1100
+										941 图形符号 Register → Paid: 300
+										942 图形符号 Register → Free: 600
+										943 container
+											944 text Direct  500
+										945 container
+											946 text Visit  2000
+										947 container
+											948 text Search  800
+										949 container
+											950 text Social  400
+										951 container
+											952 text Ads  300
+										953 container
+											954 text Register  900
+										955 container
+											956 text Bounce  1100
+										957 container
+											958 text Paid  300
+										959 container
+											960 text Free  600
+									961 标题 23 桑基图, Value: 2
+										962 文本 23 桑基图
+									963 container
+										964 图形符号 Total Sales → Shampoo: 500
+										965 图形符号 Total Sales → Detergent: 300
+										966 图形符号 Total Sales → Skincare: 200
+										967 图形符号 Shampoo → Online: 200
+										968 图形符号 Shampoo → Offline: 300
+										969 图形符号 Detergent → Online: 100
+										970 图形符号 Detergent → Offline: 200
+										971 图形符号 Skincare → Online: 150
+										972 图形符号 Skincare → Offline: 50
+										973 container
+											974 text Total Sales  1000
+										975 container
+											976 text Shampoo  500
+										977 container
+											978 text Detergent  300
+										979 container
+											980 text Skincare  200
+										981 container
+											982 text Online  450
+										983 container
+											984 text Offline  550
+									985 标题 24 时间线, Value: 2
+										986 文本 24 时间线
+									987 container
+										988 文本 History of Social Media Platform
+										989 文本 2002
+										990 文本 LinkedIn
+										991 文本 2004
+										992 文本 Facebook
+										993 文本 Google
+										994 文本 2005
+										995 文本 Youtube
+										996 文本 2006
+										997 文本 Twitter
+										998 文本 2023
+										999 文本 GPT-3.5
+										1000 文本 GPT-4
+									1001 标题 25 时间线, Value: 2
+										1002 文本 25 时间线
+									1003 container
+										1004 文本 Timeline of Industrial Revolution
+										1005 文本 17th-20th century
+										1006 文本 Industry 1.0
+										1007 container
+											1008 text Machinery, Water power, Steam power
+										1009 文本 Industry 2.0
+										1010 container
+											1011 text Electricity, Internal combustion engine, Mass production
+										1012 文本 Industry 3.0
+										1013 container
+											1014 text Electronics, Computers, Automation
+										1015 文本 21st century
+										1016 文本 Industry 4.0
+										1017 container
+											1018 text Internet, Robotics, Internet of Things
+										1019 文本 Industry 5.0
+										1020 container
+											1021 text Artificial intelligence, Big data,3D printing
+									1022 标题 26 时间线, Value: 2
+										1023 文本 26 时间线
+									1024 container
+										1025 文本 STEP 01
+										1026 文本 Action 1.1
+										1027 文本 Action 1.2
+										1028 文本 STEP 02
+										1029 文本 Action 2.1
+										1030 文本 Action 2.2
+										1031 文本 Action 2.3
+										1032 文本 STEP 03
+										1033 文本 Action 3.1
+									1034 标题 27 XY 图, Value: 2
+										1035 文本 27 XY 图
+									1036 container
+										1037 文本 Sales Revenue
+										1038 文本 4000
+										1039 文本 5000
+										1040 文本 6000
+										1041 文本 7000
+										1042 文本 8000
+										1043 文本 9000
+										1044 文本 10000
+										1045 文本 11000
+										1046 文本 jan
+										1047 文本 feb
+										1048 文本 mar
+										1049 文本 apr
+										1050 文本 may
+										1051 文本 jun
+										1052 文本 jul
+										1053 文本 aug
+										1054 文本 sep
+										1055 文本 oct
+										1056 文本 nov
+										1057 文本 dec
+										1058 文本 Revenue (in $)
+									1059 标题 28 饼图, Value: 2
+										1060 文本 28 饼图
+								1061 container
+									1062 图像
+									1063 图像
+									1064 图像
+									1065 图像
+									1066 图像
+									1067 图像
+								1068 container
+									1069 图像
+									1070 text VLOOK for Obsidian 语法示例 文本与标签
+									1071 图像
+								1072 container
+									1073 图像
+									1074 文本栏 (settable) 目录 ... [ / ]
+									1075 图像
+									1076 图像
+									1077 container 目录
+										1078 图像
+									1079 container 图 / 明信片
+										1080 文本 34
+										1081 图像
+									1082 container 表
+										1083 文本 4
+										1084 图像
+									1085 container 代码块
+										1086 文本 2
+										1087 图像
+									1088 container 公式
+										1089 文本 1
+										1090 图像
+									1091 container 音频 / 视频
+										1092 图像
+									1093 container 文本与标签
+										1094 link app://c175e042047469d8835b34168fa8f7fb2145/Users/shiyao/PersonalProjects/VLOOK/obsidian/test-vault/VLOOK%20%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.html#%E6%96%87%E6%9C%AC%E4%B8%8E%E6%A0%87%E7%AD%BE
+										1095 文本 文本与标签
+									1096 container
+										1097 图像
+										1098 link app://c175e042047469d8835b34168fa8f7fb2145/Users/shiyao/PersonalProjects/VLOOK/obsidian/test-vault/VLOOK%20%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.html#%E5%BC%95%E7%94%A8%E5%9D%97
+										1099 文本 引用块
+									1100 container 表格
+										1101 link app://c175e042047469d8835b34168fa8f7fb2145/Users/shiyao/PersonalProjects/VLOOK/obsidian/test-vault/VLOOK%20%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.html#%E8%A1%A8%E6%A0%BC
+										1102 文本 表格
+									1103 container 图片
+										1104 link app://c175e042047469d8835b34168fa8f7fb2145/Users/shiyao/PersonalProjects/VLOOK/obsidian/test-vault/VLOOK%20%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.html#%E5%9B%BE%E7%89%87
+										1105 文本 图片
+									1106 container 页签组
+										1107 link app://c175e042047469d8835b34168fa8f7fb2145/Users/shiyao/PersonalProjects/VLOOK/obsidian/test-vault/VLOOK%20%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.html#%E9%A1%B5%E7%AD%BE%E7%BB%84
+										1108 文本 页签组
+									1109 container 代码与公式
+										1110 link app://c175e042047469d8835b34168fa8f7fb2145/Users/shiyao/PersonalProjects/VLOOK/obsidian/test-vault/VLOOK%20%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.html#%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%85%AC%E5%BC%8F
+										1111 文本 代码与公式
+									1112 container 任务
+										1113 link app://c175e042047469d8835b34168fa8f7fb2145/Users/shiyao/PersonalProjects/VLOOK/obsidian/test-vault/VLOOK%20%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.html#%E4%BB%BB%E5%8A%A1
+										1114 文本 任务
+									1115 container
+										1116 图像
+										1117 link app://c175e042047469d8835b34168fa8f7fb2145/Users/shiyao/PersonalProjects/VLOOK/obsidian/test-vault/VLOOK%20%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.html#%E5%8E%9F%E7%89%88%E5%85%AC%E5%BC%80%E5%9B%BE%E8%A1%A8%E5%90%88%E9%9B%86
+										1118 文本 原版公开图表合集
+									1119 文本 · – · – ·
+									1120 link Description: Styled & Enhanced by VLOOK™, Value: github.com/MadMaxChow/VLOOK
+								1121 container
+									1122 text 字体风格  ✅ 已完成
+								1123 container
+									1124 图像
+									1125 文本 3,268
+									1126 图像
+									1127 图像
+									1128 图像
+									1129 图像
+								1130 HTML 内容 about:blank
+								1131 HTML 内容 about:blank
+								1132 HTML 内容 vlook-doc.pages.dev/act/chk-update?ts=1793081409938
+									1133 文本 Checking new version of VLOOK™ ...
+								1134 HTML 内容 madmaxchow.github.io/VLOOK/act/chk-update.html?ts=1793081409938
+									1135 文本 Checking new version of VLOOK™ ...
+					1136 container
+						1137 container VLOOK · VLOOK 语法示例
+							1138 图像
+							1139 文本 VLOOK · VLOOK 语法示例
+							1140 container 关闭
+								1141 图像
+						1142 container 新标签页
+							1143 图像
+						1144 图像
+						1145 图像
+						1146 container
+							1147 按钮 (disabled) 返回
+								1148 图像
+							1149 按钮 (disabled) 前进
+								1150 图像
+							1151 文本 VLOOK 预览
+							1152 按钮 刷新
+								1153 图像
+							1154 按钮 发布为 PDF（原版打印选项）
+								1155 图像
+							1156 按钮 导出为 VLOOK HTML
+								1157 图像
+							1158 按钮 更多选项
+								1159 图像
+							1160 HTML 内容 VLOOK for Obsidian 语法示例, URL: about:srcdoc
+								1161 container (showing 0-100 of 115 items)
+									1162 标题 VLOOK™ for Obsidian 语法示例 最新版本 V0.1.0 by VLOOK, Value: 6
+										1163 text VLOOK™ for Obsidian 语法示例
+										1164 container
+											1165 text 最新版本 V0.1.0
+										1166 container
+											1167 text by  VLOOK
+									1168 标题 文本与标签, Value: 1
+										1169 文本 文本与标签
+									1170 文本 这是 
+									1171 文本 加粗文本
+									1172 文本 ，这是 
+									1173 文本 高亮文本
+									1174 text ，这是  下划线 。  这一整个段落使用金色。 单级标签：
+									1175 文本 待处理
+									1176 文本 进行中
+									1177 文本 渐变标签
+									1178 文本 默认
+									1179 文本 多级标签：
+									1180 container
+										1181 text 客户等级 VIP
+									1182 container
+										1183 text 版本 V2.3 beta
+									1184 container
+										1185 text 变量 {{name}}
+									1186 文本 刮刮卡：答案是 
+									1187 文本 点击查看
+									1188 文本 ，再来一个 
+									1189 文本 ••••
+									1190 text 。 注音：
+									1191 文本 道
+									1192 文本 生一，一生二，二
+									1193 文本 生
+									1194 文本 三。代码式注音：
+									1195 文本 万物
+									1196 文本 化学式 H
+									1197 文本 2
+									1198 文本 O，平方 x
+									1199 文本 2
+									1200 text 。 进度条：
+									1201 container
+										1202 text 35 %
+									1203 container
+										1204 text 80 %
+									1205 container
+										1206 text 120 %
+									1207 container
+										1208 text -20 %
+									1209 文本 面包屑：请点击 
+									1210 container
+										1211 text 文件 导出 HTML
+									1212 text  完成导出。 按钮：
+									1213 link Description: https://github.com/MadMaxChow/VLOOK, Value: github.com/MadMaxChow/VLOOK
+									1214 link Description: https://github.com, Value: github.com/
+									1215 link Description: https://github.com, Value: github.com/
+									1216 标题 引用块, Value: 1
+										1217 文本 引用块
+									1218 文本 这是引用块的小标题
+									1219 文本 引用块正文内容。
+									1220 文本 左侧风格小标题
+									1221 文本 正文
+									1222 开合三角标记 什么是三段论？
+										1223 图像
+										1224 文本 什么是三段论？
+									1225 图像
+									1226 text 提醒 GitHub Style Alert：Note
+									1227 图像
+									1228 text 警告 注意潜在风险
+									1229 标题 引用块分栏, Value: 2
+										1230 文本 引用块分栏
+									1231 文本 分栏 1
+									1232 文本 第一栏内容
+									1233 文本 分栏 2
+									1234 文本 第二栏内容更长一些，测试等高处理。第二栏内容更长一些，测试等高处理。
+									1235 文本 分栏 3
+									1236 文本 第三栏
+									1237 标题 列表分栏, Value: 2
+										1238 文本 列表分栏
+									1239 内容列表
+										1240 container
+											1241 文本 列表 1
+
+											1242 内容列表
+												1243 container
+													1244 AXListMarker ■ 
+													1245 文本 列表项 1-1
+										1246 container
+											1247 文本 列表 2
+
+											1248 内容列表
+												1249 container
+													1250 AXListMarker ■ 
+													1251 文本 列表项 2-1
+										1252 文本 列表 3
+										1253 文本 列表 4
+									1254 标题 表格, Value: 1
+										1255 文本 表格
+									1256 container
+										1257 text 表 1  单元格合并示例
+										1258 表格
+											1259 row
+												1260 列标题
+													1261 文本 列 A
+												1262 列标题
+													1263 文本 列 B
+												1264 列标题
+													1265 文本 列 C
+												1266 列标题
+													1267 文本 列 D
+											1268 row
+												1269 单元格 1-2
+													1270 文本 纵向合并 ×2
+												1271 单元格 1-3
+													1272 文本 横向合并 ×3
+											1273 row
+												1274 单元格
+													1275 文本 普通
+												1276 单元格
+													1277 文本 普通
+												1278 单元格
+													1279 文本 普通
+											1280 row
+												1281 单元格
+													1282 文本 普通
+												1283 单元格
+													1284 文本 普通
+												1285 单元格
+													1286 文本 着色单元格
+												1287 单元格
+													1288 文本 普通
+										1289 文本 第二题注：表格下方
+									1290 container
+										1291 text 表 2  列格式示例
+										1292 表格
+											1293 row
+												1294 列标题
+													1295 文本 名称
+												1296 列标题
+													1297 文本 斜体
+												1298 列标题
+													1299 文本 完成
+												1300 列标题
+													1301 文本 金额
+											1302 row
+												1303 单元格
+													1304 文本 A
+												1305 单元格
+													1306 文本 内容
+												1307 单元格
+												1308 单元格
+													1309 text 12,345. 67
+											1310 row
+												1311 单元格
+													1312 文本 B
+												1313 单元格
+													1314 文本 内容
+												1315 单元格
+												1316 单元格
+													1317 文本 -2,345
+											1318 row
+												1319 单元格
+													1320 文本 C
+												1321 单元格
+													1322 文本 内容
+												1323 单元格
+												1324 单元格
+													1325 text 88. 5 %
+											1326 row
+												1327 单元格
+													1328 文本 D
+												1329 单元格
+													1330 文本 内容
+												1331 单元格
+													1332 文本  说明
+												1333 单元格
+													1334 text ¥ 3,456. 78
+									1335 container
+										1336 text 表 3  行分组折叠
+										1337 表格
+											1338 row
+												1339 列标题
+													1340 文本 生物分类
+												1341 列标题
+													1342 文本 说明
+											1343 row
+												1344 单元格
+													1345 图像
+													1346 text 动物
+												1347 单元格
+											1348 row
+												1349 单元格
+													1350 图像
+													1351 text 植物
+												1352 单元格
+									1353 标题 图片, Value: 1
+										1354 文本 图片
+									1355 文本 LOADING...
+									1356 图像 VLOOK 标志
+									1357 container
+										1358 text LOADING... 图 1  壁纸预览
+										1359 图像 Description: 壁纸预览, Help: 这是第二题注
+										1360 文本 这是第二题注
+									1361 文本 图标混排：这是 
+									1362 图像
+									1363 文本  VLOOK 图标，2 倍 
+									1364 图像
+									1365 文本  图标。
+									1366 container
+										1367 文本 LOADING...
+										1368 图像 /svg%3E
+									1369 标题 页签组, Value: 1
+										1370 文本 页签组
+									1371 container [Tab] / [⇧ Shift + Tab] 切换页签
+										1372 container
+											1373 图像
+											1374 文本 表格页签
+										1375 container
+											1376 图像
+											1377 文本 js
+										1378 container
+											1379 图像
+											1380 文本 引用块页签
+									1381 container
+										1382 text 表 4  表格页签
+										1383 表格
+											1384 row
+												1385 列标题
+													1386 文本 A
+												1387 列标题
+													1388 文本 B
+											1389 row
+												1390 单元格
+													1391 文本 1
+												1392 单元格
+													1393 文本 2
+									1394 标题 代码与公式, Value: 1
+										1395 文本 代码与公式
+									1396 container
+										1397 text 代码块 2  快速排序
+										1398 container
+											1399 text void quickSort ( int  arr[],  int  left,  int  right) { int  i  =  left, j  =  right; }
+										1400 文本 语言：C++
+									1401 container
+										1402 container
+											1403 文本 𝑎
+											1404 文本 2
+											1405 文本 +
+											1406 文本 𝑏
+											1407 文本 2
+											1408 文本 =
+											1409 文本 𝑐
+											1410 文本 2
+										1411 text 公式 1  勾股定理
+									1412 标题 任务, Value: 1
+										1413 文本 任务
+									1414 文本 任务整体进度：
+									1415 container
+										1416 text 50.0 %
+									1417 内容列表
+										1418 container
+											1419 图像
+											1420 文本 调查目标客户
+										1421 container
+											1422 图像
+											1423 文本 研究竞争对手
+										1424 container
+											1425 图像
+											1426 文本 收集市场数据
+										1427 container
+											1428 图像
+											1429 文本 分析市场趋势
+									1430 标题 原版公开图表合集, Value: 1
+										1431 文本 原版公开图表合集
+									1432 文本 原版32例集中在此测试，不再拆成32篇笔记。
+									1433 标题 01 流程图, Value: 2
+										1434 文本 01 流程图
+									1435 container
+										1436 文本 子图
+										1437 文本 子图的子图
+										1438 文本 分支
+										1439 文本 分支
+										1440 文本 分支
+										1441 文本 重要分支
+										1442 文本 条件1
+										1443 文本 条件2
+										1444 文本 条件3
+										1445 文本 条件4
+										1446 文本 开始
+										1447 文本 ❤ 准备
+										1448 文本 节点
+										1449 文本 可选
+										1450 文本 子流程
+										1451 文本 存档
+										1452 container
+											1453 text A (同页)
+										1454 文本 数据
+										1455 文本 文件
+										1456 link Description: 双圈圆点击可访问GitHub, Value: github.com/
+										1457 文本 判断？
+										1458 文本 结束
+										1459 文本 手工输入
+										1460 文本 手动操作
+										1461 container
+											1462 text B  (离页)
+										1463 container
+											1464 text A (同页)
+									1465 标题 02 流程图, Value: 2
+										1466 文本 02 流程图
+									1467 container
+										1468 文本 B (离页)
+										1469 文本 节点
+										1470 文本 结束
+									1471 标题 03 分角色流程图, Value: 2
+										1472 文本 03 分角色流程图
+									1473 container
+										1474 文本 角色D
+										1475 文本 角色C
+										1476 文本 角色B
+										1477 文本 角色A
+										1478 文本 开始
+										1479 文本 节点1
+										1480 link Description: 可点击打开Github, Value: github.com/
+										1481 文本 结束
+										1482 文本 节点3
+										1483 文本 节点31
+										1484 文本 节点4
+									1485 标题 04 顺序图, Value: 2
+										1486 文本 04 顺序图
+									1487 container
+										1488 文本 break
+										1489 文本 [例外情况]
+										1490 文本 par
+										1491 文本 [平行消息]
+										1492 文本 [非默认情况]
+										1493 文本 alt
+										1494 文本 [默认情况]
+										1495 文本 opt
+										1496 文本 [可选]
+										1497 文本 [可选情况A]
+										1498 文本 [可选情况B]
+										1499 文本 critical
+										1500 文本 [必须执行]
+										1501 文本 loop
+										1502 文本 [循环]
+										1503 文本 并行发送消息1
+										1504 文本 中断处理消息
+										1505 文本 并行发送消息3
+										1506 文本 发送消息
+										1507 文本 内部动作
+										1508 文本 发送消息A
+										1509 文本 默认情况消息A1
+										1510 文本 非默认消息A2
+										1511 文本 发送消息X
+										1512 文本 必须执行消息
+										1513 文本 执行可选消息A
+										1514 文本 执行可选消息B
+										1515 container
+											1516 text 显示在外部系统 左侧备注说明
+										1517 container
+											1518 text 显示在外部系统 右侧备注说明
+										1519 文本 跨对象备注说明
+										1520 文本 人物角色
+										1521 文本 前端触点
+										1522 文本 普通系统
+										1523 文本 **重要系统角色
+										1524 文本 --外部系统角色
+										1525 文本 人物角色
+										1526 文本 前端触点
+										1527 文本 普通系统
+										1528 文本 **重要系统角色
+										1529 文本 --外部系统角色
+									1530 标题 05 流程图扩展的状态机图, Value: 2
+										1531 文本 05 流程图扩展的状态机图
+									1532 container
+										1533 文本 状态集
+										1534 文本 初始
+										1535 文本 汇聚
+										1536 container
+											1537 text <角色：行为> Act / 变更处理说明
+										1538 container
+											1539 text <角色：行为> Act / 变更处理说明
+										1540 container
+											1541 text <角色：行为> Act / 变更处理说明
+										1542 文本 Act / 变更处理说明
+										1543 文本 横向状态机图
+										1544 文本 状态 A
+										1545 container
+											1546 text 状态 B 多行样式
+										1547 文本 状态 C
+										1548 文本 状态 D
+									1549 标题 06 流程图扩展的状态机图, Value: 2
+										1550 文本 06 流程图扩展的状态机图
+									1551 container
+										1552 文本 状态集
+										1553 文本 初始
+										1554 文本 汇聚
+										1555 container
+											1556 text <角色：行为> Act / 变更处理说明
+										1557 container
+											1558 text <角色：行为> Act / 变更处理说明
+										1559 container
+											1560 text <角色：行为> Act / 变更处理说明
+										1561 文本 Act / 变更处理说明
+										1562 文本 竖向状态机图
+										1563 文本 状态 A
+										1564 文本 状态 B
+										1565 文本 状态 C
+										1566 文本 状态 D
+									1567 标题 07 标准状态机图, Value: 2
+										1568 文本 07 标准状态机图
+									1569 container
+										1570 container
+											1571 text <角色：行为> Act / 变更处理说明
+										1572 文本 状态转换说明
+										1573 文本 状态转换说明
+										1574 文本 状态转换说明
+										1575 文本 状态A
+										1576 文本 状态B
+										1577 文本 状态C
+									1578 标题 08 标准状态机图, Value: 2
+										1579 文本 08 标准状态机图
+									1580 container
+										1581 文本 状态组3
+										1582 文本 状态组1
+										1583 文本 状态组2
+										1584 container
+											1585 text <角色：行为> Act / 变更处理说明
+										1586 文本 状态转换说明
+										1587 文本 按一下 CapLock 键
+										1588 文本 按一下 CapLock 键
+										1589 文本 状态4
+										1590 文本 状态31
+										1591 文本 大写【关闭】
+										1592 文本 大写【打开】
+										1593 文本 在此填写状态的描述内容
+										1594 文本 状态21
+										1595 container
+											1596 text 【状态组1】右边的备注信息， 内容支持换行。
+										1597 文本 【状态组2】左边的备注信息
+									1598 标题 09 类图, Value: 2
+										1599 文本 09 类图
+									1600 container
+										1601 container
+											1602 text Inheritance 继承
+										1603 container
+											1604 text Composition 组合
+										1605 container
+											1606 text Aggregation 聚合
+										1607 container
+											1608 text Association 关联
+										1609 文本 Link (Solid)
+										1610 container
+											1611 text Dependency 依赖
+										1612 container
+											1613 text Realization 实现
+										1614 文本 Link (Dashed)
+										1615 文本 *
+										1616 文本 1
+										1617 文本 *
+										1618 文本 n
+										1619 文本 «interface»
+										1620 文本 classA
+										1621 文本 +public attribute
+										1622 文本 -private attribute
+										1623 文本 #protected attribute
+										1624 文本 ~package attribute
+										1625 文本 +public method()
+										1626 文本 -private method()
+										1627 文本 #protected method()
+										1628 文本 ~package method()
+										1629 文本 classB
+										1630 文本 «enumeration»
+										1631 文本 classC
+										1632 文本 Red
+										1633 文本 Blue
+										1634 文本 Green
+										1635 文本 WHITE
+										1636 文本 BLACK
+										1637 文本 classD
+										1638 文本 classE
+										1639 文本 classF
+										1640 文本 classG
+										1641 文本 classH
+										1642 文本 classI
+										1643 文本 classJ
+										1644 文本 classK
+										1645 文本 classL
+										1646 文本 classM
+										1647 文本 classN
+										1648 文本 classO
+										1649 文本 classP
+										1650 文本 类图示例
+										1651 文本 对 classE 类的说明
+									1652 标题 10 类图, Value: 2
+										1653 文本 10 类图
+									1654 container
+										1655 文本 Inheritance
+										1656 文本 Inheritance
+										1657 文本 Composition
+										1658 文本 Composition
+										1659 文本 Dependency
+										1660 文本 Composition
+										1661 文本 Dependency
+										1662 文本 Composition
+										1663 文本 Inheritance
+										1664 文本 Inheritance
+										1665 文本 Inheritance
+										1666 文本 Inheritance
+										1667 文本 Inheritance
+										1668 文本 Inheritance
+										1669 文本 Inheritance
+										1670 文本 Inheritance
+										1671 文本 Inheritance
+										1672 文本 Inheritance
+										1673 文本 Inheritance
+										1674 文本 Inheritance
+										1675 文本 *
+										1676 文本 *
+										1677 文本 *
+										1678 文本 *
+										1679 文本 *
+										1680 文本 *
+										1681 文本 *
+										1682 文本 人_Person
+										1683 文本 姓名
+										1684 文本 性别
+										1685 文本 年龄
+										1686 文本 学生_Student
+										1687 文本 所属学校
+										1688 文本 所属班级
+										1689 文本 学号
+										1690 文本 +交作业()
+										1691 文本 老师_Techer
+										1692 文本 所属学校
+										1693 文本 老师证号
+										1694 文本 +授课()
+										1695 文本 班级_Class
+										1696 文本 所属学校
+										1697 文本 所属年级
+										1698 文本 班名
+										1699 文本 学校_School
+										1700 文本 学校名称
+										1701 文本 所属省份
+										1702 文本 所属城市
+										1703 文本 学校类型
+										1704 文本 公司
+										1705 文本 抽象部门
+										1706 文本 市场类部门
+										1707 文本 策划部
+										1708 文本 销售部
+										1709 文本 生产类部门
+										1710 文本 研发部
+										1711 文本 实施部
+										1712 文本 IT部
+										1713 文本 支持类部门
+										1714 文本 质量部
+										1715 文本 财务部
+										1716 文本 行政人事部
+									1717 标题 11 实体关系图, Value: 2
+										1718 文本 11 实体关系图
+									1719 container
+										1720 文本 Entity Relationship Diagrams example
+										1721 文本 has
+										1722 文本 places
+										1723 文本 liable for
+										1724 文本 receives
+										1725 文本 covers
+										1726 文本 includes
+										1727 文本 contains
+										1728 文本 ordered in
+										1729 文本 allows
+										1730 文本 is
+										1731 文本 客户
+										1732 文本 订单
+										1733 文本 收货地址
+										1734 文本 发票
+										1735 文本 商品类目
+										1736 文本 商品
+										1737 文本 订单商品行
+										1738 文本 CAR
+										1739 文本 string
+										1740 文本 registrationNumber
+										1741 文本 string
+										1742 文本 make
+										1743 文本 string
+										1744 文本 model
+										1745 文本 NAMED-DRIVER
+										1746 文本 PERSON
+										1747 文本 string
+										1748 文本 firstName
+										1749 文本 string
+										1750 文本 lastName
+										1751 文本 int
+										1752 文本 age
+									1753 标题 12 方块图, Value: 2
+										1754 文本 12 方块图
+									1755 container
+										1756 文本 DB
+										1757 文本 D
+										1758 文本 A
+										1759 container
+											1760 text A wide one in the middle
+										1761 文本 C
+									1762 标题 13 四象限图, Value: 2
+										1763 文本 13 四象限图
+									1764 container
+										1765 文本 Reach and engagement of campaigns
+										1766 文本 We should expand
+										1767 文本 Need to promote
+										1768 文本 Re-evaluate
+										1769 文本 May be improved
+										1770 文本 Low Reach
+										1771 文本 High Reach
+										1772 文本 Low Engagement
+										1773 文本 High Engagement
+										1774 文本 Campaign A
+										1775 文本 Campaign B
+										1776 文本 Campaign C
+										1777 文本 Campaign D
+										1778 文本 Campaign E
+										1779 文本 Campaign F
+									1780 标题 14 数据包图, Value: 2
+										1781 文本 14 数据包图
+									1782 container
+										1783 文本 Source Port
+										1784 文本 Destination Port
+										1785 文本 Sequence Number
+										1786 文本 Acknowledgment Number
+										1787 文本 Data Offset
+										1788 文本 Reserved
+										1789 文本 URG
+										1790 文本 ACK
+										1791 文本 PSH
+										1792 文本 RST
+										1793 文本 SYN
+										1794 文本 FIN
+										1795 文本 Window
+										1796 文本 Checksum
+										1797 文本 Urgent Pointer
+										1798 文本 (Options and Padding)
+										1799 文本 Data (variable length)
+										1800 文本 Data (variable length)
+										1801 文本 0
+										1802 文本 15
+										1803 文本 16
+										1804 文本 31
+										1805 文本 32
+										1806 文本 63
+										1807 文本 64
+										1808 文本 95
+										1809 文本 96
+										1810 文本 99
+										1811 文本 100
+										1812 文本 105
+										1813 文本 106
+										1814 文本 107
+										1815 文本 108
+										1816 文本 109
+										1817 文本 110
+										1818 文本 111
+										1819 文本 112
+										1820 文本 127
+										1821 文本 128
+										1822 文本 143
+										1823 文本 144
+										1824 文本 159
+										1825 文本 160
+										1826 文本 191
+										1827 文本 192
+										1828 文本 223
+										1829 文本 224
+										1830 文本 255
+										1831 文本 TCP Packet
+									1832 标题 15 架构图, Value: 2
+										1833 文本 15 架构图
+									1834 container
+										1835 文本 API
+										1836 文本 Database
+										1837 文本 Storage
+										1838 文本 Storage
+										1839 文本 Server
+										1840 文本 Disk
+										1841 文本 Disk
+										1842 文本 Disk
+										1843 文本 Gateway
+										1844 文本 Gateway
+									1845 标题 16 ZenUML 图, Value: 2
+										1846 文本 16 ZenUML 图
+									1847 container
+										1848 文本 Annotators
+										1849 文本 Alice
+										1850 文本 Bob
+										1851 文本 Boundary
+										1852 文本 Control
+										1853 文本 Entity
+										1854 文本 Hi Bob
+										1855 文本 1.1
+										1856 文本 Hi Alice
+										1857 文本 1.2
+										1858 文本 Loop
+										1859 文本 1
+										1860 文本 [
+										1861 文本 true
+										1862 文本 ]
+									1863 标题 17 ZenUML 图, Value: 2
+										1864 文本 17 ZenUML 图
+									1865 container
+										1866 文本 Reply message
+										1867 文本 Client
+										1868 文本 A
+										1869 文本 B
+										1870 文本 Cognito
+										1871 文本 ECS
+										1872 文本 EFS
+										1873 文本 method()
+										1874 文本 1
+										1875 文本 method()
+										1876 文本 1.1
+										1877 文本 x1
+										1878 文本 1.1.1.1
+										1879 文本 x11
+										1880 文本 1.1.1.2
+										1881 文本 x2
+										1882 文本 1.2
+										1883 文本 Alt
+										1884 文本 1.1.1
+										1885 文本 [
+										1886 文本 condition
+										1887 文本 ]
+										1888 文本 return early
+									1889 标题 18 思维导图, Value: 2
+										1890 文本 18 思维导图
+									1891 container
+										1892 文本 Origins
+										1893 文本 📓 Long history
+										1894 文本 Popularisation
+										1895 container
+											1896 text British popular psychology author Tony Buzan
+										1897 文本 Origins 2
+										1898 文本 Popularisation 2
+										1899 文本 Research
+										1900 container
+											1901 text 🍺 On effectiveness and features
+										1902 container
+											1903 text On Automatic creation
+										1904 文本 Uses
+										1905 文本 Creative techniques
+										1906 文本 Strategic planning
+										1907 文本 Argument mapping
+										1908 文本 Research 2
+										1909 文本 Tools
+										1910 文本 Pen and paper
+										1911 文本 Mermaid
+										1912 文本 Tools 2
+										1913 文本 Pen and paper 2
+										1914 文本 Tools 3
+										1915 文本 Mindmap
+									1916 标题 19 Gitgraph 图, Value: 2
+										1917 文本 19 Gitgraph 图
+									1918 container
+										1919 文本 Example Gitgraph diagram
+										1920 文本 main
+										1921 文本 develop
+										1922 文本 nice_feature
+										1923 文本 Alpha
+										1924 文本 0.0.1
+										1925 文本 1-3c6ef36
+										1926 文本 Beta
+										1927 文本 Reverse
+										1928 文本 5-b54cda2
+										1929 文本 Hightlgith
+										1930 文本 Gamma
+										1931 文本 RC_1
+									1932 标题 20 Gitgraph 图, Value: 2
+										1933 文本 20 Gitgraph 图
+									1934 container
+										1935 文本 Map of MetroLine
+										1936 文本 main
+										1937 文本 MetroLine2
+										1938 文本 MetroLine3
+										1939 文本 NewYork
+										1940 文本 Dallas
+										1941 文本 LosAngeles
+										1942 文本 Chicago
+										1943 文本 Houston
+										1944 文本 Phoenix
+										1945 文本 Denver
+										1946 文本 Atlanta
+										1947 文本 Miami
+										1948 文本 Washington
+										1949 文本 MY JUNCTION
+										1950 文本 Boston
+										1951 文本 Detroit
+										1952 文本 SanFrancisco
+									1953 标题 21 Gitgraph 图, Value: 2
+										1954 文本 21 Gitgraph 图
+									1955 container
+										1956 文本 main
+										1957 文本 hotfix
+										1958 文本 develop
+										1959 文本 featureB
+										1960 文本 featureA
+										1961 文本 release
+										1962 文本 featureC
+										1963 文本 featureD
+										1964 文本 0-9e3779b
+										1965 文本 1-3c6ef36
+										1966 文本 ash
+										1967 文本 abc
+										1968 文本 3-78dde6c
+										1969 文本 4-1715607
+										1970 文本 5-b54cda2
+										1971 文本 6-538453d
+										1972 文本 8-8ff3473
+										1973 文本 9-2e2ac0e
+										1974 文本 11-6a99b44
+										1975 文本 12-08d12df
+										1976 文本 14-4540215
+										1977 文本 15-e3779b1
+										1978 文本 18-be1e082
+										1979 文本 19-5c5581d
+									1980 标题 22 桑基图, Value: 2
+										1981 文本 22 桑基图
+									1982 container
+										1983 图形符号 Direct → Visit: 500
+										1984 图形符号 Search → Visit: 800
+										1985 图形符号 Social → Visit: 400
+										1986 图形符号 Ads → Visit: 300
+										1987 图形符号 Visit → Register: 900
+										1988 图形符号 Visit → Bounce: 1100
+										1989 图形符号 Register → Paid: 300
+										1990 图形符号 Register → Free: 600
+										1991 container
+											1992 text Direct  500
+										1993 container
+											1994 text Visit  2000
+										1995 container
+											1996 text Search  800
+										1997 container
+											1998 text Social  400
+										1999 container
+											2000 text Ads  300
+										2001 container
+											2002 text Register  900
+										2003 container
+											2004 text Bounce  1100
+										2005 container
+											2006 text Paid  300
+										2007 container
+											2008 text Free  600
+									2009 标题 23 桑基图, Value: 2
+										2010 文本 23 桑基图
+									2011 container
+										2012 图形符号 Total Sales → Shampoo: 500
+										2013 图形符号 Total Sales → Detergent: 300
+										2014 图形符号 Total Sales → Skincare: 200
+										2015 图形符号 Shampoo → Online: 200
+										2016 图形符号 Shampoo → Offline: 300
+										2017 图形符号 Detergent → Online: 100
+										2018 图形符号 Detergent → Offline: 200
+										2019 图形符号 Skincare → Online: 150
+										2020 图形符号 Skincare → Offline: 50
+										2021 container
+											2022 text Total Sales  1000
+										2023 container
+											2024 text Shampoo  500
+										2025 container
+											2026 text Detergent  300
+										2027 container
+											2028 text Skincare  200
+										2029 container
+											2030 text Online  450
+										2031 container
+											2032 text Offline  550
+									2033 标题 24 时间线, Value: 2
+										2034 文本 24 时间线
+									2035 container
+										2036 文本 History of Social Media Platform
+										2037 文本 2002
+										2038 文本 LinkedIn
+										2039 文本 2004
+										2040 文本 Facebook
+										2041 文本 Google
+										2042 文本 2005
+										2043 文本 Youtube
+										2044 文本 2006
+										2045 文本 Twitter
+										2046 文本 2023
+										2047 文本 GPT-3.5
+										2048 文本 GPT-4
+									2049 标题 25 时间线, Value: 2
+										2050 文本 25 时间线
+									2051 container
+										2052 文本 Timeline of Industrial Revolution
+										2053 文本 17th-20th century
+										2054 文本 Industry 1.0
+										2055 container
+											2056 text Machinery, Water power, Steam power
+										2057 文本 Industry 2.0
+										2058 container
+											2059 text Electricity, Internal combustion engine, Mass production
+										2060 文本 Industry 3.0
+										2061 container
+											2062 text Electronics, Computers, Automation
+										2063 文本 21st century
+										2064 文本 Industry 4.0
+										2065 container
+											2066 text Internet, Robotics, Internet of Things
+										2067 文本 Industry 5.0
+										2068 container
+											2069 text Artificial intelligence, Big data,3D printing
+									2070 标题 26 时间线, Value: 2
+										2071 文本 26 时间线
+									2072 container
+										2073 文本 STEP 01
+										2074 文本 Action 1.1
+										2075 文本 Action 1.2
+										2076 文本 STEP 02
+										2077 文本 Action 2.1
+										2078 文本 Action 2.2
+										2079 文本 Action 2.3
+										2080 文本 STEP 03
+										2081 文本 Action 3.1
+									2082 标题 27 XY 图, Value: 2
+										2083 文本 27 XY 图
+									2084 container
+										2085 文本 Sales Revenue
+										2086 文本 4000
+										2087 文本 5000
+										2088 文本 6000
+										2089 文本 7000
+										2090 文本 8000
+										2091 文本 9000
+										2092 文本 10000
+										2093 文本 11000
+										2094 文本 jan
+										2095 文本 feb
+										2096 文本 mar
+										2097 文本 apr
+										2098 文本 may
+										2099 文本 jun
+										2100 文本 jul
+										2101 文本 aug
+										2102 文本 sep
+										2103 文本 oct
+										2104 文本 nov
+										2105 文本 dec
+										2106 文本 Revenue (in $)
+									2107 标题 28 饼图, Value: 2
+										2108 文本 28 饼图
+								2109 container
+									2110 图像
+									2111 图像
+									2112 图像
+									2113 图像
+									2114 图像
+									2115 图像
+								2116 container
+									2117 图像
+									2118 text VLOOK for Obsidian 语法示例 文本与标签
+									2119 图像
+								2120 container
+									2121 图像
+									2122 文本栏 (settable) 目录 ... [ / ]
+									2123 图像
+									2124 图像
+									2125 container 目录
+										2126 图像
+									2127 container 图 / 明信片
+										2128 文本 34
+										2129 图像
+									2130 container 表
+										2131 文本 4
+										2132 图像
+									2133 container 代码块
+										2134 文本 2
+										2135 图像
+									2136 container 公式
+										2137 文本 1
+										2138 图像
+									2139 container 音频 / 视频
+										2140 图像
+									2141 container 文本与标签
+										2142 link app://obsidian.md/index.html#%E6%96%87%E6%9C%AC%E4%B8%8E%E6%A0%87%E7%AD%BE
+										2143 文本 文本与标签
+									2144 container
+										2145 图像
+										2146 link app://obsidian.md/index.html#%E5%BC%95%E7%94%A8%E5%9D%97
+										2147 文本 引用块
+									2148 container 表格
+										2149 link app://obsidian.md/index.html#%E8%A1%A8%E6%A0%BC
+										2150 文本 表格
+									2151 container 图片
+										2152 link app://obsidian.md/index.html#%E5%9B%BE%E7%89%87
+										2153 文本 图片
+									2154 container 页签组
+										2155 link app://obsidian.md/index.html#%E9%A1%B5%E7%AD%BE%E7%BB%84
+										2156 文本 页签组
+									2157 container 代码与公式
+										2158 link app://obsidian.md/index.html#%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%85%AC%E5%BC%8F
+										2159 文本 代码与公式
+									2160 container 任务
+										2161 link app://obsidian.md/index.html#%E4%BB%BB%E5%8A%A1
+										2162 文本 任务
+									2163 container
+										2164 图像
+										2165 link app://obsidian.md/index.html#%E5%8E%9F%E7%89%88%E5%85%AC%E5%BC%80%E5%9B%BE%E8%A1%A8%E5%90%88%E9%9B%86
+										2166 文本 原版公开图表合集
+									2167 文本 · – · – ·
+									2168 link Description: Styled & Enhanced by VLOOK™, Value: github.com/MadMaxChow/VLOOK
+								2169 container
+									2170 text 字体风格  ✅ 已完成
+								2171 container
+									2172 图像
+									2173 文本 3,268
+									2174 图像
+									2175 图像
+									2176 图像
+									2177 图像
+								2178 HTML 内容 about:blank
+								2179 HTML 内容 about:blank
+								2180 HTML 内容 about:blank
+								2181 HTML 内容 about:blank
+					2182 文本 0 条反向链接
+					2183 container Uninitialized
+						2184 图像
+	2185 关闭按钮
+	2186 全屏幕按钮 Help: 此按钮也可以执行缩放窗口的操作, Secondary Actions: 缩放窗口
+	2187 最小化按钮
+2188 menu bar
+	2189 Obsidian
+	2190 File
+	2191 Edit
+	2192 Insert
+	2193 Format
+	2194 View
+	2195 Window
+	2196 Help
+
+The focused UI element is 174 开合三角标记 什么是三段论？

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+main.js
+src/generated/
+test-vault/.obsidian/plugins/
+test-vault/.obsidian/themes/
+test-vault/.obsidian/workspace*.json
+test-vault/*.html
+test-vault/.obsidian/app.json
+test-vault/.obsidian/core-plugins.json
+test-vault/samples/

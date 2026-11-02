@@ -1,0 +1,16 @@
+[
+  {
+    "display": "block",
+    "focus": "svg",
+    "role": "img"
+  },
+  {
+    "display": "block",
+    "fill": "rgb(32, 130, 240)",
+    "focus": "A"
+  },
+  {
+    "display": "none",
+    "focus": "svg"
+  }
+]

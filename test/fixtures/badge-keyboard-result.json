@@ -1,0 +1,14 @@
+{
+  "controls": [
+    {
+      "label": "复制值及后缀",
+      "tabindex": "0"
+    },
+    {
+      "label": "复制后缀",
+      "tabindex": "0"
+    }
+  ],
+  "group": "group",
+  "value": "V2.3 beta"
+}

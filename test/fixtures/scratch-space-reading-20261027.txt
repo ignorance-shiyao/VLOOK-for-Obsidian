@@ -1,0 +1,310 @@
+Window: "VLOOK 语法示例 - test-vault - Obsidian 1.15.0", App: Obsidian.
+0 标准窗口 VLOOK 语法示例 - test-vault - Obsidian 1.15.0, Secondary Actions: Raise
+	1 container VLOOK 语法示例 - test-vault - Obsidian 1.15.0
+		2 container
+			3 HTML 内容 VLOOK 语法示例 - test-vault - Obsidian 1.15.0, URL: app://obsidian.md/index.html
+				4 container
+					5 container 打开快速切换
+						6 图像
+					7 container 查看关系图谱
+						8 图像
+					9 container 新建白板
+						10 图像
+					11 container 打开/创建今天的日记
+						12 图像
+					13 container 插入模板
+						14 图像
+					15 container 打开命令面板
+						16 图像
+					17 container 新建数据库
+						18 图像
+					19 container VLOOK 导航中心
+						20 图像
+					21 container VLOOK 预览
+						22 图像
+					23 container
+						24 图像
+						25 文本 test-vault
+					26 图像
+					27 图像
+					28 container
+						29 container 文件列表
+							30 图像
+						31 container 搜索
+							32 图像
+						33 container 书签
+							34 图像
+						35 图像
+						36 container
+							37 container 新建笔记
+								38 图像
+							39 container 新建文件夹
+								40 图像
+							41 container 排序
+								42 图像
+							43 container 自动显示当前文件
+								44 图像
+							45 container 全部折叠
+								46 图像
+							47 container
+								48 图像
+								49 文本 00-剪藏
+							50 container
+								51 图像
+								52 文本 pic
+							53 container
+								54 图像
+								55 文本 porting-links
+							56 container
+								57 图像
+								58 文本 samples
+							59 container
+								60 text _dom HTML
+							61 container
+								62 text guide PDF
+							63 container
+								64 text README HTML
+							65 container
+								66 text VLOOK 不发布关闭回归 HTML
+							67 container
+								68 text VLOOK 不发布回归 HTML
+							69 container
+								70 text VLOOK 部分删除线回归 HTML
+							71 container
+								72 text VLOOK 特殊图片回归 HTML
+							73 container
+								74 text VLOOK 文库回归 HTML
+							75 container
+								76 text VLOOK 文库回归
+							77 container
+								78 text VLOOK 移植回归 PDF
+							79 container
+								80 text VLOOK 移植回归
+							81 container
+								82 text VLOOK 引用图片回归 HTML
+							83 container
+								84 text VLOOK 语法示例
+							85 container
+								86 text VLOOK 语法示例 HTML
+							87 container
+								88 text VLOOK 语法示例 PDF
+							89 container
+								90 text VLOOK Setext与引用回归 HTML
+							91 container
+								92 text VLOOK-PDF-publish-check PDF
+							93 container
+								94 text VLOOK-Setext-unpublish-check PDF
+					95 container
+						96 container VLOOK 语法示例
+							97 文本 VLOOK 语法示例
+							98 container 关闭
+								99 图像
+						100 container 新标签页
+							101 图像
+						102 图像
+						103 图像
+						104 container
+							105 按钮 (disabled) 返回
+								106 图像
+							107 按钮 (disabled) 前进
+								108 图像
+							109 文本输入区 (settable) VLOOK 语法示例
+								110 文本 VLOOK 语法示例
+							111 工具栏 VLOOK 页面工具
+								112 按钮 编辑 / 阅读
+								113 按钮 明暗
+								114 弹出式按钮 主题
+								115 弹出式按钮 字体
+								116 弹出式按钮 导出
+							117 按钮 更多选项
+								118 图像
+							119 container
+								120 文本输入区 (settable) VLOOK 语法示例
+									121 文本 VLOOK 语法示例
+								122 container
+									123 图像
+									124 文本 笔记属性
+								125 container
+									126 图像
+									127 文本栏 (settable) title
+									128 文本输入区 (settable) VLOOK for Obsidian 语法示例
+										129 文本 VLOOK for Obsidian 语法示例
+								130 container
+									131 图像
+									132 文本栏 (settable) author
+									133 文本输入区 (settable) VLOOK
+										134 文本 VLOOK
+								135 container
+									136 图像
+									137 文本栏 (settable) date
+									138 日期选择器 2026-10-20
+										139 container
+											140 步进器 (settable, float) Description: 月, Value: 10
+											141 文本 /
+											142 步进器 (settable, float) Description: 日, Value: 20
+											143 文本 /
+											144 步进器 (settable, float) Description: 年, Value: 2026, Placeholder:  年 
+										145 弹出式按钮 显示日期选择器
+									146 container 打开日记
+										147 图像
+								148 container
+									149 图像
+									150 文本栏 (settable) version
+									151 文本输入区 (settable) V0.1.0
+										152 文本 V0.1.0
+								153 container
+									154 图像
+									155 文本栏 (settable) tags
+									156 container
+										157 文本 示例
+										158 图像
+										159 文本 测试
+										160 图像
+										161 文本输入区 (settable)
+								162 container
+									163 图像
+									164 文本栏 (settable) vlook-query
+									165 文本输入区 (settable) capnum=on
+										166 文本 capnum=on
+								167 container
+									168 图像
+									169 文本 添加笔记属性
+								170 弹出式按钮
+									171 图像
+								172 标题 VLOOK™ for Obsidian 语法示例 复制完整徽章 by VLOOK, Value: 6
+									173 text VLOOK™ for Obsidian 语法示例
+									174 container 复制完整徽章
+										175 文本 最新版本
+										176 按钮 复制值及后缀
+									177 container
+										178 text by  VLOOK
+								179 标题 ​ 文本与标签, Value: 1
+									180 图像
+									181 文本 文本与标签
+								182 文本 这是 
+								183 文本 加粗文本
+								184 文本 ，这是 
+								185 文本 高亮文本
+								186 text ，这是  下划线 。 这一整个段落使用金色。 单级标签：
+								187 按钮 待处理
+								188 按钮 进行中
+								189 按钮 渐变标签
+								190 按钮 默认
+								191 文本 多级标签：
+								192 container 复制完整徽章
+									193 文本 客户等级
+									194 按钮 复制值及后缀
+								195 container 复制完整徽章
+									196 文本 版本
+									197 按钮 复制值及后缀
+									198 按钮 复制后缀
+								199 container 复制完整徽章
+									200 文本 变量
+									201 按钮 复制值及后缀
+								202 文本 刮刮卡：答案是 
+								203 按钮 点击查看
+								204 文本 ，再来一个 
+								205 按钮 ••••
+								206 text 。 注音：
+								207 文本 道
+								208 文本 生一，一生二，二
+								209 文本 生
+								210 文本 三。代码式注音：
+								211 文本 万物
+								212 文本 化学式 H
+								213 文本 2
+								214 文本 O，平方 x
+								215 文本 2
+								216 text 。 进度条：
+								217 container
+									218 text 35 %
+								219 container
+									220 text 80 %
+								221 container
+									222 text 120 %
+								223 container
+									224 text -20 %
+								225 文本 面包屑：请点击 
+								226 按钮 文件 导出 HTML
+									227 文本 文件
+									228 文本 导出
+									229 文本 HTML
+								230 text  完成导出。 按钮：
+								231 link Description: https://github.com/MadMaxChow/VLOOK, Value: github.com/MadMaxChow/VLOOK
+								232 link Description: https://github.com, Value: github.com/
+								233 link Description: https://github.com, Value: github.com/
+								234 标题 ​ 引用块, Value: 1
+									235 图像
+									236 文本 引用块
+								237 文本 这是引用块的小标题
+								238 文本 引用块正文内容。
+								239 文本 左侧风格小标题
+								240 文本 正文
+								241 开合三角标记 什么是三段论？
+									242 图像
+									243 文本 什么是三段论？
+								244 文本 三段论推理是演绎推理中的一种简单推理判断。
+								245 图像
+								246 text 提醒 GitHub Style Alert：Note
+								247 图像
+								248 text 警告 注意潜在风险
+								249 标题 ​ 引用块分栏, Value: 2
+									250 图像
+									251 文本 引用块分栏
+								252 container
+									253 text 分栏 1 第一栏内容
+								254 container
+									255 text 分栏 2 第二栏内容更长一些，测试等高处理。第二栏内容更长一些，测试等高处理。
+								256 container
+									257 text 分栏 3 第三栏
+								258 标题 ​ 列表分栏, Value: 2
+									259 图像
+									260 文本 列表分栏
+								261 内容列表
+									262 container
+										263 AXListMarker • 
+										264 图像
+										265 文本 列表 1
+										266 内容列表
+											267 container
+												268 AXListMarker ■ 
+												269 text 列表项 1-1
+									270 container
+										271 AXListMarker • 
+										272 图像
+										273 文本 列表 2
+										274 内容列表
+											275 container
+												276 AXListMarker ■ 
+												277 text 列表项 2-1
+									278 container
+										279 AXListMarker • 
+										280 text 列表 3
+									281 container
+										282 AXListMarker • 
+										283 text 列表 4
+								284 标题 ​ 表格, Value: 1
+									285 图像
+									286 文本 表格
+					287 文本 1 条反向链接
+					288 文本 6 个笔记属性
+					289 container 阅读视图
+						290 图像
+					291 text 3,675 个词 17,166 个字符
+					292 container Uninitialized
+						293 图像
+					294 进度指示器 Description: 当前文档阅读进度, Help: 正文估算：17 分钟；中日韩 1734，非中日韩 1711（每分钟 200 字）, Value: 4, Details: 已阅读 4%，预计阅读 17 分钟
+	295 关闭按钮
+	296 全屏幕按钮 Help: 此按钮也可以执行缩放窗口的操作, Secondary Actions: 缩放窗口
+	297 最小化按钮
+298 menu bar
+	299 Obsidian
+	300 File
+	301 Edit
+	302 Insert
+	303 Format
+	304 View
+	305 Window
+	306 Help
+
+The focused UI element is 205 按钮 ••••
