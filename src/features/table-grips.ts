@@ -1,6 +1,8 @@
 import { tableGrid } from './table-tools';
 import type { TableSizes } from '../core/context';
 
+function setStyles(el: HTMLElement, props: Record<string, string>): void { for (const [k, v] of Object.entries(props)) el.style.setProperty(k.replace(/[A-Z]/g, c => '-' + c.toLowerCase()), v); }
+
 export type TableReorder = (kind: 'row' | 'col', from: number, to: number) => void;
 const EDGE = 6;
 
@@ -9,29 +11,29 @@ export function installTableGrips(table: HTMLTableElement, reorder?: TableReorde
     const doc = table.ownerDocument, win = doc.defaultView!;
     const host = table.parentElement;
     if (!host) return;
-    if (win.getComputedStyle(host).position === 'static') host.style.position = 'relative';
+    if (win.getComputedStyle(host).position === 'static') host.style.setProperty('position', 'relative');
     const colGrip = doc.createElement('div'); colGrip.className = 'vlook-table-grip vlook-table-grip-col'; colGrip.title = '拖动调整列顺序';
     const rowGrip = doc.createElement('div'); rowGrip.className = 'vlook-table-grip vlook-table-grip-row'; rowGrip.title = '拖动调整行顺序';
     const line = doc.createElement('div'); line.className = 'vlook-table-drop';
     host.append(colGrip, rowGrip, line);
     let hover: HTMLTableCellElement | null = null, dragging = false;
     /** 列宽按单元格整体（含内边距）设置，并让表格总宽等于各列之和，避免切换定宽布局时整体跳动。 */
-    const setCol = (cell: HTMLTableCellElement, width: string) => { cell.style.boxSizing = 'border-box'; cell.style.width = width; cell.style.minWidth = width; cell.style.maxWidth = width; };
+    const setCol = (cell: HTMLTableCellElement, width: string) => { cell.style.setProperty('box-sizing', 'border-box'); cell.style.setProperty('width', width); cell.style.setProperty('min-width', width); cell.style.setProperty('max-width', width); };
     const fitTable = () => {
         const cells = Array.from(new Set(tableGrid(table)[0] || [])).filter(Boolean) as HTMLTableCellElement[];
         const total = cells.reduce((sum, cell) => sum + (parseFloat(cell.style.width) || cell.getBoundingClientRect().width), 0);
-        if (total) { table.style.width = `${total}px`; table.style.maxWidth = 'none'; }
+        if (total) { table.style.setProperty('width', `${total}px`); table.style.setProperty('max-width', 'none'); }
     };
     /** 把记录的列宽、行高套回当前表格。 */
     const applySizes = () => {
         if (!sizes) return;
         const grid = tableGrid(table);
         if (sizes.cols.some(Boolean)) {
-            table.style.tableLayout = 'fixed';
+            table.style.setProperty('table-layout', 'fixed');
             sizes.cols.forEach((width, c) => { const cell = grid[0]?.[c]; if (cell && width) setCol(cell, width); });
             fitTable();
         }
-        sizes.rows.forEach((height, r) => { const row = table.rows[r]; if (row && height) row.style.height = height; });
+        sizes.rows.forEach((height, r) => { const row = table.rows[r]; if (row && height) row.style.setProperty('height', height); });
     };
     const remember = () => {
         if (!sizes) return;
@@ -47,8 +49,8 @@ export function installTableGrips(table: HTMLTableElement, reorder?: TableReorde
         colGrip.classList.toggle('is-shown', on); rowGrip.classList.toggle('is-shown', on && hover!.parentElement !== table.rows[0]);
         if (!hover || !reorder) return;
         const base = hostBox(), cell = hover.getBoundingClientRect(), row = hover.parentElement!.getBoundingClientRect(), tbl = table.getBoundingClientRect();
-        colGrip.style.left = `${cell.left - base.left + cell.width / 2 - 14}px`; colGrip.style.top = `${tbl.top - base.top - 9}px`;
-        rowGrip.style.top = `${row.top - base.top + row.height / 2 - 14}px`; rowGrip.style.left = `${tbl.left - base.left - 9}px`;
+        colGrip.style.setProperty('left', `${cell.left - base.left + cell.width / 2 - 14}px`); colGrip.style.setProperty('top', `${tbl.top - base.top - 9}px`);
+        rowGrip.style.setProperty('top', `${row.top - base.top + row.height / 2 - 14}px`); rowGrip.style.setProperty('left', `${tbl.left - base.left - 9}px`);
     };
     const edgeAt = (event: PointerEvent) => {
         const cell = own(event.target as Element); if (!cell) return null;
@@ -61,7 +63,7 @@ export function installTableGrips(table: HTMLTableElement, reorder?: TableReorde
         if (dragging) return;
         const cell = own(event.target as Element);
         if (cell !== hover) { hover = cell; place(); }
-        if (!event.buttons) { const edge = edgeAt(event); table.style.cursor = edge ? (edge.axis === 'col' ? 'col-resize' : 'row-resize') : ''; }
+        if (!event.buttons) { const edge = edgeAt(event); table.style.setProperty('cursor', edge ? (edge.axis === 'col' ? 'col-resize' : 'row-resize') : ''); }
     });
     host.addEventListener('pointerleave', () => { if (!dragging) { hover = null; place(); } });
     table.addEventListener('pointerdown', event => {
@@ -76,13 +78,13 @@ export function installTableGrips(table: HTMLTableElement, reorder?: TableReorde
             const frozen = Array.from(new Set(grid[0] || [])).filter(Boolean).map(other => [other, `${other.getBoundingClientRect().width}px`] as const);
             frozen.forEach(([other, width]) => setCol(other, width));
             fitTable();
-            table.style.tableLayout = 'fixed';
+            table.style.setProperty('table-layout', 'fixed');
         }
         const move = (e: PointerEvent) => {
             if (axis === 'col') {
                 const width = `${Math.max(24, Math.round(startW + e.clientX - startX))}px`, owner = grid[0]?.[lastCol] || cell;
                 setCol(owner, width); fitTable();
-            } else (cell.parentElement as HTMLElement).style.height = `${Math.max(16, Math.round(startH + e.clientY - startY))}px`;
+            } else (cell.parentElement as HTMLElement).style.setProperty('height', `${Math.max(16, Math.round(startH + e.clientY - startY))}px`);
             place();
         };
         const up = () => { win.removeEventListener('pointermove', move); win.removeEventListener('pointerup', up); remember(); };
@@ -101,8 +103,8 @@ export function installTableGrips(table: HTMLTableElement, reorder?: TableReorde
         const show = () => {
             const b = base(), t = tbl(), box = spans[to];
             line.classList.add('is-shown');
-            if (kind === 'col') Object.assign(line.style, { left: `${(to > from ? box.right : box.left) - b.left - 1}px`, top: `${t.top - b.top}px`, width: '2px', height: `${t.height}px` });
-            else Object.assign(line.style, { left: `${t.left - b.left}px`, top: `${(to > from ? box.bottom : box.top) - b.top - 1}px`, width: `${t.width}px`, height: '2px' });
+            if (kind === 'col') setStyles(line, { left: `${(to > from ? box.right : box.left) - b.left - 1}px`, top: `${t.top - b.top}px`, width: '2px', height: `${t.height}px` });
+            else setStyles(line, { left: `${t.left - b.left}px`, top: `${(to > from ? box.bottom : box.top) - b.top - 1}px`, width: `${t.width}px`, height: '2px' });
         };
         const move = (e: PointerEvent) => {
             const pos = kind === 'col' ? e.clientX : e.clientY;

@@ -45,12 +45,6 @@ const ctx = await esbuild.context({
     plugins: [copyStatic],
 });
 
-// ZenUML 渲染器单独成包，运行时按需加载
-await esbuild.build({
-    entryPoints: ["src/zenuml-chunk.ts"], bundle: true, format: "cjs", target: "es2020", logLevel: "info",
-    minify: prod, outfile: path.join(OUT, "zenuml.js"),
-});
-
 if (prod) {
     await ctx.rebuild();
     process.exit(0);

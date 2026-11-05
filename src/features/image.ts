@@ -103,7 +103,7 @@ async function fillSvg(img: HTMLImageElement, fill: string, root: HTMLElement, c
         svg.setAttribute("data-inject-url", img.getAttribute("src") || "");
         svg.setAttribute("data-img-fill", fill);
         const color = fill === "text" ? "currentColor" : `var(--ac-${fill.toLowerCase()})`;
-        svg.querySelectorAll<SVGElement>("path,rect,ellipse,polygon,circle").forEach(p => p.style.fill = color);
+        svg.querySelectorAll<SVGElement>("path,rect,ellipse,polygon,circle").forEach(p => p.style.setProperty('fill', color));
         if (!svg.getAttribute("width") && img.width) svg.setAttribute("width", String(img.width));
         if (current()) {
             const imported = owner.importNode(svg, true);
@@ -170,7 +170,7 @@ function bindPostcardVisual(img: HTMLImageElement | SVGSVGElement, card: HTMLEle
         return img.getBoundingClientRect().bottom - (parent?.getBoundingClientRect().top || 0) + (parent?.scrollTop || 0);
     };
     if (dual) {
-        const size = () => { card.style.width = quote ? "100%" : img.ownerDocument.defaultView?.getComputedStyle(img).width || ""; };
+        const size = () => { card.style.setProperty('width', quote ? "100%" : img.ownerDocument.defaultView?.getComputedStyle(img).width || ""); };
         events(img).addEventListener("load", size);
         size(); // 缓存图片可能已经触发 load，不能只等待下一次事件。
         const Observer = img.ownerDocument.defaultView?.ResizeObserver;
@@ -188,11 +188,11 @@ function bindPostcardVisual(img: HTMLImageElement | SVGSVGElement, card: HTMLEle
             if (card.style.display === "block") return;
             img.classList.add("vlook-img-dim");
             const w = fitMax ? (img.parentElement?.offsetWidth ?? imageWidth()) : imageWidth();
-            card.style.width = `${w}px`;
-            card.style.display = "block";
-            card.style.top = `${imageBottom() - card.offsetHeight + (border ? 1 : 0)}px`;
+            card.style.setProperty('width', `${w}px`);
+            card.style.setProperty('display', "block");
+            card.style.setProperty('top', `${imageBottom() - card.offsetHeight + (border ? 1 : 0)}px`);
         };
-        const close = () => { img.classList.remove("vlook-img-dim"); card.style.display = "none"; };
+        const close = () => { img.classList.remove("vlook-img-dim"); card.style.setProperty('display', "none"); };
         const leave = (ev: MouseEvent) => {
             if (inside(ev.relatedTarget as Node | null) || inside(img.ownerDocument.activeElement)) return;
             close();

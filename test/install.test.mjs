@@ -31,13 +31,13 @@ test('安装前验证全部内置配色、非空产物及清单，缺失/损坏�
         for(const relative of PLUGIN_ASSETS){const file=path.join(tmp,relative);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,relative==='manifest.json'?'{}':'built asset');}
         assert.throws(()=>validatePluginBuild(tmp),/清单无效/);
         fs.writeFileSync(path.join(tmp,'manifest.json'),JSON.stringify({id:'vlook',version:'0.1.0'}));
-        assert.equal(validatePluginBuild(tmp),6);assert.equal(validateThemeBuild(tmp),2);
+        assert.equal(validatePluginBuild(tmp),5);assert.equal(validateThemeBuild(tmp),2);
         fs.writeFileSync(path.join(tmp,'themes/blue.css'),'');assert.throws(()=>validatePluginBuild(tmp),/空文件 themes\/blue.css/);
         fs.rmSync(path.join(tmp,'themes/common.css'));assert.throws(()=>validateThemeBuild(tmp),/缺少 themes\/common.css/);
     }finally{fs.rmSync(tmp,{recursive:true,force:true});}
 });
 
-test('宿主配色内联原版字体定义，不使用被 CSP 禁止的外部样式表',async()=>{
+test('宿主配色内联原版字体定义，不使用被 CSP 禁止的外部样式表',{skip:!fs.existsSync(new URL('../upstream/released/themes',import.meta.url))},async()=>{
     const {transformCss}=await import('../scripts/css-transform.mjs');
     const css=await transformCss('@import url("vlook/pages-dev/fs-serif-min.css");#write p{color:red}');
     assert.match(css,/@font-face/);assert.match(css,/font-family:WanShiQuanXing/);

@@ -136,7 +136,7 @@ export {Menu} from "obsidian";
 export { renderZenUmlFallback } from "../src/features/zenuml-fallback";
 export {watchFootnoteDiagrams} from '../src/features/footnote-diagrams';
 
-export {compactPath,typographyCss,stripRemoteFonts} from '../src/core/page-appearance';
+export {compactPath,typographyCss,stripRemoteFonts,resolveRemoteFonts} from '../src/core/page-appearance';
 
 export {confirmExportPath} from '../src/preview/export';
 

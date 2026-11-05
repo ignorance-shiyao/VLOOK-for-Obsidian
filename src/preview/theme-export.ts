@@ -1,7 +1,7 @@
 // 导出 HTML 的多主题内嵌与切换：主题样式随文件携带，页面右下角切换，不依赖插件或网络。
 import type VlookPlugin from '../main';
 import { themeColor, themeLabel } from '../core/themes';
-import { stripRemoteFonts } from '../core/page-appearance';
+import { resolveRemoteFonts } from '../core/page-appearance';
 
 /** common：该主题依赖的公共样式编号，对应页面中的 text/vlook-common；css 只含主题独有的一层。 */
 export interface EmbeddedTheme { name: string; label: string; color: string; css: string; common?: string }
@@ -19,7 +19,7 @@ export function embeddedThemesHtml(current: string, themes: EmbeddedTheme[], com
 
 /** 导出所选主题：当前主题已内联在页面中，其余主题共用的公共样式只写入一次。 */
 export async function exportThemesHtml(plugin: VlookPlugin, current: string, names: string[]): Promise<string> {
-    const strip = (css: string) => plugin.settings.remoteFonts ? css : stripRemoteFonts(css);
+    const strip = (css: string) => resolveRemoteFonts(css, !!plugin.settings.remoteFonts);
     const commons = new Map<string, string>();
     const ids = new Map<string, string>();
     const items: EmbeddedTheme[] = [];

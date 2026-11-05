@@ -2031,8 +2031,6 @@ test('多段脚注保留嵌套图表和列表，幻灯片不会把续段拆成�
     assert.match(body,/后续正文/);assert.doesNotMatch(body,/Footnote|第二段|项目/);
     const joined=group.blocks.map(block=>block.text).join('\n\n');
     assert.equal(M.sourceDiagramCount(joined),0);
-    M.setZenUmlEnabled(true);
-    try{assert.equal(M.sourceDiagramCount(joined),1);}finally{M.setZenUmlEnabled(false);}
 });
 
 test('链接地图和锚点审计包含脚注续段中的真实链接与锚点，排除围栏示例',()=>{
@@ -2522,4 +2520,10 @@ test("提示分类：失败为错误，已导出为成功，请…为警告，�
     assert.equal(M.noticeKind("请先打开 Markdown 文档"), "warning");
     assert.equal(M.noticeKind("文档已变更，请重新打开导航"), "warning");
     assert.equal(M.noticeKind("VLOOK：正在导出…"), "info");
+});
+
+test("在线字体占位符：开启时还原真实地址，关闭时连同 @import 一并去掉", () => {
+    const css='@import url("@vlook-gfonts/css2?family=X");@font-face{font-family:X;src:url(@vlook-fonts/x.woff2)}b{margin:0}';
+    assert.equal(M.resolveRemoteFonts(css,true),'@import url("https://fonts.googleapis.com/css2?family=X");@font-face{font-family:X;src:url(https://openfonts.pages.dev/x.woff2)}b{margin:0}');
+    assert.equal(M.resolveRemoteFonts(css,false),'b{margin:0}');
 });

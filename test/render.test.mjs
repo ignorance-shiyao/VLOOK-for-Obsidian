@@ -3305,28 +3305,6 @@ test('切到普通图表后取消旧 ZenUML 请求，等待中的旧任务不接
     assert.equal(root.textContent,'native error');
 });
 
-test('没有独立源码区块的嵌套内容也能在就绪阶段渲染 ZenUML',async()=>{
-    const root=html('<section class="footnotes"><pre><code class="language-mermaid">zenuml\nAlice -&gt; Bob: Nested</code></pre></section>');
-    const cleanups=[];
-    const previousLocation=globalThis.location,previousStorage=globalThis.localStorage;
-    const browser=new JSDOM('',{url:'https://vlook.test/'});globalThis.location=browser.window.location;globalThis.localStorage=browser.window.localStorage;
-    M.setZenUmlSource(zenumlChunkCode);M.setZenUmlEnabled(true);
-    try{await M.renderReadySection(root,ctx({registerCleanup:fn=>cleanups.push(fn)}));}
-    finally{if(previousLocation===undefined)delete globalThis.location;else globalThis.location=previousLocation;if(previousStorage===undefined)delete globalThis.localStorage;else globalThis.localStorage=previousStorage;browser.window.close();}
-    assert.ok(root.querySelector('.footnotes .mermaid[data-vlook-diagram-kind="zenuml"] svg'));
-    assert.match(root.textContent,/Nested/);
-    cleanups.forEach(fn=>fn());
-});
-
-test('ZenUML 默认关闭：不加载 zenuml.js，也不改写图表',async()=>{
-    M.setZenUmlEnabled(false);
-    const root=html('<div class="mermaid">zenuml\nA -> B: x</div>');
-    let loaded=0;M.setZenUmlSource(async()=>{loaded++;return null;});
-    await M.renderZenUmlFallback(root,{register(){}},undefined,'```mermaid\nzenuml\nA -> B: x\n```');
-    assert.equal(loaded,0);assert.equal(root.querySelector('svg'),null);
-    assert.match(root.querySelector('pre code.language-zenuml').textContent,/A -> B/);
-});
-
 test('ZenUML 恢复宿主 SVG 错误图但保留已成功的原生 SVG',async()=>{
     const root=html('<div class="mermaid"><svg><text class="error-text">Syntax error</text></svg></div><div class="mermaid"><svg id="native-ok"><text>Flow</text></svg></div>');
     const source='```mermaid\nzenuml\nAlice -> Bob: Recovered\n```\n\n```mermaid\nflowchart LR\nA --> B\n```';

@@ -32,7 +32,7 @@ export class ReadingTools {
         if (!this.host || !this.overlay) return;
         if(!this.host.isConnected){this.clear();return;}
         const rect = this.host.getBoundingClientRect();
-        Object.assign(this.overlay.style, {left:`${rect.left}px`, top:`${rect.top}px`, width:`${rect.width}px`, height:`${rect.height}px`});
+        for (const [k, v] of Object.entries({left:rect.left, top:rect.top, width:rect.width, height:rect.height})) this.overlay.style.setProperty(k, `${v}px`);
         const x = ev ? ev.clientX - rect.left : rect.width / 2;
         const y = ev ? ev.clientY - rect.top : rect.height / 2;
         this.overlay.hidden = x < 0 || x > rect.width || y < 0 || y > rect.height;

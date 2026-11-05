@@ -1,6 +1,6 @@
 /** 移动端：弹出层（导航中心、画中画、字体风格、链接列表等）不被工具栏或屏幕边缘遮挡。须自包含（toString 注入）。 */
 export function installPopupGuard(): void {
-    if (!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !matchMedia("(pointer:coarse)").matches) return;
+    if (!matchMedia("(pointer:coarse)").matches) return;
     const POPUPS = ".v-nav-center,.v-pic-in-pic,.v-font-style,.v-link-info-list,.v-footnote-pn,.v-print-tip,.v-doc-lib,.v-content-helper,.v-info-tips";
     const GAP = 8;
     const shown = (el: Element): boolean => {
@@ -32,14 +32,18 @@ export function installPopupGuard(): void {
     };
     // 工具栏可收起；导航中心弹出时自动隐藏
     const root = document.documentElement;
-    const css = document.createElement("style");
-    css.textContent = "html.v-tb-folded .v-toolbar,html.v-tb-auto .v-toolbar,html.v-tb-auto .v-tb-fold{display:none!important}"
+    const css = new CSSStyleSheet();
+    css.replaceSync("html.v-tb-folded .v-toolbar,html.v-tb-auto .v-toolbar,html.v-tb-auto .v-tb-fold{display:none!important}"
         + ".v-tb-fold{position:fixed;z-index:2147483000;left:50%;transform:translateX(-50%);width:44px;height:18px;border:0;border-radius:0 0 10px 10px;background:var(--ac-t1,#2a55cc);color:#fff;padding:0;display:flex;align-items:center;justify-content:center;opacity:.85}"
-        + ".v-tb-fold svg{width:14px;height:14px;transition:transform .2s}html.v-tb-folded .v-tb-fold svg{transform:rotate(180deg)}";
-    document.head.appendChild(css);
+        + ".v-tb-fold svg{width:14px;height:14px;transition:transform .2s}html.v-tb-folded .v-tb-fold svg{transform:rotate(180deg)}");
+    document.adoptedStyleSheets = [...document.adoptedStyleSheets, css];
     const fold = document.createElement("button");
     fold.className = "v-tb-fold";
-    fold.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>';
+    const ns = "http://www.w3.org/2000/svg", icon = document.createElementNS(ns, "svg"), arrow = document.createElementNS(ns, "path");
+    for (const [k, v] of Object.entries({ viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "3", "stroke-linecap": "round", "stroke-linejoin": "round" })) icon.setAttribute(k, v);
+    arrow.setAttribute("d", "M6 15l6-6 6 6");
+    icon.append(arrow);
+    fold.append(icon);
     fold.addEventListener("click", (e) => { e.stopPropagation(); root.classList.toggle("v-tb-folded"); window.setTimeout(run, 50); });
     document.body.appendChild(fold);
     const sync = (): void => {

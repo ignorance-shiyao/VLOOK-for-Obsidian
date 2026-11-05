@@ -88,15 +88,14 @@ function lockScripts(html: string): string {
 /** 预览 iframe 与宿主同源：YAML 里的 HTML（如欢迎页）去掉脚本、事件属性与 javascript: 地址 */
 function sanitizeHtml(value: string, doc: Document): string {
     if (!value.includes("<")) return value;
-    const tpl = doc.createElement("template");
-    tpl.innerHTML = value;
+    const tpl = { content: new DOMParser().parseFromString(value, "text/html").body };
     tpl.content.querySelectorAll("script,iframe,object,embed,base,meta[http-equiv]").forEach(el => el.remove());
     tpl.content.querySelectorAll("*").forEach(el => {
         for (const attr of [...el.attributes]) {
             if (/^on/i.test(attr.name) || (/^(href|src|xlink:href|formaction|action|srcdoc)$/i.test(attr.name) && /^(javascript|vbscript|data:text\/html)/i.test(attr.value.replace(/[\u0000-\u0020\u007f-\u009f]/g, "")))) el.removeAttribute(attr.name);
         }
     });
-    return tpl.innerHTML;
+    return tpl.content.innerHTML;
 }
 
 function sanitizeFrontMatter<T>(value: T, doc: Document): T {

@@ -3,7 +3,7 @@ import path from 'node:path';
 
 /** 随插件内置的主题文件：公共样式与默认主题；其余主题由用户放入或下载。 */
 export const THEME_ASSETS=['themes/common.css','themes/blue.css'];
-export const PLUGIN_ASSETS=['main.js','zenuml.js','manifest.json','styles.css',...THEME_ASSETS];
+export const PLUGIN_ASSETS=['main.js','manifest.json','styles.css',...THEME_ASSETS];
 
 function requireFiles(root,files){
     const failures=[];

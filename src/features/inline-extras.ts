@@ -23,9 +23,9 @@ export function buildProgress(strong: HTMLElement, value: number): void {
     const state = { id: `id-${++pgCount}` };
     progressStates.set(strong, state);
     strong.classList.add("v-pgbar", state.id);
-    label.style.boxShadow = "";
-    label.style.marginLeft = "";
-    label.style.marginRight = "";
+    label.style.setProperty('box-shadow', "");
+    label.style.setProperty('margin-left', "");
+    label.style.setProperty('margin-right', "");
     let rb = strong.getAttribute("data-rb-text");
     const auto = rb === null;
     if (auto) {
@@ -35,7 +35,7 @@ export function buildProgress(strong: HTMLElement, value: number): void {
     }
     let color = `var(--ac-${rb})`;
     const colorAlt = `var(--ac-${rb}-a-lg)`;
-    if (auto) strong.style.color = color;
+    if (auto) strong.style.setProperty('color', color);
     let outline = "solid";
     const v = Math.max(0, Math.min(100, value));
     // 超出 0~100 的部分需要实际宽度，等渲染完成后再计算
@@ -48,13 +48,13 @@ export function buildProgress(strong: HTMLElement, value: number): void {
             const width = label.getBoundingClientRect().width || 100;
             const ow = parseInt(win.getComputedStyle(label).outlineWidth) || 0;
             const over = (value > 100 ? value - 100 : value) / 100 * width;
-            label.style.boxShadow = `${over + ow}px 0 0 0 ${shadowColor}`;
-            if (value > 100) label.style.marginRight = `${over + 5}px`;
-            else label.style.marginLeft = `${Math.abs(over)}px`;
+            label.style.setProperty('box-shadow', `${over + ow}px 0 0 0 ${shadowColor}`);
+            if (value > 100) label.style.setProperty('margin-right', `${over + 5}px`);
+            else label.style.setProperty('margin-left', `${Math.abs(over)}px`);
         });
     }
-    label.style.background = `linear-gradient(90deg, ${color} ${v}%, var(--db) ${v}%, var(--db) 100%)`;
-    label.style.outlineStyle = outline;
+    label.style.setProperty('background', `linear-gradient(90deg, ${color} ${v}%, var(--db) ${v}%, var(--db) 100%)`);
+    label.style.setProperty('outline-style', outline);
 }
 
 /** 统计任务清单完成度（只统计叶子任务） */

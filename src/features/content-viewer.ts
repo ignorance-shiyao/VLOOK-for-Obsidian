@@ -33,7 +33,7 @@ export function openContentViewer(target: HTMLElement, pictureInPicture = false)
     const hold = (item:HTMLElement) => {
         const node = doc.createElement('div'); node.className = 'vlook-content-placeholder';
         node.textContent = '内容正在浮动窗口中显示';
-        node.style.minHeight = `${Math.min(item.getBoundingClientRect().height, 300)}px`;
+        node.style.setProperty('min-height', `${Math.min(item.getBoundingClientRect().height, 300)}px`);
         item.before(node); return node;
     };
     let placeholder = hold(target);
@@ -123,9 +123,9 @@ export function openContentViewer(target: HTMLElement, pictureInPicture = false)
             const x = event.clientX, y = event.clientY;
             controls.setPointerCapture(event.pointerId);
             const move = (move:PointerEvent) => {
-                dialog.style.left = `${Math.max(0, Math.min(doc.documentElement.clientWidth - 80, rect.left + move.clientX - x))}px`;
-                dialog.style.top = `${Math.max(0, Math.min(doc.documentElement.clientHeight - 40, rect.top + move.clientY - y))}px`;
-                dialog.style.right = 'auto'; dialog.style.bottom = 'auto';
+                dialog.style.setProperty('left', `${Math.max(0, Math.min(doc.documentElement.clientWidth - 80, rect.left + move.clientX - x))}px`);
+                dialog.style.setProperty('top', `${Math.max(0, Math.min(doc.documentElement.clientHeight - 40, rect.top + move.clientY - y))}px`);
+                dialog.style.setProperty('right', 'auto'); dialog.style.setProperty('bottom', 'auto');
             };
             const end = () => { controls.removeEventListener('pointermove', move); controls.removeEventListener('pointerup', end); controls.removeEventListener('pointercancel', end); };
             controls.addEventListener('pointermove', move);

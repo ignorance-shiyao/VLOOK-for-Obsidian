@@ -1,12 +1,11 @@
 import { embedRepairExtension } from './editor/embed-repair';
 import { watchDuplicateMathLabels } from './features/math-labels';
 import {registerPageSettings} from './page-settings';
-import {typographyCss, stripRemoteFonts} from './core/page-appearance';
+import {typographyCss, resolveRemoteFonts} from './core/page-appearance';
 import {diagramElements} from './core/diagram-dom';
 import { EditorThemeRefresh } from './editor/theme-refresh';
 import { DocumentAssets } from './core/document-assets';
-import { installZenUml, supportsMermaidExtensions } from './core/diagram-extensions';
-import { setZenUmlSource, setZenUmlEnabled } from './core/zenuml-loader';
+import { supportsMermaidExtensions } from './core/diagram-extensions';
 import { renderZenUmlFallback } from './features/zenuml-fallback';
 import {watchFootnoteDiagrams} from './features/footnote-diagrams';
 import { renderMathFence } from './features/math-fence';
@@ -63,11 +62,6 @@ export default class VlookPlugin extends Plugin {
     async onload() {
         this.themeStore = new ThemeStore(this.app.vault.adapter, this.manifest.dir ?? "", () => this.settings.themeFolder ?? "", { version: this.manifest.version, files: BUILTIN_THEME_FILES });
         await this.loadSettings();
-        setZenUmlEnabled(!!this.settings.enableZenUml);
-        setZenUmlSource(async () => {
-            const path = normalizePath(`${this.manifest.dir}/zenuml.js`);
-            return (await this.app.vault.adapter.exists(path)) ? this.app.vault.adapter.read(path) : null;
-        });
         const diagrams = await loadMermaid();
         this.mermaidHost = diagrams;
         if(!supportsMermaidExtensions(diagrams)){
@@ -91,7 +85,7 @@ export default class VlookPlugin extends Plugin {
             this.registerEvent(this.app.workspace.on('layout-change',refresh));
             this.register(()=>{active=false;for(const dispose of watched.values())dispose();watched.clear();});
         }
-        if (supportsMermaidExtensions(diagrams)) { if (this.settings.enableZenUml) await installZenUml(diagrams); }
+        if (supportsMermaidExtensions(diagrams)) { /* 宿主自带图表引擎 */ }
         else this.registerMarkdownPostProcessor(async(el,ctx)=>{
             const child=new MarkdownRenderChild(el);ctx.addChild(child);
             let active=true;child.register(()=>{active=false});
@@ -226,14 +220,11 @@ export default class VlookPlugin extends Plugin {
 
     async saveSettings() {
         this.settings.style = resolveStyleName(this.settings.style);
-        const optional = `${!!this.settings.enableZenUml}:${!!this.settings.remoteFonts}`;
+        const optional = `${!!this.settings.remoteFonts}`;
         if (optional !== this.lastOptional) {
             this.lastOptional = optional;
-            setZenUmlEnabled(!!this.settings.enableZenUml);
             this.clearAssetCache();
             this.documentAssets.setStyle(null, "");
-            const host = this.mermaidHost;
-            if (this.settings.enableZenUml && supportsMermaidExtensions(host as never)) void installZenUml(host as never).catch(() => {});
         }
         await this.saveData(this.settings);
         await this.applyStyle();
@@ -347,7 +338,7 @@ export default class VlookPlugin extends Plugin {
         catch (error) { notify(`VLOOK：主题 ${name} 无法加载，${(error as Error).message}`); return null; }
         if (text === null) return null;
         // 默认不加载在线字体：去掉引用 http(s) 字体文件的 @font-face，改用系统字体
-        if (!this.settings.remoteFonts) text = stripRemoteFonts(text);
+        text = resolveRemoteFonts(text, !!this.settings.remoteFonts);
         this.cssCache.set(key, text);
         return text;
     }

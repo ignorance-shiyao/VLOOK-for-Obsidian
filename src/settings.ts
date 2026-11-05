@@ -13,7 +13,7 @@ export class VlookSettingTab extends PluginSettingTab {
         const save = async () => this.plugin.saveSettings();
         containerEl.empty();
 
-        containerEl.createEl("h3", { text: "样式" });
+        new Setting(containerEl).setName("样式").setHeading();
         new Setting(containerEl)
             .setName("VLOOK 样式")
             .addDropdown(d => {
@@ -45,13 +45,11 @@ export class VlookSettingTab extends PluginSettingTab {
                 this.display();
             }));
 
-        containerEl.createEl("h3", { text: "可选功能" });
-        new Setting(containerEl).setName("ZenUML 图表").setDesc("需要在插件目录放入 zenuml.js").addToggle(t =>
-            t.setValue(!!s.enableZenUml).onChange(async v => { s.enableZenUml = v; await save(); }));
+        new Setting(containerEl).setName("可选功能").setHeading();
         new Setting(containerEl).setName("在线字体").setDesc("从 openfonts.pages.dev 加载主题字体").addToggle(t =>
             t.setValue(!!s.remoteFonts).onChange(async v => { s.remoteFonts = v; await save(); }));
 
-        containerEl.createEl("h3", { text: "导出" });
+        new Setting(containerEl).setName("导出").setHeading();
         new Setting(containerEl).setName("PDF 面板配色").addDropdown(d => {
             d.addOption("theme", "跟随主题").addOption("original", "原版配色");
             d.setValue(s.exportPrintPanel ?? "theme").onChange(async v => { s.exportPrintPanel = v as "theme" | "original"; await save(); });
@@ -65,7 +63,7 @@ export class VlookSettingTab extends PluginSettingTab {
         new Setting(containerEl).setName("署名内容").addText(t =>
             t.setPlaceholder("Styled & Enhanced by VLOOK™").setValue(s.exportBrandingText ?? "").onChange(async v => { s.exportBrandingText = v.trim(); await save(); }));
 
-        containerEl.createEl("h3", { text: "语法与排版" });
+        new Setting(containerEl).setName("语法与排版").setHeading();
         const toggle = (name: string, desc: string, key: keyof typeof s) =>
             new Setting(containerEl).setName(name).setDesc(desc).addToggle(t =>
                 t.setValue(s[key] as boolean).onChange(async v => { (s as any)[key] = v; await save(); }));
@@ -79,7 +77,7 @@ export class VlookSettingTab extends PluginSettingTab {
         toggle("封面与封底", "文档首个块为 ###### 标题时作为封面；最后一个块为 # 标题时作为封底；仅有 YAML 时生成小封面。", "cover");
         toggle("编辑模式渲染行内语法", "在实时预览中渲染标签、多级标签、色号、进度条等。", "livePreview");
 
-        containerEl.createEl("h3", { text: "默认色号" });
+        new Setting(containerEl).setName("默认色号").setHeading();
         const BASE: [string, string, string][] = [["t1", "主题色 1", "#356FD8"], ["t2", "主题色 2", "#4D81EF"], ["rd", "红", "#E5484D"], ["og", "橙", "#F5871F"], ["ye", "黄", "#F5C518"], ["gn", "绿", "#30A46C"], ["cy", "青", "#12A594"], ["bu", "蓝", "#3E63DD"], ["pu", "紫", "#8E4EC6"], ["pk", "粉", "#E93D82"], ["gy", "灰", "#8B8D98"], ["bk", "黑", "#1C1C1F"]];
         const color = (name: string, desc: string, key: "quoteDefault" | "tagDefault" | "badgeDefault" | "coatingDefault", opts: { none?: boolean; solid?: boolean; extra?: [string, string, string][] } = {}) => {
             const setting = new Setting(containerEl).setName(name).setDesc(desc);
@@ -95,7 +93,7 @@ export class VlookSettingTab extends PluginSettingTab {
             if (!items.some(i => i.value === s[key])) items.push({ value: s[key], label: `${s[key]} · 自定义`, css: `var(--ac-${s[key].replace(/!$/, "")}, #999)` });
             const buttons = items.map(item => {
                 const button = group.createEl("button", { cls: "vlook-swatch" + (item.css ? "" : " is-none"), attr: { type: "button", "aria-label": item.label, title: item.label } });
-                if (item.css) button.style.background = item.css;
+                if (item.css) button.style.setProperty('background', item.css);
                 button.onclick = async () => { s[key] = item.value; await save(); refresh(); };
                 return button;
             });

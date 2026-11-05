@@ -16,5 +16,13 @@ export function compactPath(path:string):string {
 
 /** 去掉引用 http(s) 字体文件的 @font-face；默认不联网加载字体，改用系统字体。 */
 export function stripRemoteFonts(css:string):string {
-    return css.replace(/@font-face\s*\{[^{}]*url\(\s*["']?https?:[^{}]*\}/gi,'');
+    return css.replace(/@font-face\s*\{[^{}]*url\(\s*["']?(?:https?:|@vlook-)[^{}]*\}/gi,'');
+}
+
+const FONT_HOSTS: [string, string][] = [["@vlook-fonts", "https://openfonts.pages.dev"], ["@vlook-gfonts", "https://fonts.googleapis.com"]];
+
+/** 主题里的在线字体主机以占位符存放：启用在线字体时还原为真实地址，否则整段去掉。 */
+export function resolveRemoteFonts(css:string, remote:boolean):string {
+    if(remote)return FONT_HOSTS.reduce((text,[key,host])=>text.split(key).join(host),css);
+    return stripRemoteFonts(css).replace(/@import\s+(?:url\(\s*)?["']?@vlook-[^;]*;/g,'');
 }

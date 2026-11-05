@@ -4,14 +4,33 @@ import { Notice } from "obsidian";
 
 export type NoticeKind = "success" | "warning" | "error" | "info";
 
+const SVG_NS = "http://www.w3.org/2000/svg";
 const GLYPHS: Record<NoticeKind, string> = {
-    success: '<path d="M7.2 12.6l3.1 3.1 6.5-6.7"/>',
-    warning: '<path d="M12 7v6.2M12 16.6v.01"/>',
-    error: '<path d="M8.6 8.6l6.8 6.8M15.4 8.6l-6.8 6.8"/>',
-    info: '<path d="M12 11v6M12 7.6v.01"/>',
+    success: "M7.2 12.6l3.1 3.1 6.5-6.7",
+    warning: "M12 7v6.2M12 16.6v.01",
+    error: "M8.6 8.6l6.8 6.8M15.4 8.6l-6.8 6.8",
+    info: "M12 11v6M12 7.6v.01",
 };
-const icon_ = (kind: NoticeKind): string => `<svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="11" fill="currentColor"/><g fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${GLYPHS[kind]}</g></svg>`;
-const CLOSE = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+
+function svg(size: number, attrs: Record<string, string>, ...children: SVGElement[]): SVGElement {
+    const el = document.createElementNS(SVG_NS, "svg");
+    el.setAttribute("viewBox", "0 0 24 24");
+    el.setAttribute("width", String(size));
+    el.setAttribute("height", String(size));
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+    el.append(...children);
+    return el;
+}
+function node(tag: string, attrs: Record<string, string>, ...children: SVGElement[]): SVGElement {
+    const el = document.createElementNS(SVG_NS, tag);
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+    el.append(...children);
+    return el;
+}
+const iconSvg = (kind: NoticeKind): SVGElement => svg(22, {},
+    node("circle", { cx: "12", cy: "12", r: "11", fill: "currentColor" }),
+    node("g", { fill: "none", stroke: "#fff", "stroke-width": "2.4", "stroke-linecap": "round", "stroke-linejoin": "round" }, node("path", { d: GLYPHS[kind] })));
+const closeSvg = (): SVGElement => svg(16, { fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round" }, node("path", { d: "M6 6l12 12M18 6 6 18" }));
 
 /** 按文案推断类型 */
 export function noticeKind(text: string): NoticeKind {
@@ -26,14 +45,14 @@ function body(message: string | DocumentFragment, kind: NoticeKind): { fragment:
     wrap.className = "vlook-notice-body";
     const icon = document.createElement("span");
     icon.className = "vlook-notice-icon";
-    icon.innerHTML = icon_(kind);
+    icon.append(iconSvg(kind));
     const text = document.createElement("div");
     text.className = "vlook-notice-text";
     if (typeof message === "string") text.textContent = message; else text.append(message);
     const close = document.createElement("button");
     close.className = "vlook-notice-close";
     close.setAttribute("aria-label", "关闭");
-    close.innerHTML = CLOSE;
+    close.append(closeSvg());
     wrap.append(icon, text, close);
     const fragment = document.createDocumentFragment();
     fragment.append(wrap);

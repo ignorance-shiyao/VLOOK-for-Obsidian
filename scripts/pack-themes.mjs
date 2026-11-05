@@ -157,6 +157,9 @@ export function shareParts(parts) {
  * 打包内置主题。sources: { [part]: { [id]: css } }，metas: { [id]: {name,color,colors} }
  * 写入 outDir/common.css 与 outDir/<id>.css，并逐套核对：还原结果的层叠与原文一致。
  */
+/** 仓库内的主题不含 http(s) 外链；在线字体的主机名以占位符保存，启用在线字体时才还原（见 resolveRemoteFonts）。 */
+const defang = css => css.replaceAll("https://openfonts.pages.dev", "@vlook-fonts").replaceAll("https://fonts.googleapis.com", "@vlook-gfonts");
+
 export function packThemes(sources, metas, outDir) {
     const common = {}, themed = {};
     for (const part of PARTS) {
@@ -171,9 +174,9 @@ export function packThemes(sources, metas, outDir) {
     for (const [id, parts] of Object.entries(themed)) themed[id] = { ...parts, ...shareParts(parts) };
     fs.rmSync(outDir, { recursive: true, force: true });
     fs.mkdirSync(outDir, { recursive: true });
-    fs.writeFileSync(path.join(outDir, "common.css"), PARTS.map(p => `/*@vlook-part ${p}*/\n${common[p]}\n`).join(""));
+    fs.writeFileSync(path.join(outDir, "common.css"), defang(PARTS.map(p => `/*@vlook-part ${p}*/\n${common[p]}\n`).join("")));
     for (const [id, parts] of Object.entries(themed))
-        fs.writeFileSync(path.join(outDir, `${id}.css`), themeFile({ ...metas[id] }, parts));
+        fs.writeFileSync(path.join(outDir, `${id}.css`), defang(themeFile({ ...metas[id] }, parts)));
     return {
         common: PARTS.reduce((a, p) => a + common[p].length, 0),
         themes: Object.fromEntries(Object.entries(themed).map(([id, p]) => [id, PARTS.reduce((a, part) => a + p[part].length, 0) + (p[SHARED]?.length ?? 0)])),

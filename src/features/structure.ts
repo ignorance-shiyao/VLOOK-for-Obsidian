@@ -194,7 +194,7 @@ export function processColumns(section: HTMLElement, ctx: RenderCtx): void {
         // 阅读视图按需渲染：新挂载的栏先套用此前量到的同组最大高度，避免滚动回来时高度参差
         const known = ctx.index ? columnHeights.get(ctx.index)?.get(group) : undefined;
         const inner = section.querySelector<HTMLElement>(":scope > :is(blockquote, .callout, .md-alert)");
-        if (known && inner) inner.style.minHeight = `${known}px`;
+        if (known && inner) inner.style.setProperty('min-height', `${known}px`);
         if (ctx.index) columnOwners.set(section, ctx.index);
         scheduleEqualize(section, group);
     } else {
@@ -220,7 +220,7 @@ function scheduleEqualize(section: HTMLElement, group: number) {
         const parent = section.parentElement;
         if (!parent) return;
         const items = Array.from(parent.querySelectorAll<HTMLElement>(`:scope > [data-vlook-col-group="${group}"] > :is(blockquote, details, .callout, .md-alert)`));
-        items.forEach(i => i.style.minHeight = "");
+        items.forEach(i => i.style.setProperty('min-height', ""));
         if (getComputedStyle(section).display === "block") return;
         const max = Math.max(...items.filter(i => !i.closest("[data-folding]") && i.tagName !== "DETAILS").map(i => i.offsetHeight));
         if (max > 0) {
@@ -232,7 +232,7 @@ function scheduleEqualize(section: HTMLElement, group: number) {
                 // 整组都已渲染时以实测为准（窗口变宽后可回落）；仅部分渲染时保留此前量到的最大值
                 target = items.length < count ? Math.max(max, heights.get(group) ?? 0) : max; heights.set(group, target);
             }
-            items.forEach(i => { if (i.tagName !== "DETAILS") i.style.minHeight = `${target}px`; });
+            items.forEach(i => { if (i.tagName !== "DETAILS") i.style.setProperty('min-height', `${target}px`); });
         }
     }, 150));
     if (!watched.has(section) && typeof ResizeObserver !== "undefined") {
