@@ -33,10 +33,12 @@ export function watchDuplicateMathLabels(doc: Document): () => void {
     const win = doc.defaultView as MathWindow | null;
     if (!win) return () => {};
     let queued = false;
-    const run = () => { queued = false; repairDuplicateMathLabels(doc.body, win); };
+    const run = () => { queued = false; repairDuplicateMathLabels(doc.body, win); observer.takeRecords(); };
     const observer = new win.MutationObserver(records => {
-        if (queued || !records.some(record => record.addedNodes.length)) return;
-        if (!doc.body.querySelector(DUPLICATE)) return;
+        if (queued) return;
+        // 只检查新增节点，避免长文档重绘期间每一批变更都全量扫描 body
+        const added = records.some(record => Array.from(record.addedNodes).some(node => node instanceof win.Element && (node.matches(DUPLICATE) || !!node.querySelector(DUPLICATE))));
+        if (!added) return;
         queued = true; win.setTimeout(run);
     });
     observer.observe(doc.body, { subtree: true, childList: true });

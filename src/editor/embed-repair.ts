@@ -23,7 +23,9 @@ export function embedRepairExtension(plugin: VlookPlugin) {
                 if (!plugin.settings.livePreview) return;
                 const path = this.view.state.field(editorInfoField, false)?.file?.path;
                 if (path) resolveBrokenEmbeds(this.view.contentDOM, plugin.app, path);
-            });
+                // 丢弃修复自身引起的变更记录，避免与编辑器重绘互相触发而空转
+                this.observer.takeRecords();
+            }, 120);
         }
         destroy() { this.observer.disconnect(); }
     });

@@ -140,6 +140,13 @@ export function installExportThemeSwitcher(doc: Document): void {
         fadeTimer = win.setTimeout(() => root.classList.remove('vlook-fading'), 650);
         const source = sources.find(item => item.dataset.theme === name);
         if (!source) return;
+        // 切换后各主题的字号 / 行距不同，以视口顶部的内容块为锚点保持阅读位置，避免页面跳动
+        let anchor: { el: Element; top: number } | null = null;
+        for (const el of Array.from(doc.querySelectorAll('#write > *'))) {
+            const box = el.getBoundingClientRect();
+            if (box.bottom > 0) { anchor = { el, top: box.top }; break; }
+        }
+        const keep = () => { if (anchor?.el.isConnected) win.scrollBy(0, anchor.el.getBoundingClientRect().top - anchor.top); };
         syncing = true;
         for (const v of vars()) root.style.removeProperty(v);
         // 每个主题只解析一次：切换仅切换样式表的 media，避免反复解析上百 KB 的 CSS 与重复拉取字体
@@ -169,6 +176,9 @@ export function installExportThemeSwitcher(doc: Document): void {
         if (icon) doc.querySelectorAll<HTMLLinkElement>('link[rel~="icon"]').forEach(link => { link.href = icon; });
         setValue(name);
         moved = true;
+        keep();
+        win.requestAnimationFrame(keep);
+        win.setTimeout(keep, 250);
     };
     const choose = (name: string) => {
         apply(name);

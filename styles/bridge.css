@@ -26,6 +26,7 @@ body {
     --inline-title-font: var(--v-fm-tt);
     --blockquote-border-color: var(--ac-t1);
     --checkbox-color: var(--ac-t1);
+    --checkbox-color-hover: var(--ac-t1);
 }
 
 /* 文档背景纹理 */

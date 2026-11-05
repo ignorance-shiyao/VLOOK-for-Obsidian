@@ -54,7 +54,7 @@ export class DocumentOptions {
         this.footers.set(host, html);
         if (!this.footerWatch.has(host)) {
             const win = host.win as Window & typeof globalThis;
-            const watch = new win.MutationObserver(() => this.placeFooter(host));
+            const watch: MutationObserver = new win.MutationObserver(() => { this.placeFooter(host); watch.takeRecords(); });
             watch.observe(host, { childList: true, subtree: true, attributes: false });
             this.footerWatch.set(host, watch);
             this.plugin.register(() => watch.disconnect());

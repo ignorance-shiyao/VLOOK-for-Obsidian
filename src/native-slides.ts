@@ -3,7 +3,7 @@ import { registerDocumentEvent } from "./core/window-events";
 import { vlookAnchor } from './core/anchor';
 import { equationSourceLine } from './core/math-anchor';
 import { quoteSourceTitles } from './core/quote-source';
-import { Component, MarkdownRenderer, MarkdownView } from 'obsidian';
+import { Component, MarkdownRenderer, MarkdownView, Platform } from 'obsidian';
 import type VlookPlugin from './main';
 import { Query, readCssVar } from './core/context';
 import { getSourceIndex } from './core/source-index';
@@ -16,6 +16,7 @@ import { sourceTasks } from './core/task-source';
 import { headingPlain } from './core/heading';
 import { captionTargets } from './core/caption-targets';
 import { notify } from "./notify";
+import { refreshTaskProgress } from './features/inline-extras';
 
 export class NativeSlides {
     private closeCurrent:(()=>void)|null=null;
@@ -66,14 +67,14 @@ export class NativeSlides {
             const mine=++sequence,group=groups[at];
             previous.disabled=at===0;next.disabled=at===groups.length-1;chooser.value=String(at);
             status.textContent=`${at+1} / ${groups.length} · 正在渲染`;
-            component?.unload();component=null;body.replaceChildren();
             for(const value of pending)value.unload();pending.clear();
             const fresh=new Component();fresh.load();pending.add(fresh);
-            const stage=doc.createElement('div');stage.className='vlook-slide-card';body.append(stage);
+            // 新页在后台渲染完成后再替换旧页，避免切换时出现空白闪烁。
+            const stage=doc.createElement('div');stage.className='vlook-slide-card vlook-slide-pending';body.append(stage);
             try{
                 if(group.kind==='footnotes'){
                     await MarkdownRenderer.render(p.app,`<!--vlook-raw-render-->\n${seed}${footnotes}`,stage,path,fresh);
-                    if(closed||mine!==sequence){pauseContainedMedia(stage);stage.replaceChildren();fresh.unload();return;}
+                    if(closed||mine!==sequence){pauseContainedMedia(stage);stage.remove();fresh.unload();return;}
                     indexSlideFootnotes(stage);
                     const area=stage.querySelector('section.footnotes');
                     if(area)stage.replaceChildren(area);
@@ -83,7 +84,7 @@ export class NativeSlides {
                     const sections=group.blocks.map(block=>{const element=doc.createElement('div');stage.append(element);return {block,element};});
                     for(const {block,element} of sections){
                         await MarkdownRenderer.render(p.app,`<!--vlook-raw-render-->\n${seed}${block.text}\n\n${definitions}\n\n${footnotes}`,element,path,fresh);
-                        if(closed||mine!==sequence){pauseContainedMedia(stage);stage.replaceChildren();fresh.unload();return;}
+                        if(closed||mine!==sequence){pauseContainedMedia(stage);stage.remove();fresh.unload();return;}
                         indexSlideFootnotes(element);
                         element.querySelectorAll('section.footnotes').forEach(area=>area.remove());
                         await renderReadySection(element,{app:p.app,settings:p.settings,resourceHistory:p.resourceHistory,sourcePath:path,index,block,query,cssVar,suppressContentViewers:true,registerCleanup:fn=>fresh.register(fn)});
@@ -101,13 +102,17 @@ export class NativeSlides {
                                 const from={line:block.start+task.line,ch:task.ch};
                                 view.editor.replaceRange(task.checked?' ':'x',from,{line:from.line,ch:from.ch+1});
                                 // preventDefault 会在事件结束时回滚浏览器的勾选，随后同步成功写入的状态。
-                                queueMicrotask(()=>{if(!closed)input.checked=!task.checked;});
+                                queueMicrotask(()=>{if(closed)return;input.checked=!task.checked;refreshTaskProgress(input);});
                             },{capture:true});
                         });
                     }
                 }
-                if(closed||mine!==sequence){pauseContainedMedia(stage);stage.replaceChildren();fresh.unload();return;}
-                component=fresh;body.scrollTop=restoreTop??0;body.scrollLeft=0;
+                if(closed||mine!==sequence){pauseContainedMedia(stage);stage.remove();fresh.unload();return;}
+                const old=component;component=fresh;
+                for(const child of Array.from(body.children))if(child!==stage){pauseContainedMedia(child as HTMLElement);child.remove();}
+                old?.unload();
+                stage.classList.remove('vlook-slide-pending');stage.classList.add('vlook-slide-in');
+                body.scrollTop=restoreTop??0;body.scrollLeft=0;
                 if(targetLine!==undefined){
                     const target=Array.from(stage.querySelectorAll<HTMLElement>('[data-vlook-source-line]')).find(el=>Number(el.dataset.vlookSourceLine)<=targetLine&&Number(el.dataset.vlookSourceEnd??el.dataset.vlookSourceLine)>=targetLine);
                     if(target)body.scrollTop+=target.getBoundingClientRect().top-body.getBoundingClientRect().top;
@@ -120,14 +125,29 @@ export class NativeSlides {
                     }
                 }
                 status.textContent=`${at+1} / ${groups.length} · ${group.title}`;
-            }catch(error){pauseContainedMedia(stage);stage.replaceChildren();fresh.unload();if(!closed&&mine===sequence)status.textContent=`幻灯片渲染失败：${(error as Error).message||error}`;}
+            }catch(error){pauseContainedMedia(stage);stage.remove();fresh.unload();if(!closed&&mine===sequence)status.textContent=`幻灯片渲染失败：${(error as Error).message||error}`;}
             finally{pending.delete(fresh);}
         };
         const go=(target:number,line?:number,top?:number,footnoteId?:string,footnoteOrdinal?:string)=>{if(target<0||target>=groups.length)return;at=target;void render(line,top,footnoteId,footnoteOrdinal);};
         controls.append(chooser.el,status);button('退出幻灯片',close);
+        status.addEventListener('dblclick',()=>{
+            if(status.querySelector('input'))return;
+            const input=doc.createElement('input');input.type='number';input.min='1';input.max=String(groups.length);input.value=String(at+1);input.className='vlook-slide-jump';input.setAttribute('aria-label','跳转页码');
+            const restore=status.textContent;status.replaceChildren(input);input.focus();input.select();
+            let done=false;
+            const finish=(commit:boolean)=>{
+                if(done)return;done=true;
+                const n=Math.round(Number(input.value));
+                status.textContent=restore;
+                if(commit&&Number.isFinite(n)&&n>=1&&n<=groups.length&&n-1!==at)go(n-1);
+                dialog.focus({preventScroll:true});
+            };
+            input.addEventListener('keydown',event=>{event.stopPropagation();if(event.key==='Enter'){event.preventDefault();finish(true);}else if(event.key==='Escape'){event.preventDefault();finish(false);}});
+            input.addEventListener('blur',()=>finish(false));
+        });
         const requestEffect=(effect:'laser'|'spotlight')=>{const event=doc.createEvent('CustomEvent');event.initCustomEvent('vlook-presentation-effect',false,false,effect);doc.dispatchEvent(event);};
         button('激光笔',()=>requestEffect('laser'));
-        const spotlight=button('聚光灯',()=>requestEffect('spotlight'));spotlight.title='按 Shift 切换聚光灯大小';
+        const spotlight=button('聚光灯',()=>requestEffect('spotlight'));if(!Platform.isMobile)spotlight.title='按 Shift 切换聚光灯大小';
         chooser.onChange(value=>go(Number(value)));
         dialog.addEventListener('close',cleanup,{once:true});
         dialog.addEventListener('keydown',event=>{
@@ -192,6 +212,7 @@ export class NativeSlides {
             const view=p.app.workspace.getActiveViewOfType(MarkdownView);
             if(view?.getMode()==='preview'&&view.contentEl.contains(target)){event.preventDefault();this.toggle();}
         });
+        registerDocumentEvent(p,'change',event=>{const t=event.target as Element|null;if(t?.matches?.('input.task-list-item-checkbox'))window.setTimeout(()=>refreshTaskProgress(t),0);});
         p.register(()=>this.close());
     }
 }

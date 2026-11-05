@@ -89,6 +89,19 @@ function followingTaskList(strong:HTMLElement):Element|null {
     return sibling&&/^(UL|OL)$/.test(sibling.tagName)?sibling:null;
 }
 
+/** 勾选任务后，同步紧邻其前的「任务进度」条。 */
+export function refreshTaskProgress(input: Element): void {
+    let top: Element | null = input.closest("ul,ol");
+    if (!top) return;
+    for (let up = top.parentElement?.closest("ul,ol"); up; up = top.parentElement?.closest("ul,ol")) top = up;
+    const find = (host: Element | null) => host?.querySelector<HTMLElement>("strong[data-vlook-task-follow]") ?? null;
+    const strong = find(top.previousElementSibling) ?? find(top.parentElement?.previousElementSibling ?? null);
+    const num = taskPercent(top);
+    if (!strong || num === null) return;
+    strong.replaceChildren(h("label"), String(num));
+    buildProgress(strong, num);
+}
+
 export function processProgress(root: HTMLElement, ctx: RenderCtx): void {
     root.querySelectorAll<HTMLElement>("strong > mark:only-child").forEach(mark => {
         if(isLiteralContent(mark))return;
@@ -101,6 +114,7 @@ export function processProgress(root: HTMLElement, ctx: RenderCtx): void {
             const list=followingTaskList(strong);
             num = list ? taskPercent(list) : null;
             if (num === null && !strong.closest("li")) num = taskPercentFromSource(ctx);
+            if (num !== null) strong.dataset.vlookTaskFollow = "";
         }
         if (num === null) return;
         strong.replaceChildren();

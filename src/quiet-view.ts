@@ -1,5 +1,6 @@
 import { registerDocumentEvent } from "./core/window-events";
-import { MarkdownView } from 'obsidian';
+import { MarkdownView, Platform } from 'obsidian';
+import { exitChip } from "./core/exit-chip";
 import type VlookPlugin from './main';
 import { notify } from "./notify";
 
@@ -8,8 +9,10 @@ export class QuietView {
     private leaf:HTMLElement|null=null;
     private doc:Document|null=null;
     private focus:HTMLElement|null=null;
+    private chip:HTMLElement|null=null;
     constructor(private plugin:VlookPlugin){}
     clear(){
+        this.chip?.remove();this.chip=null;
         this.leaf?.classList.remove('vlook-quiet-leaf');
         this.doc?.body.classList.remove('vlook-quiet-view');
         this.leaf=null;this.doc=null;
@@ -22,7 +25,8 @@ export class QuietView {
         const leaf=view.containerEl.closest<HTMLElement>('.workspace-leaf');if(!leaf)return;
         this.leaf=leaf;this.doc=leaf.ownerDocument;this.focus=this.doc.activeElement as HTMLElement|null;
         leaf.classList.add('vlook-quiet-leaf');this.doc.body.classList.add('vlook-quiet-view');
-        notify('宁静视图已开启，Z 或 Esc 退出');
+        if(Platform.isMobile)this.chip=exitChip(leaf,'退出宁静视图',()=>this.clear());
+        else notify('宁静视图已开启，Z 或 Esc 退出');
     }
     register(){
         const p=this.plugin;

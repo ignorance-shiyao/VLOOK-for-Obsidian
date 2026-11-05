@@ -147,7 +147,7 @@ export function processTabGroups(section: HTMLElement, ctx: RenderCtx): void {
     const tabIconOption = ["off", "line", "solid", "flat"].includes(ctx.query.get("tabico") ?? "") ? ctx.query.get("tabico")! : "line";
     const tabCaption = ctx.query.get("tabcap") === "on", captionOn = ctx.query.get("capnum") !== "off";
     const box = h("div", "v-tab-box", { id: `tab-box${id}` });
-    const group = h("div", "v-tab-group v-backdrop-blurs", { id: `tab-group${id}`, title: `[Tab] / [⇧ Shift + Tab] ${t("switchTabs")}` });
+    const group = h("div", "v-tab-group v-backdrop-blurs", { id: `tab-group${id}`, ...(activeDocument.body.classList.contains("is-mobile") ? {} : { title: `[Tab] / [⇧ Shift + Tab] ${t("switchTabs")}` }) });
     const wrapEl = h("div", "tab-group-wrap");
     group.append(wrapEl);
     box.append(group);

@@ -29,7 +29,7 @@ _~Gd~_ 这一整个段落使用金色。
 
 面包屑：请点击 *==文件 > 导出 > HTML==* 完成导出。
 
-按钮：[<kbd>访问 VLOOK</kbd>](https://github.com/MadMaxChow/VLOOK) *[<kbd>次要按钮</kbd>](https://github.com)* **[<kbd>超级按钮</kbd>](https://github.com)**
+按钮：[<kbd>访问 VLOOK for Obsidian</kbd>](https://github.com/ignorance-shiyao/VLOOK-for-Obsidian) *[<kbd>次要按钮</kbd>](https://github.com)* **[<kbd>超级按钮</kbd>](https://github.com)**
 
 # 引用块
 

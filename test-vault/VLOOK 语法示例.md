@@ -29,7 +29,7 @@ _~Gd~_ 这一整个段落使用金色。
 
 面包屑：请点击 *==文件 > 导出 > HTML==* 完成导出。
 
-按钮：[<kbd>访问 VLOOK</kbd>](https://github.com/MadMaxChow/VLOOK) *[<kbd>次要按钮</kbd>](https://github.com)* **[<kbd>超级按钮</kbd>](https://github.com)**
+按钮：[<kbd>访问 VLOOK for Obsidian</kbd>](https://github.com/ignorance-shiyao/VLOOK-for-Obsidian) *[<kbd>次要按钮</kbd>](https://github.com)* **[<kbd>超级按钮</kbd>](https://github.com)**
 
 # 引用块
 
@@ -655,47 +655,7 @@ architecture-beta
 
 ```
 
-## 16 ZenUML 图
-
-```mermaid
-zenuml
-    title Annotators
-    @Actor Alice
-    @Database Bob
-    @Boundary Boundary
-    @Control Control
-    @Entity Entity
-    while(true) {
-      Alice->Bob: Hi Bob
-      Bob->Alice: Hi Alice
-    }
-```
-
-## 17 ZenUML 图
-
-```mermaid
-zenuml
-    title Reply message
-    @VirtualMachine Client
-    @GoogleIam A
-    @CloudFront B
-    @Cognito Cognito
-    @ECS ECS
-    @EFS EFS
-    Client->A.method() {
-      B.method() {
-        if(condition) {
-          return x1
-          // return early
-          @return
-          A->Client: x11
-        }
-      }
-      return x2
-    }
-```
-
-## 18 思维导图
+## 16 思维导图
 
 ```mermaid
 mindmap
@@ -722,7 +682,7 @@ mindmap
     Tools 3
 ```
 
-## 19 Gitgraph 图
+## 17 Gitgraph 图
 
 ```mermaid
 ---
@@ -751,7 +711,7 @@ gitGraph
 
 ```
 
-## 20 Gitgraph 图
+## 18 Gitgraph 图
 
 ```mermaid
 ---
@@ -780,7 +740,7 @@ gitGraph
   commit type:REVERSE id:"SanFrancisco"
 ```
 
-## 21 Gitgraph 图
+## 19 Gitgraph 图
 
 ```mermaid
   gitGraph
@@ -832,7 +792,7 @@ gitGraph
 
 ```
 
-## 22 桑基图
+## 20 桑基图
 
 ```mermaid
 sankey
@@ -849,7 +809,7 @@ Register, Paid, 300
 Register, Free, 600
 ```
 
-## 23 桑基图
+## 21 桑基图
 
 ```mermaid
 sankey
@@ -868,7 +828,7 @@ Skincare, Online, 150
 Skincare, Offline, 50
 ```
 
-## 24 时间线
+## 22 时间线
 
 ```mermaid
 timeline
@@ -882,7 +842,7 @@ timeline
          : GPT-4
 ```
 
-## 25 时间线
+## 23 时间线
 
 ```mermaid
 timeline
@@ -896,7 +856,7 @@ timeline
         Industry 5.0 : Artificial intelligence, Big data,3D printing
 ```
 
-## 26 时间线
+## 24 时间线
 
 ```mermaid
 timeline
@@ -908,7 +868,7 @@ timeline
     STEP 03 : Action 3.1
 ```
 
-## 27 XY 图
+## 25 XY 图
 
 ```mermaid
 xychart
@@ -919,7 +879,7 @@ xychart
     line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
 ```
 
-## 28 饼图
+## 26 饼图
 
 ```mermaid
 pie title Q3 2019 中国线上智能手机市场主要品牌市场份额
@@ -932,7 +892,7 @@ pie title Q3 2019 中国线上智能手机市场主要品牌市场份额
 "其他" : 16
 ```
 
-## 29 雷达图
+## 27 雷达图
 
 ```mermaid
 ---
@@ -949,7 +909,7 @@ radar-beta
 
 ```
 
-## 30 树状图
+## 28 树状图
 
 ```mermaid
 treemap-beta
@@ -964,7 +924,7 @@ treemap-beta
 
 ```
 
-## 31 看板图
+## 29 看板图
 
 ```mermaid
 ---
@@ -993,7 +953,7 @@ kanban
 
 ```
 
-## 32 甘特图
+## 30 甘特图
 
 ```mermaid
 gantt

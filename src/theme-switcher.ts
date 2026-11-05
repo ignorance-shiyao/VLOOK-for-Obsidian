@@ -56,6 +56,7 @@ export class ThemeSwitcher {
                 .onClick(() => this.apply(t)));
         }
         menu.addSeparator();
+        menu.addItem(item => item.setTitle("从 GitHub 获取更多主题").setIcon("cloud-download").onClick(() => void this.plugin.refreshRemoteThemes()));
         menu.addItem(item => item
             .setTitle(doc.body.classList.contains("theme-dark") ? "切换到浅色模式" : "切换到深色模式")
             .setIcon("sun-moon")
@@ -85,12 +86,14 @@ export class ThemeSwitcher {
     }
 }
 
+const MORE = "\u0000more";
+
 class ThemeModal extends FuzzySuggestModal<string> {
     constructor(private switcher: ThemeSwitcher) {
         super(switcher.plugin.app);
         this.setPlaceholder("选择 VLOOK 主题");
     }
-    getItems() { return THEMES; }
-    getItemText(t: string) { return label(t); }
-    onChooseItem(t: string) { void this.switcher.apply(t); }
+    getItems() { return [...THEMES, MORE]; }
+    getItemText(t: string) { return t === MORE ? "从 GitHub 获取更多主题…" : label(t); }
+    onChooseItem(t: string) { void (t === MORE ? this.switcher.plugin.refreshRemoteThemes() : this.switcher.apply(t)); }
 }

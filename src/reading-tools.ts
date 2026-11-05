@@ -1,6 +1,7 @@
 import { registerDocumentEvent, registerEachDocument } from "./core/window-events";
 // Obsidian 原生文档中的演示辅助，不向编辑器注入原版运行时的全局键盘处理。
-import { MarkdownView } from "obsidian";
+import { MarkdownView, Platform } from "obsidian";
+import { exitChip } from "./core/exit-chip";
 import type VlookPlugin from "./main";
 import { notify } from "./notify";
 
@@ -9,6 +10,7 @@ export class ReadingTools {
     private effect: Effect | null = null;
     private overlay: HTMLElement | null = null;
     private host: HTMLElement | null = null;
+    private chip: HTMLElement | null = null;
     private styled = new Set<HTMLElement>();
     private largeSpotlight=false;
     constructor(private plugin: VlookPlugin) {}
@@ -21,6 +23,7 @@ export class ReadingTools {
     }
     clear() {
         this.host?.classList.remove('vlook-laser-cursor');
+        this.chip?.remove(); this.chip = null;
         this.overlay?.remove(); this.overlay = null;
         this.host = null; this.effect = null;
         this.largeSpotlight=false;
@@ -49,7 +52,8 @@ export class ReadingTools {
         this.overlay.style.setProperty('--vlook-spotlight-radius','180px');
         (host.closest('dialog')||host.ownerDocument.body).append(this.overlay);
         this.position();
-        notify(`${effect === "laser" ? "激光笔" : "聚光灯"}已开启，按 Esc 退出`);
+        if (Platform.isMobile) this.chip = exitChip(host.closest('dialog') || host.ownerDocument.body, effect === "laser" ? "关闭激光笔" : "关闭聚光灯", () => this.clear());
+        else notify(`${effect === "laser" ? "激光笔" : "聚光灯"}已开启，按 Esc 退出`);
     }
     register() {
         const p = this.plugin;

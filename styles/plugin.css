@@ -103,7 +103,8 @@ pre[data-vlook-code] { position: relative; }
     pre[data-vlook-code] > code { white-space: pre-wrap !important; overflow-wrap: anywhere !important; }
 }
 
-.vlook-editor-block { position: relative; padding-block: 8px; }
+.vlook-editor-block { position: relative; padding-block: 0; }
+.vlook-editor-block.vlook-editor-block :first-child:is(p, ul, ol) { margin-top: 0 !important; }
 .vlook-editor-section { min-width: 0; }
 .vlook-editor-render > .vlook-tab-hidden { display: none; }
 .cm-line[data-vlook-header-num]::before { content: attr(data-vlook-header-num) " "; color: var(--ac-t1); opacity: .65; font-variant-numeric: tabular-nums; }
@@ -165,7 +166,13 @@ body.vlook-quiet-view .vlook-quiet-leaf :is(.vlook-view-menu,.vlook-code-tools) 
 /* 原生幻灯片：覆盖窗口而不修改工作区布局。 */
 dialog.vlook-native-slides { position: fixed; inset: 0; margin: 0; padding: 0; width: 100vw; height: 100vh; max-width: none; max-height: none; border: 0; background: var(--background-primary); color: var(--text-normal); }
 .vlook-native-slides[open] { display: flex; flex-direction: column; }
-.vlook-native-slides .vlook-slide-body { flex: 1; min-height: 0; overflow: auto; padding: 4vh 5vw; }
+.vlook-native-slides .vlook-slide-body { flex: 1; min-height: 0; overflow: auto; position: relative; padding: 4vh 5vw; }
+.vlook-native-slides .vlook-slide-pending { position: absolute; left: 5vw; right: 5vw; top: 4vh; visibility: hidden; pointer-events: none; }
+.vlook-native-slides .vlook-slide-in { animation: vlook-slide-in .28s ease both; }
+@keyframes vlook-slide-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .vlook-native-slides .vlook-slide-in { animation: none; } }
+.vlook-native-slides [role="status"] { cursor: text; user-select: none; }
+.vlook-native-slides input.vlook-slide-jump { width: 4.5em; text-align: center; }
 .vlook-native-slides .vlook-slide-card { max-width: 1200px; margin: auto; }
 .vlook-native-slides .vlook-slide-controls { display: flex; gap: .5em; align-items: center; flex-wrap: wrap; padding: .6em 1em; background: var(--background-secondary); }
 .vlook-native-slides .vlook-slide-controls .vlook-dropdown { max-width:35vw; }
@@ -350,7 +357,7 @@ body .v-doc-mini-cover.max > :is(.doc-author,.doc-date,.doc-copyright,.doc-right
 .is-mobile .setting-item:has(.vlook-swatches) .setting-item-control { justify-content:flex-start; width:100%; }
 
 /* 多彩提示：默认淡底、低饱和，只有错误提示保持醒目 */
-.notice.vlook-notice{--vn:var(--ac-t1,var(--interactive-accent));background:color-mix(in srgb,var(--vn) 7%,var(--background-primary))!important;color:color-mix(in srgb,var(--vn) 55%,var(--text-normal))!important;border:1px solid color-mix(in srgb,var(--vn) 16%,transparent)!important;border-radius:8px!important;box-shadow:0 4px 14px rgba(0,0,0,.08)!important;padding:11px 12px 11px 14px!important;max-width:400px;min-width:240px}
+.notice.vlook-notice{--vn:var(--ac-t1,var(--interactive-accent));background:color-mix(in srgb,var(--vn) 7%,var(--background-primary))!important;color:color-mix(in srgb,var(--vn) 55%,var(--text-normal))!important;border:1px solid color-mix(in srgb,var(--vn) 16%,transparent)!important;border-radius:var(--v-r-s,8px)!important;font-family:var(--v-fm-stt,inherit)!important;box-shadow:0 4px 14px rgba(0,0,0,.08)!important;padding:11px 12px 11px 14px!important;max-width:400px;min-width:240px}
 .notice.vlook-notice-success{--vn:#4aa86a}
 .notice.vlook-notice-warning{--vn:#d49a3c}
 .notice.vlook-notice-error{--vn:#f25560;background:color-mix(in srgb,var(--vn) 13%,var(--background-primary))!important;color:color-mix(in srgb,var(--vn) 86%,#000)!important;border-color:color-mix(in srgb,var(--vn) 30%,transparent)!important}
@@ -363,7 +370,7 @@ body .v-doc-mini-cover.max > :is(.doc-author,.doc-date,.doc-copyright,.doc-right
 .notice.vlook-notice .vlook-notice-close{flex:none;display:flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0;margin:0;border:none;border-radius:50%;background:transparent;box-shadow:none;color:inherit;opacity:.4;cursor:pointer}
 .notice.vlook-notice .vlook-notice-close:hover{opacity:.9;background:color-mix(in srgb,var(--vn) 14%,transparent)}
 .notice.vlook-notice .vlook-notice-actions{display:flex;gap:8px;margin-top:8px}
-.notice.vlook-notice .vlook-notice-actions button{border:none;border-radius:6px;padding:4px 12px;box-shadow:none;cursor:pointer;background:color-mix(in srgb,var(--vn) 12%,var(--background-primary));color:inherit}
+.notice.vlook-notice .vlook-notice-actions button{border:none;border-radius:calc(var(--v-r-s,8px) * .6);font-family:inherit;padding:4px 12px;box-shadow:none;cursor:pointer;background:color-mix(in srgb,var(--vn) 12%,var(--background-primary));color:inherit}
 .notice.vlook-notice .vlook-notice-actions button:first-child{background:color-mix(in srgb,var(--vn) 24%,var(--background-primary))}
 .notice.vlook-notice-error .vlook-notice-actions button:first-child{background:var(--vn);color:#fff}
 
@@ -372,3 +379,25 @@ html.vlook-fading,html.vlook-fading *,html.vlook-fading *::before,html.vlook-fad
 @media (prefers-reduced-motion:reduce){html.vlook-fading,html.vlook-fading *,html.vlook-fading *::before,html.vlook-fading *::after{transition:none!important}
 }
 
+
+.vlook-exit-chip { position: fixed; z-index: 1000; top: calc(env(safe-area-inset-top, 0px) + 8px); right: 12px; padding: .35em .9em; border-radius: 999px; border: 1px solid var(--background-modifier-border); background: var(--background-primary); color: var(--text-normal); box-shadow: var(--shadow-s); font-size: var(--font-ui-small); font-family: var(--v-fm-stt, inherit); }
+
+/* 多级标签：名称与值在同一行内垂直居中并等高，不随宿主主题的行高 / 内边距差异错位或被裁切 */
+.markdown-rendered code.v-badge-name { display: inline-flex; align-items: stretch; vertical-align: middle; overflow: visible; }
+.markdown-rendered code.v-badge-name > label { display: inline-flex; align-items: center; }
+.markdown-rendered code.v-badge-name > :is(.v-badge-value, .v-badge-value2) { display: inline-flex; align-items: center; }
+
+/* 编辑与阅读共用一套行距：段间的空行等于一行高，两种模式的段落节奏一致 */
+body { --vlook-lh: 1.75; }
+.markdown-rendered.markdown-rendered :is(p, li) { line-height: var(--vlook-lh) !important; }
+.markdown-rendered.markdown-rendered p { margin-top: calc(var(--vlook-lh) * 1em) !important; margin-bottom: 0 !important; }
+.markdown-source-view.mod-cm6 .cm-content > .cm-line:not([class*="HyperMD-header"]) { line-height: var(--vlook-lh); }
+.markdown-rendered.markdown-rendered li { margin-top: .35em !important; }
+
+/* 任务列表项不显示列表圆点 */
+.markdown-rendered.markdown-rendered li.task-list-item { list-style: none; }
+.markdown-rendered.markdown-rendered li.task-list-item::marker { content: none; }
+
+/* 行内组件（进度条、面包屑、按钮）不撑高所在行，整段行距保持一致 */
+.markdown-rendered.markdown-rendered p :is(.v-pgbar, .v-stepwise) { vertical-align: middle; line-height: 1.4 !important; margin-block: -.3em; }
+.markdown-rendered.markdown-rendered p :is(a, span):has(> kbd), .markdown-rendered.markdown-rendered p kbd { margin-block: -.5em; vertical-align: middle; }

@@ -1,5 +1,5 @@
 import { registerDocumentEvent } from "./core/window-events";
-import { MarkdownView } from 'obsidian';
+import { MarkdownView, Platform } from 'obsidian';
 import type VlookPlugin from './main';
 import { navigateViewLine } from './navigation-history';
 import { imageReferenceDefinitions } from './core/image-source';
@@ -96,7 +96,7 @@ export class ParagraphRoaming {
     }
     register(){
         const p=this.plugin;
-        p.addCommand({id:'paragraph-roaming',name:'开启 / 关闭段落漫游',callback:()=>this.toggle()});
+        if(!Platform.isMobile)p.addCommand({id:'paragraph-roaming',name:'开启 / 关闭段落漫游',callback:()=>this.toggle()});
         registerDocumentEvent(p,'keydown',event=>{
             if(!this.view)return;
             if(event.key==='Escape'){this.clear();return;}

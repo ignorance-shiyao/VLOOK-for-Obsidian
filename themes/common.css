@@ -48,6 +48,7 @@ h6:first-child){margin-top:0;padding-top:0}#v-debug{position:fixed;font:normal 1
     --inline-title-font: var(--v-fm-tt);
     --blockquote-border-color: var(--ac-t1);
     --checkbox-color: var(--ac-t1);
+    --checkbox-color-hover: var(--ac-t1);
 }.markdown-preview-view.markdown-rendered,
 .markdown-source-view.mod-cm6 .cm-scroller {
     background: var(--d-bi), var(--db);
