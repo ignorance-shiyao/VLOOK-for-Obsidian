@@ -11,25 +11,25 @@ export function installTableGrips(table: HTMLTableElement, reorder?: TableReorde
     const doc = table.ownerDocument, win = doc.defaultView!;
     const host = table.parentElement;
     if (!host) return;
-    if (win.getComputedStyle(host).position === 'static') host.style.setProperty('position', 'relative');
+    if (win.getComputedStyle(host).position === 'static') host.classList.add('vlook-grip-host');
     const colGrip = doc.createElement('div'); colGrip.className = 'vlook-table-grip vlook-table-grip-col'; colGrip.title = '拖动调整列顺序';
     const rowGrip = doc.createElement('div'); rowGrip.className = 'vlook-table-grip vlook-table-grip-row'; rowGrip.title = '拖动调整行顺序';
     const line = doc.createElement('div'); line.className = 'vlook-table-drop';
     host.append(colGrip, rowGrip, line);
     let hover: HTMLTableCellElement | null = null, dragging = false;
     /** 列宽按单元格整体（含内边距）设置，并让表格总宽等于各列之和，避免切换定宽布局时整体跳动。 */
-    const setCol = (cell: HTMLTableCellElement, width: string) => { cell.style.setProperty('box-sizing', 'border-box'); cell.style.setProperty('width', width); cell.style.setProperty('min-width', width); cell.style.setProperty('max-width', width); };
+    const setCol = (cell: HTMLTableCellElement, width: string) => { cell.classList.add('vlook-grip-cell'); cell.style.setProperty('width', width); cell.style.setProperty('min-width', width); cell.style.setProperty('max-width', width); };
     const fitTable = () => {
-        const cells = Array.from(new Set(tableGrid(table)[0] || [])).filter(Boolean) as HTMLTableCellElement[];
+        const cells = Array.from(new Set<HTMLTableCellElement>(tableGrid(table)[0] || [])).filter(Boolean);
         const total = cells.reduce((sum, cell) => sum + (parseFloat(cell.style.width) || cell.getBoundingClientRect().width), 0);
-        if (total) { table.style.setProperty('width', `${total}px`); table.style.setProperty('max-width', 'none'); }
+        if (total) { table.style.setProperty('width', `${total}px`); table.classList.add('vlook-grip-wide'); }
     };
     /** 把记录的列宽、行高套回当前表格。 */
     const applySizes = () => {
         if (!sizes) return;
         const grid = tableGrid(table);
         if (sizes.cols.some(Boolean)) {
-            table.style.setProperty('table-layout', 'fixed');
+            table.classList.add('vlook-grip-fixed');
             sizes.cols.forEach((width, c) => { const cell = grid[0]?.[c]; if (cell && width) setCol(cell, width); });
             fitTable();
         }
@@ -78,7 +78,7 @@ export function installTableGrips(table: HTMLTableElement, reorder?: TableReorde
             const frozen = Array.from(new Set(grid[0] || [])).filter(Boolean).map(other => [other, `${other.getBoundingClientRect().width}px`] as const);
             frozen.forEach(([other, width]) => setCol(other, width));
             fitTable();
-            table.style.setProperty('table-layout', 'fixed');
+            table.classList.add('vlook-grip-fixed');
         }
         const move = (e: PointerEvent) => {
             if (axis === 'col') {

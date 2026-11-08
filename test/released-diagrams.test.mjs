@@ -1,10 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,existsSync} from 'node:fs';
+import fs,{readFileSync} from 'node:fs';
 import postcss from 'postcss';
 import {releasedDiagramCss} from '../scripts/released-diagrams.mjs';
 
-test('公开图表规则恢复所有 SVG 选择器及 important，不混入 Typora 编辑界面',{skip:!existsSync(new URL('../upstream/released/themes',import.meta.url))},()=>{
+test('公开图表规则恢复所有 SVG 选择器及 important，不混入 Typora 编辑界面',{skip:!fs.existsSync(new URL('../upstream/released/themes',import.meta.url))},()=>{
     const original=postcss.parse(readFileSync(new URL('../upstream/released/themes/vlook-joint.css',import.meta.url),'utf8'));
     const valid=s=>/^(?:svg\[aria-roledescription|\.v-actor-(?:front|key-sys|ext-sys)$)/.test(s);
     const expected=[];original.walkRules(rule=>{const selectors=rule.selectors.filter(valid);if(selectors.length)expected.push({selectors,body:rule.nodes.map(n=>n.toString()).join(';')});});

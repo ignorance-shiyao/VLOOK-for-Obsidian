@@ -31,7 +31,7 @@ function fragments(svg:SVGElement,language:string){
         if(points.length<4||points.some(n=>!Number.isFinite(n)))return;
         const right=Math.max(...xs);
         children.filter(child=>child.matches('text.loopText')).forEach((text,index)=>{
-            const x=String(right+(index===0?10:40));(text as SVGElement).style.setProperty('text-anchor','start');text.setAttribute('x',x);
+            const x=String(right+(index===0?10:40));text.classList.add('vlook-anchor-start');text.setAttribute('x',x);
             text.querySelectorAll('tspan').forEach(span=>span.setAttribute('x',x));
         });
     });

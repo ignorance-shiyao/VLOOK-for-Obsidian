@@ -80,7 +80,7 @@ const RE = {
     /** *==题注==* 或 _==题注==_ 独占一行 */
     caption: /^\s*([*_])==(.+)==\1\s*$/,
     /** *^tab^* 或 _^tab^_ 独占一行 */
-    tabMarker: /^\s*([*_])\^([^\^]+)\^\1\s*$/,
+    tabMarker: /^\s*([*_])\^([^^]+)\^\1\s*$/,
     blank: /^\s*$/,
 };
 
@@ -220,7 +220,7 @@ export function scanBlocks(text: string): Block[] {
 /** 能被题注 / 页签组收纳的内容块 */
 /** 去掉 Markdown 转义符（\\< → <） */
 function unescapeMd(s: string): string {
-    return s.replace(/\\([\\`*_{}\[\]()#+\-.!<>|~^=])/g, "$1");
+    return s.replace(/\\([\\`*_{}[\]()#+\-.!<>|~^=])/g, "$1");
 }
 
 function captionKind(b: Block, source?: string): CaptionInfo["kind"] | null {

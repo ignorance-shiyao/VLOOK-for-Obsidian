@@ -38,7 +38,7 @@ function variants(rel: string, query: string): string[] {
 }
 
 const MAX_PIXELS = 12_000_000;
-const tick = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 0));
+const tick = (): Promise<void> => new Promise(resolve => window.setTimeout(resolve, 0));
 
 async function toDataUri(app: App, file: TFile): Promise<string | null> {
     const ext = file.extension.toLowerCase(), mime = MIME[ext];
@@ -106,8 +106,8 @@ export function installInlineImages(map: Record<string, string>): void {
         }
     };
     const all = (): void => document.querySelectorAll("img").forEach(fix);
-    new MutationObserver(records => records.forEach(r => { if (r.target instanceof Element && r.target.tagName === "IMG") fix(r.target); }))
+    new MutationObserver(records => records.forEach(r => { if (r.target.nodeType === 1 && (r.target as Element).tagName === "IMG") fix(r.target as HTMLImageElement); }))
         .observe(document, { attributes: true, attributeFilter: ["src", "srcset"], subtree: true });
-    if (document.readyState === "complete") setTimeout(all, 0);
-    else window.addEventListener("load", () => setTimeout(all, 0));
+    if (document.readyState === "complete") window.setTimeout(all, 0);
+    else window.addEventListener("load", () => window.setTimeout(all, 0));
 }

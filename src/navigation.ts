@@ -109,14 +109,14 @@ export function registerNavigation(plugin: VlookPlugin) {
     plugin.addCommand({id:"document-library", name:"文库导航", callback:() => {
         const file = plugin.app.workspace.getActiveFile();
         if (!file) { notify("请先打开 Markdown 文档"); return; }
-        const value = plugin.app.metadataCache.getFileCache(file)?.frontmatter?.["vlook-doc-lib"];
+        const value: unknown = plugin.app.metadataCache.getFileCache(file)?.frontmatter?.["vlook-doc-lib"];
         const items = documentLibraryItems(value);
         if (!items.length) { notify("当前文档未配置 vlook-doc-lib"); return; }
         const sourcePath = file.path;
         const currentItems = () => file.path === sourcePath && plugin.app.vault.getAbstractFileByPath(sourcePath) === file
             ? documentLibraryItems(plugin.app.metadataCache.getFileCache(file)?.frontmatter?.["vlook-doc-lib"]) : [];
         const view = plugin.app.workspace.getActiveViewOfType(MarkdownView);
-        new DocumentLibraryModal(plugin, sourcePath, items, currentItems, view?.contentEl.ownerDocument ?? document).open();
+        new DocumentLibraryModal(plugin, sourcePath, items, currentItems, view?.contentEl.ownerDocument ?? activeDocument).open();
     }});
     const open = (kind?: string) => {
         const view = plugin.app.workspace.getActiveViewOfType(MarkdownView);

@@ -124,7 +124,7 @@ export function installExportThemeSwitcher(doc: Document): void {
         let el = sheets.get(name);
         if (el) return el;
         const urls: string[] = [];
-        const text = cssOf(source).replace(importRe, (_m, a, b, c) => { urls.push(a || b || c); return ''; });
+        const text = cssOf(source).replace(importRe, (_m: string, a: string, b: string, c: string) => { urls.push(a || b || c); return ''; });
         el = doc.createElement('style');
         el.media = 'not all';
         el.textContent = text;
@@ -214,7 +214,7 @@ export function installExportThemeSwitcher(doc: Document): void {
     trigger.addEventListener('keydown', event => { if (event.key === 'ArrowDown' || event.key === 'ArrowUp') { event.preventDefault(); open(); } });
     const css = doc.createElement('style');
     css.textContent = ".vlook-export-theme{position:fixed;left:16px;bottom:16px;z-index:2147483000;font:12px/1.4 -apple-system,\"PingFang SC\",\"Segoe UI\",sans-serif;color:var(--d-f,inherit);opacity:.85;transition:opacity .2s}.vlook-export-theme:hover,.vlook-export-theme.open,.vlook-export-theme:focus-within{opacity:1}.vlook-export-theme button{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:8px;height:30px;padding:0 12px 0 10px;border:1px solid var(--d-bc,rgba(128,128,128,.35));border-radius:15px;cursor:pointer;background:var(--d-bg,Canvas);box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .15s,box-shadow .2s}.vlook-export-theme button:hover{box-shadow:0 4px 14px rgba(0,0,0,.18)}.vlook-export-theme button:active{transform:scale(.97)}.vlook-export-theme button:focus-visible{outline:2px solid var(--vlook-theme-dot,currentColor);outline-offset:2px}.vlook-export-theme button::before{content:\"\";width:8px;height:8px;border-radius:50%;background:var(--vlook-theme-dot,currentColor)}.vlook-export-theme [role=listbox]{position:absolute;left:0;bottom:calc(100% + 8px);min-width:100%;max-height:50vh;overflow:auto;padding:5px;outline:none;border:1px solid var(--d-bc,rgba(128,128,128,.35));border-radius:12px;background:var(--d-bg,Canvas);box-shadow:0 12px 32px rgba(0,0,0,.2);opacity:0;visibility:hidden;transform:translateY(6px) scale(.98);transform-origin:bottom left;transition:opacity .15s,transform .2s,visibility 0s linear .2s}.vlook-export-theme.open [role=listbox]{opacity:1;visibility:visible;transform:none;transition-delay:0s}.vlook-export-theme [role=option]{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:7px;cursor:pointer;white-space:nowrap}.vlook-export-theme [role=option]::before{content:\"\";width:8px;height:8px;border-radius:50%;background:var(--vlook-theme-dot,currentColor)}.vlook-export-theme [role=option].active{background:rgba(128,128,128,.16)}.vlook-export-theme [role=option][aria-selected=true]{font-weight:600}@media (prefers-reduced-motion:reduce){.vlook-export-theme,.vlook-export-theme *{transition:none!important}}@media print{.vlook-export-theme{display:none}}";
-    css.textContent += ".v-toolbar:has(.theme-switch){width:max-content!important}.vlook-export-theme.docked{left:auto;bottom:auto}.vlook-export-theme.docked>button{display:none}.vlook-export-theme.docked [role=listbox]{top:0;bottom:auto}";
+    css.textContent += ".vlook-theme-group{float:right;margin-left:20px;display:flex}.v-toolbar:has(.theme-switch){width:max-content!important}.vlook-export-theme.docked{left:auto;bottom:auto}.vlook-export-theme.docked>button{display:none}.vlook-export-theme.docked [role=listbox]{top:0;bottom:auto}";
     doc.head.append(css);
     doc.body.append(box);
     // 聚合：原版工具栏出现后，主题切换并入其中成为一个按钮；工具栏被关闭或迟迟不出现时保留左下角的独立入口
@@ -226,13 +226,19 @@ export function installExportThemeSwitcher(doc: Document): void {
         btn.className = 'v-btn theme-switch v-transition-all';
         btn.setAttribute('role', 'button'); btn.tabIndex = 0;
         btn.setAttribute('aria-label', '主题'); btn.dataset.tips = '主题';
-        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="v-svg-i-small"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg>';
+        const ns = 'http://www.w3.org/2000/svg';
+        const icon = doc.createElementNS(ns, 'svg');
+        for (const [k, v] of Object.entries({ width: '20', height: '20', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.8', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', class: 'v-svg-i-small' })) icon.setAttribute(k, v);
+        const shape = (tag: string, attrs: Record<string, string>) => { const el = doc.createElementNS(ns, tag); for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v); icon.append(el); };
+        shape('path', { d: 'M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8Z' });
+        shape('circle', { cx: '7.5', cy: '11', r: '1' }); shape('circle', { cx: '10.5', cy: '7', r: '1' }); shape('circle', { cx: '15', cy: '7.5', r: '1' });
+        btn.append(icon);
         // 与原版按钮组一致右浮；工具栏宽度由原版运行时写定，需为新增按钮组让出位置
         btn.dataset.btnGroup = '';
         // 聚合：优先并入「视图」按钮组，没有该组时才单独成组
         const host = toolbar.querySelector('.v-btn-group.view');
         if (host) host.append(btn);
-        else { group.style.cssText = 'float:right;margin-left:20px;display:flex'; group.append(btn); toolbar.append(group); }
+        else { group.classList.add('vlook-theme-group'); group.append(btn); toolbar.append(group); }
         box.classList.add('docked');
         const toggle = () => {
             if (box.classList.contains('open')) { close(); return; }
@@ -256,7 +262,7 @@ export function installExportThemeSwitcher(doc: Document): void {
     const start = initial?.dataset.theme || sources[0].dataset.theme || '';
     setValue(start);
     // 等原版运行时完成首次颜色方案初始化后再切换，避免被其覆盖
-    if (saved && saved !== start) win.addEventListener('load', () => win.setTimeout(() => apply(saved!), 300), { once: true });
+    if (saved && saved !== start) win.addEventListener('load', () => win.setTimeout(() => apply(saved), 300), { once: true });
     // 明暗切换后，原版只更新它启动时读到的变量集；按新主题再同步一次
     win.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => win.setTimeout(() => apply(value), 50));
     win.addEventListener('storage', event => { if (event.key === 'color-scheme') sync(); });

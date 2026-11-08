@@ -32,7 +32,7 @@ export function processHeadings(section: HTMLElement, ctx: RenderCtx): void {
 /** 根容器在块插入文档后才可用 */
 function markRoot(section: HTMLElement, cls: string) {
     const apply = () => section.closest(".markdown-rendered")?.classList.add(cls);
-    section.isConnected ? apply() : requestAnimationFrame(apply);
+    section.isConnected ? apply() : window.requestAnimationFrame(apply);
 }
 
 /** 小封面：无大封面时根据 YAML（title/author/date/version/copyright/rights/tags）生成 */
@@ -93,7 +93,7 @@ export function tabInfo(b: Block): { type: string; title: string; icon?: string 
     if (!title && kind === "figure") title = b.text.match(/!\[([^\]]+)\]\(/)?.[1]?.trim() ?? "";
     if (!title) {
         if (kind === "codeblock") title = b.lang || t("codeblock");
-        else title = kind === "media" ? t("video") : t(kind as "table" | "figure" | "formula");
+        else title = kind === "media" ? t("video") : t(kind);
     }
     return { type: kind, title };
 }
@@ -111,7 +111,7 @@ const tabIndexes = new WeakMap<HTMLElement, object>();
 
 function selectTab(section: HTMLElement, id: number, index: number) {
     const key = tabIndexes.get(section);
-    if (key) { let map = tabSelections.get(key); if (!map) tabSelections.set(key, map = new Map()); map.set(id, index); }
+    if (key) { let map = tabSelections.get(key); if (!map) tabSelections.set(key, map = new Map<number, number>()); map.set(id, index); }
     const parent = section.parentElement;
     if (!parent) return;
     parent.querySelectorAll<HTMLElement>(`:scope > [data-vlook-tab-group="${id}"]`).forEach(m => {
@@ -168,7 +168,7 @@ export function processTabGroups(section: HTMLElement, ctx: RenderCtx): void {
     });
     // 隐藏原 _^tab^_ 段落内容，显示页签栏
     section.replaceChildren(box);
-    requestAnimationFrame(() => tabMembers(section, id).length && selectTab(section, id, Number(section.dataset.vlookTabCurrent || 1)));
+    window.requestAnimationFrame(() => tabMembers(section, id).length && selectTab(section, id, Number(section.dataset.vlookTabCurrent || 1)));
 }
 
 // ---------------- 分栏 ----------------
@@ -214,20 +214,20 @@ const watched = new WeakSet<HTMLElement>();
  */
 function scheduleEqualize(section: HTMLElement, group: number) {
     const scope = section.parentElement ?? section;
-    let timers = pending.get(scope); if (!timers) pending.set(scope, timers = new Map());
+    let timers = pending.get(scope); if (!timers) pending.set(scope, timers = new Map<number, number>());
     window.clearTimeout(timers.get(group));
     timers.set(group, window.setTimeout(() => {
         const parent = section.parentElement;
         if (!parent) return;
         const items = Array.from(parent.querySelectorAll<HTMLElement>(`:scope > [data-vlook-col-group="${group}"] > :is(blockquote, details, .callout, .md-alert)`));
-        items.forEach(i => i.style.setProperty('min-height', ""));
+        items.forEach(i => i.style.removeProperty('min-height'));
         if (getComputedStyle(section).display === "block") return;
         const max = Math.max(...items.filter(i => !i.closest("[data-folding]") && i.tagName !== "DETAILS").map(i => i.offsetHeight));
         if (max > 0) {
             const owner = columnOwners.get(section);
             let target = max;
             if (owner) {
-                let heights = columnHeights.get(owner); if (!heights) columnHeights.set(owner, heights = new Map());
+                let heights = columnHeights.get(owner); if (!heights) columnHeights.set(owner, heights = new Map<number, number>());
                 const count = Number(section.style.getPropertyValue("--vlook-col-count")) || 0;
                 // 整组都已渲染时以实测为准（窗口变宽后可回落）；仅部分渲染时保留此前量到的最大值
                 target = items.length < count ? Math.max(max, heights.get(group) ?? 0) : max; heights.set(group, target);

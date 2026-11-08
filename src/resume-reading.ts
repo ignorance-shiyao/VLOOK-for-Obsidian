@@ -21,7 +21,7 @@ export class ResumeReading {
     private scroller:HTMLElement|null=null;
     private boundPath:string|null=null;
     private pending:{path:string;entry:ReadingPosition}|null=null;
-    private timer:ReturnType<typeof setTimeout>|null=null;
+    private timer:number|null=null;
     private disposed=false;
     private ignoredPath:string|null=null;
     private writes:Promise<void>=Promise.resolve();
@@ -46,7 +46,7 @@ export class ResumeReading {
         return {path:view.file.path,entry:{line,signature:this.signatureValue,updated:Date.now()}};
     }
     private save=()=>{
-        if(this.timer!==null){clearTimeout(this.timer);this.timer=null;}
+        if(this.timer!==null){window.clearTimeout(this.timer);this.timer=null;}
         const snapshot=this.pending || this.capture();this.pending=null;
         if(!snapshot || snapshot.path===this.ignoredPath)return;
         const entries=this.plugin.settings.readingPositions ||= {},old=entries[snapshot.path];
@@ -59,7 +59,7 @@ export class ResumeReading {
     private queue=()=>{
         this.ignoredPath=null;
         const snapshot=this.capture();if(snapshot)this.pending=snapshot;
-        if(this.timer!==null)clearTimeout(this.timer);this.timer=setTimeout(this.save,1000);
+        if(this.timer!==null)window.clearTimeout(this.timer);this.timer=window.setTimeout(this.save,1000);
     };
     private bind=()=>{
         if(this.disposed)return;
@@ -83,7 +83,7 @@ export class ResumeReading {
         p.addCommand({id:'forget-reading-position',name:'清除当前文档阅读位置',callback:()=>{
             const path=p.app.workspace.getActiveFile()?.path;
             if(path&&p.settings.readingPositions){
-                this.ignoredPath=path;this.pending=null;if(this.timer!==null){clearTimeout(this.timer);this.timer=null;}
+                this.ignoredPath=path;this.pending=null;if(this.timer!==null){window.clearTimeout(this.timer);this.timer=null;}
                 delete p.settings.readingPositions[path];this.persist();notify('已清除阅读位置');
             }
         }});

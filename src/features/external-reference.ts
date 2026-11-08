@@ -52,7 +52,7 @@ export async function processExternalReferences(root:HTMLElement,ctx:RenderCtx):
         }
         jobs.push((async()=>{
             try{
-                const index=await read!;if(!current())return;
+                const index=await read;if(!current())return;
                 let prefix='';
                 for(const block of index.blocks){
                     if(block.type==='heading'&&vlookAnchor(headingPlain(block.text))===vlookAnchor(hash)){prefix=block.headerNum||'';break;}

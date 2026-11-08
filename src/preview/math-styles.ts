@@ -1,10 +1,11 @@
+import { readResource } from "../core/resource";
 type AssetLoader=(url:string)=>Promise<Uint8Array>;
 const IDS=['MJX-CHTML-styles','MathJax-CHTML-styles','MJX-QE-styles','MJX-ty-styles'];
 
 async function loadAsset(url:string):Promise<Uint8Array>{
-    const response=await fetch(url);
+    const response=await readResource(url);
     if(!response.ok)throw Error(`数学字体读取失败：${response.status} ${url}`);
-    return new Uint8Array(await response.arrayBuffer());
+    return new Uint8Array(await response.bytes());
 }
 function base64(bytes:Uint8Array):string{
     let binary='';for(let i=0;i<bytes.length;i+=8192)binary+=String.fromCharCode(...bytes.subarray(i,i+8192));
@@ -48,8 +49,8 @@ export async function collectMathStyles(root:HTMLElement,load:AssetLoader=loadAs
         const bytes=await load(url);if(!bytes.length)throw Error(`数学字体为空：${url}`);
         return [url,`data:${mime};base64,${base64(bytes)}`] as const;
     })));
-    css=css.replace(pattern,(full,_double,_single,_bare)=>{
-        const raw=_double??_single??_bare;if(/^data:/i.test(raw)||raw.startsWith('#'))return full;
+    css=css.replace(pattern,(full:string,_double:string|undefined,_single:string|undefined,_bare:string|undefined)=>{
+        const raw=_double??_single??_bare??'';if(/^data:/i.test(raw)||raw.startsWith('#'))return full;
         return `url("${resolved.get(new URL(raw,doc.baseURI).href)}")`;
     });
     return css.replace(/<\/style/gi,'<\\/style');

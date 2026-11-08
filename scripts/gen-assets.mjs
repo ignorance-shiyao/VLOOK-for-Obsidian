@@ -64,7 +64,11 @@ function genIcons() {
 
 function genRuntime() {
     const src = path.join(REPO, "released/plugin/plugin.txt");
-    fs.writeFileSync(path.join(GEN, "vlook-runtime.txt"), adaptRuntime(fs.readFileSync(src, "utf8")));
+    // jQuery 的 DOMEval 会动态创建 script 元素执行文本；笔记内容不应执行脚本，整体改为空操作
+    const DOM_EVAL = /function (\w)\((\w),(\w),(\w)\)\{var (\w),(\w)=\(\4=\4\|\|\w\)\.createElement\("script"\);[^}]*\}/;
+    const runtime = adaptRuntime(fs.readFileSync(src, "utf8"));
+    if (!DOM_EVAL.test(runtime)) throw new Error("未找到 jQuery DOMEval，无法移除动态脚本创建");
+    fs.writeFileSync(path.join(GEN, "vlook-runtime.txt"), runtime.replace(DOM_EVAL, "function $1($2,$3,$4){}"));
     const ver = (fs.readFileSync(src, "utf8").match(/VLOOK "([^"]+)"/) || [])[1] || "unknown";
     fs.writeFileSync(path.join(GEN, "version.ts"), `export const VLOOK_VERSION = ${JSON.stringify(ver)};\n`);
     return ver;

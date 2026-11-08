@@ -10,7 +10,7 @@ export function htmlMediaSources(source: string, doc?: Document, includeMini = f
     const markup = source.replace(/<!--[\s\S]*?(?:-->|$)|<(script|style|textarea|title)\b[^>]*>[\s\S]*?(?:<\/\1\s*>|$)/gi, value => value.replace(/[^\n]/g, ' '));
     const ignored=htmlLiteralRanges(markup);
     return Array.from(markup.matchAll(/<\/?[A-Za-z][\w:-]*\b(?:[^"'<>]|"[^"]*"|'[^']*')*>/g)).flatMap(token => {
-        if(ignored.some(range=>token.index!>=range.pos&&token.index!<range.end))return [];
+        if(ignored.some(range=>token.index>=range.pos&&token.index<range.end))return [];
         const tag = token[0].match(/^<(audio|video|iframe|img)\b/i)?.[1].toLowerCase();
         if (!tag) return [];
         const attrs = Array.from(token[0].slice(tag.length + 1).matchAll(/([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g));
@@ -34,6 +34,6 @@ export function htmlMediaSources(source: string, doc?: Document, includeMini = f
             const element = template.content.firstElementChild;
             alt = element?.getAttribute('alt') || ''; title = element?.getAttribute('title') || undefined;
         }
-        return [{pos: token.index!, tag, type, alt, title}];
+        return [{pos: token.index, tag, type, alt, title}];
     });
 }

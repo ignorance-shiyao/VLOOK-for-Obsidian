@@ -53,7 +53,7 @@ export function processToc(section: HTMLElement, ctx: RenderCtx): void {
     const p = section.querySelector<HTMLElement>(":scope > p");
     if (!p || !TOC_RE.test(p.textContent || "") || !ctx.index) return;
     const items = sourceItems(ctx.index,ctx.query);
-    const app = ctx.app as any;
+    const app = ctx.app;
     const toc = tocDom(section.ownerDocument, items, i => `#${encodeURIComponent(i.text)}`, (i, ev) => {
         let line=i.line;
         const view=ctx.app?navigationSourceView(ctx.app,ctx.sourcePath,section):null;
@@ -67,7 +67,7 @@ export function processToc(section: HTMLElement, ctx: RenderCtx): void {
         if(view?.contentEl?.contains(section) && !ev.metaKey && !ev.ctrlKey && line!==undefined){navigateViewLine(view,line);return;}
         if (ctx.app && line !== undefined) recordLineNavigation(ctx.app, ctx.sourcePath, line,view);
         // 按全文索引定位，重复标题与标题中的 # 不再依赖字符串锚点解析。
-        app?.workspace?.openLinkText(ctx.sourcePath, "", ev.metaKey || ev.ctrlKey, {eState:{line}});
+        void app?.workspace?.openLinkText(ctx.sourcePath, "", ev.metaKey || ev.ctrlKey, {eState:{line}});
     });
     p.replaceWith(toc);
 }

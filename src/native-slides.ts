@@ -35,7 +35,7 @@ export class NativeSlides {
         const groups=slideGroups(index,query.get('unpub')==='off');
         if(!groups.length){notify('没有可显示的幻灯片内容');return;}
         const focus=doc.activeElement as HTMLElement|null;
-        const notifyPresentation=()=>{const event=doc.createEvent('Event');event.initEvent('vlook-presentation-change',false,false);doc.dispatchEvent(event);};
+        const notifyPresentation=()=>{doc.dispatchEvent(new doc.defaultView!.Event('vlook-presentation-change'));};
         const scroller=view.contentEl.querySelector<HTMLElement>('.markdown-preview-view');
         const position={top:scroller?.scrollTop||0,left:scroller?.scrollLeft||0};
         const dialog=doc.createElement('dialog');dialog.className='vlook-native-slides';dialog.setAttribute('aria-label','VLOOK 幻灯片');
@@ -125,7 +125,7 @@ export class NativeSlides {
                     }
                 }
                 status.textContent=`${at+1} / ${groups.length} · ${group.title}`;
-            }catch(error){pauseContainedMedia(stage);stage.remove();fresh.unload();if(!closed&&mine===sequence)status.textContent=`幻灯片渲染失败：${(error as Error).message||error}`;}
+            }catch(error){pauseContainedMedia(stage);stage.remove();fresh.unload();if(!closed&&mine===sequence)status.textContent=`幻灯片渲染失败：${(error as Error).message||String(error)}`;}
             finally{pending.delete(fresh);}
         };
         const go=(target:number,line?:number,top?:number,footnoteId?:string,footnoteOrdinal?:string)=>{if(target<0||target>=groups.length)return;at=target;void render(line,top,footnoteId,footnoteOrdinal);};
@@ -145,7 +145,7 @@ export class NativeSlides {
             input.addEventListener('keydown',event=>{event.stopPropagation();if(event.key==='Enter'){event.preventDefault();finish(true);}else if(event.key==='Escape'){event.preventDefault();finish(false);}});
             input.addEventListener('blur',()=>finish(false));
         });
-        const requestEffect=(effect:'laser'|'spotlight')=>{const event=doc.createEvent('CustomEvent');event.initCustomEvent('vlook-presentation-effect',false,false,effect);doc.dispatchEvent(event);};
+        const requestEffect=(effect:'laser'|'spotlight')=>{doc.dispatchEvent(new doc.defaultView!.CustomEvent('vlook-presentation-effect',{detail:effect}));};
         button('激光笔',()=>requestEffect('laser'));
         const spotlight=button('聚光灯',()=>requestEffect('spotlight'));if(!Platform.isMobile)spotlight.title='按 Shift 切换聚光灯大小';
         chooser.onChange(value=>go(Number(value)));
@@ -193,7 +193,7 @@ export class NativeSlides {
                     if(quote){line=block.start+quote.line;break;}
                 }
             }
-            const target=line===undefined?-1:groups.findIndex(group=>group.blocks.some(block=>block.start<=line!&&block.end>=line!));
+            const target=line===undefined?-1:groups.findIndex(group=>group.blocks.some(block=>block.start<=line&&block.end>=line));
             if(target>=0){accept();go(target,line);}
         },true);
         const leaf=p.app.workspace.on('active-leaf-change',close);subscriptions.push(()=>p.app.workspace.offref(leaf));

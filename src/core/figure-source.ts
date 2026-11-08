@@ -40,12 +40,12 @@ export function figureSources(block: Block, source: string, doc?: Document) {
         if(/^<kbd(?:\s|>)/i.test(token[0])){depth++;continue;}
         if(/^<\/kbd\s*>/i.test(token[0])){depth=Math.max(0,depth-1);continue;}
         if(depth||!/^<img\b/i.test(token[0]))continue;
-        if(literalRanges.some(range=>token.index!>=range.pos&&token.index!<range.end))continue;
+        if(literalRanges.some(range=>token.index>=range.pos&&token.index<range.end))continue;
         const attrs=Array.from(token[0].slice(4).matchAll(/([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g));
         const attr=(name:string)=>{const value=attrs.find(item=>item[1].toLowerCase()===name);return value?(value[2]??value[3]??value[4]??'').replace(/&(?:amp|#38|#x26);/gi,'&'):undefined;};
         let raw=attr('src'),alt=attr('alt')||'',title=attr('title');
         if(doc){const template={content:parseHtml(doc,token[0])};const image=template.content.querySelector('img');raw=image?.getAttribute('src')??raw;alt=image?.getAttribute('alt')||'';title=image?.getAttribute('title')||undefined;}
-        if(raw&&regular(raw))html.push({raw,alt,title,pos:token.index!,end:token.index!+token[0].length});
+        if(raw&&regular(raw))html.push({raw,alt,title,pos:token.index,end:token.index+token[0].length});
     }
     const markdown=sourceImages(block.text,source).filter(ref=>!ignored.some(range=>ref.pos>=range.from&&ref.pos<range.to)&&regular(ref.raw));
     return [...markdown,...html].sort((a,b)=>a.pos-b.pos);

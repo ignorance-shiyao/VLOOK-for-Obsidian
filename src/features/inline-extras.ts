@@ -23,9 +23,9 @@ export function buildProgress(strong: HTMLElement, value: number): void {
     const state = { id: `id-${++pgCount}` };
     progressStates.set(strong, state);
     strong.classList.add("v-pgbar", state.id);
-    label.style.setProperty('box-shadow', "");
-    label.style.setProperty('margin-left', "");
-    label.style.setProperty('margin-right', "");
+    label.style.removeProperty('box-shadow');
+    label.style.removeProperty('margin-left');
+    label.style.removeProperty('margin-right');
     let rb = strong.getAttribute("data-rb-text");
     const auto = rb === null;
     if (auto) {
@@ -140,7 +140,7 @@ export function processBreadcrumb(root: HTMLElement): void {
         span.setAttribute("data-clipboard-text", mark.textContent || "");
         setHtml(span, mark.innerHTML.replace(BC_SYNTAX, "<label> </label>"));
         em.replaceWith(span);
-        span.addEventListener("click", () => copyText(span, span.getAttribute("data-clipboard-text") || ""));
+        span.addEventListener("click", () => void copyText(span, span.getAttribute("data-clipboard-text") || ""));
         keyboardCopy(span,()=>span.getAttribute('data-clipboard-text')||'');
         span.querySelectorAll("a").forEach(a => a.addEventListener("click", ev => ev.stopPropagation()));
     });

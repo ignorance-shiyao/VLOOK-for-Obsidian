@@ -2,7 +2,7 @@
 export function htmlLiteralRanges(source:string,allowKbd=false):{pos:number;end:number}[] {
     const ranges:{pos:number;end:number}[]=[];
     const raw=/<!--[\s\S]*?(?:-->|$)|<(script|style|textarea|title)\b(?:[^"'<>]|"[^"]*"|'[^']*')*>[\s\S]*?(?:<\/\1\s*>|$)/gi;
-    const markup=source.replace(raw,(value,_tag,offset)=>{
+    const markup=source.replace(raw,(value:string,_tag:string,offset:number)=>{
         ranges.push({pos:offset,end:offset+value.length});return value.replace(/[^\n]/g,' ');
     });
     const literal=new Set(['code','pre','svg','math','mjx-container',...(allowKbd?[]:['kbd'])]);
@@ -15,13 +15,13 @@ export function htmlLiteralRanges(source:string,allowKbd=false):{pos:number;end:
             const at=stack.map(item=>item.tag).lastIndexOf(tag);
             if(at<0)continue;
             const start=stack[0].pos;stack.length=at;
-            if(!stack.length)ranges.push({pos:start,end:match.index!+token.length});
+            if(!stack.length)ranges.push({pos:start,end:match.index+token.length});
         } else {
             const attrs=Array.from(token.slice(tag.length+1).matchAll(/([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g));
             const cls=attrs.find(attr=>attr[1].toLowerCase()==='class');
             const classes=(cls?.[2]??cls?.[3]??cls?.[4]??'').split(/\s+/);
             const startsLiteral=literal.has(tag)||classes.includes('math')||classes.includes('frontmatter');
-            if((stack.length||startsLiteral)&&!voidTags.has(tag)&&!/\/\s*>$/.test(token))stack.push({tag,pos:match.index!});
+            if((stack.length||startsLiteral)&&!voidTags.has(tag)&&!/\/\s*>$/.test(token))stack.push({tag,pos:match.index});
         }
     }
     if(stack.length)ranges.push({pos:stack[0].pos,end:source.length});

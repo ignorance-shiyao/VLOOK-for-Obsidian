@@ -41,12 +41,12 @@ export class EditorThemeRefresh {
     refresh():void {this.views.forEach((state,view)=>this.schedule(view,state));}
     dispose():void {this.disposed=true;this.views.clear();}
     extension() {
-        const owner=this;
+        const attach=(view:EditorView)=>this.attach(view),refresh=()=>this.refresh();
         return [editorThemeRevision,editorThemeConfigField,ViewPlugin.fromClass(class {
             private detach:()=>void;
             private doc:Document;
-            constructor(private view:EditorView){this.doc=view.dom.ownerDocument;this.detach=owner.attach(view);}
-            update(){if(this.doc!==this.view.dom.ownerDocument){this.doc=this.view.dom.ownerDocument;owner.refresh();}}
+            constructor(private view:EditorView){this.doc=view.dom.ownerDocument;this.detach=attach(view);}
+            update(){if(this.doc!==this.view.dom.ownerDocument){this.doc=this.view.dom.ownerDocument;refresh();}}
             destroy(){this.detach();}
         })];
     }

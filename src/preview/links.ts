@@ -11,7 +11,7 @@ function linkHref(anchor:Element):string {
 
 export interface VaultLink { file: TFile; query: string; hash: string }
 
-export function rewriteLibraryLinks(value:unknown,app:App,sourcePath:string,mode:'preview'|'export',extension='html',doc:Document=document,outDir?:string):unknown {
+export function rewriteLibraryLinks(value:unknown,app:App,sourcePath:string,mode:'preview'|'export',extension='html',doc:Document=activeDocument,outDir?:string):unknown {
     return rewriteDocumentLibrary(value,href=>{
         if(mode==='preview'){
             const link=resolveVaultLink(app,href,sourcePath);

@@ -32,9 +32,9 @@ export function sourceLinks(index:SourceIndex):SourceLink[]{
         if(rawText){const after=node.from+rawText[0].length;const close=masked.slice(after).match(new RegExp(`<\\/${rawText[1]}\\s*>`,'i'));htmlRanges.push({from:node.from,to:close?after+close.index!+close[0].length:source.length});return false;}
         const raw=masked.slice(node.from,node.to).replace(/<!--[\s\S]*?(?:-->|$)|<(script|style|textarea|title)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,value=>value.replace(/[^\n]/g,' '));
         for(const match of raw.matchAll(/<a\b(?:[^"'<>]|"[^"]*"|'[^']*')*>/gi)){
-            const from=node.from+match.index!,after=from+match[0].length;
+            const from=node.from+match.index,after=from+match[0].length;
             const close=masked.slice(after).match(/<\/a\s*>/i),to=close?after+close.index!+close[0].length:after;
-            const template={content:parseHtml(document,source.slice(from,to))};
+            const template={content:parseHtml(activeDocument,source.slice(from,to))};
             const anchor=template.content.querySelector('a'),href=anchor?.getAttribute('href');
             if(!anchor||!href)continue;
             htmlRanges.push({from,to});

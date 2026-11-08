@@ -49,7 +49,7 @@ export function colorCodeOf(el: Element | null | undefined): ColorSet | null {
     if (!el || el.tagName !== "EM")
         return null;
     const sub = el.children.length === 1 && el.firstElementChild?.tagName === "SUB" ? el.firstElementChild : null;
-    if (!sub || el.textContent!.trim() !== sub.textContent!.trim())
+    if (!sub || el.textContent.trim() !== sub.textContent.trim())
         return null;
     return parseColor(sub.textContent || "");
 }

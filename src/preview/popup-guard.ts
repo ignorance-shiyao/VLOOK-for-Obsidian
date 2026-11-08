@@ -25,8 +25,7 @@ export function installPopupGuard(): void {
             if (el.dataset.vPopupMax !== String(height)) {
                 el.dataset.vPopupMax = String(height);
                 el.style.setProperty("max-height", `${height}px`, "important");
-                el.style.setProperty("overflow-y", "auto", "important");
-                el.style.setProperty("bottom", "auto", "important");
+                el.classList.add("v-popup-fit");
             }
         }
     };
@@ -35,9 +34,9 @@ export function installPopupGuard(): void {
     const css = new CSSStyleSheet();
     css.replaceSync("html.v-tb-folded .v-toolbar,html.v-tb-auto .v-toolbar,html.v-tb-auto .v-tb-fold{display:none!important}"
         + ".v-tb-fold{position:fixed;z-index:2147483000;left:50%;transform:translateX(-50%);width:44px;height:18px;border:0;border-radius:0 0 10px 10px;background:var(--ac-t1,#2a55cc);color:#fff;padding:0;display:flex;align-items:center;justify-content:center;opacity:.85}"
-        + ".v-tb-fold svg{width:14px;height:14px;transition:transform .2s}html.v-tb-folded .v-tb-fold svg{transform:rotate(180deg)}");
+        + ".v-popup-fit{overflow-y:auto!important;bottom:auto!important}.v-tb-fold svg{width:14px;height:14px;transition:transform .2s}html.v-tb-folded .v-tb-fold svg{transform:rotate(180deg)}");
     document.adoptedStyleSheets = [...document.adoptedStyleSheets, css];
-    const fold = document.createElement("button");
+    const fold = document.createElementNS("http://www.w3.org/1999/xhtml", "button");
     fold.className = "v-tb-fold";
     const ns = "http://www.w3.org/2000/svg", icon = document.createElementNS(ns, "svg"), arrow = document.createElementNS(ns, "path");
     for (const [k, v] of Object.entries({ viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "3", "stroke-linecap": "round", "stroke-linejoin": "round" })) icon.setAttribute(k, v);

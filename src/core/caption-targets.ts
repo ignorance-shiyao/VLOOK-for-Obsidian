@@ -11,14 +11,14 @@ export function captionTargets(block: Block, source: string): CaptionTarget[] {
     const refs = sourceImages(block.text, source);
     const targets: CaptionTarget[] = [];
     if(block.figureCaptions?.length){
-        const figures=figureSources(block,source,typeof document==='undefined'?undefined:document);
+        const figures=figureSources(block,source,typeof document==='undefined'?undefined:activeDocument);
         figures.forEach((ref,n)=>{
             const info=block.figureCaptions![n],title=ref.alt||info?.cap1;
             if(info&&title)targets.push({title,num:info.num,line:block.start+block.text.slice(0,ref.pos).split('\n').length-1});
         });
     }
     if (block.mediaCaptions?.length) {
-        const media = mediaSources(block, source, typeof document === 'undefined' ? undefined : document);
+        const media = mediaSources(block, source, typeof document === 'undefined' ? undefined : activeDocument);
         if (media.length === block.mediaCaptions.length) {
             targets.push(...media.flatMap((ref, n) => {
                 const info = block.mediaCaptions![n], title = ref.alt || info.cap1;

@@ -21,11 +21,11 @@ const RE_TAG = new RegExp(String.raw`(?<![*\w])([*_])\`([^\`\n]+)\`\1(?:_~(${C})
 const RE_BADGE = new RegExp(String.raw`(?<![*\w])([*_])([^*_\`\n]*)\`([^\`\n]+)\`([^*_\`\n]*)\1(?:_~(${C})~_)?`, "gi");
 const RE_PROGRESS = new RegExp(String.raw`\*\*==([-+]?\d+(?:\.\d+)?|[?？])==\*\*(?:_~(${C})~_)?`, 'gi');
 const RE_SCRATCH = new RegExp(String.raw`(?<!\*)\*([^*\n]*)\*\*([^*\n]+)\*\*\*(?:_~(${C})~_)?`, "gi");
-const RE_PHONETIC = /([^\s_*\\])_\^([^\^\n]+)\^_/g;
+const RE_PHONETIC = /([^\s_*\\])_\^([^^\n]+)\^_/g;
 const RE_PHONETIC_CODE = /`\{([^}`\n]+)\}\(([^)`\n]+)\)`/g;
 const RE_LINE_COLOR = new RegExp(String.raw`^(\s*(?:>\s*)*)_~(${C})~_\s*`, "i");
 const RE_SUB = /(?<![~_])~([^\s~_](?:[^~\n]*[^\s~_])?)~(?![~_])/g;
-const RE_SUP = /(?<![\^_\[])\^([^\s^_[\]](?:[^^\n[\]]*[^\s^_[\]])?)\^(?![_\]])/g;
+const RE_SUP = /(?<![\^_[])\^([^\s^_[\]](?:[^^\n[\]]*[^\s^_[\]])?)\^(?![_\]])/g;
 const RE_COLOR = new RegExp(String.raw`(\*\*[^*\n]+\*\*|==[^=\n]+==|(?<!\*)\*[^*\n]+\*(?!\*)|<u>[^<\n]+<\/u>)_~(${C})~_`, "gi");
 
 function ctxFor(plugin: VlookPlugin, frontmatterQuery?: string, themeQuery = readCssVar("--vlook-query")) {
@@ -48,7 +48,7 @@ function colorStyle(color: string): string {
     return `background-image: linear-gradient(90deg,${gradColors(splitColors(color))}); -webkit-background-clip: text; background-clip: text; color: transparent`;
 }
 
-function colorEm(color?: string, doc: Document = document): HTMLElement | null {
+function colorEm(color?: string, doc: Document = activeDocument): HTMLElement | null {
     if (!color) return null;
     const em = doc.createElement("em");
     em.replaceChildren(Object.assign(em.ownerDocument.createElement('sub'), {textContent: color}));
@@ -59,7 +59,7 @@ class InlineWidget extends WidgetType {
     constructor(private key: string, private build: (doc:Document) => HTMLElement) { super(); }
     eq(other: InlineWidget) { return other.key === this.key; }
     toDOM(view?: EditorView) {
-        const doc = view?.dom?.ownerDocument || document;
+        const doc = view?.dom?.ownerDocument || activeDocument;
         const host = doc.createElement("span");
         host.className = "markdown-rendered vlook-inline";
         host.append(this.build(doc));

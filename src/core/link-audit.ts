@@ -45,13 +45,13 @@ export function hasSourceAnchor(index:SourceIndex,anchor:string):boolean {
     parser.parse(masked).iterate({enter(node){
         if(['FencedCode','CodeBlock','InlineCode','CommentBlock'].includes(node.name)){excluded.push({from:node.from,to:node.to});return false;}
         if(node.name==='HTMLTag'||node.name==='HTMLBlock'){
-            const template={content:parseHtml(document,index.text.slice(node.from,node.to))};
+            const template={content:parseHtml(activeDocument,index.text.slice(node.from,node.to))};
             template.content.querySelectorAll<HTMLElement>('[id],a[name]').forEach(element=>{if(element.id)exact.add(element.id);const name=element.getAttribute('name');if(name)exact.add(name)});
             excluded.push({from:node.from,to:node.to});return false;
         }
     }});
     for(const match of index.text.matchAll(/(?:^|[ \t])\^([A-Za-z0-9-]+)[ \t]*$/gm)){
-        const position=match.index!,line=index.text.slice(0,position).split('\n').length-1;
+        const position=match.index,line=index.text.slice(0,position).split('\n').length-1;
         if(fm&&line>=fm.start&&line<=fm.end||excluded.some(range=>position>=range.from&&position<range.to))continue;
         blocks.add(match[1]);
     }

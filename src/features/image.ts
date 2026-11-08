@@ -1,3 +1,5 @@
+import type { App } from "obsidian";
+import { readResource } from "../core/resource";
 import {isLiteralContent} from '../core/literal-dom';
 import { figureSources } from '../core/figure-source';
 import { renderedSourceImages, matchRenderedImages } from '../core/rendered-image-source';
@@ -64,7 +66,7 @@ function setupDarkSrc(img: HTMLImageElement, q: Record<string, string>) {
 }
 
 /** 根据 Obsidian 当前明暗模式切换图片 */
-export function applyColorScheme(root: ParentNode = document): void {
+export function applyColorScheme(root: ParentNode = activeDocument): void {
     root.querySelectorAll<HTMLImageElement>("img[data-darksrc]").forEach(img => {
         if(isLiteralContent(img,{allowKbd:true}))return;
         const dark = img.ownerDocument.body.classList.contains("theme-dark");
@@ -91,7 +93,7 @@ async function fillSvg(img: HTMLImageElement, fill: string, root: HTMLElement, c
         if (svgFillRequests.get(img) === request) svgFillRequests.delete(img);
     });
     try {
-        const res = await fetch(img.src, { signal: controller.signal });
+        const res = await readResource(img.src, controller.signal);
         if (!res.ok || !current()) return;
         const text = await res.text();
         if (!current()) return;
@@ -185,14 +187,14 @@ function bindPostcardVisual(img: HTMLImageElement | SVGSVGElement, card: HTMLEle
         trigger.setAttribute("aria-details", ownedDetails);
         const inside = (node: Node | null) => !!node && (node === trigger || node === img || card.contains(node));
         const show = () => {
-            if (card.style.display === "block") return;
+            if (card.classList.contains("vlook-card-open")) return;
             img.classList.add("vlook-img-dim");
             const w = fitMax ? (img.parentElement?.offsetWidth ?? imageWidth()) : imageWidth();
             card.style.setProperty('width', `${w}px`);
-            card.style.setProperty('display', "block");
+            card.classList.add("vlook-card-open");
             card.style.setProperty('top', `${imageBottom() - card.offsetHeight + (border ? 1 : 0)}px`);
         };
-        const close = () => { img.classList.remove("vlook-img-dim"); card.style.setProperty('display', "none"); };
+        const close = () => { img.classList.remove("vlook-img-dim"); card.classList.remove("vlook-card-open"); };
         const leave = (ev: MouseEvent) => {
             if (inside(ev.relatedTarget as Node | null) || inside(img.ownerDocument.activeElement)) return;
             close();
@@ -283,7 +285,7 @@ let imgCount = 0;
  * 显示为「找不到…」。按去掉参数后的路径找到文件，替换为 <img>，参数保留在 src 上供后续处理
  */
 /** missingAsImage：导出时把找不到的本地图片还原为原地址的 <img>，交给 VLOOK 运行时标记失效（与 Typora 一致）。 */
-export function resolveBrokenEmbeds(root: HTMLElement, app: any, sourcePath: string, missingAsImage = false): void {
+export function resolveBrokenEmbeds(root: HTMLElement, app: App | null, sourcePath: string, missingAsImage = false): void {
     if (!app?.metadataCache) return;
     // 阅读视图为 span；实时预览为 div，且是编辑器组件的根节点，只能替换其内容。
     const place = (embed: HTMLElement, img: HTMLImageElement) => {

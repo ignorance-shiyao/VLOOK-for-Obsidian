@@ -1,7 +1,7 @@
 // 「VLOOK 预览」视图：在 iframe 中运行官方 VLOOK 插件，提供与导出 HTML 一致的完整交互
 // （导航中心、目录/插图/表格索引、搜索、幻灯片、宁静视图、聚光灯、激光笔、画中画、内容助手、页签组…）
 
-import { ItemView, TFile, WorkspaceLeaf, debounce, normalizePath } from "obsidian";
+import { ItemView, TFile, WorkspaceLeaf, debounce, normalizePath, type ViewStateResult } from "obsidian";
 import type VlookPlugin from "../main";
 import { buildVlookHtml } from "./document";
 import { previewLinkHref, resolveVaultLink } from "./links";
@@ -36,7 +36,7 @@ export class VlookPreviewView extends ItemView {
         return f instanceof TFile ? f : null;
     }
 
-    async setState(state: { file?: string; print?: boolean; out?: string | null }, result: any) {
+    async setState(state: { file?: string; print?: boolean; out?: string | null }, result: ViewStateResult) {
         if (state?.file) this.filePath = state.file;
         this.printMode = !!state?.print;
         this.pdfOut = state?.out ?? null;
@@ -79,7 +79,7 @@ export class VlookPreviewView extends ItemView {
         updateBottomSpace();
         this.addAction("download", "导出为 VLOOK HTML", () => {
             const f = this.getFile();
-            if (f) void exportHtml(this.plugin, f).catch(error => notify(`导出失败：${error.message || error}`));
+            if (f) void exportHtml(this.plugin, f).catch(error => notify(`导出失败：${(error as Error).message || String(error)}`));
         });
         this.addAction("printer", "发布为 PDF（原版打印选项）", () => {
             const file = this.getFile();
@@ -87,7 +87,7 @@ export class VlookPreviewView extends ItemView {
         });
         this.addAction("refresh-cw", "刷新", () => this.refresh());
         const onChange = debounce((file: TFile) => {
-            if (file.path === this.filePath) this.refresh();
+            if (file.path === this.filePath) void this.refresh();
         }, 800, true);
         this.registerEvent(this.app.vault.on("modify", f => f instanceof TFile && onChange(f)));
         // Obsidian 切换明暗模式或主题时，预览跟随
@@ -95,10 +95,10 @@ export class VlookPreviewView extends ItemView {
         let last = look();
         this.registerEvent(this.app.workspace.on("css-change", () => {
             const now = look();
-            if (now !== last) { last = now; this.refresh(); }
+            if (now !== last) { last = now; void this.refresh(); }
         }));
         this.registerEvent(this.app.vault.on("rename", (f, old) => {
-            if (old === this.filePath) { this.filePath = f.path; this.refresh(); }
+            if (old === this.filePath) { this.filePath = f.path; void this.refresh(); }
         }));
     }
 
@@ -137,18 +137,18 @@ export class VlookPreviewView extends ItemView {
             this.contentEl.empty();
             this.contentEl.append(frame);
             this.frame = frame;
-            (this.leaf as any).updateHeader?.();
+            (this.leaf as unknown as { updateHeader?: () => void }).updateHeader?.();
         } catch (error) {
             if (my !== this.seq) return;
             this.disposeFrame();
             this.frame = null;
-            this.contentEl.setText(`VLOOK 预览失败：${(error as Error).message || error}`);
+            this.contentEl.setText(`VLOOK 预览失败：${(error as Error).message || String(error)}`);
         }
     }
 
     /** 打印视图确认后由 Chromium 直接写入 PDF，不经系统打印对话框。 */
     private bindPdfWriter(frame: HTMLIFrameElement) {
-        const w = frame.contentWindow as (Window & { __vlookPrintToPdf?: () => Promise<boolean> }) | null;
+        const w = frame.contentWindow as unknown as { __vlookPrintToPdf?: () => Promise<boolean> } | null;
         if (!w || !canWritePdfDirectly(frame.ownerDocument.defaultView!)) return;
         w.__vlookPrintToPdf = async () => {
             const file = this.getFile();
@@ -236,7 +236,7 @@ export class VlookPreviewView extends ItemView {
                     }, 600);
                 }, {once:true});
                 child.srcdoc = html;
-            }).catch(error => { if (!disposed) notify(`文库加载失败：${error.message || error}`); });
+            }).catch(error => { if (!disposed) notify(`文库加载失败：${(error as Error).message || String(error)}`); });
         };
         const Observer = doc.defaultView?.MutationObserver ?? MutationObserver;
         const observer = new Observer(records => {

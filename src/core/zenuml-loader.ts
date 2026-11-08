@@ -1,14 +1,8 @@
-// 按需加载 zenuml.js（见 src/zenuml-chunk.ts）：首次渲染 ZenUML 图表时读取并执行，之后复用。
-interface ZenUmlChunk { mermaidZenuml: { loader: () => Promise<unknown> }; core: { renderToSvg: (source: string) => { svg: string } } }
+// ZenUML 不再内置：仅保留“未启用”状态，供围栏源码保留逻辑使用。
+interface ZenUmlRenderer { renderToSvg: (source: string) => { svg: string } }
 
-const enabled = false;
-export const zenUmlEnabled = (): boolean => enabled;
+export const zenUmlEnabled = (): boolean => false;
 
-export function zenUmlChunk(): Promise<ZenUmlChunk> {
+export function zenUmlChunk(): Promise<{ core: ZenUmlRenderer }> {
     return Promise.reject(new Error("ZenUML 不再内置"));
-}
-
-/** Mermaid 外部图表定义：检测与注册即时完成，渲染器在首次绘制时才加载。 */
-export function lazyZenUmlDefinition(): { default: unknown } {
-    return { default: { id: "zenuml", detector: (text: string) => /^\s*zenuml/.test(text), loader: async () => (await zenUmlChunk()).mermaidZenuml.loader() } };
 }

@@ -20,7 +20,7 @@ export function parseThemeHeader(text: string, path: string): ThemeInfo | null {
     if (!id) return null;
     let meta: Partial<ThemeInfo> = {};
     const match = text.match(HEADER);
-    if (match) { try { meta = JSON.parse(match[1]); } catch { return null; } }
+    if (match) { try { meta = JSON.parse(match[1]) as Partial<ThemeInfo>; } catch { return null; } }
     else if (!/\/\*@vlook-part \w+\*\//.test(text)) return null;
     return {
         id, path,
@@ -37,7 +37,7 @@ export function themeParts(text: string): Partial<Record<ThemePart | "shared", s
     const out: Partial<Record<ThemePart | "shared", string>> = {};
     const marks = Array.from(body.matchAll(PART));
     marks.forEach((mark, i) => {
-        out[mark[1] as ThemePart | "shared"] = body.slice(mark.index! + mark[0].length, marks[i + 1]?.index ?? body.length);
+        out[mark[1] as ThemePart | "shared"] = body.slice(mark.index + mark[0].length, marks[i + 1]?.index ?? body.length);
     });
     return out;
 }
@@ -72,7 +72,7 @@ export class ThemeStore {
     private async loadState(): Promise<ThemeState> {
         if (this.state) return this.state;
         let state: ThemeState = { seed: "", downloaded: {} };
-        try { state = { ...state, ...JSON.parse(await this.adapter.read(this.statePath)) }; } catch { /* 首次运行 */ }
+        try { state = { ...state, ...(JSON.parse(await this.adapter.read(this.statePath)) as Partial<ThemeState>) }; } catch { /* 首次运行 */ }
         return this.state = state;
     }
     private async saveState(): Promise<void> {
@@ -148,11 +148,11 @@ export class ThemeStore {
     /** 扫描内置与用户主题目录。文件头按修改时间缓存，启动时不必读完整个主题文件。 */
     async scan(): Promise<ThemeInfo[]> {
         this.texts.clear();
-        if (!this.remote.length) { try { this.remote = JSON.parse(await this.adapter.read(this.remotePath)); } catch { this.remote = []; } }
+        if (!this.remote.length) { try { this.remote = JSON.parse(await this.adapter.read(this.remotePath)) as typeof this.remote; } catch { this.remote = []; } }
         await this.loadState();
         await this.plant();
         if (!Object.keys(this.index).length) {
-            try { this.index = JSON.parse(await this.adapter.read(this.indexPath)); } catch { this.index = {}; }
+            try { this.index = JSON.parse(await this.adapter.read(this.indexPath)) as typeof this.index; } catch { this.index = {}; }
         }
         const next = new Map<string, ThemeInfo>();
         const seen: Record<string, IndexEntry> = {};

@@ -62,7 +62,7 @@ export default class VlookPlugin extends Plugin {
     async onload() {
         this.themeStore = new ThemeStore(this.app.vault.adapter, this.manifest.dir ?? "", () => this.settings.themeFolder ?? "", { version: this.manifest.version, files: BUILTIN_THEME_FILES });
         await this.loadSettings();
-        const diagrams = await loadMermaid();
+        const diagrams: unknown = await loadMermaid();
         this.mermaidHost = diagrams;
         if(!supportsMermaidExtensions(diagrams)){
             const watched=new Map<HTMLElement,()=>void>();
@@ -104,7 +104,7 @@ export default class VlookPlugin extends Plugin {
         this.injectSprite();
         const mathLabelWatchers=new Map<Document,()=>void>();
         const watchMath=(doc:Document)=>{if(!mathLabelWatchers.has(doc))mathLabelWatchers.set(doc,watchDuplicateMathLabels(doc));};
-        watchMath(document);
+        watchMath(activeDocument);
         this.registerEvent(this.app.workspace.on('window-open',(_workspaceWindow,win)=>watchMath(win.document)));
         this.registerEvent(this.app.workspace.on('window-close',(_workspaceWindow,win)=>{mathLabelWatchers.get(win.document)?.();mathLabelWatchers.delete(win.document);}));
         this.register(()=>{for(const dispose of mathLabelWatchers.values())dispose();mathLabelWatchers.clear();});
@@ -141,22 +141,22 @@ export default class VlookPlugin extends Plugin {
         // 其他插件已接管 .html 时不抢占
         try { this.registerExtensions(["html", "htm"], VLOOK_HTML_VIEW); } catch (error) { console.warn("[VLOOK] html 已由其他插件打开", error); }
         this.addRibbonIcon("book-open", "VLOOK 预览", () => this.openPreview());
-        this.addCommand({ id: "open-preview", name: "打开 VLOOK 预览（完整交互）", callback: () => this.openPreview() });
+        this.addCommand({ id: "open-preview", name: "打开预览（完整交互）", callback: () => this.openPreview() });
         this.addCommand({
-            id: "export-html", name: "导出为 VLOOK HTML",
+            id: "export-html", name: "导出为 HTML",
             checkCallback: checking => {
                 const file = this.app.workspace.getActiveFile();
                 if (!file || file.extension !== "md") return false;
-                if (!checking) exportHtml(this, file).catch(e => notify(`导出失败：${e.message ?? e}`));
+                if (!checking) exportHtml(this, file).catch(e => notify(`导出失败：${(e as Error).message}`));
                 return true;
             },
         });
         this.addCommand({
-            id: "export-html-themes", name: "导出为 VLOOK HTML（含全部主题）",
+            id: "export-html-themes", name: "导出为 HTML（含全部主题）",
             checkCallback: checking => {
                 const file = this.app.workspace.getActiveFile();
                 if (!file || file.extension !== "md") return false;
-                if (!checking) exportHtml(this, file, true).catch(e => notify(`导出失败：${e.message ?? e}`));
+                if (!checking) exportHtml(this, file, true).catch(e => notify(`导出失败：${(e as Error).message}`));
                 return true;
             },
         });
@@ -168,14 +168,14 @@ export default class VlookPlugin extends Plugin {
                 if (!file || file.extension !== "md") return false;
                 if (!checking) exportHtml(this, file).then(out => {
                     if (out) void (this.app as unknown as {openWithDefaultApp?: (path: string) => Promise<void>}).openWithDefaultApp?.(out);
-                }).catch(e => notify(`导出失败：${e.message ?? e}`));
+                }).catch(e => notify(`导出失败：${(e as Error).message}`));
                 return true;
             },
         });
-        this.addCommand({ id: "rerender", name: "刷新 VLOOK 渲染", callback: () => this.rerenderAll() });
-        this.addCommand({ id: "reload-themes", name: "重新加载 VLOOK 主题", callback: () => this.reloadThemes() });
-        this.addCommand({ id: "refresh-remote-themes", name: "获取更多 VLOOK 主题", callback: () => void this.refreshRemoteThemes() });
-        this.addCommand({ id: "open-theme-folder", name: "打开 VLOOK 主题文件夹", callback: () => void this.openThemeFolder() });
+        this.addCommand({ id: "rerender", name: "刷新渲染", callback: () => this.rerenderAll() });
+        this.addCommand({ id: "reload-themes", name: "重新加载主题", callback: () => this.reloadThemes() });
+        this.addCommand({ id: "refresh-remote-themes", name: "获取更多主题", callback: () => void this.refreshRemoteThemes() });
+        this.addCommand({ id: "open-theme-folder", name: "打开主题文件夹", callback: () => void this.openThemeFolder() });
         // 在系统文件管理器里放入主题文件后回到 Obsidian，自动识别并生效
         const refocus = debounce(() => { void this.themeStore.changed().then(changed => { if (changed) void this.reloadThemes(); }); }, 600, true);
         this.registerDomEvent(window, "focus", refocus);
@@ -195,7 +195,7 @@ export default class VlookPlugin extends Plugin {
         this.addSettingTab(new VlookSettingTab(this.app, this));
         // 明暗模式、主题切换
         this.registerEvent(this.app.workspace.on("css-change", async () => {
-            const documents = new Set<Document>([document]);
+            const documents = new Set<Document>([activeDocument]);
             this.app.workspace.iterateAllLeaves(leaf => documents.add(leaf.view.containerEl.ownerDocument));
             documents.forEach(doc => applyColorScheme(doc));
             this.themeVars = new WeakMap();
@@ -212,7 +212,7 @@ export default class VlookPlugin extends Plugin {
     }
 
     async loadSettings() {
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, (await this.loadData()) as Partial<typeof DEFAULT_SETTINGS>);
         // 先扫描主题目录，定制主题名才不会被当作无效值改回默认主题
         await this.themeStore.scan();
         this.settings.style = resolveStyleName(this.settings.style);
@@ -249,7 +249,7 @@ export default class VlookPlugin extends Plugin {
 
     /** 图标集：VLOOK 的 SVG 图标都通过 <use xlink:href="#ico..."> 引用 */
     private injectSprite() {
-        this.documentAssets.attach(document);
+        this.documentAssets.attach(activeDocument);
     }
 
     /** 导出前丢弃已缓存的样式文件，确保更新插件后无需重启即可用上新样式。 */
@@ -352,7 +352,7 @@ export default class VlookPlugin extends Plugin {
     /** 文件树类型图标：所有窗口同步开关。 */
     applyFileTypeIcons() {
         if (!this.settings.fileTypeIcons) { this.fileTypeIcons.disable(); return; }
-        const docs = new Set<Document>([document]);
+        const docs = new Set<Document>([activeDocument]);
         this.app.workspace.iterateAllLeaves(leaf => docs.add(leaf.view.containerEl.ownerDocument));
         this.fileTypeIcons.enable([...docs]);
     }
@@ -361,7 +361,7 @@ export default class VlookPlugin extends Plugin {
     async applyStyle() {
         const revision = ++this.styleRevision;
         this.themeVars = new WeakMap();
-        this.documentAssets.attach(document);
+        this.documentAssets.attach(activeDocument);
         this.app.workspace.iterateAllLeaves(leaf => this.documentAssets.attach(leaf.view.containerEl.ownerDocument));
         const style = resolveStyleName(this.settings.style);
         let name: string | null = null;
@@ -388,7 +388,7 @@ export default class VlookPlugin extends Plugin {
     private themeVars = new WeakMap<Element, Map<string, string>>();
     private themeVar(name: string, scope: Element): string {
         let vars = this.themeVars.get(scope);
-        if (!vars) this.themeVars.set(scope, vars = new Map());
+        if (!vars) this.themeVars.set(scope, vars = new Map<string, string>());
         let value = vars.get(name);
         if (value === undefined) vars.set(name, value = readCssVar(name, scope));
         return value;
@@ -424,7 +424,7 @@ export default class VlookPlugin extends Plugin {
             // 预览 / 导出用的原始渲染：不做 VLOOK 处理（交给官方运行时）。
             // 嵌入内容可能在渲染结束后才异步回调，此时已挂在离屏容器内，按容器判断
             if (info?.text.startsWith(RAW_MARKER) || el.closest(".vlook-offscreen, .vlook-editor-render") || (this.rawRenderDepth > 0 && !info && !el.isConnected)) return;
-            const ctx = this.makeCtx(mdCtx.sourcePath, info?.text, mdCtx.frontmatter, el.ownerDocument.body);
+            const ctx = this.makeCtx(mdCtx.sourcePath, info?.text, mdCtx.frontmatter as Record<string, unknown> | undefined, el.ownerDocument.body);
             if (info && ctx.index) ctx.block = ctx.index.blockAt(info.lineStart);
             let child:MarkdownRenderChild|undefined;
             ctx.registerCleanup=cleanup=>{
@@ -432,7 +432,7 @@ export default class VlookPlugin extends Plugin {
                 child.register(cleanup);
             };
             void renderReadySection(el,ctx).catch(error=>{
-                if(error?.name!=='AbortError')console.error('[VLOOK] async render error',error);
+                if((error as Error)?.name!=='AbortError')console.error('[VLOOK] async render error',error);
             });
         } catch (e) {
             console.error("[VLOOK] render error", e);
@@ -446,7 +446,7 @@ export default class VlookPlugin extends Plugin {
             const view = leaf.view as MarkdownView;
             view.previewMode?.rerender(true);
         });
-        this.app.workspace.getLeavesOfType(VLOOK_PREVIEW_VIEW).forEach(leaf => (leaf.view as VlookPreviewView).refresh());
+        this.app.workspace.getLeavesOfType(VLOOK_PREVIEW_VIEW).forEach(leaf => void (leaf.view as VlookPreviewView).refresh());
     }
 
     async openPreview(file?: TFile, options: { print?: boolean } = {}) {

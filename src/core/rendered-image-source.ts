@@ -26,7 +26,7 @@ export function matchRenderedImages<T extends {raw:string}>(images:Element[],ref
     const compatibleOrder=exact.every((ref,n)=>ref===undefined||ref===n);
     if(compatibleOrder&&images.length===refs.length&&imageNames.every((filename,n)=>filename ? filename===refNames[n] : images[n].getAttribute('src')===refs[n].raw))return refs;
     return imageNames.map((filename,n)=>{
-        if(exact[n]!==undefined)return refs[exact[n]!];
+        if(exact[n]!==undefined)return refs[exact[n]];
         if(!filename||imageNames.filter(value=>value===filename).length!==1||refNames.filter(value=>value===filename).length!==1)return undefined;
         return refs[refNames.indexOf(filename)];
     });
@@ -47,14 +47,14 @@ export function renderedSourceImages(markdown:string,doc:Document,definitions=ma
     parser.parse(markdown).iterate({enter(node){
         if(node.name==='CommentBlock'){ignored.push({pos:node.from,end:node.to});return false;}
         if(node.name!=='HTMLTag'&&node.name!=='HTMLBlock')return;
-        const text=markdown.slice(node.from,node.to).replace(/<!--[\s\S]*?(?:-->|$)|<(script|style|textarea|title)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,(value,_tag,offset)=>{
+        const text=markdown.slice(node.from,node.to).replace(/<!--[\s\S]*?(?:-->|$)|<(script|style|textarea|title)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,(value:string,_tag:string,offset:number)=>{
             ignored.push({pos:node.from+offset,end:node.from+offset+value.length});return value.replace(/[^\n]/g,' ');
         });
         for(const match of text.matchAll(/<img\b(?:[^"'<>]|"[^"]*"|'[^']*')*>/gi)){
-            const pos=node.from+match.index!;if(ignored.some(range=>pos>=range.pos&&pos<range.end))continue;
+            const pos=node.from+match.index;if(ignored.some(range=>pos>=range.pos&&pos<range.end))continue;
             const template={content:parseHtml(doc,match[0])};
             const image=template.content.querySelector('img'),raw=image?.getAttribute('src');
-            if(raw!==null&&raw!==undefined)html.push({pos:node.from+match.index!,end:node.from+match.index!+match[0].length,raw,alt:image?.getAttribute('alt')||'',title:image?.getAttribute('title')||undefined});
+            if(raw!==null&&raw!==undefined)html.push({pos:node.from+match.index,end:node.from+match.index+match[0].length,raw,alt:image?.getAttribute('alt')||'',title:image?.getAttribute('title')||undefined});
         }
         return false;
     }});

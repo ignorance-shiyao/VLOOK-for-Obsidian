@@ -18,7 +18,7 @@ export function hasDirectStrike(title: string): boolean {
         return elements.some(element => type(element) === "Strikethrough");
     // 惰性 template 不挂载到文档、不运行脚本。HTML 交给浏览器处理嵌套，
     // 代码 / 转义 / Markdown 容器只生成占位节点，不能变成可识别的 HTML 标签。
-    const template = { content: parseHtml(document, elements.map(element => {
+    const template = { content: parseHtml(activeDocument, elements.map(element => {
         const name = type(element);
         if (name === "HTMLTag") return title.slice(element.from, element.to);
         return name === "Strikethrough" ? "<del></del>" : "<span></span>";

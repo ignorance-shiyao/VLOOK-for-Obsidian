@@ -79,7 +79,7 @@ export function registerLinkMap(plugin:VlookPlugin){
         new LinkAuditModal(view,source,results).open();
     }});
     plugin.addCommand({id:'link-map',name:'链接地图（文档、锚点与引用位置）',callback:open});
-    plugin.addCommand({id:'check-remote-anchors',name:'检查远程 VLOOK 文档锚点（打开目标检查页）',callback:()=>{
+    plugin.addCommand({id:'check-remote-anchors',name:'检查远程文档锚点（打开目标检查页）',callback:()=>{
         const view=plugin.app.workspace.getActiveViewOfType(MarkdownView);if(!view?.file){notify('请先打开 Markdown 文档');return;}
         const source=view.editor.getValue();
         const groups=linkMapGroups(getSourceIndex(source,{captionGroup:false,captionNumber:false})).filter(group=>/^https?:\/\//i.test(group.document)&&group.anchors.length);

@@ -1,7 +1,7 @@
 // 主题快捷切换：状态栏按钮 + 功能区按钮 + 命令（选择 / 下一个）
 // 直接切换插件内配色，无需独立 Obsidian 主题包。
 
-import { FuzzySuggestModal, MarkdownView, Menu, setIcon } from "obsidian";
+import { FuzzySuggestModal, MarkdownView, Menu, View, setIcon } from "obsidian";
 import { keepReadingPosition } from "./core/reading-position";
 import type VlookPlugin from "./main";
 import { THEMES, resolveStyleName, themeLabel } from "./core/themes";
@@ -39,14 +39,14 @@ export class ThemeSwitcher {
         await this.apply(THEMES[(i + 1) % THEMES.length]);
     }
 
-    toggleDark(doc: Document = this.plugin.app.workspace.activeLeaf?.view.containerEl.ownerDocument ?? document) {
-        const app = this.plugin.app as any;
+    toggleDark(doc: Document = this.plugin.app.workspace.getActiveViewOfType(View)?.containerEl.ownerDocument ?? activeDocument) {
+        const app = this.plugin.app as unknown as { changeTheme?: (theme: string) => void };
         const dark = doc.body.classList.contains("theme-dark");
         return keepReadingPosition(this.views(), () => app.changeTheme?.(dark ? "moonstone" : "obsidian"));
     }
 
     openMenu(ev: MouseEvent) {
-        const doc = ev.view?.document ?? (ev.currentTarget as Element | null)?.ownerDocument ?? document;
+        const doc = ev.view?.document ?? (ev.currentTarget as Element | null)?.ownerDocument ?? activeDocument;
         const menu = new Menu();
         const cur = this.current();
         for (const t of THEMES) {
@@ -67,10 +67,10 @@ export class ThemeSwitcher {
     register() {
         const p = this.plugin;
         p.addCommand({
-            id: "switch-theme", name: "切换 VLOOK 主题",
+            id: "switch-theme", name: "切换主题",
             callback: () => new ThemeModal(this).open(),
         });
-        p.addCommand({ id: "next-theme", name: "下一个 VLOOK 主题", callback: () => this.next() });
+        p.addCommand({ id: "next-theme", name: "下一个主题", callback: () => this.next() });
         p.addCommand({ id: "toggle-dark", name: "切换浅色 / 深色模式", callback: () => this.toggleDark() });
         p.registerEvent(p.app.workspace.on("css-change", () => this.update()));
         p.register(observeSchemeFade(activeDocument));

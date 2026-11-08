@@ -5,6 +5,8 @@ import { exitChip } from "./core/exit-chip";
 import type VlookPlugin from "./main";
 import { notify } from "./notify";
 
+const SPOTLIGHT_RADIUS = 180;
+
 type Effect = "laser" | "spotlight";
 export class ReadingTools {
     private effect: Effect | null = null;
@@ -49,7 +51,7 @@ export class ReadingTools {
         this.overlay = host.ownerDocument.createElement("div");
         this.overlay.className = `vlook-reading-effect vlook-effect-${effect}`;
         this.overlay.setAttribute("aria-hidden", "true");
-        this.overlay.style.setProperty('--vlook-spotlight-radius','180px');
+        this.overlay.style.setProperty('--vlook-spotlight-radius',`${SPOTLIGHT_RADIUS}px`);
         (host.closest('dialog')||host.ownerDocument.body).append(this.overlay);
         this.position();
         if (Platform.isMobile) this.chip = exitChip(host.closest('dialog') || host.ownerDocument.body, effect === "laser" ? "关闭激光笔" : "关闭聚光灯", () => this.clear());
@@ -84,9 +86,9 @@ export class ReadingTools {
         const resizeSpotlight=()=>{
             if(this.effect!=='spotlight'||!this.overlay)return;
             this.largeSpotlight=!this.largeSpotlight;
-            this.overlay.style.setProperty('--vlook-spotlight-radius',this.largeSpotlight?'252px':'180px');
+            this.overlay.style.setProperty('--vlook-spotlight-radius',this.largeSpotlight?'252px':`${SPOTLIGHT_RADIUS}px`);
         };
-        const requested=(event:Event)=>{const effect=(event as CustomEvent).detail;if(effect==='laser'||effect==='spotlight')this.toggle(effect);};
+        const requested=(event:Event)=>{const effect=(event as CustomEvent<string>).detail;if(effect==='laser'||effect==='spotlight')this.toggle(effect);};
         registerEachDocument(p,listen);
         p.addCommand({id:'spotlight-size',name:'切换聚光灯大小',callback:resizeSpotlight});
         registerDocumentEvent(p, "keydown", ev => {

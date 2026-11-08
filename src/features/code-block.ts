@@ -14,7 +14,7 @@ export function processCodeBlocks(root: HTMLElement, ctx: RenderCtx): void {
         const icons: Record<string, string> = {"复制代码":"copy","自动换行":"wrap-text","展开代码":"chevrons-up-down"};
         const button = (text: string, action: (b: HTMLButtonElement) => void) => viewMenuItem(tools, text, icons[text] || "code", action);
         const relabel = (b: HTMLButtonElement, text: string) => { b.querySelector(".vlook-view-label")!.textContent = text; b.setAttribute("aria-label", text); b.title = text; };
-        button("复制代码", async b => {
+        button("复制代码", b => void (async () => {
             try {
                 await navigator.clipboard.writeText(source);
                 relabel(b, "已复制");
@@ -28,7 +28,7 @@ export function processCodeBlocks(root: HTMLElement, ctx: RenderCtx): void {
                     relabel(b,"已选中");
                 }else relabel(b,"复制失败");
             }
-        });
+        })());
         pre.classList.add("vlook-code-wrap");
         const wrapButton=button("自动换行", b => {
             const wrapped = pre.classList.toggle("vlook-code-wrap");

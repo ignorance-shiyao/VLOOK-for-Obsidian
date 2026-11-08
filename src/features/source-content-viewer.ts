@@ -87,7 +87,7 @@ export function openSourceContentViewer(target:HTMLElement, ctx:RenderCtx): HTML
             if(closed||mine!==sequence){pauseContainedMedia(host);host.replaceChildren();fresh.unload();return;}
             renderSection(host,{...ctx,block:item.block,suppressContentViewers:true,registerCleanup:cleanup=>fresh.register(cleanup)});
             component=fresh;handoff?.attach(host);focusItem(host,item);status.textContent='';
-        } catch(error){pauseContainedMedia(host);host.replaceChildren();handoff?.release(sourceUnchanged());fresh.unload();if(!closed&&mine===sequence)status.textContent=`内容渲染失败：${(error as Error).message||error}`;}
+        } catch(error){pauseContainedMedia(host);host.replaceChildren();handoff?.release(sourceUnchanged());fresh.unload();if(!closed&&mine===sequence)status.textContent=`内容渲染失败：${(error as Error).message||String(error)}`;}
         finally {pending.delete(fresh);}
     };
     category.onChange(()=>{const item=filtered()[0];if(item){current=item;void load();}});

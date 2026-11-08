@@ -2119,8 +2119,8 @@ test('缩放适配接受当前选中图片，切换媒体时归还先前图片�
     const body=html('<img src="a.png"><audio src="a.wav"></audio><img src="b.png">'),images=body.querySelectorAll('img'),audio=body.querySelector('audio');
     const zoom=new M.ContentZoom(body);
     zoom.refresh(images[1]);
-    assert.equal(images[0].style.cursor,'');assert.equal(images[1].style.cursor,'grab');
-    zoom.refresh(audio);assert.equal(images[1].style.cursor,'');assert.equal(audio.style.cursor,'');
+    assert.equal(images[0].classList.contains('vlook-zoom-target'),false);assert.equal(images[1].classList.contains('vlook-zoom-target'),true);
+    zoom.refresh(audio);assert.equal(images[1].classList.contains('vlook-zoom-target'),false);assert.equal(audio.classList.contains('vlook-zoom-target'),false);
     zoom.dispose();
 });
 
@@ -2317,58 +2317,58 @@ test('深色资源允许协议相对地址，不拼接到原图片目录', () =>
 });
 
 test('SVG 剪影迟到响应不能替换已改地址的图片', async () => {
-    const original=globalThis.fetch;let finish;
-    globalThis.fetch=()=>new Promise(resolve=>{finish=resolve});
+    const original=window.fetch;let finish;
+    window.fetch=()=>new Promise(resolve=>{finish=resolve});
     try {
-        const root=html('<img src="https://example.org/old.svg?fill=rd#icon">');
+        const root=html('<img src="app://local/old.svg?fill=rd#icon">');
         M.renderSection(root,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false}}));
         const img=root.querySelector('img');img.src='https://example.org/new.svg';
         finish({ok:true,text:async()=>'<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0H1"/></svg>'});
         await new Promise(resolve=>setTimeout(resolve,0));
         assert.equal(root.querySelector('img'),img);assert.equal(root.querySelector('svg'),null);
-    } finally {globalThis.fetch=original;}
+    } finally {window.fetch=original;}
 });
 
 test('SVG 剪影卸载后不替换节点，HTTP 失败保持原图', async () => {
-    const original=globalThis.fetch;let finish;const cleanups=[];
-    globalThis.fetch=()=>new Promise(resolve=>{finish=resolve});
+    const original=window.fetch;let finish;const cleanups=[];
+    window.fetch=()=>new Promise(resolve=>{finish=resolve});
     try {
-        const root=html('<img src="https://example.org/a.svg?fill=bu#icon">');
+        const root=html('<img src="app://local/a.svg?fill=bu#icon">');
         M.renderSection(root,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false},registerCleanup:fn=>cleanups.push(fn)}));
         const img=root.querySelector('img');cleanups.forEach(fn=>fn());
         finish({ok:true,text:async()=>'<svg xmlns="http://www.w3.org/2000/svg"><path/></svg>'});
         await new Promise(resolve=>setTimeout(resolve,0));assert.equal(root.querySelector('img'),img);
-        globalThis.fetch=async()=>({ok:false,text:async()=>'<svg xmlns="http://www.w3.org/2000/svg"><path/></svg>'});
-        const failed=html('<img src="https://example.org/b.svg?fill=bu#icon">');
+        window.fetch=async()=>({ok:false,text:async()=>'<svg xmlns="http://www.w3.org/2000/svg"><path/></svg>'});
+        const failed=html('<img src="app://local/b.svg?fill=bu#icon">');
         M.renderSection(failed,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false}}));
         await new Promise(resolve=>setTimeout(resolve,0));assert.ok(failed.querySelector('img'));assert.equal(failed.querySelector('svg'),null);
-    } finally {globalThis.fetch=original;}
+    } finally {window.fetch=original;}
 });
 
 test('SVG 剪影支持未挂载的渲染区块并导入所属文档', async () => {
-    const original=globalThis.fetch;
-    globalThis.fetch=async()=>({ok:true,text:async()=>'<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0H1"/></svg>'});
+    const original=window.fetch;
+    window.fetch=async()=>({ok:true,text:async()=>'<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0H1"/></svg>'});
     const other=new JSDOM('<main></main>');
     try {
-        const root=other.window.document.createElement('div');root.innerHTML='<img src="https://example.org/a.svg?fill=bu#icon" width="42">';
+        const root=other.window.document.createElement('div');root.innerHTML='<img src="app://local/a.svg?fill=bu#icon" width="42">';
         M.renderSection(root,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false}}));
         await new Promise(resolve=>setTimeout(resolve,0));
         const svg=root.querySelector('svg');assert.ok(svg);assert.equal(svg.ownerDocument,other.window.document);
         assert.equal(svg.getAttribute('data-img-fill'),'bu');assert.equal(svg.getAttribute('width'),'42');
         assert.equal(svg.querySelector('path').style.fill,'var(--ac-bu)');
-    } finally {globalThis.fetch=original;other.window.close();}
+    } finally {window.fetch=original;other.window.close();}
 });
 
 test('SVG 正文读取期间卸载会取消请求且迟到正文不写入', async () => {
-    const original=globalThis.fetch;let finish,signal,started=false;const cleanups=[];
-    globalThis.fetch=async(_url,options)=>{signal=options.signal;return {ok:true,text:()=>{started=true;return new Promise(resolve=>{finish=resolve})}}};
+    const original=window.fetch;let finish,signal,started=false;const cleanups=[];
+    window.fetch=async(_url,options)=>{signal=options.signal;return {ok:true,text:()=>{started=true;return new Promise(resolve=>{finish=resolve})}}};
     try {
-        const root=html('<img src="https://example.org/a.svg?fill=text#icon">');
+        const root=html('<img src="app://local/a.svg?fill=text#icon">');
         M.renderSection(root,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false},registerCleanup:fn=>cleanups.push(fn)}));
         const img=root.querySelector('img');await new Promise(resolve=>setTimeout(resolve,0));assert.equal(started,true);
         cleanups.forEach(fn=>fn());assert.equal(signal.aborted,true);finish('<svg xmlns="http://www.w3.org/2000/svg"><path/></svg>');
         await new Promise(resolve=>setTimeout(resolve,0));assert.equal(root.querySelector('img'),img);assert.equal(root.querySelector('svg'),null);
-    } finally {globalThis.fetch=original;}
+    } finally {window.fetch=original;}
 });
 
 test('明信片紧随引用块作为富文本正文且保留原链接节点', () => {
@@ -2406,11 +2406,11 @@ test('键盘聚焦展开明信片，进入正文链接不收起，Escape 归还�
         M.renderSection(root,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false}}));
         const img=root.querySelector('img'),card=root.querySelector('.v-post-card'),link=card.querySelector('a');
         assert.equal(img.tabIndex,0);assert.equal(img.getAttribute('aria-details'),card.id);
-        img.focus();assert.equal(card.style.display,'block');link.focus();assert.equal(card.style.display,'block');
-        img.dispatchEvent(new window.MouseEvent('mouseleave'));assert.equal(card.style.display,'block');
+        img.focus();assert.equal(card.classList.contains('vlook-card-open'),true);link.focus();assert.equal(card.classList.contains('vlook-card-open'),true);
+        img.dispatchEvent(new window.MouseEvent('mouseleave'));assert.equal(card.classList.contains('vlook-card-open'),true);
         link.dispatchEvent(new window.KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));
-        assert.equal(document.activeElement,img);assert.equal(card.style.display,'none');assert.equal(img.style.filter,'grayscale(1)');
-        link.focus();root.querySelector('button').focus();assert.equal(card.style.display,'none');
+        assert.equal(document.activeElement,img);assert.equal(card.classList.contains('vlook-card-open'),false);assert.equal(img.style.filter,'grayscale(1)');
+        link.focus();root.querySelector('button').focus();assert.equal(card.classList.contains('vlook-card-open'),false);
     } finally {root.remove();}
 });
 
@@ -2419,16 +2419,16 @@ test('图片链接明信片复用原生链接焦点，保留 Enter 导航，卸�
     try {
         M.renderSection(root,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false},registerCleanup:fn=>cleanups.push(fn)}));
         const link=root.querySelector('a'),img=root.querySelector('img'),card=root.querySelector('.v-post-card');
-        assert.equal(img.hasAttribute('tabindex'),false);link.focus();assert.equal(card.style.display,'block');
+        assert.equal(img.hasAttribute('tabindex'),false);link.focus();assert.equal(card.classList.contains('vlook-card-open'),true);
         const enter=new window.KeyboardEvent('keydown',{key:'Enter',bubbles:true,cancelable:true});link.dispatchEvent(enter);assert.equal(enter.defaultPrevented,false);
         cleanups.forEach(fn=>fn());assert.equal(link.getAttribute('aria-details'),'existing');assert.equal(link.hasAttribute('tabindex'),false);
     } finally {root.remove();}
 });
 
 test('SVG 填色替换后明信片仍能聚焦展开、Escape 收起并清理', async () => {
-    const original=globalThis.fetch;let finish;const cleanups=[];
-    globalThis.fetch=()=>new Promise(resolve=>{finish=resolve});
-    const root=html('<p><img src="https://example.org/a.svg?fill=bu#card" alt="剪影卡片"></p><blockquote><p><a href="#target">正文链接</a></p></blockquote>');document.body.append(root);
+    const original=window.fetch;let finish;const cleanups=[];
+    window.fetch=()=>new Promise(resolve=>{finish=resolve});
+    const root=html('<p><img src="app://local/a.svg?fill=bu#card" alt="剪影卡片"></p><blockquote><p><a href="#target">正文链接</a></p></blockquote>');document.body.append(root);
     try {
         M.renderSection(root,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false},registerCleanup:fn=>cleanups.push(fn)}));
         root.querySelector('img').focus();
@@ -2438,21 +2438,21 @@ test('SVG 填色替换后明信片仍能聚焦展开、Escape 收起并清理', 
         assert.equal(document.activeElement,svg);assert.equal(svg.getAttribute('aria-label'),'剪影卡片');assert.equal(svg.getAttribute('role'),'img');
         assert.equal(svg.getAttribute('aria-details'),card.id);assert.equal(svg.getAttribute('tabindex'),'0');
         svg.getBoundingClientRect=()=>({width:240,bottom:120});
-        svg.dispatchEvent(new window.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));assert.equal(card.style.display,'none');
-        svg.dispatchEvent(new window.MouseEvent('mouseenter'));assert.equal(card.style.display,'block');assert.equal(card.style.width,'240px');
+        svg.dispatchEvent(new window.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));assert.equal(card.classList.contains('vlook-card-open'),false);
+        svg.dispatchEvent(new window.MouseEvent('mouseenter'));assert.equal(card.classList.contains('vlook-card-open'),true);assert.equal(card.style.width,'240px');
         const link=card.querySelector('a');link.focus();link.dispatchEvent(new window.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
-        assert.equal(document.activeElement,svg);assert.equal(card.style.display,'none');
+        assert.equal(document.activeElement,svg);assert.equal(card.classList.contains('vlook-card-open'),false);
         cleanups.forEach(fn=>fn());assert.equal(svg.hasAttribute('tabindex'),false);assert.equal(svg.hasAttribute('aria-details'),false);
-        svg.dispatchEvent(new window.MouseEvent('mouseenter'));assert.equal(card.style.display,'none');
-    } finally {root.remove();globalThis.fetch=original;}
+        svg.dispatchEvent(new window.MouseEvent('mouseenter'));assert.equal(card.classList.contains('vlook-card-open'),false);
+    } finally {root.remove();window.fetch=original;}
 });
 
 test('平铺 SVG 明信片替换时重新测量并迁移尺寸观察器', async () => {
-    const original=globalThis.fetch,other=new JSDOM('<main><p><img src="https://example.org/a.svg?fill=bu#cardd" alt="正文"></p></main>');
+    const original=window.fetch,other=new JSDOM('<main><p><img src="app://local/a.svg?fill=bu#cardd" alt="正文"></p></main>');
     const cleanups=[],observers=[];
     other.window.ResizeObserver=class {constructor(callback){this.callback=callback;observers.push(this)}observe(target){this.target=target}disconnect(){this.disconnected=true}};
     other.window.getComputedStyle=element=>({width:element.tagName.toLowerCase()==='svg'?'320px':'240px'});
-    globalThis.fetch=async()=>({ok:true,text:async()=>'<svg xmlns="http://www.w3.org/2000/svg"><path/></svg>'});
+    window.fetch=async()=>({ok:true,text:async()=>'<svg xmlns="http://www.w3.org/2000/svg"><path/></svg>'});
     try {
         const root=other.window.document.querySelector('main');
         M.renderSection(root,ctx({settings:{...M.DEFAULT_SETTINGS,captions:false},registerCleanup:fn=>cleanups.push(fn)}));
@@ -2460,7 +2460,7 @@ test('平铺 SVG 明信片替换时重新测量并迁移尺寸观察器', async 
         await new Promise(resolve=>setTimeout(resolve,0));assert.equal(card.style.width,'320px');
         assert.equal(observers.length,2);assert.equal(observers[0].disconnected,true);assert.equal(observers[1].target,root.querySelector('svg'));
         cleanups.forEach(fn=>fn());assert.equal(observers[1].disconnected,true);
-    } finally {globalThis.fetch=original;other.window.close();}
+    } finally {window.fetch=original;other.window.close();}
 });
 
 test('GIF 播放移除高清封面集并保留查询和魔法，停止恢复原图集', () => {
@@ -3210,14 +3210,14 @@ test('旧 auto / none 一律回到默认 Ignorance，下一个配色从它开始
 test('配色菜单使用点击窗口的明暗状态，命令使用当前活动窗格而非主窗口', () => {
     const other=new JSDOM('<body class="theme-dark"></body>'),calls=[];
     const wasDark=document.body.classList.contains('theme-dark');document.body.classList.remove('theme-dark');
-    const app={workspace:{activeLeaf:{view:{containerEl:document.body}}},changeTheme:value=>calls.push(value)};
+    const app={workspace:{active:{containerEl:document.body},getActiveViewOfType(){return this.active}},changeTheme:value=>calls.push(value)};
     const switcher=new M.ThemeSwitcher({app,settings:{style:'blue'}});
     try {
         switcher.openMenu(new other.window.MouseEvent('click',{view:other.window}));
         const menu=M.Menu.instances.at(-1),toggle=menu.items.at(-1);
         assert.equal(toggle.title,'切换到浅色模式');toggle.callback();assert.deepEqual(calls,['moonstone']);
         document.body.classList.add('theme-dark');other.window.document.body.classList.remove('theme-dark');
-        app.workspace.activeLeaf.view.containerEl=other.window.document.body;
+        app.workspace.active.containerEl=other.window.document.body;
         switcher.toggleDark();assert.deepEqual(calls,['moonstone','obsidian']);
     } finally {document.body.classList.toggle('theme-dark',wasDark);other.window.close();}
 });

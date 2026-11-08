@@ -9,8 +9,8 @@ export interface SourceContentItem { block: Block; kind: string; title: string; 
 export function sourceContentItems(index: SourceIndex): SourceContentItem[] {
     const names: Record<string,string> = {table:'表格',code:'代码',mermaid:'插图',math:'公式'};
     return index.blocks.flatMap(block => {
-        const figures=figureSources(block,index.text,typeof document==='undefined'?undefined:document);
-        const media=mediaSources(block,index.text,typeof document==='undefined'?undefined:document);
+        const figures=figureSources(block,index.text,typeof document==='undefined'?undefined:activeDocument);
+        const media=mediaSources(block,index.text,typeof document==='undefined'?undefined:activeDocument);
         const children=[
             ...figures.map((ref,n)=>({ref,kind:'插图',info:block.figureCaptions?.[n],target:{kind:'figure' as const,index:n}})),
             ...media.map((ref,n)=>({ref,kind:'多媒体',info:block.mediaCaptions?.[n],target:{kind:'media' as const,index:n}})),

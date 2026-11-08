@@ -17,10 +17,10 @@ export function assignNestedCaptions(block: Block, source: string): void {
         let next=node.node.nextSibling;
         while(next?.name==='QuoteMark')next=next.nextSibling;
         if(!next||!['Paragraph','HTMLBlock'].includes(next.name))return;
-        const candidate=candidates.find(item=>item.ref.pos>=next!.from&&item.ref.pos<next!.to);
+        const candidate=candidates.find(item=>item.ref.pos>=next.from&&item.ref.pos<next.to);
         if(!candidate?.info||candidate.ref.alt.trim())return;
         const parts=match[2].match(/^(.*?)_(.+)_$/);
-        const plain=(value:string)=>value.trim().replace(/\\([\\`*_{}\[\]()#+\-.!<>|~^=])/g,'$1');
+        const plain=(value:string)=>value.trim().replace(/\\([\\`*_{}[\]()#+\-.!<>|~^=])/g,'$1');
         const info:CaptionInfo=candidate.info;info.cap1=plain(parts?parts[1]:match[2]);
         if(parts)info.cap2=plain(parts[2]);
     }});

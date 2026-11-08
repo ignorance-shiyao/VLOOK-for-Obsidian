@@ -92,16 +92,26 @@ function sanitizeHtml(value: string, doc: Document): string {
     tpl.content.querySelectorAll("script,iframe,object,embed,base,meta[http-equiv]").forEach(el => el.remove());
     tpl.content.querySelectorAll("*").forEach(el => {
         for (const attr of [...el.attributes]) {
-            if (/^on/i.test(attr.name) || (/^(href|src|xlink:href|formaction|action|srcdoc)$/i.test(attr.name) && /^(javascript|vbscript|data:text\/html)/i.test(attr.value.replace(/[\u0000-\u0020\u007f-\u009f]/g, "")))) el.removeAttribute(attr.name);
+            if (/^on/i.test(attr.name) || (/^(href|src|xlink:href|formaction|action|srcdoc)$/i.test(attr.name) && /^(javascript|vbscript|data:text\/html)/i.test(Array.from(attr.value).filter(ch => { const c = ch.charCodeAt(0); return c > 32 && (c < 127 || c > 159); }).join("")))) el.removeAttribute(attr.name);
         }
     });
     return tpl.content.innerHTML;
 }
 
+/** 前置元数据里的 vlook-query 只接受字符串。 */
+function fmQuery(fm: Record<string, unknown>): string {
+    const value = fm["vlook-query"];
+    return typeof value === "string" ? value : "";
+}
+
 function sanitizeFrontMatter<T>(value: T, doc: Document): T {
-    if (typeof value === "string") return sanitizeHtml(value, doc) as T;
-    if (Array.isArray(value)) return value.map(item => sanitizeFrontMatter(item, doc)) as T;
-    if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, sanitizeFrontMatter(v, doc)])) as T;
+    return sanitizeAny(value, doc) as T;
+}
+
+function sanitizeAny(value: unknown, doc: Document): unknown {
+    if (typeof value === "string") return sanitizeHtml(value, doc);
+    if (Array.isArray(value)) return value.map(item => sanitizeAny(item, doc));
+    if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, sanitizeAny(v, doc)]));
     return value;
 }
 
@@ -116,7 +126,7 @@ function brandingCss(show?: boolean, text?: string): string {
 export async function buildVlookHtml(plugin: VlookPlugin, file: TFile, opts: BuildOptions): Promise<{ html: string; title: string; mathErrors: number }> {
     if (opts.mode === "export") plugin.clearAssetCache?.();
     const app = plugin.app;
-    const doc = opts.document || document;
+    const doc = opts.document || activeDocument;
     const cssVar = (name:string) => readCssVar(name,doc.body);
     const themeQuery = cssVar("--vlook-query");
     const source = await app.vault.cachedRead(file);
@@ -170,17 +180,17 @@ export async function buildVlookHtml(plugin: VlookPlugin, file: TFile, opts: Bui
             return target ? encodeResourcePath(relativePath(dir, target.path)) : current;
         });
 
-        if (opts.mode === "export") appUrlsToRelative(host, (app.vault.adapter as any).basePath ?? "", dir);
+        if (opts.mode === "export") appUrlsToRelative(host, (app.vault.adapter as { basePath?: string }).basePath ?? "", dir);
 
         if (opts.query) {
-            const query = vlookQueryParams(String(fm["vlook-query"] || ""));
+            const query = vlookQueryParams(fmQuery(fm));
             for (const [key, value] of new URLSearchParams(opts.query)) query.set(key, value);
             fm["vlook-query"] = query.toString();
         }
         // These defaults already govern destructive preprocessing. Persist them so the
         // iframe runtime cannot reinterpret the result using another palette's defaults.
         const inherited = new Query(themeQuery);
-        const structuralQuery = vlookQueryParams(String(fm["vlook-query"] || ""));
+        const structuralQuery = vlookQueryParams(fmQuery(fm));
         let inheritedStructure = false;
         for (const key of ["unpub", "xmd"]) {
             const value = inherited.get(key);
@@ -192,7 +202,7 @@ export async function buildVlookHtml(plugin: VlookPlugin, file: TFile, opts: Bui
         removeRenderingMarker(host);
         toTyporaDom(host, plugin.settings.genericSubSup);
         if (opts.mode === "preview") preservePreviewLinks(host);
-        if ((opts.mode === "export" || opts.print) && new Query(themeQuery, String(fm["vlook-query"]||"")).get("unpub") !== "off") {
+        if ((opts.mode === "export" || opts.print) && new Query(themeQuery, fmQuery(fm)).get("unpub") !== "off") {
             removeUnpublished(host, fm["vlook-unpub"]);
             const ids = new Set(Array.from(host.querySelectorAll("h1,h2,h3,h4,h5,h6"), h => h.id));
             host.querySelectorAll<HTMLAnchorElement>(".md-toc-inner").forEach(a => {
@@ -202,11 +212,11 @@ export async function buildVlookHtml(plugin: VlookPlugin, file: TFile, opts: Bui
             });
         }
         if (opts.mode === "export") {
-            const query = new Query(themeQuery, String(fm["vlook-query"] || ""));
+            const query = new Query(themeQuery, fmQuery(fm));
             rewriteExportLinks(host, app, file.path, query.get("xmd") || "html", opts.outDir);
         }
         if (opts.print) {
-            const query = vlookQueryParams(String(fm["vlook-query"] || ""));
+            const query = vlookQueryParams(fmQuery(fm));
             for (const [key, value] of Object.entries({print:"on", cs:"light", fold:"off", fillw:"on"})) query.set(key, value);
             fm["vlook-query"] = query.toString();
         }
@@ -218,12 +228,12 @@ export async function buildVlookHtml(plugin: VlookPlugin, file: TFile, opts: Bui
         opts.onProgress?.("加载主题"); await paint(doc);
         const themeCss = (await plugin.readThemeCss(theme, "export")) ?? (theme !== "blue" ? await plugin.readThemeCss("blue", "export") : null) ?? (await plugin.readThemeCss("joint", "export")) ?? "";
         const rawTitle = fm["title"];
-        const title = rawTitle === undefined || rawTitle === null || rawTitle === "" || typeof rawTitle === "object" ? file.basename : String(rawTitle);
+        const title = typeof rawTitle === "string" && rawTitle ? rawTitle : typeof rawTitle === "number" || typeof rawTitle === "boolean" ? String(rawTitle) : file.basename;
         const picked = opts.mode === "export" ? [...new Set([theme, ...(opts.themes ?? [])])].filter(name => THEMES.includes(name)) : [];
         const themes = picked.length > 1 ? await exportThemesHtml(plugin, theme, picked) : "";
 
         if(fm['vlook-doc-lib']!==undefined){
-            const query=new Query(themeQuery,String(fm['vlook-query']||''));
+            const query=new Query(themeQuery,fmQuery(fm));
             fm['vlook-doc-lib']=rewriteLibraryLinks(fm['vlook-doc-lib'],app,file.path,opts.mode,query.get('xmd')||'html',host.ownerDocument,opts.outDir);
         }
         const metas = Object.entries(fm)

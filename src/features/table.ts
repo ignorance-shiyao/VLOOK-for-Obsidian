@@ -365,11 +365,11 @@ function rowGroups(table: HTMLTableElement) {
         btn.setAttribute("aria-expanded", "false");
         btn.setAttribute("aria-label", "展开行分组");
         btn.after(" ");
-        btn.addEventListener("click", ev => { ev.stopPropagation(); toggle(folderRow!); });
+        btn.addEventListener("click", ev => { ev.stopPropagation(); toggle(folderRow); });
         btn.addEventListener("keydown", ev => {
             if ((ev.key !== "Enter" && ev.key !== " ") || ev.ctrlKey || ev.metaKey || ev.altKey) return;
             ev.preventDefault(); ev.stopPropagation();
-            if (!ev.repeat) toggle(folderRow!);
+            if (!ev.repeat) toggle(folderRow);
         });
         return true;
     };

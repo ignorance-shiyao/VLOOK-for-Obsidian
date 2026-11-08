@@ -45,7 +45,7 @@ export function buildTag(code: HTMLElement, ctx: RenderCtx): void {
         code.className = `v-tag ${color}${em}${id}`;
     }
     code.setAttribute("value", code.textContent || "");
-    code.addEventListener("click", () => copyText(code, code.getAttribute("value") || ""));
+    code.addEventListener("click", () => void copyText(code, code.getAttribute("value") || ""));
     keyboardCopy(code,()=>code.getAttribute('value')||'');
 }
 
@@ -87,7 +87,7 @@ export function buildBadge(target: HTMLElement, name: string, value: string, val
     }
     target.addEventListener("click", ev => {
         ev.stopPropagation();
-        copyText(target, (target.textContent || "") + (value2 ? " " + value2 : ""));
+        void copyText(target, (target.textContent || "") + (value2 ? " " + value2 : ""));
     });
     keyboardCopy(target,()=>(target.textContent||'')+(value2?' '+value2:''),{label:'复制值及后缀'});
     // 第 3 段
@@ -97,12 +97,12 @@ export function buildBadge(target: HTMLElement, name: string, value: string, val
         target.after(v2);
         outer.classList.add("hastwo");
         if (name.length > 0) target.classList.add("hastwo");
-        v2.addEventListener("click", ev => { ev.stopPropagation(); copyText(v2, value2); });
+        v2.addEventListener("click", ev => { ev.stopPropagation(); void copyText(v2, value2); });
         keyboardCopy(v2,()=>value2,{label:'复制后缀'});
     }
     const plain = [name, value, value2].filter(Boolean).join(" ");
     outer.setAttribute("value", plain);
-    outer.addEventListener("click", () => copyText(outer, plain));
+    outer.addEventListener("click", () => void copyText(outer, plain));
     if(name)keyboardCopy(outer,()=>plain,{role:'group',label:'复制完整徽章'});
     else {outer.setAttribute('role','group');outer.setAttribute('aria-label','徽章');}
 }
@@ -169,7 +169,7 @@ export function processCodeMagic(root: HTMLElement, ctx: RenderCtx): void {
             code.replaceWith(ruby);
         } else {
             code.classList.add("v-std-code", `id-${nextId()}`);
-            code.addEventListener("click", () => copyText(code, code.textContent || ""));
+            code.addEventListener("click", () => void copyText(code, code.textContent || ""));
             keyboardCopy(code,()=>code.textContent||'');
         }
     });

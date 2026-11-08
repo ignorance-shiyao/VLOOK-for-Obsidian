@@ -13,7 +13,7 @@ const GLYPHS: Record<NoticeKind, string> = {
 };
 
 function svg(size: number, attrs: Record<string, string>, ...children: SVGElement[]): SVGElement {
-    const el = document.createElementNS(SVG_NS, "svg");
+    const el = activeDocument.createElementNS(SVG_NS, "svg");
     el.setAttribute("viewBox", "0 0 24 24");
     el.setAttribute("width", String(size));
     el.setAttribute("height", String(size));
@@ -22,7 +22,7 @@ function svg(size: number, attrs: Record<string, string>, ...children: SVGElemen
     return el;
 }
 function node(tag: string, attrs: Record<string, string>, ...children: SVGElement[]): SVGElement {
-    const el = document.createElementNS(SVG_NS, tag);
+    const el = activeDocument.createElementNS(SVG_NS, tag);
     for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
     el.append(...children);
     return el;
@@ -41,20 +41,20 @@ export function noticeKind(text: string): NoticeKind {
 }
 
 function body(message: string | DocumentFragment, kind: NoticeKind): { fragment: DocumentFragment; wrap: HTMLElement; close: HTMLElement } {
-    const wrap = document.createElement("div");
+    const wrap = createDiv();
     wrap.className = "vlook-notice-body";
-    const icon = document.createElement("span");
+    const icon = createSpan();
     icon.className = "vlook-notice-icon";
     icon.append(iconSvg(kind));
-    const text = document.createElement("div");
+    const text = createDiv();
     text.className = "vlook-notice-text";
     if (typeof message === "string") text.textContent = message; else text.append(message);
-    const close = document.createElement("button");
+    const close = createEl("button");
     close.className = "vlook-notice-close";
     close.setAttribute("aria-label", "关闭");
     close.append(closeSvg());
     wrap.append(icon, text, close);
-    const fragment = document.createDocumentFragment();
+    const fragment = createFragment();
     fragment.append(wrap);
     return { fragment, wrap, close };
 }

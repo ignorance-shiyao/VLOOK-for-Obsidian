@@ -38,7 +38,7 @@ export function readingText(source:string,embed?:EmbedResolver,depth=0,seen:Read
         if(name==='HTMLBlock'||name==='HTMLTag'){
             let text='';
             if(name==='HTMLBlock'){
-                const template={content:parseHtml(document,raw)};
+                const template={content:parseHtml(activeDocument,raw)};
                 template.content.querySelectorAll('script,style').forEach(el=>el.remove());text=template.content.textContent||'';
             }
             replacements.push({from:node.from,to:node.to,text});return false;

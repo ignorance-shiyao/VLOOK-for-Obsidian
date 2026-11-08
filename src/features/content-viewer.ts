@@ -125,7 +125,7 @@ export function openContentViewer(target: HTMLElement, pictureInPicture = false)
             const move = (move:PointerEvent) => {
                 dialog.style.setProperty('left', `${Math.max(0, Math.min(doc.documentElement.clientWidth - 80, rect.left + move.clientX - x))}px`);
                 dialog.style.setProperty('top', `${Math.max(0, Math.min(doc.documentElement.clientHeight - 40, rect.top + move.clientY - y))}px`);
-                dialog.style.setProperty('right', 'auto'); dialog.style.setProperty('bottom', 'auto');
+                dialog.classList.add('vlook-dialog-moved');
             };
             const end = () => { controls.removeEventListener('pointermove', move); controls.removeEventListener('pointerup', end); controls.removeEventListener('pointercancel', end); };
             controls.addEventListener('pointermove', move);

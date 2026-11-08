@@ -1,9 +1,8 @@
 // 简易多语言：中文 / 英文（与 VLOOK 内置文本一致）
+import { getLanguage } from "obsidian";
 
 export function currentLang(): string {
-    let lang: string | null = null;
-    try { lang = window.localStorage.getItem("language"); } catch { /* 忽略 */ }
-    return (lang || navigator.language || "en").toLowerCase();
+    return (getLanguage() || "en").toLowerCase();
 }
 
 const zh = (): boolean => currentLang().startsWith("zh");

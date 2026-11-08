@@ -34,7 +34,7 @@ export async function exportHtml(plugin: VlookPlugin, file: TFile, allThemes = f
 
 /** 完成提示：带“打开”（系统默认应用）与“显示位置”按钮。 */
 function doneNotice(plugin: VlookPlugin, out: string, mathErrors: number): void {
-    const fragment = document.createDocumentFragment();
+    const fragment = createFragment();
     fragment.createDiv({ text: mathErrors ? `已导出到 ${out}，${mathErrors} 个公式渲染出错，已按原样保留` : `已导出到 ${out}` });
     const app = plugin.app as unknown as { openWithDefaultApp?: (path: string) => Promise<void>; showInFolder?: (path: string) => Promise<void> };
     let notice: Notice | undefined;

@@ -3,12 +3,20 @@
 
 import { Platform, type App } from "obsidian";
 
-type Remote = { BrowserWindow: new (options: object) => any };
+interface PdfWindow {
+    loadFile(path: string): Promise<void>;
+    webContents: { executeJavaScript(code: string): Promise<unknown>; printToPDF(options: object): Promise<Uint8Array> };
+    destroy(): void;
+}
+type Remote = { BrowserWindow: new (options: object) => PdfWindow };
+type NodeRequire = (name: string) => unknown;
+interface NodeFs { promises: { writeFile(path: string, data: string, encoding: string): Promise<void>; unlink(path: string): Promise<void> } }
 
 function electronRemote(win: Window): Remote | null {
     if (!Platform.isDesktopApp) return null;
     try {
-        const remote = (win as any).require?.("electron")?.remote;
+        const req = (win as unknown as { require?: NodeRequire }).require;
+        const remote = (req?.("electron") as { remote?: Remote } | undefined)?.remote;
         return remote?.BrowserWindow ? remote : null;
     } catch { return null; }
 }
@@ -69,8 +77,8 @@ export async function writeFrameAsPdf(app: App, frame: HTMLIFrameElement, out: s
     const remote = electronRemote(host);
     const doc = frame.contentDocument;
     if (!remote || !doc) throw new Error("当前环境不支持直接写入 PDF");
-    const req = (host as any).require;
-    const fs = req("fs"), os = req("os"), path = req("path");
+    const req = (host as unknown as { require: NodeRequire }).require;
+    const fs = req("fs") as NodeFs, os = req("os") as { tmpdir(): string }, path = req("path") as { join(...parts: string[]): string };
     const temp = path.join(os.tmpdir(), `vlook-print-${Date.now()}-${Math.random().toString(36).slice(2)}.html`);
     await fs.promises.writeFile(temp, snapshotPrintDocument(doc), "utf8");
     const win = new remote.BrowserWindow({ show: false, width: 1200, height: 900, webPreferences: { offscreen: false } });
@@ -80,11 +88,11 @@ export async function writeFrameAsPdf(app: App, frame: HTMLIFrameElement, out: s
             Promise.all([document.fonts.ready, ...Array.from(document.images, i => i.decode().catch(() => {}))]),
             new Promise(r => setTimeout(r, 15000))
         ]).then(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))))`);
-        const data: Uint8Array = await win.webContents.printToPDF({ pageSize: "A4", printBackground: true, preferCSSPageSize: true });
+        const data = await win.webContents.printToPDF({ pageSize: "A4", printBackground: true, preferCSSPageSize: true });
         const bytes = new Uint8Array(data);
         await app.vault.adapter.writeBinary(out, bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
     } finally {
         win.destroy();
-        fs.promises.unlink(temp).catch(() => {});
+        void fs.promises.unlink(temp).catch(() => {});
     }
 }

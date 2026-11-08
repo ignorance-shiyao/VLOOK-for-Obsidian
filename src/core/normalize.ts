@@ -126,7 +126,7 @@ export function normalizeLiteralInline(root: HTMLElement): void {
                 if (m[1]) span.setAttribute("alt", m[1]);
                 frag.append(span);
             } else frag.append(doc.createElement("br"));
-            last = m.index! + m[0].length;
+            last = m.index + m[0].length;
         }
         if (last === 0) continue;
         frag.append(t.data.slice(last));

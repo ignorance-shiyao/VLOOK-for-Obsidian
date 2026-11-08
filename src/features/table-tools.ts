@@ -125,7 +125,7 @@ export function processTableTools(root: HTMLElement, readingDefault = false, reo
             while (r >= 0 && r < grid.length && c >= 0) {
                 if(step[1]&&c>=(grid[r]?.length||0))break;
                 const next = grid[r]?.[c];
-                const row = next?.parentElement as HTMLElement | null;
+                const row = next?.parentElement;
                 if (next && next !== current && visible(table.rows[r]) && visible(row)) {
                     select(next, r, c); next.scrollIntoView?.({block:'nearest', inline:'nearest'}); return;
                 }

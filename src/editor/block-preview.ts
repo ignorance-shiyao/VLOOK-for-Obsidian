@@ -53,7 +53,7 @@ class BlockWidget extends WidgetType {
         private sourcePath: string, private from: number, private key: string) { super(); }
     eq(other: BlockWidget) { return this.plugin === other.plugin && this.key === other.key && this.from === other.from && this.sourcePath === other.sourcePath; }
     toDOM(view: EditorView) {
-        const doc = view.dom?.ownerDocument || document;
+        const doc = view.dom?.ownerDocument || activeDocument;
         const cssVar = (name:string) => readCssVar(name,doc.body);
         const themeQuery = new Query(cssVar("--vlook-query"));
         const index = getSourceIndex(this.index.text, {headerEnabled:this.plugin.settings.headerAutoNum,
@@ -129,7 +129,7 @@ class BlockWidget extends WidgetType {
         })().catch(error => {
             pauseContainedMedia(body);
             if (life.disposed) {body.replaceChildren();return;}
-            body.textContent = `VLOOK 区块渲染失败：${error.message || error}`;
+            body.textContent = `VLOOK 区块渲染失败：${(error as Error).message || String(error)}`;
             console.error("[VLOOK] editor block", error);
             view.requestMeasure();
         });
@@ -192,5 +192,5 @@ export function blockPreviewExtension(plugin: VlookPlugin) {
         return Decoration.set(ranges, true);
     };
     return StateField.define<DecorationSet>({create:build, update:(_old, tr) => build(tr.state), provide:f => [Prec.highest(EditorView.decorations.from(f)),
-        EditorView.editorAttributes.compute([f], state => (coverStates.has(state) ? {class:"vlook-fm-cover"} : {}) as Record<string, string>)]});
+        EditorView.editorAttributes.compute([f], (state): Record<string, string> => (coverStates.has(state) ? {class:"vlook-fm-cover"} : {}))]});
 }

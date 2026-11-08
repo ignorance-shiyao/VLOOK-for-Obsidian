@@ -25,7 +25,7 @@ export class DocumentOptions {
         const cached = this.plugin.app.metadataCache.getFileCache(file)?.frontmatter;
         const own = !cached && yaml ? parseFrontmatterYaml(yaml) : undefined;
         const fm = cached ?? own;
-        const query = new Query(readCssVar("--vlook-query", host), fm?.["vlook-query"]);
+        const query = new Query(readCssVar("--vlook-query", host), typeof fm?.["vlook-query"] === "string" ? fm["vlook-query"] : undefined);
         const lang = String(fm?.lang ?? fm?.language ?? currentLang());
         const today = new Date();
         const gray = grayModeActive(query.get("gray"), fm?.["vlook-gray-mode"], today, lang);
@@ -40,7 +40,6 @@ export class DocumentOptions {
         host.classList.toggle("vlook-reading-gray", gray);
         host.classList.toggle("vlook-debug", debug);
         host.classList.toggle("vlook-fm-tolerant", !!own && Object.keys(own).some(k => k.startsWith("vlook-")));
-        if (debug) console.info("[VLOOK] debug", file.path, Object.fromEntries(["fw", "gray", "tr", "ws", "sts", "tabico", "tabcap"].map(k => [k, query.get(k)])));
         // 欢迎页只在文档打开时显示一次
         if (this.opened.get(host) !== file.path) {
             this.opened.set(host, file.path);

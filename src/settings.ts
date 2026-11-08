@@ -66,7 +66,7 @@ export class VlookSettingTab extends PluginSettingTab {
         new Setting(containerEl).setName("语法与排版").setHeading();
         const toggle = (name: string, desc: string, key: keyof typeof s) =>
             new Setting(containerEl).setName(name).setDesc(desc).addToggle(t =>
-                t.setValue(s[key] as boolean).onChange(async v => { (s as any)[key] = v; await save(); }));
+                t.setValue(s[key] as boolean).onChange(async v => { (s as unknown as Record<string, unknown>)[key] = v; await save(); }));
         new Setting(containerEl).setName("文件类型图标").addToggle(t =>
             t.setValue(s.fileTypeIcons).onChange(async v => { s.fileTypeIcons = v; await save(); this.plugin.applyFileTypeIcons(); }));
         toggle("识别 ~下标~ 与 ^上标^", "与 Typora 一致；色号 _~Rd~_、页签组 _^tab^_、注音 _^zhù^_ 在关闭时仍然可用。", "genericSubSup");

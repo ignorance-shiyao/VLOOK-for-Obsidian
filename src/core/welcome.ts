@@ -17,7 +17,7 @@ export function sanitizeWelcome(html: string, doc: Document): DocumentFragment {
     parsed.body.querySelectorAll(BLOCKED).forEach(el => el.remove());
     parsed.body.querySelectorAll("*").forEach(el => {
         for (const attr of Array.from(el.attributes)) {
-            if (/^on/i.test(attr.name) || (/^(href|src|xlink:href|formaction|action|srcdoc)$/i.test(attr.name) && /^(javascript|vbscript|data:text\/html)/i.test(attr.value.replace(/[\u0000-\u0020\u007f-\u009f]/g, "")))) el.removeAttribute(attr.name);
+            if (/^on/i.test(attr.name) || (/^(href|src|xlink:href|formaction|action|srcdoc)$/i.test(attr.name) && /^(javascript|vbscript|data:text\/html)/i.test(Array.from(attr.value).filter(ch => { const c = ch.charCodeAt(0); return c > 32 && (c < 127 || c > 159); }).join("")))) el.removeAttribute(attr.name);
         }
     });
     const fragment = doc.createDocumentFragment();

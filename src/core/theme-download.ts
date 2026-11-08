@@ -21,13 +21,17 @@ export async function downloadTheme(id: string, version: string, file = themeAss
 
 /** 发布页上的主题清单：[{ id, name, color, colors?, file? }]。 */
 export async function fetchThemeIndex(version: string): Promise<ThemeRemote[]> {
-    const data = JSON.parse(await get(version, THEME_INDEX_NAME));
+    const data = JSON.parse(await get(version, THEME_INDEX_NAME)) as unknown;
     if (!Array.isArray(data)) throw Error("主题清单格式不正确");
-    return data.filter(item => item && typeof item.id === "string" && item.id).map(item => ({
-        id: String(item.id).toLowerCase(),
-        name: typeof item.name === "string" && item.name ? item.name : String(item.id),
-        color: typeof item.color === "string" ? item.color : "",
-        colors: Array.isArray(item.colors) && item.colors.length === 2 ? [String(item.colors[0]), String(item.colors[1])] as [string, string] : undefined,
-        file: typeof item.file === "string" ? item.file : undefined,
-    }));
+    const items = data as Record<string, unknown>[];
+    return items.filter(item => item && typeof item.id === "string" && item.id).map(item => {
+        const id = item.id as string, colors = item.colors;
+        return {
+            id: id.toLowerCase(),
+            name: typeof item.name === "string" && item.name ? item.name : id,
+            color: typeof item.color === "string" ? item.color : "",
+            colors: Array.isArray(colors) && colors.length === 2 ? [String(colors[0]), String(colors[1])] as [string, string] : undefined,
+            file: typeof item.file === "string" ? item.file : undefined,
+        };
+    });
 }

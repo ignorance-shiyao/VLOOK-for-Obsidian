@@ -27,7 +27,7 @@ export class ContentZoom {
             this.tapStarts.set(event.pointerId,{x:event.clientX,y:event.clientY,time:Date.now(),eligible:!!event.pointerType&&event.pointerType!=='mouse'});
             if(event.pointerType==='mouse')this.lastTap=null;
             if(this.pointers.size>1){this.lastTap=null;for(const tap of this.tapStarts.values())tap.eligible=false;}
-            this.target!.style.setProperty('cursor','grabbing','important');
+            this.target!.classList.add('vlook-zoom-dragging');
             try{this.body.setPointerCapture(event.pointerId);}catch{/* 宿主已结束指针流 */}
         }) as EventListener);
         this.on('pointermove',((event:PointerEvent)=>{
@@ -53,7 +53,7 @@ export class ContentZoom {
                     this.zoom(this.scale>1?1:2,event.clientX,event.clientY);this.lastTap=null;
                 }else this.lastTap={x:event.clientX,y:event.clientY,time:now};
             }else this.lastTap=null;
-            if(this.target&&!this.pointers.size)this.target.style.setProperty('cursor','grab','important');
+            if(this.target&&!this.pointers.size)this.target.classList.remove('vlook-zoom-dragging');
             try{if(this.body.hasPointerCapture(event.pointerId))this.body.releasePointerCapture(event.pointerId);}catch{/* 指针已释放 */}
         }) as EventListener;
         for(const name of ['pointerup','pointercancel','lostpointercapture'])this.on(name,end);
@@ -82,7 +82,7 @@ export class ContentZoom {
         for(const property of ['transform','transform-origin','touch-action','cursor'])this.saved.set(property,{value:target.style.getPropertyValue(property),priority:target.style.getPropertyPriority(property)});
         const computed=target.ownerDocument.defaultView?.getComputedStyle(target).transform||target.style.transform;
         this.original=computed==='none'?'':computed;
-        target.style.setProperty('transform-origin','0 0','important');target.style.setProperty('touch-action','none','important');target.style.setProperty('cursor','grab','important');
+        target.classList.add('vlook-zoom-target');
         target.addEventListener('load',this.imageLoaded);this.fitToView();return target;
     }
     refresh(preferred?:HTMLElement){const candidate=preferred?(preferred.matches(VISUAL)?preferred:preferred.querySelector<HTMLElement>(VISUAL)):undefined;if(preferred&&!candidate){this.reset();return;}const target=this.visual(candidate);if(target){target.removeEventListener('load',this.imageLoaded);target.addEventListener('load',this.imageLoaded);if(!this.fitted)this.fitToView();}}
@@ -107,7 +107,7 @@ export class ContentZoom {
     }
     private paint(){if(this.target)this.target.style.setProperty('transform',`translate(${this.baseX+this.x}px, ${this.baseY+this.y}px) scale(${this.scale*this.fit}) ${this.original}`.trim(),'important');}
     reset(){
-        if(this.target){this.target.removeEventListener('load',this.imageLoaded);for(const [property,original] of this.saved)this.target.style.setProperty(property,original.value,original.priority);}
+        if(this.target){this.target.classList.remove('vlook-zoom-target','vlook-zoom-dragging');this.target.removeEventListener('load',this.imageLoaded);for(const [property,original] of this.saved)this.target.style.setProperty(property,original.value,original.priority);}
         for(const id of this.pointers.keys()){try{if(this.body.hasPointerCapture(id))this.body.releasePointerCapture(id);}catch{/* 已释放 */}}
         this.target=null;this.saved.clear();this.pointers.clear();this.tapStarts.clear();this.lastTap=null;this.scale=1;this.x=0;this.y=0;this.fit=1;this.baseX=0;this.baseY=0;this.fitted=false;
     }

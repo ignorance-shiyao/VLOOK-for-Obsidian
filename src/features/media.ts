@@ -133,7 +133,7 @@ export function processMedia(root: HTMLElement, ctx: RenderCtx): void {
             return;
         }
         if (p.controls === "mini") {
-            const ctl = buildMiniAudio(el as HTMLAudioElement, p, ctx);
+            const ctl = buildMiniAudio(el, p, ctx);
             img.replaceWith(el, ctl);
         } else {
             el.controls = true;

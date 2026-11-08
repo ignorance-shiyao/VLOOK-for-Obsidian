@@ -401,3 +401,14 @@ body { --vlook-lh: 1.75; }
 /* 行内组件（进度条、面包屑、按钮）不撑高所在行，整段行距保持一致 */
 .markdown-rendered.markdown-rendered p :is(.v-pgbar, .v-stepwise) { vertical-align: middle; line-height: 1.4 !important; margin-block: -.3em; }
 .markdown-rendered.markdown-rendered p :is(a, span):has(> kbd), .markdown-rendered.markdown-rendered p kbd { margin-block: -.5em; vertical-align: middle; }
+
+/* 内容缩放 / 对话框拖动 / 图片卡片 / 表格手柄 / 图表标签：由脚本切换类名，不再直接写内联样式 */
+.vlook-zoom-target{transform-origin:0 0!important;touch-action:none!important;cursor:grab!important}
+.vlook-zoom-target.vlook-zoom-dragging{cursor:grabbing!important}
+.vlook-dialog-moved{right:auto!important;bottom:auto!important}
+.v-post-card.vlook-card-open{display:block!important}
+.vlook-anchor-start{text-anchor:start!important}
+.vlook-grip-host{position:relative!important}
+.vlook-grip-cell{box-sizing:border-box!important}
+.vlook-grip-wide{max-width:none!important}
+.vlook-grip-fixed{table-layout:fixed!important}

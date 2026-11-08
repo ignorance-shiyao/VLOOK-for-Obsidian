@@ -37,21 +37,3 @@ export function applyZenUmlPalette(svg:SVGElement):void {
     }).join('\n')+`\n@media print{${scope}{--vlook-zen-bg:#fff;--vlook-zen-fg:#222;--vlook-zen-muted:#666;--vlook-zen-panel:#eee;print-color-adjust:exact;-webkit-print-color-adjust:exact}}`;
     svg.append(style);
 }
-
-/** Decorate the official lazy renderer, leaving its parser and sizing intact. */
-export function withZenUmlPalette(definition:any):any {
-    if(typeof definition?.loader!=='function')return definition;
-    return {...definition,async loader(...args:unknown[]){
-        const loaded=await definition.loader(...args);
-        const renderer=loaded.diagram.renderer;
-        return {...loaded,diagram:{...loaded.diagram,renderer:{...renderer,async draw(...drawArgs:unknown[]){
-            const result=await renderer.draw.apply(renderer,drawArgs);
-            const id=String(drawArgs[1]);
-            const sandbox=activeDocument.getElementById(`i${id}`) as HTMLIFrameElement|null;
-            const root=sandbox?.contentDocument||activeDocument;
-            const svg=root.getElementById(id);
-            if(svg?.tagName.toLowerCase()==='svg')applyZenUmlPalette(svg as unknown as SVGElement);
-            return result;
-        }}}};
-    }};
-}

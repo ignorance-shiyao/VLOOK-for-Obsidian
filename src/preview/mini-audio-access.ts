@@ -32,7 +32,7 @@ export function enhanceExportMiniAudio(root: ParentNode): void {
         update();
     });
     const observer = new win.MutationObserver(scan);
-    const observe = () => observer.observe(root as Node,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+    const observe = () => observer.observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
     scan(); observe();
     win.addEventListener('pagehide',()=>observer.disconnect());
     win.addEventListener('pageshow',()=>{scan();observe();});

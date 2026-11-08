@@ -177,7 +177,7 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
         box.className = "md-math-container";
         box.append(...Array.from(m.childNodes));
         div.append(box);
-        (m.closest("p") && m.closest("p")!.textContent!.trim() === m.textContent!.trim() ? m.closest("p")! : m).replaceWith(div);
+        (m.closest("p") && m.closest("p")!.textContent.trim() === m.textContent.trim() ? m.closest("p")! : m).replaceWith(div);
     });
     // ```math 在 Typora 中是高级代码块（md-fences-math），运行时据此认领前置题注
     root.querySelectorAll<HTMLElement>("[data-vlook-math-fence]").forEach(wrapper => {
@@ -223,7 +223,7 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
         // 列表项内容放入 <p>
         if (!li.querySelector(":scope > p")) {
             const p = doc.createElement("p");
-            const nodes = Array.from(li.childNodes).filter(n => n !== input && !(n instanceof HTMLElement && /^(UL|OL)$/.test(n.tagName)));
+            const nodes = Array.from(li.childNodes).filter(n => n !== input && !(n.nodeType === 1 && /^(UL|OL)$/.test((n as Element).tagName)));
             p.append(...nodes);
             input ? input.after(p) : li.prepend(p);
         }

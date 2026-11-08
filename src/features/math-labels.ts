@@ -30,7 +30,7 @@ export function repairDuplicateMathLabels(root: ParentNode, win: MathWindow): nu
 }
 
 export function watchDuplicateMathLabels(doc: Document): () => void {
-    const win = doc.defaultView as MathWindow | null;
+    const win = doc.defaultView;
     if (!win) return () => {};
     let queued = false;
     const run = () => { queued = false; repairDuplicateMathLabels(doc.body, win); observer.takeRecords(); };
