@@ -290,7 +290,7 @@ export default class VlookPlugin extends Plugin {
         const label = themeLabel(id);
         const progress = notify(`VLOOK：正在下载主题 ${label}…`, 0, "info");
         try {
-            await this.themeStore.install(id, await downloadTheme(id, this.manifest.version, this.themeStore.remoteEntry(id)?.file));
+            await this.themeStore.install(id, await downloadTheme(id, this.themeStore.remoteEntry(id)?.file));
             for (const key of [...this.cssCache.keys()]) if (key.startsWith(`${id}:`)) this.cssCache.delete(key);
             await this.themeStore.scan();
             progress.hide();
@@ -307,7 +307,7 @@ export default class VlookPlugin extends Plugin {
     async refreshRemoteThemes(): Promise<void> {
         const progress = notify("VLOOK：正在获取主题清单…", 0, "info");
         try {
-            const list = await fetchThemeIndex(this.manifest.version);
+            const list = await fetchThemeIndex();
             await this.themeStore.setRemote(list);
             await this.themeStore.scan();
             this.themeFailures.clear();
