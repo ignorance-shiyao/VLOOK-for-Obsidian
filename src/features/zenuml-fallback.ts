@@ -16,7 +16,7 @@ export async function renderZenUmlFallback(root:HTMLElement,lifecycle:Lifecycle,
     const sources=sourceFences(markdown,'mermaid');
     const diagrams=diagramElements(root);
     const targets=diagrams.flatMap((node:HTMLElement,n:number):{node:HTMLElement;source:string;text:string|null}[]=>{
-        const source=node.matches('code')?node.textContent||'':sources.length===diagrams.length?sources[n]:'';
+        const source=node.localName==='code'?node.textContent||'':sources.length===diagrams.length?sources[n]:'';
         return /^\s*zenuml\b/i.test(source)&&!hasRenderedSvg(node) ? [{node,source,text:node.textContent}] : [];
     });
     if(!targets.length)return;
@@ -25,7 +25,7 @@ export async function renderZenUmlFallback(root:HTMLElement,lifecycle:Lifecycle,
         for(const {node,source} of targets){
             const pre=newEl(owner, 'pre'),code=newEl(owner, 'code');
             pre.className='vlook-zenuml-source';code.className='language-zenuml';code.textContent=source;pre.append(code);
-            if(node.matches('code'))node.parentElement?.replaceWith(pre);else node.replaceWith(pre);
+            if(node.localName==='code')node.parentElement?.replaceWith(pre);else node.replaceWith(pre);
         }
         return;
     }
@@ -44,6 +44,6 @@ export async function renderZenUmlFallback(root:HTMLElement,lifecycle:Lifecycle,
         if(node===root){root.dataset.vlookDiagramKind='zenuml';root.replaceChildren(svg);continue;}
         const container=newEl(root.ownerDocument, 'div');container.className='mermaid';
         container.dataset.vlookDiagramKind='zenuml';container.append(svg);
-        if(node.matches('code'))node.parentElement?.replaceWith(container);else node.replaceWith(container);
+        if(node.localName==='code')node.parentElement?.replaceWith(container);else node.replaceWith(container);
     }
 }
