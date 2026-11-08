@@ -1,6 +1,6 @@
 {
   "name": "vlook-obsidian",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "VLOOK™ for Obsidian",
   "scripts": {
     "build:themes": "node scripts/build-themes.mjs",

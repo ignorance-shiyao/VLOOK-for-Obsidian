@@ -1,7 +1,7 @@
 {
   "id": "vlook",
   "name": "VLOOK",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "minAppVersion": "1.11.0",
   "description": "Rich typesetting for notes: colour marks, tags, quote columns, merged tables, tab groups, covers and diagrams, with HTML/PDF export. Inspired by VLOOK for Typora.",
   "author": "shiyao",
