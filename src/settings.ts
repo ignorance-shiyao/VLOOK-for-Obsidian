@@ -38,6 +38,11 @@ export class VlookSettingTab extends PluginSettingTab {
         super(app, plugin);
     }
 
+    private refreshTab(): void {
+        const tab = this as unknown as { update?: () => void };
+        if (typeof tab.update === "function") tab.update(); else this.display();
+    }
+
     getSettingDefinitions(): SettingDefinitionItem[] {
         const s = this.plugin.settings;
         const save = async () => this.plugin.saveSettings();
@@ -52,11 +57,11 @@ export class VlookSettingTab extends PluginSettingTab {
                     control: { type: "dropdown", key: "previewTheme", defaultValue: "auto", options: { auto: "跟随插件配色", ...themes } } },
                 { name: "主题文件夹", render: setting => {
                     setting.addExtraButton(b => b.setIcon("folder-open").setTooltip("打开主题文件夹").onClick(() => void this.plugin.openThemeFolder()))
-                        .addExtraButton(b => b.setIcon("cloud-download").setTooltip("获取更多主题").onClick(() => { void this.plugin.refreshRemoteThemes().then(() => this.update()); }));
+                        .addExtraButton(b => b.setIcon("cloud-download").setTooltip("获取更多主题").onClick(() => { void this.plugin.refreshRemoteThemes().then(() => this.refreshTab()); }));
                 } },
                 { name: "主题目录", control: { type: "text", key: "themeFolder", placeholder: this.plugin.themeStore.builtinDir, defaultValue: "" } },
                 { name: "重新加载主题", render: setting => {
-                    setting.addExtraButton(b => b.setIcon("refresh-cw").setTooltip("重新加载主题").onClick(() => { void this.plugin.reloadThemes().then(() => this.update()); }));
+                    setting.addExtraButton(b => b.setIcon("refresh-cw").setTooltip("重新加载主题").onClick(() => { void this.plugin.reloadThemes().then(() => this.refreshTab()); }));
                 } },
             ] },
             { type: "group", heading: "可选功能", items: [
