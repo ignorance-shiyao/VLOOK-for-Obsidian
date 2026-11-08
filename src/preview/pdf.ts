@@ -3,6 +3,7 @@
 
 import { Platform, type App } from "obsidian";
 
+import { newEl } from '../core/dom';
 interface PdfWindow {
     loadFile(path: string): Promise<void>;
     webContents: { executeJavaScript(code: string): Promise<unknown>; printToPDF(options: object): Promise<Uint8Array> };
@@ -44,14 +45,14 @@ export function snapshotPrintDocument(doc: Document): string {
     const adopted = (doc as Document & { adoptedStyleSheets?: CSSStyleSheet[] }).adoptedStyleSheets ?? [];
     const head = clone.querySelector("head") ?? clone;
     for (const sheet of adopted) {
-        const style = doc.createElement("style");
+        const style = newEl(doc, "style");
         style.textContent = Array.from(sheet.cssRules, rule => rule.cssText).join("\n");
         head.append(style);
     }
     const canvases = Array.from(doc.querySelectorAll("canvas"));
     Array.from(clone.querySelectorAll("canvas")).forEach((canvas, index) => {
         try {
-            const img = doc.createElement("img");
+            const img = newEl(doc, "img");
             img.src = canvases[index].toDataURL();
             img.style.cssText = canvases[index].style.cssText;
             img.width = canvases[index].width; img.height = canvases[index].height;
@@ -65,7 +66,7 @@ export function snapshotPrintDocument(doc: Document): string {
     });
     clone.querySelectorAll("script, iframe[name='vlook-doc-lib']").forEach(node => node.remove());
     if (!clone.querySelector("base")) {
-        const base = doc.createElement("base");
+        const base = newEl(doc, "base");
         base.href = doc.baseURI;
         head.prepend(base);
     }

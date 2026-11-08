@@ -7,7 +7,7 @@ import {processMermaid} from '../features/mermaid';
 import { tableGrid } from "../features/table-tools";
 import { isUnpublishedQuote, unpublishedMatcher } from "../core/unpublished";
 import { decodeUrlPart, encodeResourcePath } from "../core/url";
-import { wrapTextSpans, setHtml } from "../core/dom";
+import { newEl, setHtml, wrapTextSpans } from '../core/dom';
 import { buildTyporaToc } from "../features/toc";
 import { restoreSpacedLinks } from '../core/spaced-links';
 import { normalizeSubSup } from "../core/normalize";
@@ -56,7 +56,7 @@ function buildFence(pre: HTMLElement): HTMLElement {
     const code = pre.querySelector("code");
     const lang = ([...Array.from(code?.classList ?? []),...Array.from(pre.classList)].find(c => c.startsWith("language-")) || "").replace("language-", "");
     const lines = codeToLines(code||pre);
-    const out = doc.createElement("pre");
+    const out = newEl(doc, "pre");
     out.className = "md-fences md-end-block ty-contain-cm modeLoaded";
     out.setAttribute("spellcheck", "false");
     out.setAttribute("lang", lang);
@@ -75,14 +75,14 @@ function convertCallouts(root: HTMLElement) {
         const content = c.querySelector(".callout-content");
         const title = (c.querySelector(".callout-title-inner")?.textContent || "").trim();
         if (ALERTS[type]) {
-            const div = doc.createElement("div");
+            const div = newEl(doc, "div");
             div.className = `md-alert md-alert-${type} ${type}`;
             setHtml(div, `<p><span class="md-alert-text md-alert-text-${type}">${ALERTS[type]}</span></p>`);
             if (content) div.append(...Array.from(content.childNodes));
             c.replaceWith(div);
         } else {
             // 其他类型的 callout 退化为带小标题的引用块
-            const bq = doc.createElement("blockquote");
+            const bq = newEl(doc, "blockquote");
             if (title) setHtml(bq, `<p><strong>${esc(title)}</strong></p>`);
             if (content) bq.append(...Array.from(content.childNodes));
             c.replaceWith(bq);
@@ -109,7 +109,7 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
     // Typora 不为无 alt 的原生播放器生成题注容器，因此只包装带 alt 的播放器。
     root.querySelectorAll('audio[alt],video[alt]').forEach(media => {
         if (media.parentElement?.tagName === 'FIGURE') return;
-        const figure = root.ownerDocument.createElement('figure');
+        const figure = newEl(root.ownerDocument, 'figure');
         media.replaceWith(figure); figure.append(media);
     });
     // 1) 拍平块包装：Obsidian 每个块外有一层 div（el-p、el-table...）
@@ -153,7 +153,7 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
         const svg = m.querySelector("svg");
         if (!svg) return;
         // 与 Typora 导出一致：图表是裸的 div.md-diagram-panel；包在 pre.md-fences 里会被原版再算作代码块并抢走题注
-        const panel = doc.createElement("div");
+        const panel = newEl(doc, "div");
         panel.className = `md-diagram-panel md-fences-adv-panel ${m.className}`;
         panel.setAttribute("lang", "mermaid");
         if (m.id) panel.id = m.id;
@@ -170,10 +170,10 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
         else m.replaceWith(panel);
     });
     root.querySelectorAll<HTMLElement>(".math.math-block").forEach(m => {
-        const div = doc.createElement("div");
+        const div = newEl(doc, "div");
         div.className = "mathjax-block md-end-block md-math-block md-rawblock";
         div.setAttribute("mdtype", "math_block");
-        const box = doc.createElement("div");
+        const box = newEl(doc, "div");
         box.className = "md-math-container";
         box.append(...Array.from(m.childNodes));
         div.append(box);
@@ -183,7 +183,7 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
     root.querySelectorAll<HTMLElement>("[data-vlook-math-fence]").forEach(wrapper => {
         const box = wrapper.querySelector(".md-math-container");
         if (!box) return;
-        const fence = doc.createElement("div");
+        const fence = newEl(doc, "div");
         fence.className = "md-fences md-end-block md-fences-math md-fences-advanced ty-contain-cm modeLoaded";
         for (const [name, value] of [["spellcheck", "false"], ["contenteditable", "false"], ["lang", "math"], ["mdtype", "fences"]]) fence.setAttribute(name, value);
         fence.append(box);
@@ -199,7 +199,7 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
     });
     root.querySelectorAll("table").forEach(t => {
         if (t.parentElement?.tagName === "FIGURE") return;
-        const f = doc.createElement("figure");
+        const f = newEl(doc, "figure");
         f.className = "table-figure";
         t.replaceWith(f);
         f.append(t);
@@ -222,7 +222,7 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
         }
         // 列表项内容放入 <p>
         if (!li.querySelector(":scope > p")) {
-            const p = doc.createElement("p");
+            const p = newEl(doc, "p");
             const nodes = Array.from(li.childNodes).filter(n => n !== input && !(n.nodeType === 1 && /^(UL|OL)$/.test((n as Element).tagName)));
             p.append(...nodes);
             input ? input.after(p) : li.prepend(p);
@@ -235,9 +235,9 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
     });
     let footnoteCount = 0;
     root.querySelectorAll<HTMLElement>("section.footnotes").forEach(sec => {
-        const area = doc.createElement("div");
+        const area = newEl(doc, "div");
         area.className = "footnotes-area";
-        area.append(doc.createElement("hr"));
+        area.append(newEl(doc, "hr"));
         sec.querySelectorAll<HTMLElement>(":scope > ol > li").forEach(li => {
             const number = ++footnoteCount;
             const name = `ref-footnote-${number}`;
@@ -246,12 +246,12 @@ export function toTyporaDom(root: HTMLElement, genericSubSup: boolean, imageCapt
                 try { target = decodeURIComponent(target); } catch { /* 保留原始 ID */ }
                 if (li.id && target === li.id) ref.setAttribute("name", name);
             });
-            const line = doc.createElement("div");
+            const line = newEl(doc, "div");
             line.className = "footnote-line";
             if (li.id) line.id = li.id;
             li.querySelectorAll("a.footnote-backref").forEach(back => back.remove());
-            const anchor = doc.createElement("a"); anchor.setAttribute("name", `df${name}`);
-            const count = doc.createElement("span"); count.className = "md-fn-count"; count.textContent = String(number);
+            const anchor = newEl(doc, "a"); anchor.setAttribute("name", `df${name}`);
+            const count = newEl(doc, "span"); count.className = "md-fn-count"; count.textContent = String(number);
             line.append(anchor, count, " ", ...Array.from(li.childNodes));
             area.append(line);
         });

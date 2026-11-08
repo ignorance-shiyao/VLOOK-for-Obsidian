@@ -1,8 +1,9 @@
+import { newSvg } from './dom';
 /** Keep ZenUML's SVG palette readable in both Obsidian and standalone VLOOK. */
 export function applyZenUmlPalette(svg:SVGElement):void {
     svg.classList.add('vlook-zenuml');
     if(svg.querySelector('style[data-vlook-zenuml-palette]'))return;
-    const style=svg.ownerDocument.createElementNS('http://www.w3.org/2000/svg','style');
+    const style=newSvg(svg.ownerDocument, 'style');
     style.setAttribute('data-vlook-zenuml-palette','1');
     const scope='svg.vlook-zenuml';
     const rules:[string,string][]=[

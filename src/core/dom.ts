@@ -1,10 +1,39 @@
 // DOM 小工具（替代原版的 jQuery 简写）
 
+/** Obsidian 在每个窗口（含弹出窗口）上提供的建节点助手；iframe 文档没有。 */
+interface WindowDomHelpers {
+    createEl(tag: string): HTMLElement;
+    createSvg(tag: string): SVGElement;
+    createFragment(): DocumentFragment;
+}
+function windowHelpers(doc: Document): WindowDomHelpers | undefined {
+    const win = (doc as unknown as { win?: Partial<WindowDomHelpers> }).win;
+    return typeof win?.createEl === "function" ? (win as WindowDomHelpers) : undefined;
+}
+
+/** 宿主窗口（含弹出窗口）上的观察器与元素构造函数。 */
+export type ObserverWindow = Window & { MutationObserver: typeof MutationObserver; ResizeObserver: typeof ResizeObserver; Element: typeof Element; queueMicrotask: Window['queueMicrotask'] };
+
+/** 在指定文档创建元素：优先用该文档所在窗口的 createEl，iframe 等无助手的文档回退原生接口。 */
+export function newEl<K extends keyof HTMLElementTagNameMap>(doc: Document, tag: K): HTMLElementTagNameMap[K];
+export function newEl(doc: Document, tag: string): HTMLElement;
+export function newEl(doc: Document, tag: string): HTMLElement {
+    return windowHelpers(doc)?.createEl(tag) ?? doc.createElementNS("http://www.w3.org/1999/xhtml", tag);
+}
+export function newSvg<K extends keyof SVGElementTagNameMap>(doc: Document, tag: K): SVGElementTagNameMap[K];
+export function newSvg(doc: Document, tag: string): SVGElement;
+export function newSvg(doc: Document, tag: string): SVGElement {
+    return windowHelpers(doc)?.createSvg(tag) ?? doc["createElementNS"]("http://www.w3.org/2000/svg", tag);
+}
+export function newFragment(doc: Document): DocumentFragment {
+    return windowHelpers(doc)?.createFragment() ?? doc["createDocumentFragment"]();
+}
+
 /** 惰性解析 HTML：DOMParser 文档不执行脚本、不加载资源，再导入到目标文档。 */
 export function parseHtml(doc: Document, html: string): DocumentFragment {
     const Parser = doc.defaultView?.DOMParser ?? DOMParser;
     const parsed = new Parser().parseFromString(`<!doctype html><body>${html}`, "text/html");
-    const fragment = doc.createDocumentFragment();
+    const fragment = newFragment(doc);
     for (const node of Array.from(parsed.body.childNodes)) fragment.append(doc.importNode(node, true));
     return fragment;
 }
@@ -22,7 +51,7 @@ export function decodeEntities(raw: string, doc: Document = activeDocument): str
 }
 
 export function h<K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, attrs?: Record<string, string>, html?: string): HTMLElementTagNameMap[K] {
-    const el = activeDocument.createElement(tag);
+    const el = newEl(activeDocument, tag);
     if (cls) el.className = cls;
     if (attrs) for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
     if (html !== undefined) setHtml(el, html);
@@ -52,14 +81,14 @@ function manualCopy(el:HTMLElement,text:string){
     if(!el.isConnected)return;
     copyFallbacks.get(doc)?.close(false);
     const previous=doc.activeElement as HTMLElement|null;
-    const box=doc.createElement('span');box.className='vlook-copy-fallback';
+    const box=newEl(doc, 'span');box.className='vlook-copy-fallback';
     box.setAttribute('role','group');box.setAttribute('aria-label','手动复制');
     box.addEventListener('click',event=>event.stopPropagation());
-    const message=doc.createElement('span');message.textContent='自动复制未成功，已选中文本，可手动复制。';
+    const message=newEl(doc, 'span');message.textContent='自动复制未成功，已选中文本，可手动复制。';
     message.setAttribute('aria-live','polite');
-    const input=doc.createElement('textarea');input.readOnly=true;input.value=text;
+    const input=newEl(doc, 'textarea');input.readOnly=true;input.value=text;
     input.rows=Math.min(6,Math.max(2,text.split('\n').length));input.setAttribute('aria-label','待复制内容');
-    const button=doc.createElement('button');button.type='button';button.textContent='关闭';
+    const button=newEl(doc, 'button');button.type='button';button.textContent='关闭';
     const state={source:el,close:(restoreFocus=true)=>{
         box.remove();if(copyFallbacks.get(doc)===state)copyFallbacks.delete(doc);
         if(restoreFocus&&previous?.isConnected)previous.focus({preventScroll:true});
@@ -124,12 +153,12 @@ export function wrapTextSpans(root: HTMLElement) {
         if (ok && t.parentElement && !skip.has(t.parentElement.tagName.toUpperCase())) targets.push(t);
     }
     for (const t of targets) {
-        const span = doc.createElement("span");
+        const span = newEl(doc, "span");
         t.replaceWith(span);
         span.appendChild(t);
     }
     // kbd 内也需要 span
     root.querySelectorAll("kbd").forEach(k => {
-        if (k.children.length === 0 && k.textContent) { const sp = doc.createElement("span"); sp.textContent = k.textContent; k.replaceChildren(sp); }
+        if (k.children.length === 0 && k.textContent) { const sp = newEl(doc, "span"); sp.textContent = k.textContent; k.replaceChildren(sp); }
     });
 }

@@ -30,7 +30,7 @@ export function watchFootnoteDiagrams(host:HTMLElement,readSource:()=>Promise<st
     };
     const schedule=()=>{if(queued||controller.signal.aborted)return;queued=true;win.queueMicrotask(()=>{queued=false;void scan()});};
     const observer=new win.MutationObserver(records=>{
-        if(records.some(record=>(record.target instanceof win.Element&&record.target.closest('.footnotes'))||Array.from(record.addedNodes).some(node=>node instanceof win.Element&&(node.matches('.footnotes')||node.querySelector('.footnotes')))))schedule();
+        if(records.some(record=>(record.target.instanceOf(win.Element)&&record.target.closest('.footnotes'))||Array.from(record.addedNodes).some(node=>node.instanceOf(win.Element)&&(node.matches('.footnotes')||node.querySelector('.footnotes')))))schedule();
     });
     observer.observe(host,{childList:true,subtree:true,characterData:true});schedule();
     return ()=>{controller.abort();observer.disconnect();};

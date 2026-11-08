@@ -17,7 +17,8 @@ import { resolveBrokenEmbeds } from "../features/image";
 import { normalizeLiteralInline } from "../core/normalize";
 import runtime from "../generated/vlook-runtime.txt";
 import typoraBase from "../generated/typora-base.txt";
-import { ICON_SPRITE } from "../generated/icons";
+import { ICON_SPRITE as ICON_SPRITE_RAW } from "../generated/icons";
+const ICON_SPRITE = ICON_SPRITE_RAW as string;
 import { preservePreviewLinks, rewriteExportLinks, rewriteLibraryLinks } from "./links";
 import { currentLang } from "../core/i18n";
 import { restoreImages } from "./image-restore";
@@ -35,6 +36,7 @@ import { FADE_CSS } from '../core/fade';
 import { THEMES } from '../core/themes';
 import { enhanceExportMiniAudio } from './mini-audio-access';
 
+import { newEl } from '../core/dom';
 export const RAW_MARKER = "<!--vlook-raw-render-->";
 
 
@@ -138,7 +140,7 @@ export async function buildVlookHtml(plugin: VlookPlugin, file: TFile, opts: Bui
     const body = source.slice(fmInfo.contentStart);
 
     // 渲染到离屏容器（标记为原始渲染，插件自身的后处理会跳过）
-    const host = doc.createElement("div");
+    const host = newEl(doc, "div");
     host.className = "vlook-offscreen markdown-rendered";
     doc.body.append(host);
     host.classList.add("vlook-offscreen-render");
@@ -166,7 +168,7 @@ export async function buildVlookHtml(plugin: VlookPlugin, file: TFile, opts: Bui
         host.querySelectorAll<HTMLElement>(".internal-embed.media-embed").forEach(span => {
             const media = span.querySelector<HTMLMediaElement>("audio, video");
             if (!media) return;
-            const img = doc.createElement("img");
+            const img = newEl(doc, "img");
             img.setAttribute("src", media.getAttribute("src") || "");
             const alt = span.getAttribute("alt");
             if (alt && alt !== span.getAttribute("src")) img.alt = alt;

@@ -1,4 +1,5 @@
 import {isLiteralContent as shouldSkip} from './literal-dom';
+import { newEl, newFragment } from './dom';
 // 把 Obsidian 渲染出的 DOM 规整成 VLOOK 语法依赖的结构。
 // Typora 支持 ~下标~、^上标^，Obsidian 不支持（会原样显示为文本），
 // 而 VLOOK 的色号 _~Rd~_、页签组 _^tab^_、注音 _^zhù^_ 都依赖它们。
@@ -26,7 +27,7 @@ function convertTextNode(node: Text, generic: boolean): void {
         if (!m)
             return;
         const tag = m[1] === "~" ? "sub" : "sup";
-        const el = doc.createElement(tag);
+        const el = newEl(doc, tag);
         el.textContent = m[2];
         parent.replaceChildren(el);
         return;
@@ -42,7 +43,7 @@ function convertTextNode(node: Text, generic: boolean): void {
         while ((m = re.exec(input))) {
             const start = m.index + m[1].length;
             out.push(input.slice(last, start));
-            const el = doc.createElement(tag);
+            const el = newEl(doc, tag);
             el.textContent = m[2];
             out.push(el);
             last = m.index + m[0].length;
@@ -59,7 +60,7 @@ function convertTextNode(node: Text, generic: boolean): void {
     }
     if (!changed)
         return;
-    const frag = doc.createDocumentFragment();
+    const frag = newFragment(doc);
     for (const p of parts)
         frag.append(typeof p === "string" ? doc.createTextNode(p) : p);
     node.replaceWith(frag);
@@ -82,7 +83,7 @@ function normalizeEmphasis(root: HTMLElement): void {
         const star = head.data.lastIndexOf("*");
         if (star < 0 || head.data[star - 1] === "\\" || /\s/.test(head.data[star + 1] ?? " ")) return;
         tail.data = tail.data.slice(0, -1);
-        const em = doc.createElement("em");
+        const em = newEl(doc, "em");
         em.append(head.data.slice(star + 1));
         head.data = head.data.slice(0, star);
         strong.replaceWith(em);
@@ -92,7 +93,7 @@ function normalizeEmphasis(root: HTMLElement): void {
         if(shouldSkip(em))return;
         const strong = em.parentElement!;
         if ((strong.textContent || "") !== (em.textContent || "")) return;
-        const inner = doc.createElement("strong");
+        const inner = newEl(doc, "strong");
         inner.append(...Array.from(em.childNodes));
         em.append(inner);
         strong.replaceWith(em);
@@ -114,18 +115,18 @@ export function normalizeLiteralInline(root: HTMLElement): void {
         if ((t.data.includes("![") || /<br/i.test(t.data)) && !shouldSkip(t)) nodes.push(t);
     }
     for (const t of nodes) {
-        const frag = doc.createDocumentFragment();
+        const frag = newFragment(doc);
         let last = 0;
         for (const m of t.data.matchAll(RE)) {
             frag.append(t.data.slice(last, m.index));
             if (m[0].startsWith("!")) {
-                const span = doc.createElement("span");
+                const span = newEl(doc, "span");
                 span.className = "internal-embed";
                 span.setAttribute("src", m[2]);
                 span.dataset.vlookLiteral = "1";
                 if (m[1]) span.setAttribute("alt", m[1]);
                 frag.append(span);
-            } else frag.append(doc.createElement("br"));
+            } else frag.append(newEl(doc, "br"));
             last = m.index + m[0].length;
         }
         if (last === 0) continue;
@@ -144,7 +145,7 @@ export function normalizeSubSup(root: HTMLElement, generic: boolean): void {
         const em = del.parentElement!;
         if ((em.textContent || "").trim() !== (del.textContent || "").trim()) return;
         if (!/^(?:(?:rd|ro|og|ye|la|lm|g[nyd]|aq|au|cf|cy|wt|b[unk]|se|sk|vn|p[luk]|mn|wn|ol|t[12u])+!?)$/i.test((del.textContent || "").trim())) return;
-        const sub = doc.createElement("sub");
+        const sub = newEl(doc, "sub");
         sub.textContent = del.textContent;
         del.replaceWith(sub);
     });

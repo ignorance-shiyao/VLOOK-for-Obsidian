@@ -3,6 +3,7 @@
 
 import { getIcon } from "obsidian";
 
+import { newEl } from './core/dom';
 interface FileKind { id: string; icon: string; ext: string[]; light: string; dark: string }
 
 export const FILE_KINDS: FileKind[] = [
@@ -64,7 +65,7 @@ export class FileTypeIcons {
 
     attach(doc: Document) {
         if (!this.css || this.styles.has(doc)) return;
-        const style = doc.createElement("style");
+        const style = newEl(doc, "style");
         style.id = "vlook-file-type-icons";
         style.textContent = this.css;
         doc.head.append(style);

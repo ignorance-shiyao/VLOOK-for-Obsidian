@@ -2,8 +2,7 @@ import {diagramElements} from '../core/diagram-dom';
 import {sourceFences} from '../core/fenced-source';
 import {applyZenUmlPalette} from '../core/zenuml-palette';
 import {zenUmlChunk,zenUmlEnabled} from '../core/zenuml-loader';
-import { parseHtml } from "../core/dom";
-
+import { newEl, parseHtml } from '../core/dom';
 interface Lifecycle {register(cleanup:()=>void):void}
 let counter=0;
 const requests=new WeakMap<HTMLElement,object>();
@@ -16,7 +15,7 @@ export async function renderZenUmlFallback(root:HTMLElement,lifecycle:Lifecycle,
     const owner=root.ownerDocument;
     const sources=sourceFences(markdown,'mermaid');
     const diagrams=diagramElements(root);
-    const targets=diagrams.flatMap((node,n)=>{
+    const targets=diagrams.flatMap((node:HTMLElement,n:number):{node:HTMLElement;source:string;text:string|null}[]=>{
         const source=node.matches('code')?node.textContent||'':sources.length===diagrams.length?sources[n]:'';
         return /^\s*zenuml\b/i.test(source)&&!hasRenderedSvg(node) ? [{node,source,text:node.textContent}] : [];
     });
@@ -24,7 +23,7 @@ export async function renderZenUmlFallback(root:HTMLElement,lifecycle:Lifecycle,
     if(!load&&!zenUmlEnabled()){
         // 未启用 ZenUML：保留源码，避免宿主报出图表错误
         for(const {node,source} of targets){
-            const pre=owner.createElement('pre'),code=owner.createElement('code');
+            const pre=newEl(owner, 'pre'),code=newEl(owner, 'code');
             pre.className='vlook-zenuml-source';code.className='language-zenuml';code.textContent=source;pre.append(code);
             if(node.matches('code'))node.parentElement?.replaceWith(pre);else node.replaceWith(pre);
         }
@@ -43,7 +42,7 @@ export async function renderZenUmlFallback(root:HTMLElement,lifecycle:Lifecycle,
         if(!svg)throw Error('ZenUML 未生成 SVG');
         svg.id=`vlook-zenuml-${++counter}`;applyZenUmlPalette(svg);
         if(node===root){root.dataset.vlookDiagramKind='zenuml';root.replaceChildren(svg);continue;}
-        const container=root.ownerDocument.createElement('div');container.className='mermaid';
+        const container=newEl(root.ownerDocument, 'div');container.className='mermaid';
         container.dataset.vlookDiagramKind='zenuml';container.append(svg);
         if(node.matches('code'))node.parentElement?.replaceWith(container);else node.replaceWith(container);
     }

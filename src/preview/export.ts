@@ -7,6 +7,7 @@ import { buildVlookHtml } from "./document";
 import { notify, renotify } from "../notify";
 import { THEMES, resolveThemeName, themeColor, themeLabel } from "../core/themes";
 
+import { newEl } from '../core/dom';
 /** 导出 HTML：默认只含当前主题，可在导出对话框中多选；allThemes 时预先选中全部主题。 */
 export async function exportHtml(plugin: VlookPlugin, file: TFile, allThemes = false): Promise<string> {
     const dir = file.parent && file.parent.path !== "/" ? `${file.parent.path}/` : "";
@@ -66,7 +67,7 @@ export function confirmExportPath(plugin:VlookPlugin,out:string,format:"HTML"|"P
             private accepted=false;
             onOpen(){
                 this.titleEl.textContent=`导出 ${format}`;
-                const create=(tag:string,text:string,cls='')=>{const element=this.contentEl.ownerDocument.createElement(tag);element.textContent=text;element.className=cls;this.contentEl.append(element);return element;};
+                const create=(tag:string,text:string,cls='')=>{const element=newEl(this.contentEl.ownerDocument, tag);element.textContent=text;element.className=cls;this.contentEl.append(element);return element;};
                 create('p','文件将保存到以下位置：');
                 const adapter=plugin.app.vault.adapter as typeof plugin.app.vault.adapter & {getBasePath?:()=>string};
                 const base=adapter.getBasePath?.();
@@ -78,7 +79,7 @@ export function confirmExportPath(plugin:VlookPlugin,out:string,format:"HTML"|"P
                     const row=create('div','','vlook-export-themes');
                     row.setAttribute('role','group');row.setAttribute('aria-label','主题');
                     for(const name of THEMES){
-                        const chip=row.ownerDocument.createElement('button');
+                        const chip=newEl(row.ownerDocument, 'button');
                         chip.type='button';chip.textContent=themeLabel(name);chip.style.setProperty('--vlook-theme-dot',themeColor(name)||'currentColor');
                         const sync=()=>chip.setAttribute('aria-pressed',String(themes.selected.has(name)));
                         // 当前主题即导出页的默认样式，始终包含

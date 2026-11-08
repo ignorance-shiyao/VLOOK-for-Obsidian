@@ -5,6 +5,7 @@ import { exitChip } from "./core/exit-chip";
 import type VlookPlugin from "./main";
 import { notify } from "./notify";
 
+import { newEl } from './core/dom';
 const SPOTLIGHT_RADIUS = 180;
 
 type Effect = "laser" | "spotlight";
@@ -48,7 +49,7 @@ export class ReadingTools {
         const host = this.active(); if (!host) return;
         this.host = host; this.effect = effect;
         if(effect==='laser')host.classList.add('vlook-laser-cursor');
-        this.overlay = host.ownerDocument.createElement("div");
+        this.overlay = newEl(host.ownerDocument, "div");
         this.overlay.className = `vlook-reading-effect vlook-effect-${effect}`;
         this.overlay.setAttribute("aria-hidden", "true");
         this.overlay.style.setProperty('--vlook-spotlight-radius',`${SPOTLIGHT_RADIUS}px`);

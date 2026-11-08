@@ -9,6 +9,7 @@ import { bindContentShortcuts } from '../core/content-shortcuts';
 import { sourceContentItems } from "../core/content-index";
 import type { RenderCtx } from "../core/context";
 import { openSourceContentViewer } from "./source-content-viewer";
+import { newEl } from '../core/dom';
 export function contentKind(target: HTMLElement): string {
     if(target.matches('.mermaid,.md-diagram')||target.querySelector('.mermaid,.md-diagram'))return '插图';
     if (target.matches('table') || target.querySelector('table')) return '表格';
@@ -27,11 +28,11 @@ export function openContentViewer(target: HTMLElement, pictureInPicture = false)
     const scope = target.closest('.markdown-preview-view,.markdown-source-view') || target.parentElement!;
     const peers = Array.from(scope.querySelectorAll<HTMLElement>('[data-vlook-viewer]'));
     if (!peers.includes(target)) peers.push(target);
-    const dialog = doc.createElement('dialog');
+    const dialog = newEl(doc, 'dialog');
     dialog.className = `vlook-content-viewer ${pictureInPicture ? 'vlook-content-pip' : 'vlook-content-full'}`;
     dialog.setAttribute('aria-label', pictureInPicture ? 'VLOOK 画中画' : 'VLOOK 全屏内容');
     const hold = (item:HTMLElement) => {
-        const node = doc.createElement('div'); node.className = 'vlook-content-placeholder';
+        const node = newEl(doc, 'div'); node.className = 'vlook-content-placeholder';
         node.textContent = '内容正在浮动窗口中显示';
         node.style.setProperty('min-height', `${Math.min(item.getBoundingClientRect().height, 300)}px`);
         item.before(node); return node;
@@ -41,14 +42,14 @@ export function openContentViewer(target: HTMLElement, pictureInPicture = false)
         if (placeholder.isConnected && placeholder.parentElement) {moveContent(placeholder.parentElement,target,placeholder);placeholder.remove();}
         else {pauseContainedMedia(target);target.remove();}
     };
-    const controls = doc.createElement('div');
+    const controls = newEl(doc, 'div');
     controls.className = 'vlook-content-controls';
-    const body = doc.createElement('div');
+    const body = newEl(doc, 'div');
     body.className = 'markdown-rendered vlook-content-body';
     const zoom=pictureInPicture?null:new ContentZoom(body);
     const previousFocus = doc.activeElement as HTMLElement | null;
     const button = (label:string, action:()=>void) => {
-        const b=doc.createElement('button');b.type='button';b.className='clickable-icon vlook-content-action';b.setAttribute('aria-label',label);setIcon(b,ICONS[label]??'circle');b.addEventListener('click',action);controls.append(b);return b;
+        const b=newEl(doc, 'button');b.type='button';b.className='clickable-icon vlook-content-action';b.setAttribute('aria-label',label);setIcon(b,ICONS[label]??'circle');b.addEventListener('click',action);controls.append(b);return b;
     };
     let observer: MutationObserver | undefined;
     let restored = false;

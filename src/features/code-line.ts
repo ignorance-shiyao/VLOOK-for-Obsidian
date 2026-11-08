@@ -1,14 +1,16 @@
+import { newEl } from '../core/dom';
 /** Highlight logical source lines without rebuilding the host's token spans. */
 export function bindCodeLine(pre:HTMLElement,code:HTMLElement):()=>void {
     const doc=code.ownerDocument;
-    const overlay=doc.createElement('div');overlay.className='vlook-code-active-line';overlay.setAttribute('aria-hidden','true');overlay.hidden=true;pre.append(overlay);
+    const overlay=newEl(doc, 'div');overlay.className='vlook-code-active-line';overlay.setAttribute('aria-hidden','true');overlay.hidden=true;pre.append(overlay);
     const clear=()=>{overlay.hidden=true;delete pre.dataset.vlookActiveLine;};
     const move=(event:PointerEvent)=>{
         const bounds=code.getBoundingClientRect();
         if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom){clear();return;}
-        const caretDoc=doc as Document&{caretRangeFromPoint?:(x:number,y:number)=>Range|null;caretPositionFromPoint?:(x:number,y:number)=>{offsetNode:Node;offset:number}|null};
-        const caret=caretDoc.caretRangeFromPoint?.(event.clientX,event.clientY);
-        const position=caret?{offsetNode:caret.startContainer,offset:caret.startOffset}:caretDoc.caretPositionFromPoint?.(event.clientX,event.clientY);
+        const caretDoc=doc as unknown as {caretRangeFromPoint?:(x:number,y:number)=>Range|null;caretPositionFromPoint?:(x:number,y:number)=>{offsetNode:Node;offset:number}|null};
+        const exact=caretDoc.caretPositionFromPoint?.(event.clientX,event.clientY);
+        const caret=exact?null:caretDoc.caretRangeFromPoint?.(event.clientX,event.clientY);
+        const position=exact??(caret?{offsetNode:caret.startContainer,offset:caret.startOffset}:null);
         if(!position||!code.contains(position.offsetNode)){clear();return;}
         const prefix=doc.createRange();prefix.selectNodeContents(code);prefix.setEnd(position.offsetNode,position.offset);
         const offset=prefix.toString().length,source=code.textContent||'';

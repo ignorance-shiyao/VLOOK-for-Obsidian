@@ -1,6 +1,7 @@
 import { tableGrid } from './table-tools';
 import type { TableSizes } from '../core/context';
 
+import { newEl } from '../core/dom';
 function setStyles(el: HTMLElement, props: Record<string, string>): void { for (const [k, v] of Object.entries(props)) el.style.setProperty(k.replace(/[A-Z]/g, c => '-' + c.toLowerCase()), v); }
 
 export type TableReorder = (kind: 'row' | 'col', from: number, to: number) => void;
@@ -12,9 +13,9 @@ export function installTableGrips(table: HTMLTableElement, reorder?: TableReorde
     const host = table.parentElement;
     if (!host) return;
     if (win.getComputedStyle(host).position === 'static') host.classList.add('vlook-grip-host');
-    const colGrip = doc.createElement('div'); colGrip.className = 'vlook-table-grip vlook-table-grip-col'; colGrip.title = '拖动调整列顺序';
-    const rowGrip = doc.createElement('div'); rowGrip.className = 'vlook-table-grip vlook-table-grip-row'; rowGrip.title = '拖动调整行顺序';
-    const line = doc.createElement('div'); line.className = 'vlook-table-drop';
+    const colGrip = newEl(doc, 'div'); colGrip.className = 'vlook-table-grip vlook-table-grip-col'; colGrip.title = '拖动调整列顺序';
+    const rowGrip = newEl(doc, 'div'); rowGrip.className = 'vlook-table-grip vlook-table-grip-row'; rowGrip.title = '拖动调整行顺序';
+    const line = newEl(doc, 'div'); line.className = 'vlook-table-drop';
     host.append(colGrip, rowGrip, line);
     let hover: HTMLTableCellElement | null = null, dragging = false;
     /** 列宽按单元格整体（含内边距）设置，并让表格总宽等于各列之和，避免切换定宽布局时整体跳动。 */

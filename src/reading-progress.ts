@@ -2,6 +2,7 @@ import { MarkdownView, TFile } from 'obsidian';
 import type VlookPlugin from './main';
 import {readingDuration,readingText,vlookWordCount} from './core/reading-time';
 
+import type { ObserverWindow } from './core/dom';
 export function readingPercent(scrollTop:number,scrollHeight:number,clientHeight:number):number {
     if(!Number.isFinite(scrollTop)||!Number.isFinite(scrollHeight)||!Number.isFinite(clientHeight)||clientHeight<=0)return 0;
     const distance=scrollHeight-clientHeight;
@@ -91,7 +92,7 @@ export class ReadingProgress {
         if(this.frame!==null&&this.win)this.win.cancelAnimationFrame(this.frame);
         this.frame=null;this.checkedAt=0;this.scroller=next;this.win=next?.ownerDocument.defaultView||null;
         if(!next||!this.win)return;
-        const owner=this.win as Window & typeof globalThis;
+        const owner=this.win as ObserverWindow;
         const observer=new owner.ResizeObserver(this.queue);observer.observe(next);
         const mutations=new owner.MutationObserver(this.queue);mutations.observe(next,{subtree:true,childList:true});
         next.addEventListener('scroll',this.queue,{passive:true});

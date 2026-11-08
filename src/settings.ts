@@ -18,7 +18,7 @@ export class VlookSettingTab extends PluginSettingTab {
             .setName("VLOOK 样式")
             .addDropdown(d => {
                 THEMES.forEach(t => d.addOption(t, themeLabel(t)));
-                d.setValue(s.style).onChange(async v => { s.style = v; await save(); });
+                d.setValue(s.style).onChange(v => { s.style = v; void save(); });
             });
         new Setting(containerEl)
             .setName("预览 / 导出主题")
@@ -26,7 +26,7 @@ export class VlookSettingTab extends PluginSettingTab {
             .addDropdown(d => {
                 d.addOption("auto", "跟随插件配色");
                 THEMES.forEach(t => d.addOption(t, themeLabel(t)));
-                d.setValue(s.previewTheme).onChange(async v => { s.previewTheme = v; await save(); });
+                d.setValue(s.previewTheme).onChange(v => { s.previewTheme = v; void save(); });
             });
 
         new Setting(containerEl)

@@ -1,6 +1,7 @@
 // 自绘下拉选择器：替代系统 <select>，在 <dialog> 内也能正常展开，样式与动效统一。
 import { setIcon } from "obsidian";
 
+import { newEl } from './dom';
 export interface DropdownOption { value: string; label: string }
 
 export class Dropdown {
@@ -14,15 +15,15 @@ export class Dropdown {
     private uid = Math.random().toString(36).slice(2, 7);
 
     constructor(private doc: Document, label: string, className = "") {
-        this.el = doc.createElement("div");
+        this.el = newEl(doc, "div");
         this.el.className = `vlook-dropdown ${className}`.trim();
-        this.trigger = doc.createElement("button");
+        this.trigger = newEl(doc, "button");
         this.trigger.type = "button";
         this.trigger.className = "vlook-dropdown-trigger";
         this.trigger.setAttribute("aria-haspopup", "listbox");
         this.trigger.setAttribute("aria-expanded", "false");
         this.trigger.setAttribute("aria-label", label);
-        this.list = doc.createElement("div");
+        this.list = newEl(doc, "div");
         this.list.className = "vlook-dropdown-list";
         this.list.setAttribute("role", "listbox");
         this.list.setAttribute("aria-label", label);
@@ -43,7 +44,7 @@ export class Dropdown {
     setOptions(options: DropdownOption[], value: string) {
         this.options = options;
         this.list.replaceChildren(...options.map((option, i) => {
-            const item = this.doc.createElement("div");
+            const item = newEl(this.doc, "div");
             item.className = "vlook-dropdown-option";
             item.setAttribute("role", "option");
             item.id = `vlook-dd-${this.uid}-${i}`;
@@ -63,10 +64,10 @@ export class Dropdown {
         this.current = value;
         const at = this.options.findIndex(o => o.value === value);
         this.trigger.replaceChildren();
-        const text = this.doc.createElement("span");
+        const text = newEl(this.doc, "span");
         text.className = "vlook-dropdown-text";
         text.textContent = this.options[at]?.label ?? "";
-        const caret = this.doc.createElement("span");
+        const caret = newEl(this.doc, "span");
         caret.className = "vlook-dropdown-caret";
         setIcon(caret, "chevrons-up-down");
         this.trigger.append(text, caret);

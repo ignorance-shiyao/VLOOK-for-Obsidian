@@ -4,8 +4,7 @@ import {isLiteralContent} from '../core/literal-dom';
 
 import { resourceQuery } from "../core/url";
 import type { RenderCtx } from "../core/context";
-import { svgIcon, setHtml } from "../core/dom";
-
+import { newEl, setHtml, svgIcon } from '../core/dom';
 export const AUDIO_EXT = /\.(mp3|m4a|ogg|wav)$/i;
 export const VIDEO_EXT = /\.(mp4|webm|ogv|mov|m4v)$/i;
 
@@ -25,7 +24,7 @@ function buildMiniAudio(audio: HTMLAudioElement, p: Record<string, string>, ctx:
     const on=<K extends keyof HTMLElementEventMap>(target:HTMLElement,name:K,handler:(event:HTMLElementEventMap[K])=>void)=>target.addEventListener(name,handler,{signal:lifecycle.signal});
     const id = `vk-id-mini-audio${++miniCounter}`;
     audio.id = id;
-    const ctl = audio.ownerDocument.createElement("div");
+    const ctl = newEl(audio.ownerDocument, "div");
     ctl.id = `${id}-control`;
     ctl.className = "v-audio-mini-control disabled";
     ctl.dataset.title = `mini audio ${miniCounter}`;
@@ -76,7 +75,7 @@ function buildMiniAudio(audio: HTMLAudioElement, p: Record<string, string>, ctx:
         if(!Number.isFinite(audio.duration)||audio.duration<0){clearDuration();return;}
         const d=audio.duration,min=Math.floor(d/60),sec=Math.floor(d-min*60);
         if(!durationLabel){
-            durationLabel=audio.ownerDocument.createElement("sup"); durationLabel.className="v-duration";
+            durationLabel=newEl(audio.ownerDocument, "sup"); durationLabel.className="v-duration";
             durationSpace=audio.ownerDocument.createTextNode(" "); ctl.after(durationSpace,durationLabel);
         }
         durationLabel.textContent=`${min>0?min+"′":""}${sec}″`;
@@ -120,7 +119,7 @@ export function processMedia(root: HTMLElement, ctx: RenderCtx): void {
         const isAudio = AUDIO_EXT.test(path), isVideo = VIDEO_EXT.test(path);
         if (!isAudio && !isVideo) return;
         const p = resourceQuery(src);
-        const el = img.ownerDocument.createElement(isAudio ? "audio" : "video");
+        const el = newEl(img.ownerDocument, isAudio ? "audio" : "video");
         el.src = src;
         applyCommon(el, p);
         if (img.alt) el.dataset.caption = img.alt;

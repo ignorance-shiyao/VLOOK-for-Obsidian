@@ -1,6 +1,7 @@
 import type { RenderCtx } from '../core/context';
 import type { LinkAuditResult } from '../core/link-audit';
 
+import { newEl } from '../core/dom';
 const bound = new WeakSet<Element>();
 const locations = new WeakMap<Element, {path: string; line: number; end: number; text: string}>();
 
@@ -42,7 +43,7 @@ export function processResourceStatus(root: HTMLElement, ctx: RenderCtx): void {
                 return;
             }
             resource.dataset.vlookResourceError = '1';
-            status = resource.ownerDocument.createElement('span');
+            status = newEl(resource.ownerDocument, 'span');
             status.className = 'vlook-resource-error';
             status.setAttribute('role', 'status');
             const location = locations.get(resource);
@@ -50,9 +51,9 @@ export function processResourceStatus(root: HTMLElement, ctx: RenderCtx): void {
                 link: {title: resource.getAttribute('alt') || resource.title || name, href: href(), line: location.line},
                 status: 'missing-resource', detail: '资源加载失败',
             });
-            const label = resource.ownerDocument.createElement('span');
+            const label = newEl(resource.ownerDocument, 'span');
             label.textContent = `${name}加载失败`;
-            const retry = resource.ownerDocument.createElement('button');
+            const retry = newEl(resource.ownerDocument, 'button');
             retry.type = 'button'; retry.textContent = '重试';
             retry.setAttribute('aria-label', `重新加载${name}`);
             retry.addEventListener('click', event => {

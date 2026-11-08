@@ -15,6 +15,7 @@ import { renderSection } from '../render';
 import { navigateViewLine, navigationSourceView } from '../navigation-history';
 import { notify } from "../notify";
 
+import { newEl } from '../core/dom';
 const ICONS:Record<string,string>={'上一项':'chevron-left','下一项':'chevron-right','回到文档位置':'locate-fixed','关闭':'x','原始大小':'scan'};
 /** 全文索引 + 按需渲染，避免为了建立画廊强制挂载整篇长文档。 */
 export function openSourceContentViewer(target:HTMLElement, ctx:RenderCtx): HTMLDialogElement {
@@ -22,13 +23,13 @@ export function openSourceContentViewer(target:HTMLElement, ctx:RenderCtx): HTML
     const sourceView=ctx.app?navigationSourceView(ctx.app,ctx.sourcePath,target):null;
     const items = sourceContentItems(ctx.index!);
     const definitions=referenceDefinitionsSource(ctx.index!.text);
-    const dialog = doc.createElement('dialog');
+    const dialog = newEl(doc, 'dialog');
     dialog.className = 'vlook-content-viewer vlook-content-full';
     dialog.setAttribute('aria-label','VLOOK 全文内容浏览');
-    const controls = doc.createElement('div'); controls.className = 'vlook-content-controls';
-    const body = doc.createElement('div'); body.className = 'markdown-rendered vlook-content-body vlook-editor-render';
+    const controls = newEl(doc, 'div'); controls.className = 'vlook-content-controls';
+    const body = newEl(doc, 'div'); body.className = 'markdown-rendered vlook-content-body vlook-editor-render';
     const zoom=new ContentZoom(body);
-    const status = doc.createElement('span'); status.setAttribute('role','status');
+    const status = newEl(doc, 'span'); status.setAttribute('role','status');
     let current = selectedContentItem(items,target,ctx.block?.start);
     let sequence = 0, closed = false;
     const subscriptions:(()=>void)[]=[];
@@ -39,7 +40,7 @@ export function openSourceContentViewer(target:HTMLElement, ctx:RenderCtx): HTML
     const pending=new Set<Component>();
     const focus = doc.activeElement as HTMLElement | null;
     const button = (label:string, action:()=>void) => {
-        const b=doc.createElement('button');b.type='button';b.className='clickable-icon vlook-content-action';b.setAttribute('aria-label',label);setIcon(b,ICONS[label]??'circle');b.addEventListener('click',action);controls.append(b);return b;
+        const b=newEl(doc, 'button');b.type='button';b.className='clickable-icon vlook-content-action';b.setAttribute('aria-label',label);setIcon(b,ICONS[label]??'circle');b.addEventListener('click',action);controls.append(b);return b;
     };
     const category=new Dropdown(doc,'内容分类');
     category.setOptions(['全部',...new Set(items.map(item=>item.kind))].map(kind=>({value:kind,label:kind})),current?.kind||'全部');
@@ -70,7 +71,7 @@ export function openSourceContentViewer(target:HTMLElement, ctx:RenderCtx): HTML
         for(const pendingComponent of pending)pendingComponent.unload();pending.clear();
         const fresh=new Component();fresh.load();pending.add(fresh);
         const controller=new doc.defaultView!.AbortController();fresh.register(()=>controller.abort());
-        const host=doc.createElement('div');host.className='vlook-editor-render';
+        const host=newEl(doc, 'div');host.className='vlook-editor-render';
         if(origin?.querySelector('iframe') || origin?.matches('iframe')){
             body.append(host);
             borrowed=borrowContent(origin,host);

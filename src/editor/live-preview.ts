@@ -16,6 +16,7 @@ import { buildBadge, buildScratchCard, buildTag } from "../features/code-magic";
 import { Query, readCssVar } from "../core/context";
 import { openPhoneticLookup } from "../features/sup-sub-magic";
 
+import { newEl } from '../core/dom';
 const C = `(?:${COLOR_CODE})+!?`;
 const RE_TAG = new RegExp(String.raw`(?<![*\w])([*_])\`([^\`\n]+)\`\1(?:_~(${C})~_)?`, "gi");
 const RE_BADGE = new RegExp(String.raw`(?<![*\w])([*_])([^*_\`\n]*)\`([^\`\n]+)\`([^*_\`\n]*)\1(?:_~(${C})~_)?`, "gi");
@@ -50,8 +51,8 @@ function colorStyle(color: string): string {
 
 function colorEm(color?: string, doc: Document = activeDocument): HTMLElement | null {
     if (!color) return null;
-    const em = doc.createElement("em");
-    em.replaceChildren(Object.assign(em.ownerDocument.createElement('sub'), {textContent: color}));
+    const em = newEl(doc, "em");
+    em.replaceChildren(Object.assign(newEl(em.ownerDocument, 'sub'), {textContent: color}));
     return em;
 }
 
@@ -60,7 +61,7 @@ class InlineWidget extends WidgetType {
     eq(other: InlineWidget) { return other.key === this.key; }
     toDOM(view?: EditorView) {
         const doc = view?.dom?.ownerDocument || activeDocument;
-        const host = doc.createElement("span");
+        const host = newEl(doc, "span");
         host.className = "markdown-rendered vlook-inline";
         host.append(this.build(doc));
         return host;
@@ -69,7 +70,7 @@ class InlineWidget extends WidgetType {
 }
 
 function renderInHost(doc: Document, fn: (host: HTMLElement) => void): HTMLElement {
-    const box = doc.createElement("span");
+    const box = newEl(doc, "span");
     fn(box);
     return box;
 }
@@ -110,8 +111,8 @@ function scanLine(text: string, offset: number, plugin: VlookPlugin, autoPercent
         const value = String(numeric);
         add(m.index, m.index + m[0].length, Decoration.replace({
             widget: inlineWidget(`pg:${m[0]}:${value}`, doc => renderInHost(doc, box => {
-                const strong = doc.createElement("strong");
-                const label = doc.createElement("label");
+                const strong = newEl(doc, "strong");
+                const label = newEl(doc, "label");
                 if(color){
                     const code=color.toLowerCase().replace(/!$/, '');
                     strong.setAttribute('data-rb-text',code);
@@ -130,7 +131,7 @@ function scanLine(text: string, offset: number, plugin: VlookPlugin, autoPercent
         if(escapedAt(text,m.index+1+tip.length+2+hidden.length))continue;
         add(m.index, m.index + all.length, Decoration.replace({
             widget: inlineWidget(`sc:${all}`, doc => renderInHost(doc, box => {
-                const span = doc.createElement("span");
+                const span = newEl(doc, "span");
                 box.append(span);
                 const c = colorEm(color, doc);
                 if (c) box.append(c);
@@ -144,7 +145,7 @@ function scanLine(text: string, offset: number, plugin: VlookPlugin, autoPercent
         const [all, , label, color] = m;
         addCode(m.index, m.index + all.length, Decoration.replace({
             widget: inlineWidget(`tag:${all}`, doc => renderInHost(doc, box => {
-                const code = doc.createElement("code");
+                const code = newEl(doc, "code");
                 code.textContent = label;
                 box.append(code);
                 const c = colorEm(color, doc);
@@ -160,7 +161,7 @@ function scanLine(text: string, offset: number, plugin: VlookPlugin, autoPercent
         if (!name.trim() && !value2.trim()) continue;
         addCode(m.index, m.index + all.length, Decoration.replace({
             widget: inlineWidget(`bd:${all}`, doc => renderInHost(doc, box => {
-                const span = doc.createElement("span");
+                const span = newEl(doc, "span");
                 box.append(span);
                 const c = colorEm(color, doc);
                 if (c) box.append(c);
@@ -175,8 +176,8 @@ function scanLine(text: string, offset: number, plugin: VlookPlugin, autoPercent
         const [all, ch, sym] = m;
         add(m.index, m.index + all.length, Decoration.replace({
             widget: inlineWidget(`ph:${all}`, doc => renderInHost(doc, box => {
-                const ruby = doc.createElement("ruby");
-                const rt = doc.createElement("rt");
+                const ruby = newEl(doc, "ruby");
+                const rt = newEl(doc, "rt");
                 rt.textContent = sym;
                 rt.addEventListener("click", ev => openPhoneticLookup(ch, sym, ev));
                 ruby.append(ch, rt);
@@ -191,8 +192,8 @@ function scanLine(text: string, offset: number, plugin: VlookPlugin, autoPercent
         const [all, word, sym] = m;
         addCode(m.index, m.index + all.length, Decoration.replace({
             widget: inlineWidget(`pc:${all}`, doc => renderInHost(doc, box => {
-                const ruby = doc.createElement("ruby");
-                const rt = doc.createElement("rt");
+                const ruby = newEl(doc, "ruby");
+                const rt = newEl(doc, "rt");
                 rt.textContent = sym;
                 rt.addEventListener("click", ev => openPhoneticLookup(word, sym, ev));
                 ruby.append(word, rt);
@@ -230,7 +231,7 @@ function scanLine(text: string, offset: number, plugin: VlookPlugin, autoPercent
                 if(escapedAt(text,m.index+all.length-1))continue;
                 add(m.index, m.index + all.length, Decoration.replace({
                     widget: inlineWidget(`${tag}:${all}`, doc => renderInHost(doc, box => {
-                        box.append(Object.assign(doc.createElement(tag), { textContent: inner }));
+                        box.append(Object.assign(newEl(doc, tag), { textContent: inner }));
                     })),
                 }));
             }

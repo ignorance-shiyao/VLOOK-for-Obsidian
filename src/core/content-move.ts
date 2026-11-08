@@ -1,12 +1,13 @@
 import { pauseContainedMedia } from './media-handoff';
 
+import { newEl } from './dom';
 type MoveParent = HTMLElement & {moveBefore?: (node: Node, before: Node | null) => void};
 
 /** Atomic moves preserve iframe browsing contexts in supporting Chromium versions. */
 export function moveContent(parent: HTMLElement, node: HTMLElement, before: Node | null = null): void {
-    if (parent.isConnected && node.isConnected && typeof (parent as MoveParent).moveBefore === 'function') {
-        (parent as MoveParent).moveBefore!(node, before);
-    } else parent.insertBefore(node, before);
+    const moveBefore = (parent as MoveParent).moveBefore;
+    if (parent.isConnected && node.isConnected && typeof moveBefore === 'function') moveBefore.call(parent, node, before);
+    else parent.insertBefore(node, before);
 }
 
 export interface BorrowedContent {restore(allowRestore: boolean): void}
@@ -15,7 +16,7 @@ export interface BorrowedContent {restore(allowRestore: boolean): void}
 export function borrowContent(node: HTMLElement, destination: HTMLElement): BorrowedContent | null {
     const parent = node.parentElement;
     if (!parent || !node.isConnected || !destination.isConnected || typeof (destination as MoveParent).moveBefore !== 'function' || typeof (parent as MoveParent).moveBefore !== 'function') return null;
-    const marker = node.ownerDocument.createElement('div');
+    const marker = newEl(node.ownerDocument, 'div');
     marker.className = 'vlook-content-placeholder'; marker.textContent = '内容正在浮动窗口中显示';
     marker.style.minHeight = `${Math.min(node.getBoundingClientRect().height, 300)}px`;
     parent.insertBefore(marker, node); moveContent(destination, node);

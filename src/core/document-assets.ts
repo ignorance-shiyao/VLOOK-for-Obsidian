@@ -1,4 +1,4 @@
-import { setHtml } from "./dom";
+import { newEl, setHtml } from './dom';
 /** 最近用过的主题保留已解析的样式表，切换时只启停，不再重新解析 CSS。 */
 const KEPT_THEMES=3;
 interface Entry {sprite:HTMLElement;styles:Map<string,{el:HTMLStyleElement;css:string}>;enabled:boolean}
@@ -18,7 +18,7 @@ export class DocumentAssets {
             const ready=()=>{this.pending.delete(doc);this.attach(doc);};
             this.pending.set(doc,ready);doc.addEventListener('DOMContentLoaded',ready,{once:true});return;
         }
-        const sprite=doc.createElement('div');sprite.className='vlook-icon-sprite';sprite.hidden=true;setHtml(sprite,this.icons);
+        const sprite=newEl(doc, 'div');sprite.className='vlook-icon-sprite';sprite.hidden=true;setHtml(sprite,this.icons);
         const entry:Entry={sprite,styles:new Map(),enabled:doc.body.classList.contains('vlook-enabled')};
         this.documents.set(doc,entry);doc.body.append(sprite);doc.body.classList.add('vlook-enabled');
         this.apply(doc,entry);
@@ -32,7 +32,7 @@ export class DocumentAssets {
         const theme=this.theme;
         if(!theme){this.clear(entry);return;}
         let slot=entry.styles.get(theme);
-        if(!slot){slot={el:doc.createElement('style'),css:''};doc.head.append(slot.el);}
+        if(!slot){slot={el:newEl(doc, 'style'),css:''};doc.head.append(slot.el);}
         if(slot.css!==this.css||!slot.el.textContent){slot.el.textContent=this.css;slot.css=this.css;}
         entry.styles.delete(theme);entry.styles.set(theme,slot);
         // 移动端内存与 WebView 对超大样式表的启停都不可靠：只保留当前主题，切换时直接替换

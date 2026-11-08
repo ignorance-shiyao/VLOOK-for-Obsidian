@@ -16,6 +16,7 @@ import { referenceDefinitionsSource } from "../core/image-source";
 import { renderSection } from "../render";
 import { sourceTasks } from "../core/task-source";
 
+import { newEl } from '../core/dom';
 export interface BlockPreviewPlan { start: number; end: number; blocks: Block[] }
 
 export function blockPreviewPlans(index: SourceIndex, settings: VlookSettings): BlockPreviewPlan[] {
@@ -59,9 +60,9 @@ class BlockWidget extends WidgetType {
         const index = getSourceIndex(this.index.text, {headerEnabled:this.plugin.settings.headerAutoNum,
             headerTemplate:cssVar("--vlook-header-autonum") || undefined,
             captionGroup:themeQuery.get("capgroup") !== "off",captionNumber:themeQuery.get("capnum") !== "off"});
-        const host = doc.createElement("div");
+        const host = newEl(doc, "div");
         host.className = "markdown-rendered vlook-editor-block";
-        const body = doc.createElement("div");
+        const body = newEl(doc, "div");
         body.className = "vlook-editor-render";
         host.append(body);
         const component = new Component(); component.load();
@@ -93,7 +94,7 @@ class BlockWidget extends WidgetType {
         });
         const sections = this.plan.blocks.map(planned => {
             const block = index.blockAt(planned.start) || planned;
-            const el = doc.createElement("div"); el.className = "vlook-editor-section";
+            const el = newEl(doc, "div"); el.className = "vlook-editor-section";
             body.append(el); return {block, el};
         });
         const query = new Query(cssVar("--vlook-query"), index.frontmatter["vlook-query"]);

@@ -1,7 +1,8 @@
 import { finishRenderMath, renderMath } from 'obsidian';
 
+import type { ObserverWindow } from '../core/dom';
 type Tags = { allLabels?: Record<string, unknown>; labels?: Record<string, unknown> };
-type MathWindow = Window & typeof globalThis & { MathJax?: { startup?: { input?: { parseOptions?: { tags?: Tags } }[] } } };
+type MathWindow = Window & ObserverWindow & { MathJax?: { startup?: { input?: { parseOptions?: { tags?: Tags } }[] } } };
 
 const DUPLICATE = '[data-mjx-error*="multiply defined"]';
 
@@ -37,7 +38,7 @@ export function watchDuplicateMathLabels(doc: Document): () => void {
     const observer = new win.MutationObserver(records => {
         if (queued) return;
         // 只检查新增节点，避免长文档重绘期间每一批变更都全量扫描 body
-        const added = records.some(record => Array.from(record.addedNodes).some(node => node instanceof win.Element && (node.matches(DUPLICATE) || !!node.querySelector(DUPLICATE))));
+        const added = records.some(record => Array.from(record.addedNodes).some(node => node.instanceOf(win.Element) && (node.matches(DUPLICATE) || !!node.querySelector(DUPLICATE))));
         if (!added) return;
         queued = true; win.setTimeout(run);
     });

@@ -7,6 +7,7 @@ import { grayModeActive } from "./core/gray-mode";
 import { parseFrontmatterYaml } from "./core/frontmatter";
 import { sanitizeWelcome, welcomeMode } from "./core/welcome";
 
+import { ObserverWindow, newEl } from './core/dom';
 const CLASSES = ["vlook-reading-wide", "vlook-reading-gray", "vlook-debug", "vlook-fm-tolerant"];
 
 export class DocumentOptions {
@@ -52,7 +53,7 @@ export class DocumentOptions {
         const html = typeof value === "string" ? value.trim() : "";
         this.footers.set(host, html);
         if (!this.footerWatch.has(host)) {
-            const win = host.win as Window & typeof globalThis;
+            const win = host.win as ObserverWindow;
             const watch: MutationObserver = new win.MutationObserver(() => { this.placeFooter(host); watch.takeRecords(); });
             watch.observe(host, { childList: true, subtree: true, attributes: false });
             this.footerWatch.set(host, watch);
@@ -69,7 +70,7 @@ export class DocumentOptions {
         if (!html) { known?.remove(); return; }
         if (known && known.dataset.source === html && sizer.lastElementChild === known) return;
         known?.remove();
-        const footer = host.ownerDocument.createElement("div");
+        const footer = newEl(host.ownerDocument, "div");
         footer.className = "vlook-footer";
         footer.dataset.source = html;
         footer.append(sanitizeWelcome(html, host.ownerDocument));
@@ -81,9 +82,9 @@ export class DocumentOptions {
         const mode = welcomeMode(option);
         if (mode.kind === "off" || typeof custom !== "string" || !custom.trim()) return;
         const doc = host.ownerDocument;
-        const overlay = doc.createElement("div");
+        const overlay = newEl(doc, "div");
         overlay.className = "vlook-welcome";
-        const body = doc.createElement("div");
+        const body = newEl(doc, "div");
         body.className = "vlook-welcome-body";
         body.append(sanitizeWelcome(custom, doc));
         overlay.append(body);
@@ -94,7 +95,7 @@ export class DocumentOptions {
             overlay.addEventListener("animationend", done, { once: true });
             host.win.setTimeout(done, 400);
         };
-        const button = doc.createElement("button");
+        const button = newEl(doc, "button");
         button.className = "vlook-welcome-close";
         button.textContent = "×";
         button.setAttribute("aria-label", "关闭");

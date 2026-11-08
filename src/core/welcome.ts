@@ -1,3 +1,4 @@
+import { newFragment } from './dom';
 // 欢迎页：vlook-welcome 自定义内容与 ws 显示模式
 export type WelcomeMode = { kind: "off" } | { kind: "auto" } | { kind: "wait" } | { kind: "delay"; seconds: number };
 
@@ -20,7 +21,7 @@ export function sanitizeWelcome(html: string, doc: Document): DocumentFragment {
             if (/^on/i.test(attr.name) || (/^(href|src|xlink:href|formaction|action|srcdoc)$/i.test(attr.name) && /^(javascript|vbscript|data:text\/html)/i.test(Array.from(attr.value).filter(ch => { const c = ch.charCodeAt(0); return c > 32 && (c < 127 || c > 159); }).join("")))) el.removeAttribute(attr.name);
         }
     });
-    const fragment = doc.createDocumentFragment();
+    const fragment = newFragment(doc);
     for (const node of Array.from(parsed.body.childNodes)) fragment.append(doc.importNode(node, true));
     return fragment;
 }

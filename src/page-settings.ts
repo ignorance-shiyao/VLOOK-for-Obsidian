@@ -7,6 +7,7 @@ import {exportHtml} from './preview/export';
 import {keepReadingPosition} from './core/reading-position';
 
 import { notify } from "./notify";
+import { newEl } from './core/dom';
 /** Obsidian 自带的阅读/编辑切换按钮：图标随当前模式在书本与铅笔之间变化。 */
 function findNativeMode(actions:Element|null|undefined):HTMLElement|null{
     return Array.from(actions?.querySelectorAll<HTMLElement>(':scope > .view-action')||[]).find(el=>!!el.querySelector('.lucide-book-open,.lucide-pencil,.lucide-edit-3,.lucide-square-pen,.lucide-edit')||/阅读视图|编辑视图|实时预览|源码模式|reading view|editing view/i.test(el.getAttribute('aria-label')||''))||null;
@@ -23,7 +24,7 @@ export function registerPageSettings(plugin:VlookPlugin){
             let item=mounted.get(view);if(item&&item.header!==header){remove(item);mounted.delete(view);item=undefined;}
             if(!item){
                 const parent=header.querySelector<HTMLElement>('.view-header-title-parent');
-                const path=header.ownerDocument.createElement('button');path.className='vlook-relative-path';header.querySelector('.view-header-title-container')?.prepend(path);
+                const path=newEl(header.ownerDocument, 'button');path.className='vlook-relative-path';header.querySelector('.view-header-title-container')?.prepend(path);
                 const allViews=()=>{const views:MarkdownView[]=[];plugin.app.workspace.iterateAllLeaves(leaf=>{if(leaf.view instanceof MarkdownView)views.push(leaf.view);});return views;};
                 const save=async()=>keepReadingPosition(allViews(),()=>plugin.saveSettings());
                 const menus:HeaderMenu[]=[

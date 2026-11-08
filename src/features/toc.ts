@@ -6,6 +6,7 @@ import { getSourceIndex, type SourceIndex } from "../core/source-index";
 import { headingPlain } from "../core/heading";
 import { navigateViewLine, navigationSourceView, recordLineNavigation } from "../navigation-history";
 import { notify } from "../notify";
+import { newEl } from '../core/dom';
 export { headingPlain } from "../core/heading";
 
 const TOC_RE = /^\s*\[toc\]\s*$/i;
@@ -24,18 +25,18 @@ function sourceItems(index: SourceIndex, query: Query): TocItem[] {
 }
 
 function tocDom(doc: Document, items: TocItem[], href: (i: TocItem) => string, onClick?: (i: TocItem, ev: MouseEvent) => void): HTMLElement {
-    const box = doc.createElement("div");
+    const box = newEl(doc, "div");
     box.className = "md-toc";
     box.setAttribute("mdtype", "toc");
-    const content = doc.createElement("p");
+    const content = newEl(doc, "p");
     content.className = "md-toc-content";
     content.setAttribute("role", "list");
     items.forEach((it, n) => {
-        const span = doc.createElement("span");
+        const span = newEl(doc, "span");
         span.setAttribute("role", "listitem");
         span.className = `md-toc-item md-toc-h${it.level}`;
         span.dataset.ref = `n${n}`;
-        const a = doc.createElement("a");
+        const a = newEl(doc, "a");
         a.className = "md-toc-inner";
         if(it.line!==undefined)a.dataset.vlookTargetLine=String(it.line);
         a.setAttribute("href", href(it));

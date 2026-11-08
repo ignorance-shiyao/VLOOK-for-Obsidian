@@ -9,6 +9,7 @@ import { exportHtml } from "./export";
 import { canWritePdfDirectly, writeFrameAsPdf } from "./pdf";
 import { notify } from "../notify";
 
+import { newEl } from '../core/dom';
 export const VLOOK_PREVIEW_VIEW = "vlook-preview";
 
 export class VlookPreviewView extends ItemView {
@@ -118,7 +119,7 @@ export class VlookPreviewView extends ItemView {
             // 保留滚动位置
             let scroll = 0;
             try { scroll = this.frame?.contentWindow?.scrollY ?? 0; } catch { /* 忽略 */ }
-            const frame = this.contentEl.ownerDocument.createElement("iframe");
+            const frame = newEl(this.contentEl.ownerDocument, "iframe");
             frame.className = "vlook-preview-frame";
             frame.srcdoc = html;
             const onLoad = () => {

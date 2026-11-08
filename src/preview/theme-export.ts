@@ -60,19 +60,19 @@ export function installExportThemeSwitcher(doc: Document): void {
         return saved === 'dark' || saved !== 'light' && win.matchMedia('(prefers-color-scheme: dark)').matches;
     };
     // 自绘下拉：导出页不依赖插件，这里自成一体
-    const box = doc.createElement('div');
+    const box = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'div') as HTMLElementTagNameMap['div']);
     box.className = 'vlook-export-theme';
-    const trigger = doc.createElement('button');
+    const trigger = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'button') as HTMLElementTagNameMap['button']);
     trigger.type = 'button';
     trigger.setAttribute('aria-haspopup', 'listbox');
     trigger.setAttribute('aria-expanded', 'false');
     trigger.setAttribute('aria-label', '主题');
-    const list = doc.createElement('div');
+    const list = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'div') as HTMLElementTagNameMap['div']);
     list.setAttribute('role', 'listbox');
     list.setAttribute('aria-label', '主题');
     list.tabIndex = -1;
     const items = sources.map(source => {
-        const item = doc.createElement('div');
+        const item = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'div') as HTMLElementTagNameMap['div']);
         item.setAttribute('role', 'option');
         item.dataset.value = source.dataset.theme || '';
         item.textContent = source.dataset.label || item.dataset.value;
@@ -125,7 +125,7 @@ export function installExportThemeSwitcher(doc: Document): void {
         if (el) return el;
         const urls: string[] = [];
         const text = cssOf(source).replace(importRe, (_m: string, a: string, b: string, c: string) => { urls.push(a || b || c); return ''; });
-        el = doc.createElement('style');
+        el = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'style') as HTMLElementTagNameMap['style']);
         el.media = 'not all';
         el.textContent = text;
         shown.after(el);
@@ -158,7 +158,7 @@ export function installExportThemeSwitcher(doc: Document): void {
             if (urls) {
                 deferred.delete(next);
                 linksOf.set(next, urls.map(href => {
-                    const link = doc.createElement('link');
+                    const link = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'link') as HTMLElementTagNameMap['link']);
                     link.rel = 'stylesheet'; link.href = href;
                     next.before(link);
                     return link;
@@ -212,7 +212,7 @@ export function installExportThemeSwitcher(doc: Document): void {
         if (run) { event.preventDefault(); run(); }
     });
     trigger.addEventListener('keydown', event => { if (event.key === 'ArrowDown' || event.key === 'ArrowUp') { event.preventDefault(); open(); } });
-    const css = doc.createElement('style');
+    const css = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'style') as HTMLElementTagNameMap['style']);
     css.textContent = ".vlook-export-theme{position:fixed;left:16px;bottom:16px;z-index:2147483000;font:12px/1.4 -apple-system,\"PingFang SC\",\"Segoe UI\",sans-serif;color:var(--d-f,inherit);opacity:.85;transition:opacity .2s}.vlook-export-theme:hover,.vlook-export-theme.open,.vlook-export-theme:focus-within{opacity:1}.vlook-export-theme button{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:8px;height:30px;padding:0 12px 0 10px;border:1px solid var(--d-bc,rgba(128,128,128,.35));border-radius:15px;cursor:pointer;background:var(--d-bg,Canvas);box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .15s,box-shadow .2s}.vlook-export-theme button:hover{box-shadow:0 4px 14px rgba(0,0,0,.18)}.vlook-export-theme button:active{transform:scale(.97)}.vlook-export-theme button:focus-visible{outline:2px solid var(--vlook-theme-dot,currentColor);outline-offset:2px}.vlook-export-theme button::before{content:\"\";width:8px;height:8px;border-radius:50%;background:var(--vlook-theme-dot,currentColor)}.vlook-export-theme [role=listbox]{position:absolute;left:0;bottom:calc(100% + 8px);min-width:100%;max-height:50vh;overflow:auto;padding:5px;outline:none;border:1px solid var(--d-bc,rgba(128,128,128,.35));border-radius:12px;background:var(--d-bg,Canvas);box-shadow:0 12px 32px rgba(0,0,0,.2);opacity:0;visibility:hidden;transform:translateY(6px) scale(.98);transform-origin:bottom left;transition:opacity .15s,transform .2s,visibility 0s linear .2s}.vlook-export-theme.open [role=listbox]{opacity:1;visibility:visible;transform:none;transition-delay:0s}.vlook-export-theme [role=option]{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:7px;cursor:pointer;white-space:nowrap}.vlook-export-theme [role=option]::before{content:\"\";width:8px;height:8px;border-radius:50%;background:var(--vlook-theme-dot,currentColor)}.vlook-export-theme [role=option].active{background:rgba(128,128,128,.16)}.vlook-export-theme [role=option][aria-selected=true]{font-weight:600}@media (prefers-reduced-motion:reduce){.vlook-export-theme,.vlook-export-theme *{transition:none!important}}@media print{.vlook-export-theme{display:none}}";
     css.textContent += ".vlook-theme-group{float:right;margin-left:20px;display:flex}.v-toolbar:has(.theme-switch){width:max-content!important}.vlook-export-theme.docked{left:auto;bottom:auto}.vlook-export-theme.docked>button{display:none}.vlook-export-theme.docked [role=listbox]{top:0;bottom:auto}";
     doc.head.append(css);
@@ -220,9 +220,9 @@ export function installExportThemeSwitcher(doc: Document): void {
     // 聚合：原版工具栏出现后，主题切换并入其中成为一个按钮；工具栏被关闭或迟迟不出现时保留左下角的独立入口
     const dock = (toolbar: Element) => {
         if (toolbar.querySelector('.theme-switch')) return;
-        const group = doc.createElement('div');
+        const group = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'div') as HTMLElementTagNameMap['div']);
         group.className = 'v-btn-group theme v-float-card float';
-        const btn = doc.createElement('div');
+        const btn = (doc.createElementNS('http://www.w3.org/1999/xhtml', 'div') as HTMLElementTagNameMap['div']);
         btn.className = 'v-btn theme-switch v-transition-all';
         btn.setAttribute('role', 'button'); btn.tabIndex = 0;
         btn.setAttribute('aria-label', '主题'); btn.dataset.tips = '主题';

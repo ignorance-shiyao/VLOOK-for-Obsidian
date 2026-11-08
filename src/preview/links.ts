@@ -2,6 +2,7 @@ import type { App, TFile } from "obsidian";
 import { relativePath } from "./typora-dom";
 import { rewriteDocumentLibrary } from '../core/doc-library';
 
+import { newEl } from '../core/dom';
 const XLINK='http://www.w3.org/1999/xlink';
 type LinkElement=HTMLAnchorElement|SVGAElement;
 /** Mermaid SVG may use only the namespaced legacy link attribute. */
@@ -17,7 +18,7 @@ export function rewriteLibraryLinks(value:unknown,app:App,sourcePath:string,mode
             const link=resolveVaultLink(app,href,sourcePath);
             return link?`app://obsidian.md/__vlook_vault__/${encodeURIComponent(link.file.path).replace(/%2F/g,'/')}${link.query}${link.hash}`:href;
         }
-        const container=doc.createElement('div'),anchor=doc.createElement('a');
+        const container=newEl(doc, 'div'),anchor=newEl(doc, 'a');
         anchor.setAttribute('href',href);container.append(anchor);
         rewriteExportLinks(container,app,sourcePath,extension,outDir);
         return anchor.getAttribute('href')||href;

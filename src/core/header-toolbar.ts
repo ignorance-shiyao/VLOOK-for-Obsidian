@@ -1,3 +1,4 @@
+import { newEl } from './dom';
 export interface HeaderChoice {label:string;value:string;detail?:string;color?:string;color1?:string;color2?:string;group?:string;glyph?:string;glyphFont?:string}
 export interface HeaderMenu {id:string;label:string;icon:string;choices:()=>HeaderChoice[];selected:()=>string|string[];choose:(value:string)=>unknown;toggle?:boolean;grid?:string[];slider?:HeaderSlider;icons?:Record<string,string>}
 /** 连续取值（如字号）：min 对应「默认」(0)，拖动即时预览，松开后提交。 */
@@ -5,7 +6,7 @@ export interface HeaderSlider {title:string;min:number;max:number;value:()=>numb
 
 /** Custom controls only: no native select or operating-system menu. */
 export function createHeaderToolbar(doc:Document,menus:HeaderMenu[],icon?:(element:HTMLElement,name:string)=>void,onError?:(error:unknown)=>void){
-    const root=doc.createElement('div');root.className='vlook-header-toolbar';root.setAttribute('role','toolbar');root.setAttribute('aria-label','VLOOK 页面工具');
+    const root=newEl(doc, 'div');root.className='vlook-header-toolbar';root.setAttribute('role','toolbar');root.setAttribute('aria-label','VLOOK 页面工具');
     let panel:HTMLElement|null=null,anchor:HTMLButtonElement|null=null,disposed=false;
     const close=(focus=false)=>{panel?.remove();panel=null;anchor?.setAttribute('aria-expanded','false');if(focus)anchor?.focus();anchor=null;doc.removeEventListener('pointerdown',outside,true);doc.removeEventListener('keydown',key,true);doc.defaultView?.removeEventListener('resize',resize);};
     const outside=(event:Event)=>{const target=event.target as Node|null;if(target&&!panel?.contains(target)&&!anchor?.contains(target))close();};
@@ -22,38 +23,38 @@ export function createHeaderToolbar(doc:Document,menus:HeaderMenu[],icon?:(eleme
     };
     const open=(menu:HeaderMenu,button:HTMLButtonElement)=>{
         if(disposed)return;if(anchor===button){close();return;}close();anchor=button;
-        panel=doc.createElement('div');panel.className='vlook-header-menu';panel.setAttribute('role','menu');panel.setAttribute('aria-label',menu.label);
+        panel=newEl(doc, 'div');panel.className='vlook-header-menu';panel.setAttribute('role','menu');panel.setAttribute('aria-label',menu.label);
         if(menu.id==='font')panel.classList.add('vlook-header-menu-font');
-        const title=doc.createElement('div');title.className='vlook-header-menu-title';title.textContent=menu.label;panel.append(title);
+        const title=newEl(doc, 'div');title.className='vlook-header-menu-title';title.textContent=menu.label;panel.append(title);
         const selected=menu.selected(),values=Array.isArray(selected)?selected:[selected];
         let group:string|undefined,container=panel;
         for(const choice of menu.choices()){
             if(choice.group!==group){
                 group=choice.group;container=panel;
                 if(group){
-                    container=doc.createElement('div');container.className=menu.grid?.includes(group)?'vlook-header-group vlook-header-grid':'vlook-header-group';container.setAttribute('role','group');container.setAttribute('aria-label',group);
-                    const heading=doc.createElement('div');heading.className='vlook-header-menu-title';heading.textContent=group;container.append(heading);panel.append(container);
+                    container=newEl(doc, 'div');container.className=menu.grid?.includes(group)?'vlook-header-group vlook-header-grid':'vlook-header-group';container.setAttribute('role','group');container.setAttribute('aria-label',group);
+                    const heading=newEl(doc, 'div');heading.className='vlook-header-menu-title';heading.textContent=group;container.append(heading);panel.append(container);
                 }
             }
-            const item=doc.createElement('button');item.type='button';item.className='vlook-header-choice';item.setAttribute('role','menuitemradio');item.setAttribute('aria-checked',String(values.includes(choice.value)));
-            const label=doc.createElement('span');label.textContent=choice.label;item.append(label);
-            if(choice.glyph){const g=doc.createElement('span');g.className='vlook-header-glyph';g.textContent=choice.glyph;if(choice.glyphFont)g.style.fontFamily=choice.glyphFont;item.prepend(g);}
-            if(choice.color){const dot=doc.createElement('span');dot.className='vlook-header-swatch';if(choice.color1&&choice.color2){dot.style.background=`linear-gradient(135deg,${choice.color1} 50%,${choice.color2} 50%)`;dot.classList.add('pair');}else dot.style.backgroundColor=choice.color;item.prepend(dot);}
-            if(choice.detail){const detail=doc.createElement('small');detail.textContent=choice.detail;item.append(detail);}
+            const item=newEl(doc, 'button');item.type='button';item.className='vlook-header-choice';item.setAttribute('role','menuitemradio');item.setAttribute('aria-checked',String(values.includes(choice.value)));
+            const label=newEl(doc, 'span');label.textContent=choice.label;item.append(label);
+            if(choice.glyph){const g=newEl(doc, 'span');g.className='vlook-header-glyph';g.textContent=choice.glyph;if(choice.glyphFont)g.style.fontFamily=choice.glyphFont;item.prepend(g);}
+            if(choice.color){const dot=newEl(doc, 'span');dot.className='vlook-header-swatch';if(choice.color1&&choice.color2){dot.style.background=`linear-gradient(135deg,${choice.color1} 50%,${choice.color2} 50%)`;dot.classList.add('pair');}else dot.style.backgroundColor=choice.color;item.prepend(dot);}
+            if(choice.detail){const detail=newEl(doc, 'small');detail.textContent=choice.detail;item.append(detail);}
             item.addEventListener('click',()=>{close(true);try{Promise.resolve(menu.choose(choice.value)).then(update).catch(error=>onError?.(error));}catch(error){onError?.(error);}});
             container.append(item);
         }
         if(menu.slider){
-            const slider=menu.slider,width=slider.kind==='width',block=doc.createElement('div');block.className='vlook-header-slider';
-            const heading=doc.createElement('div');heading.className='vlook-header-menu-title';heading.textContent=slider.title;
-            const row=doc.createElement('div');row.className='vlook-header-slider-row';
-            const input=doc.createElement('input');input.type='range';input.min=String(slider.min);input.max=String(slider.max);input.step=String(slider.step||1);input.setAttribute('aria-label',slider.title);
+            const slider=menu.slider,width=slider.kind==='width',block=newEl(doc, 'div');block.className='vlook-header-slider';
+            const heading=newEl(doc, 'div');heading.className='vlook-header-menu-title';heading.textContent=slider.title;
+            const row=newEl(doc, 'div');row.className='vlook-header-slider-row';
+            const input=newEl(doc, 'input');input.type='range';input.min=String(slider.min);input.max=String(slider.max);input.step=String(slider.step||1);input.setAttribute('aria-label',slider.title);
             const start=slider.value();input.value=String(start||slider.min);
-            const stepBtn=(label:string,delta:number)=>{const b=doc.createElement('button');b.type='button';b.className='vlook-header-step';b.classList.add(delta<0?'is-minus':'is-plus');b.setAttribute('aria-label',label);b.addEventListener('click',()=>{input.value=String(Math.max(slider.min,Math.min(slider.max,Number(input.value)+delta*(slider.step||1))));show();commit();});return b;};
-            const badge=doc.createElement('span');badge.className='vlook-header-slider-value';
-            const card=doc.createElement('div');card.className='vlook-header-slider-card';
-            const caption=doc.createElement('div');caption.className='vlook-header-slider-caption';caption.textContent=slider.preview;
-            const sample=doc.createElement('div');sample.className='vlook-header-slider-preview';sample.textContent=width?'':`${slider.preview} Aa 123`;if(width)card.classList.add('is-width');
+            const stepBtn=(label:string,delta:number)=>{const b=newEl(doc, 'button');b.type='button';b.className='vlook-header-step';b.classList.add(delta<0?'is-minus':'is-plus');b.setAttribute('aria-label',label);b.addEventListener('click',()=>{input.value=String(Math.max(slider.min,Math.min(slider.max,Number(input.value)+delta*(slider.step||1))));show();commit();});return b;};
+            const badge=newEl(doc, 'span');badge.className='vlook-header-slider-value';
+            const card=newEl(doc, 'div');card.className='vlook-header-slider-card';
+            const caption=newEl(doc, 'div');caption.className='vlook-header-slider-caption';caption.textContent=slider.preview;
+            const sample=newEl(doc, 'div');sample.className='vlook-header-slider-preview';sample.textContent=width?'':`${slider.preview} Aa 123`;if(width)card.classList.add('is-width');
             card.append(caption,sample);
             const show=()=>{const n=Number(input.value),size=n<=slider.min?15:n;badge.textContent=n<=slider.min?'默认':`${n}${slider.unit||''}`;if(width){sample.style.width=`${Math.max(20,(n<=slider.min?900:n)/slider.max*100)}%`;}else sample.style.fontSize=`${size}px`;input.style.setProperty('--fill',`${(n-slider.min)/(slider.max-slider.min)*100}%`);};
             const commit=()=>{const n=Number(input.value);try{Promise.resolve(slider.choose(n<=slider.min?0:n)).then(update).catch(error=>onError?.(error));}catch(error){onError?.(error);}};
@@ -82,9 +83,9 @@ export function createHeaderToolbar(doc:Document,menus:HeaderMenu[],icon?:(eleme
         }
     };
     for(const menu of menus){
-        const button=doc.createElement('button');button.type='button';button.className='vlook-header-trigger';button.setAttribute('aria-label',menu.label);button.setAttribute('aria-haspopup','menu');button.setAttribute('aria-expanded','false');
-        const glyph=doc.createElement('span');glyph.className='vlook-header-icon';glyph.setAttribute('aria-hidden','true');icon?.(glyph,menu.icon);button.append(glyph);
-        const label=doc.createElement('span');label.className='vlook-header-label';label.textContent=menu.label;button.append(label);
+        const button=newEl(doc, 'button');button.type='button';button.className='vlook-header-trigger';button.setAttribute('aria-label',menu.label);button.setAttribute('aria-haspopup','menu');button.setAttribute('aria-expanded','false');
+        const glyph=newEl(doc, 'span');glyph.className='vlook-header-icon';glyph.setAttribute('aria-hidden','true');icon?.(glyph,menu.icon);button.append(glyph);
+        const label=newEl(doc, 'span');label.className='vlook-header-label';label.textContent=menu.label;button.append(label);
         labels.set(menu,{button,label,glyph});
         if(menu.toggle){
             button.removeAttribute('aria-haspopup');button.removeAttribute('aria-expanded');

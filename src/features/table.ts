@@ -2,7 +2,7 @@
 // 行分组折叠（首列 > / >> ...）、空单元格、换行版式
 // 移植自 vlook.js「表格增强类」「表格单元格合并类」「表格列格式化类」「表格行分组/折叠类」
 
-import { h, svgIcon, unwrap } from "../core/dom";
+import { h, newEl, svgIcon, unwrap } from '../core/dom';
 import type { RenderCtx } from "../core/context";
 
 const MERGE_ROW = /^(:)$/;
@@ -142,7 +142,7 @@ function mergeCells(table: HTMLTableElement) {
         if (!thead || tr.parentElement === thead) continue;
         thead.appendChild(tr);
         tr.querySelectorAll(":scope > td").forEach(td => {
-            const th = td.ownerDocument.createElement("th");
+            const th = newEl(td.ownerDocument, "th");
             for (const a of Array.from(td.attributes)) th.setAttribute(a.name, a.value);
             th.setAttribute("data-td2th", "true");
             th.append(...Array.from(td.childNodes));
@@ -207,7 +207,7 @@ function wrapCellTextRange(cell: HTMLElement, start: number, length: number, cla
         const original = text.data, end = offset + original.length;
         if (end > start && offset < start + length) {
             const from = Math.max(0,start-offset), to = Math.min(original.length,start+length-offset);
-            const span = cell.ownerDocument.createElement("span");
+            const span = newEl(cell.ownerDocument, "span");
             span.className = className;span.textContent = original.slice(from,to);
             text.replaceWith(original.slice(0,from),span,original.slice(to));
         }

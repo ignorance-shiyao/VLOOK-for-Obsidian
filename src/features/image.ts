@@ -13,7 +13,7 @@ import { isVideoEmbed } from '../core/video-embed';
 
 import { decodeUrlPart, resourceQuery } from "../core/url";
 import { processMedia, AUDIO_EXT, VIDEO_EXT } from "./media";
-import { h } from "../core/dom";
+import { h, newEl } from '../core/dom';
 import type { RenderCtx } from "../core/context";
 import { buildMediaCaption } from "./caption";
 
@@ -302,7 +302,7 @@ export function resolveBrokenEmbeds(root: HTMLElement, app: App | null, sourcePa
         if ((path === src && !span.dataset.vlookLiteral) || !/\.(png|jpe?g|gif|svg|webp|bmp|avif|mp3|m4a|ogg|wav|mp4|webm|ogv|mov|m4v)$/i.test(path)) return;
         const file = app.metadataCache.getFirstLinkpathDest(decodeUrlPart(path), sourcePath);
         if (!file && !missingAsImage) return;
-        const img = span.ownerDocument.createElement("img");
+        const img = newEl(span.ownerDocument, "img");
         if (!file) {
             img.setAttribute("src", src);
             const alt = span.getAttribute("alt");

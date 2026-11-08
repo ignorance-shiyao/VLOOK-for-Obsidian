@@ -2,6 +2,7 @@
 
 import { FileView, TFile, WorkspaceLeaf } from "obsidian";
 
+import { newEl } from '../core/dom';
 export const VLOOK_HTML_VIEW = "vlook-html-file";
 
 /** 沙箱页面没有可用的 Web Storage；原版运行时依赖 localStorage，按页面生命周期提供内存实现。 */
@@ -30,7 +31,7 @@ export class VlookHtmlFileView extends FileView {
         const html = await this.app.vault.read(file);
         if (my !== this.seq) return;
         const resource = this.app.vault.getResourcePath(file).replace(/[?#].*$/, "");
-        const frame = this.contentEl.ownerDocument.createElement("iframe");
+        const frame = newEl(this.contentEl.ownerDocument, "iframe");
         frame.className = "vlook-html-file-frame";
         // 不加 allow-same-origin：页面脚本拿不到 Obsidian 窗口与 Node 能力
         frame.setAttribute("sandbox", "allow-scripts allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads allow-forms");

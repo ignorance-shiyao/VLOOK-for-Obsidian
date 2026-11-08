@@ -18,6 +18,7 @@ import { captionTargets } from './core/caption-targets';
 import { notify } from "./notify";
 import { refreshTaskProgress } from './features/inline-extras';
 
+import { newEl } from './core/dom';
 export class NativeSlides {
     private closeCurrent:(()=>void)|null=null;
     constructor(private plugin:VlookPlugin){}
@@ -38,10 +39,10 @@ export class NativeSlides {
         const notifyPresentation=()=>{doc.dispatchEvent(new doc.defaultView!.Event('vlook-presentation-change'));};
         const scroller=view.contentEl.querySelector<HTMLElement>('.markdown-preview-view');
         const position={top:scroller?.scrollTop||0,left:scroller?.scrollLeft||0};
-        const dialog=doc.createElement('dialog');dialog.className='vlook-native-slides';dialog.setAttribute('aria-label','VLOOK 幻灯片');
-        const controls=doc.createElement('nav');controls.className='vlook-slide-controls';controls.setAttribute('aria-label','幻灯片导航');
-        const status=doc.createElement('span');status.setAttribute('role','status');
-        const body=doc.createElement('div');body.className='markdown-rendered vlook-editor-render vlook-slide-body';
+        const dialog=newEl(doc, 'dialog');dialog.className='vlook-native-slides';dialog.setAttribute('aria-label','VLOOK 幻灯片');
+        const controls=newEl(doc, 'nav');controls.className='vlook-slide-controls';controls.setAttribute('aria-label','幻灯片导航');
+        const status=newEl(doc, 'span');status.setAttribute('role','status');
+        const body=newEl(doc, 'div');body.className='markdown-rendered vlook-editor-render vlook-slide-body';
         const chooser=new Dropdown(doc,'选择幻灯片','vlook-dropdown-wide');
         chooser.setOptions(groups.map((group,n)=>({value:String(n),label:`${n+1}. ${group.title}`})),'0');
         let at=0,sequence=0,closed=false,component:Component|null=null;
@@ -61,7 +62,7 @@ export class NativeSlides {
             if(focus?.isConnected)focus.focus({preventScroll:true});
         };
         const close=()=>{if(dialog.open)dialog.close();else cleanup();};this.closeCurrent=close;
-        const button=(label:string,action:()=>void)=>{const element=doc.createElement('button');element.type='button';element.textContent=label;element.addEventListener('click',action);controls.append(element);return element;};
+        const button=(label:string,action:()=>void)=>{const element=newEl(doc, 'button');element.type='button';element.textContent=label;element.addEventListener('click',action);controls.append(element);return element;};
         const previous=button('上一页',()=>go(at-1)),next=button('下一页',()=>go(at+1));
         const render=async(targetLine?:number,restoreTop?:number,footnoteId?:string,footnoteOrdinal?:string)=>{
             const mine=++sequence,group=groups[at];
@@ -70,7 +71,7 @@ export class NativeSlides {
             for(const value of pending)value.unload();pending.clear();
             const fresh=new Component();fresh.load();pending.add(fresh);
             // 新页在后台渲染完成后再替换旧页，避免切换时出现空白闪烁。
-            const stage=doc.createElement('div');stage.className='vlook-slide-card vlook-slide-pending';body.append(stage);
+            const stage=newEl(doc, 'div');stage.className='vlook-slide-card vlook-slide-pending';body.append(stage);
             try{
                 if(group.kind==='footnotes'){
                     await MarkdownRenderer.render(p.app,`<!--vlook-raw-render-->\n${seed}${footnotes}`,stage,path,fresh);
@@ -81,7 +82,7 @@ export class NativeSlides {
                     await renderReadySection(stage,{app:p.app,settings:p.settings,resourceHistory:p.resourceHistory,sourcePath:path,index,query,cssVar,suppressContentViewers:true,registerCleanup:fn=>fresh.register(fn)},footnotes);
                 }else{
                     // 先建齐所有兄弟区块，保留页签 / 分栏跨块关系。
-                    const sections=group.blocks.map(block=>{const element=doc.createElement('div');stage.append(element);return {block,element};});
+                    const sections=group.blocks.map(block=>{const element=newEl(doc, 'div');stage.append(element);return {block,element};});
                     for(const {block,element} of sections){
                         await MarkdownRenderer.render(p.app,`<!--vlook-raw-render-->\n${seed}${block.text}\n\n${definitions}\n\n${footnotes}`,element,path,fresh);
                         if(closed||mine!==sequence){pauseContainedMedia(stage);stage.remove();fresh.unload();return;}
@@ -132,7 +133,7 @@ export class NativeSlides {
         controls.append(chooser.el,status);button('退出幻灯片',close);
         status.addEventListener('dblclick',()=>{
             if(status.querySelector('input'))return;
-            const input=doc.createElement('input');input.type='number';input.min='1';input.max=String(groups.length);input.value=String(at+1);input.className='vlook-slide-jump';input.setAttribute('aria-label','跳转页码');
+            const input=newEl(doc, 'input');input.type='number';input.min='1';input.max=String(groups.length);input.value=String(at+1);input.className='vlook-slide-jump';input.setAttribute('aria-label','跳转页码');
             const restore=status.textContent;status.replaceChildren(input);input.focus();input.select();
             let done=false;
             const finish=(commit:boolean)=>{
